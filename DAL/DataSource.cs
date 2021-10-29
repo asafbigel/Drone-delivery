@@ -13,6 +13,7 @@ namespace DalObject
         internal static BaseStation[] baseStations = new BaseStation[5];
         internal static Customer[] customers= new Customer[100];
         internal static Parcel[] parcels = new Parcel[1000];
+        internal static DroneCharge[] droneCharges = new DroneCharge[drones.Length];
 
         internal class Config
         {
@@ -20,6 +21,7 @@ namespace DalObject
             internal static int firstBaseStation =0 ;
             internal static int firstCustomer =0;
             internal static int firstParcel =0;
+            internal static int runNumOfParcel;
         }
 
         static void Initialize()
@@ -58,18 +60,27 @@ namespace DalObject
             customers[DataSource.Config.firstCustomer++] = new() { Id = ((++id) % 399000000) + 1000000, Name = "Yehuda", Phone = "0509875873", Latitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 };
 
 
-            // P_id is between 0 - 999
-            int P_id = 1;
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
-            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), DroneId = ((++D_id) % 9000) + 1000, Delivered = DateTime.Now, PickedUp = DateTime.MaxValue, Scheduled = DateTime.Now };
+
+            // drone Id == 0    means that the parcel didn't connected to a drone
+            int P_id = 10000;
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
+            parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };
+
+            Config.runNumOfParcel = P_id ;
+
+            for (int i = 0; i < droneCharges.Length; i++)
+            {
+                droneCharges[i] = new() { DroneId = 0, StationId = 0 };
+            }
         }
+
     }
 }

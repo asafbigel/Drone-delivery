@@ -14,6 +14,7 @@ namespace IDAL
             public string Name { get; set; }
             public double Longitude { get; set; }
             public double Lattitude { get; set; }
+            // free charges slots
             public int ChargeSlots { get; set; }
             public override string ToString()
             {
