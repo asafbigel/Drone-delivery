@@ -9,41 +9,41 @@ namespace DalObject
 {
     public class DalObject
     {
-        public void add_base_station(int id, string name, double longitude, double lattitude, int chargeSlots)
+        public static void add_base_station(int id, string name, double longitude, double lattitude, int chargeSlots)
         {
             DataSource.baseStations[DataSource.Config.firstBaseStation++] = new() { ChargeSlots = chargeSlots, Id = id, Name = name, Lattitude = lattitude, Longitude = longitude };
         }
 
-        public void add_drone(int id, string model, WeightCategories maxWeight, DroneStatuses status, double battery)
+        public static void add_drone(int id, string model, WeightCategories maxWeight, DroneStatuses status, double battery)
         {
             DataSource.drones[DataSource.Config.firstDrone++] = new() { Battery = battery, Id = id, MaxWeight = maxWeight, Model = model, Status = status };
         }
 
-        public void add_customer(int id, string name, string phone, double longitude, double latitude)
+        public static void add_customer(int id, string name, string phone, double longitude, double latitude)
         {
             DataSource.customers[DataSource.Config.firstCustomer++] = new() { Id = id, Name = name, Phone = phone, Latitude = latitude, Longitude = longitude };
         }
 
-        public void add_parcel(int my_id, int my_senderId, int my_targetId, WeightCategories my_Weight, Priorities my_Priority, int my_DroneId, DateTime my_Scheduled, DateTime my_PickedUp, DateTime my_Delivered)
+        public static void add_parcel(int my_id, int my_senderId, int my_targetId, WeightCategories my_Weight, Priorities my_Priority, int my_DroneId, DateTime my_Scheduled, DateTime my_PickedUp, DateTime my_Delivered)
         {
             DataSource.parcels[DataSource.Config.firstParcel++] = new() { Id = my_id, Weight = my_Weight, targetId = my_targetId, senderId = my_senderId, Priority = my_Priority, DroneId = my_DroneId, Delivered = my_Delivered, PickedUp = my_PickedUp, Scheduled = my_Scheduled };
 
         }
 
-        public void parcel_to_drone(int my_id, int my_DroneId)
+        public static void parcel_to_drone(int my_id, int my_DroneId)
         {
             int i = find_parcel(my_id);
             DataSource.parcels[i].DroneId = my_DroneId;
             DataSource.parcels[i].Scheduled = DateTime.Now;
         }
 
-        public void parcel_pick_up(int my_id)
+        public static void parcel_pick_up(int my_id)
         {
             int i = find_parcel(my_id);
             DataSource.parcels[i].PickedUp = DateTime.Now;
         }
 
-        public void parcel_delivered_to_target(int my_id)
+        public static void parcel_delivered_to_target(int my_id)
         {
             int i = find_parcel(my_id);
             DataSource.parcels[i].Delivered = DateTime.Now;
@@ -51,7 +51,7 @@ namespace DalObject
 
 
 
-        public void drone_to_charge(int base_station_id, int drone_id)
+        public static void drone_to_charge(int base_station_id, int drone_id)
         {
             int i_baseStation = find_baseStation(base_station_id);
             DataSource.baseStations[i_baseStation].ChargeSlots--;
@@ -61,7 +61,7 @@ namespace DalObject
             DataSource.drones[find_drone(drone_id)].Status = (DroneStatuses)1;
         }
 
-        public void drone_from_charge(int drone_id)
+        public static void drone_from_charge(int drone_id)
         {
             int index_droneCharge = find_droneCharge_by_drone(drone_id);
             int station = DataSource.droneCharges[index_droneCharge].StationId;
@@ -77,28 +77,28 @@ namespace DalObject
 
 
 
-        public void print_baseStation(int my_id)
+        public static void print_baseStation(int my_id)
         {
             int i = find_baseStation(my_id);
             if (i != -1)
             Console.WriteLine(DataSource.baseStations[i]);
         }
 
-        public void print_drone(int my_id)
+        public static void print_drone(int my_id)
         {
             int i = find_drone(my_id);
             if(i!=-1)
                 Console.WriteLine(DataSource.drones[i]);
         }
 
-        public void print_customer(int my_id)
+        public static void print_customer(int my_id)
         {
             int i = find_customer(my_id);
             if (i != -1)
                 Console.WriteLine(DataSource.customers[i]);
         }
 
-        public void print_parcel(int my_id)
+        public static void print_parcel(int my_id)
         {
             int i = find_parcel(my_id);
             if (i != -1)
@@ -109,7 +109,7 @@ namespace DalObject
 
 
 
-        public void print_all_baseStations()
+        public static void print_all_baseStations()
         {
             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
             {
@@ -117,7 +117,7 @@ namespace DalObject
             }
         }
 
-        public void print_all_drones()
+        public static void print_all_drones()
         {
             for (int i = 0; i < DataSource.Config.firstDrone; i++)
             {
@@ -125,7 +125,7 @@ namespace DalObject
             }
         }
 
-        public void print_all_customers()
+        public static void print_all_customers()
         {
             for (int i = 0; i < DataSource.Config.firstCustomer; i++)
             {
@@ -133,7 +133,7 @@ namespace DalObject
             }
         }
 
-        public void print_all_parcel()
+        public static void print_all_parcel()
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
             {
@@ -143,7 +143,7 @@ namespace DalObject
 
 
 
-        public void print_parcel_without_drone()
+        public static void print_parcel_without_drone()
         {
             for (int i =0;  i < DataSource.Config.firstParcel; i++)
             {
@@ -152,7 +152,7 @@ namespace DalObject
             }
         }
 
-        public void print_baseStation_with_free_charger()
+        public static void print_baseStation_with_free_charger()
         {
             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
             {
@@ -161,7 +161,7 @@ namespace DalObject
             }
         }
 
-        public int find_parcel(int my_id)
+        public static int find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
             {
