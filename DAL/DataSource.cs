@@ -24,12 +24,12 @@ namespace DalObject
             internal static int runNumOfParcel;
         }
 
-        static void Initialize()
+        internal static void Initialize()
         {
             var rand = new Random();
 
             // B_id is between 100-999
-            int B_id = rand.Next(0, 900);
+            int B_id = rand.Next(0, 900s);
             baseStations[DataSource.Config.firstBaseStation++] = new() { ChargeSlots = rand.Next(3, 11), Id = (B_id++) + 100, Name = "Talpiot", Lattitude = 35.207745, Longitude = 31.750313 };
             baseStations[DataSource.Config.firstBaseStation++] = new() { ChargeSlots = rand.Next(3, 11), Id = ((B_id++) % 900) + 100, Name = "Pat", Lattitude = 35.199758, Longitude = 31.750590 };
 

@@ -66,11 +66,12 @@ namespace DalObject
             int index_droneCharge = find_droneCharge_by_drone(drone_id);
             int station = DataSource.droneCharges[index_droneCharge].StationId;
             int index_station = find_baseStation(station);
+            int index_drone = find_drone(drone_id);
             DataSource.baseStations[index_station].ChargeSlots++;
             DataSource.droneCharges[index_droneCharge].DroneId = 0;
             DataSource.droneCharges[index_droneCharge].StationId = 0;
            // change status of the drone to "vacant"
-           DataSource.drones[i].Status = (DroneStatuses)0;
+           DataSource.drones[index_drone].Status = (DroneStatuses)0;
         }
 
 
@@ -78,53 +79,31 @@ namespace DalObject
 
         public void print_baseStation(int my_id)
         {
-
-            if (i < DataSource.Config.firstBaseStation)
-            {
-                Console.WriteLine(DataSource.baseStations[i]);
-            }
+            int i = find_baseStation(my_id);
+            if (i != -1)
+            Console.WriteLine(DataSource.baseStations[i]);
         }
 
         public void print_drone(int my_id)
         {
-            int i = 0;
-            for (;i < DataSource.Config.firstDrone; i++)
-            {
-                if (DataSource.drones[i].Id == my_id)
-                    break;
-            }
-            if (i < DataSource.Config.firstDrone)
-            {
+            int i = find_drone(my_id);
+            if(i!=-1)
                 Console.WriteLine(DataSource.drones[i]);
-            }
         }
 
         public void print_customer(int my_id)
         {
-            int i = 0;
-            for (;i <= DataSource.Config.firstCustomer; i++)
-            {
-                if (DataSource.customers[i].Id == my_id)
-                    break;
-            }
-            if (i < DataSource.Config.firstCustomer)
-            {
+            int i = find_customer(my_id);
+            if (i != -1)
                 Console.WriteLine(DataSource.customers[i]);
-            }
         }
 
         public void print_parcel(int my_id)
         {
-            int i = 0;
-            for (; i < DataSource.Config.firstParcel; i++)
-            {
-                if (DataSource.parcels[i].Id == my_id)
-                    break;
-            }
-            if (i < DataSource.Config.firstParcel)
-            {
-                Console.WriteLine(DataSource.parcels[i]);
-            }
+            int i = find_parcel(my_id);
+            if (i != -1)
+            Console.WriteLine(DataSource.parcels[i]);
+            
         }
 
 
@@ -220,7 +199,7 @@ namespace DalObject
         }
         public int find_droneCharge_by_drone(int my_drone_id)
         {
-            for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
+            for (int i = 0; i < DataSource.droneCharges.Length; i++)
             {
                 if (DataSource.droneCharges[i].DroneId == my_drone_id)
                     return i;
