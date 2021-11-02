@@ -13,7 +13,7 @@ namespace DalObject
         internal static BaseStation[] baseStations = new BaseStation[5];
         internal static Customer[] customers= new Customer[100];
         internal static Parcel[] parcels = new Parcel[1000];
-        internal static DroneCharge[] droneCharges = new DroneCharge[drones.Length];
+        internal static DroneCharge[] droneCharges = new DroneCharge[50];
 
         internal class Config
         {
@@ -21,6 +21,7 @@ namespace DalObject
             internal static int firstBaseStation =0 ;
             internal static int firstCustomer =0;
             internal static int firstParcel =0;
+            internal static int firstDroneCharge =0;
             internal static int runNumOfParcel;
         }
 
@@ -75,11 +76,7 @@ namespace DalObject
             parcels[DataSource.Config.firstParcel++] = new() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), targetId = ((++id) % 399000000) + 1000000, senderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };
 
             Config.runNumOfParcel = P_id ;
-
-            for (int i = 0; i < droneCharges.Length; i++)
-            {
-                droneCharges[i] = new() { DroneId = 0, StationId = 0 };
-            }
+            
         }
 
     }

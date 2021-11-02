@@ -12,12 +12,14 @@ namespace ConsoleUI
        print_all_parcels, print_all_parcels_that_have_not_yet_been_connect_to_drone, 
        print_all_base_stations_with_free_charge_slot
     }
+    
+    
     class Program
     {
         static void Main(string[] args)
         {
-            DalObject.DalObject temp();
-
+            DalObject.DalObject dalObject1;
+            
             Console.WriteLine("Choose what to do:");
            
             // Adding options
@@ -73,7 +75,7 @@ namespace ConsoleUI
                        Console.Write("Enter lattitude: ");
                         my_input = Console.ReadLine();
                         double lattitude = double.Parse(my_input);
-
+                        
                        Console.Write("Enter id: ");
                         my_input = Console.ReadLine();
                         int chargeSlots = int.Parse(my_input);
