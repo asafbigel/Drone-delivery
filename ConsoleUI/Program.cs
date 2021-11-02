@@ -80,7 +80,7 @@ namespace ConsoleUI
                         my_input = Console.ReadLine();
                         int chargeSlots = int.Parse(my_input);
 
-                        DalObject.DalObject.add_base_station(id, name, longitude, lattitude, chargeSlots);
+                        dalObject1.add_base_station(id, name, longitude, lattitude, chargeSlots);
                         break;
 
 

@@ -56,7 +56,7 @@ namespace DalObject
         {
             int i_baseStation = find_index_baseStation(base_station_id);
             DataSource.baseStations[i_baseStation].ChargeSlots--;
-            DataSource.droneCharges[firstDroneCharge++] = new() { DroneId = drone_id, StationId = base_station_id };
+            DataSource.droneCharges[DataSource.Config.firstDroneCharge++] = new() { DroneId = drone_id, StationId = base_station_id };
             // change status of the drone to "maintenance"
             DataSource.drones[find_index_drone(drone_id)].Status = (DroneStatuses)1;
         }
@@ -161,6 +161,7 @@ namespace DalObject
             }
         }
         */
+       
         public int find_index_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
@@ -207,7 +208,7 @@ namespace DalObject
             return -1;
         }
         //////////////////////////////////////////////////////////////////////////
-public  Parcel find_index_parcel(int my_id)
+public  Parcel find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
             {
@@ -221,9 +222,9 @@ public  Parcel find_index_parcel(int my_id)
             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
             {
                 if (DataSource.baseStations[i].Id == my_id)
-                    return i;
+                    return DataSource.baseStations[i]; 
             }
-            return DataSource.baseStations[i];
+            return DataSource.baseStations[1];
         }
         public Customer find_customer(int my_id)
         {
