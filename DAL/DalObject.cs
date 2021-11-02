@@ -9,12 +9,12 @@ namespace DalObject
 {
     public class DalObject
     {
-        public void add_base_station(int id, string name, double longitude, double lattitude, int chargeSlots)
+        public void Add_base_station(BaseStation baseStation)
         {
-            DataSource.baseStations[DataSource.Config.firstBaseStation++] = new() { ChargeSlots = chargeSlots, Id = id, Name = name, Lattitude = lattitude, Longitude = longitude };
+            DataSource.baseStations[DataSource.Config.firstBaseStation++] = baseStation;
         }
 
-        public void add_drone(int id, string model, WeightCategories maxWeight, DroneStatuses status, double battery)
+        public void Add_drone(int id, string model, WeightCategories maxWeight, DroneStatuses status, double battery)
         {
             DataSource.drones[DataSource.Config.firstDrone++] = new() { Battery = battery, Id = id, MaxWeight = maxWeight, Model = model, Status = status };
         }
@@ -30,13 +30,17 @@ namespace DalObject
 
         }
 
-        public void parcel_to_drone(int my_id, int my_DroneId)
+        public void Parcel_to_drone(int my_id, int my_DroneId)
         {
             int i = find_index_parcel(my_id);
             DataSource.parcels[i].DroneId = my_DroneId;
             DataSource.parcels[i].Scheduled = DateTime.Now;
         }
-
+        public void UpdateParcel(Parcel parcel)
+        {
+            int i = find_index_parcel(parcel.Id);
+            DataSource.parcels[i] = parcel;
+        }
         public void parcel_pick_up(int my_id)
         {
             int i = find_index_parcel(my_id);
@@ -198,7 +202,7 @@ namespace DalObject
             }
             return -1;
         }
-        public int find_droneCharge_by_drone(int my_drone_id)
+        public int Find_droneCharge_by_drone(int my_drone_id)
         {
             for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
             {
@@ -207,15 +211,22 @@ namespace DalObject
             }
             return -1;
         }
+
+        public IEnumerable<BaseStation> GetAllBaseStaition()
+        {
+            return DataSource.baseStations.ToList();
+        }
+
         //////////////////////////////////////////////////////////////////////////
-public  Parcel find_parcel(int my_id)
+        public Parcel Find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
             {
                 if (DataSource.parcels[i].Id == my_id)
                     return DataSource.parcels[i];
+
             }
-            
+            return new Parcel();
         }
         public BaseStation find_baseStation(int my_id)
         {
@@ -244,18 +255,17 @@ public  Parcel find_parcel(int my_id)
             }
            
         }
-        public DroneCharge find_droneCharge_by_drone(int my_drone_id)//????????????????????????????
+        public DroneCharge Find_droneCharge_by_drone(int my_drone_id)//????????????????????????????
         {
             for (int i = 0; i <  DataSource.Config.firstDroneCharge; i++)
             {
                 if (DataSource.droneCharges[i].DroneId == my_drone_id)
                     return DataSource.droneCharges[i];
             }
-            ;
+
+            return new DroneCharge();
         }
-
-
-        DalObject()
+        public DalObject()
         {
             DataSource.Initialize();
         }
