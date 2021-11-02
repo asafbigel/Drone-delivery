@@ -15,45 +15,14 @@ namespace ConsoleUI
     
     
     class Program
-    {
+    {            
+        static DalObject.DalObject dalObject1 = new  DalObject.DalObject();
         static void Main(string[] args)
         {
-            DalObject.DalObject dalObject1;
-            
-            Console.WriteLine("Choose what to do:");
-           
-            // Adding options
-            Console.WriteLine("1: to add new base station");
-            Console.WriteLine("2: to add new drone");
-            Console.WriteLine("3: to add new customer");
-            Console.WriteLine("4: to add new parcel");
-            
-            // Update options
-            Console.WriteLine("5: to connect parcel to drone");
-            Console.WriteLine("6: to take parcel by drone");
-            Console.WriteLine("7: to delivery parcel to customer");
-            Console.WriteLine("8: to send drone to charge");
-            Console.WriteLine("9: to put out drone from charge");
+            menu();
 
-            // disply options
-            Console.WriteLine("10: to print a base station");
-            Console.WriteLine("11: to print a drone");
-            Console.WriteLine("12: to print a customer");
-            Console.WriteLine("13: to print a parcel");
-
-            // disply list options
-            Console.WriteLine("14: to print all base stations");
-            Console.WriteLine("15: to print all drones");
-            Console.WriteLine("16: to print all customers");
-            Console.WriteLine("17: to print all parcels");
-            Console.WriteLine("18: to print all parcels that have not yet been connect to drone");
-            Console.WriteLine("19: to print all base stations with free charge slot");
-            
-            
-            Console.WriteLine("0: to exit");
-
-            string input =Console.ReadLine();
-            options option = (options) Enum.Parse(typeof(options), input);
+            string input = Console.ReadLine();
+            options option = (options)Enum.Parse(typeof(options), input);
 
             while (option != options.exit)
             {
@@ -64,23 +33,30 @@ namespace ConsoleUI
                         string my_input = Console.ReadLine();
                         int id = int.Parse(my_input);
 
-                       Console.Write("Enter name: ");
+                        Console.Write("Enter name: ");
                         my_input = Console.ReadLine();
                         string name = my_input;
 
-                       Console.Write("Enter longitude: ");
+                        Console.Write("Enter longitude: ");
                         my_input = Console.ReadLine();
                         double longitude = double.Parse(my_input);
 
-                       Console.Write("Enter lattitude: ");
+                        Console.Write("Enter lattitude: ");
                         my_input = Console.ReadLine();
                         double lattitude = double.Parse(my_input);
-                        
-                       Console.Write("Enter id: ");
+
+                        Console.Write("Enter id: ");
                         my_input = Console.ReadLine();
                         int chargeSlots = int.Parse(my_input);
-
-                        DalObject.DalObject.add_base_station(id, name, longitude, lattitude, chargeSlots);
+                        BaseStation baseStation = new BaseStation()
+                        {
+                            Id = id,
+                            ChargeSlots = chargeSlots,
+                            Lattitude = lattitude,
+                            Longitude = longitude,
+                            Name = name
+                        };
+                        dalObject1.Add_base_station(baseStation);
                         break;
 
 
@@ -99,13 +75,14 @@ namespace ConsoleUI
 
                         Console.Write("Enter status: ");
                         my_input = Console.ReadLine();
-                        DroneStatuses status = DroneStatuses.Parse(my_input);
+                        DroneStatuses status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), my_input);
+
 
                         Console.Write("Enter battery: ");
                         my_input = Console.ReadLine();
                         double battery = double.Parse(my_input);
 
-                        DalObject.DalObject.add_drone(id, model, maxWeight, status, battery);
+                        dalObject1.Add_drone(id, model, maxWeight, status, battery);
 
                         break;
 
@@ -132,7 +109,7 @@ namespace ConsoleUI
                         my_input = Console.ReadLine();
                         lattitude = double.Parse(my_input);
 
-                        DalObject.DalObject.add_customer(id, name, phone, longitude, lattitude);
+                        dalObject1.add_customer(id, name, phone, longitude, lattitude);
                         break;
 
 
@@ -166,7 +143,7 @@ namespace ConsoleUI
                         Console.Write("Enter Scheduled: ");
                         my_input = Console.ReadLine();
                         DateTime my_Scheduled = DateTime.Parse(my_input);
-                       
+
                         Console.Write("Enter PickedUp: ");
                         my_input = Console.ReadLine();
                         DateTime my_PickedUp = DateTime.Parse(my_input);
@@ -175,12 +152,13 @@ namespace ConsoleUI
                         my_input = Console.ReadLine();
                         DateTime my_Delivered = DateTime.Parse(my_input);
 
-                        DalObject.DalObject.add_parcel(id, my_senderId, my_targetId,  my_Weight,  my_Priority, my_DroneId,  my_Scheduled, my_PickedUp, my_Delivered);
+                        dalObject1.add_parcel(id, my_senderId, my_targetId, my_Weight, my_Priority, my_DroneId, my_Scheduled, my_PickedUp, my_Delivered);
                         break;
 
 
 
                     case options.connect_parcel_to_drone:
+                        // הנה הרחפנים, תבחר אחד מהם ותעדכן
                         break;
                     case options.take_parcel_by_drone:
                         break;
@@ -199,6 +177,10 @@ namespace ConsoleUI
                     case options.print_a_parcel:
                         break;
                     case options.print_all_base_stations:
+                        foreach (BaseStation item in dalObject1.GetAllBaseStaition())
+                        {
+                            Console.WriteLine(item);
+                        }
                         break;
                     case options.print_all_drones:
                         break;
@@ -220,6 +202,41 @@ namespace ConsoleUI
                 input = Console.ReadLine();
                 option = (options)Enum.Parse(typeof(options), input);
             }
+        }
+
+        private static void menu()
+        {
+            Console.WriteLine("Choose what to do:");
+
+            // Adding options
+            Console.WriteLine("1: to add new base station");
+            Console.WriteLine("2: to add new drone");
+            Console.WriteLine("3: to add new customer");
+            Console.WriteLine("4: to add new parcel");
+
+            // Update options
+            Console.WriteLine("5: to connect parcel to drone");
+            Console.WriteLine("6: to take parcel by drone");
+            Console.WriteLine("7: to delivery parcel to customer");
+            Console.WriteLine("8: to send drone to charge");
+            Console.WriteLine("9: to put out drone from charge");
+
+            // disply options
+            Console.WriteLine("10: to print a base station");
+            Console.WriteLine("11: to print a drone");
+            Console.WriteLine("12: to print a customer");
+            Console.WriteLine("13: to print a parcel");
+
+            // disply list options
+            Console.WriteLine("14: to print all base stations");
+            Console.WriteLine("15: to print all drones");
+            Console.WriteLine("16: to print all customers");
+            Console.WriteLine("17: to print all parcels");
+            Console.WriteLine("18: to print all parcels that have not yet been connect to drone");
+            Console.WriteLine("19: to print all base stations with free charge slot");
+
+
+            Console.WriteLine("0: to exit");
         }
     }
 }
