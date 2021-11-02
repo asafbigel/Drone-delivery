@@ -15,8 +15,8 @@ namespace IDAL
             public override string ToString()
             {
                 string result = "";
-                result += "DroneId: " + DroneId;
-                result += "\nStationId: " + StationId;
+                result += "\nDroneId: " + DroneId;
+                result += " StationId: " + StationId;
                 return result;
             }
         }

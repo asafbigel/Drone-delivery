@@ -24,33 +24,36 @@ namespace ConsoleUI
             string input = Console.ReadLine();
             options option = (options)Enum.Parse(typeof(options), input);
 
+            string the_input = " ";
+            int my_id;
+
             while (option != options.exit)
             {
                 switch (option)
                 {
                     case options.new_base_station:
                         Console.Write("Enter id: ");
-                        string my_input = Console.ReadLine();
-                        int id = int.Parse(my_input);
+                        the_input = Console.ReadLine();
+                        my_id = int.Parse(the_input);
 
                         Console.Write("Enter name: ");
-                        my_input = Console.ReadLine();
-                        string name = my_input;
+                        the_input = Console.ReadLine();
+                        string name = the_input;
 
                         Console.Write("Enter longitude: ");
-                        my_input = Console.ReadLine();
-                        double longitude = double.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        double longitude = double.Parse(the_input);
 
                         Console.Write("Enter lattitude: ");
-                        my_input = Console.ReadLine();
-                        double lattitude = double.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        double lattitude = double.Parse(the_input);
 
                         Console.Write("Enter id: ");
-                        my_input = Console.ReadLine();
-                        int chargeSlots = int.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        int chargeSlots = int.Parse(the_input);
                         BaseStation baseStation = new BaseStation()
                         {
-                            Id = id,
+                            Id = my_id,
                             ChargeSlots = chargeSlots,
                             Lattitude = lattitude,
                             Longitude = longitude,
@@ -62,99 +65,138 @@ namespace ConsoleUI
 
                     case options.new_drone:
                         Console.Write("Enter id: ");
-                        my_input = Console.ReadLine();
-                        id = int.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        id = int.Parse(the_input);
 
                         Console.Write("Enter model: ");
-                        my_input = Console.ReadLine();
-                        string model = my_input;
+                       the_input = Console.ReadLine();
+                        string model =the_input;
 
                         Console.Write("Enter maxWeight: ");
-                        my_input = Console.ReadLine();
-                        WeightCategories maxWeight = WeightCategories.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        WeightCategories maxWeight = WeightCategories.Parse(the_input);
 
                         Console.Write("Enter status: ");
-                        my_input = Console.ReadLine();
-                        DroneStatuses status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), my_input);
+                       the_input = Console.ReadLine();
+                        DroneStatuses status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses),the_input);
 
 
                         Console.Write("Enter battery: ");
-                        my_input = Console.ReadLine();
-                        double battery = double.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        double battery = double.Parse(the_input);
 
-                        dalObject1.Add_drone(id, model, maxWeight, status, battery);
+                        
+                        Drone drone = new Drone()
+                        {
 
+                            Id = id,
+                            Model = model,
+                            MaxWeight = maxWeight,
+                            Status = status,
+                            Battery = battery
+                        };
+
+                        dalObject1.Add_drone(drone);
                         break;
 
 
 
                     case options.new_customer:
                         Console.Write("Enter id: ");
-                        my_input = Console.ReadLine();
-                        id = int.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        id = int.Parse(the_input);
 
                         Console.Write("Enter name: ");
-                        my_input = Console.ReadLine();
-                        name = my_input;
+                       the_input = Console.ReadLine();
+                        name =the_input;
 
                         Console.Write("Enter phone: ");
-                        my_input = Console.ReadLine();
-                        string phone = my_input;
+                       the_input = Console.ReadLine();
+                        string phone =the_input;
 
                         Console.Write("Enter longitude: ");
-                        my_input = Console.ReadLine();
-                        longitude = double.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        longitude = double.Parse(the_input);
 
-                        Console.Write("Enter latitude: ");
-                        my_input = Console.ReadLine();
-                        lattitude = double.Parse(my_input);
+                        Console.Write("Enter Lattitude: ");
+                       the_input = Console.ReadLine();
+                        lattitude = double.Parse(the_input);
 
-                        dalObject1.add_customer(id, name, phone, longitude, lattitude);
+                        
+                        Customer customer = new Customer()
+                        {
+
+                            Id = id,
+                            Name = name,
+                            Phone = phone,
+                            Longitude = longitude,
+                            Lattitude = lattitude
+                        };
+
+                        dalObject1.Add_customer(customer);
                         break;
+
+                        
 
 
 
                     case options.new_parcel:
 
                         Console.Write("Enter id: ");
-                        my_input = Console.ReadLine();
-                        id = int.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        id = int.Parse(the_input);
 
                         Console.Write("Enter sender Id: ");
-                        my_input = Console.ReadLine();
-                        int my_senderId = int.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        int my_senderId = int.Parse(the_input);
 
                         Console.Write("Enter target Id: ");
-                        my_input = Console.ReadLine();
-                        int my_targetId = int.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        int my_targetId = int.Parse(the_input);
 
                         Console.Write("Enter Weight: ");
-                        my_input = Console.ReadLine();
-                        WeightCategories my_Weight = WeightCategories.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        WeightCategories my_Weight = WeightCategories.Parse(the_input);
 
                         Console.Write("Enter Priority: ");
-                        my_input = Console.ReadLine();
-                        Priorities my_Priority = Priorities.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        Priorities my_Priority = Priorities.Parse(the_input);
 
                         Console.Write("Enter Drone Id: ");
-                        my_input = Console.ReadLine();
-                        int my_DroneId = int.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        int my_DroneId = int.Parse(the_input);
 
                         Console.Write("Enter Scheduled: ");
-                        my_input = Console.ReadLine();
-                        DateTime my_Scheduled = DateTime.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        DateTime my_Scheduled = DateTime.Parse(the_input);
 
                         Console.Write("Enter PickedUp: ");
-                        my_input = Console.ReadLine();
-                        DateTime my_PickedUp = DateTime.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        DateTime my_PickedUp = DateTime.Parse(the_input);
 
                         Console.Write("Enter Delivered: ");
-                        my_input = Console.ReadLine();
-                        DateTime my_Delivered = DateTime.Parse(my_input);
+                       the_input = Console.ReadLine();
+                        DateTime my_Delivered = DateTime.Parse(the_input);
+                       
+                        Parcel parcel = new Parcel()
+                        {
 
-                        dalObject1.add_parcel(id, my_senderId, my_targetId, my_Weight, my_Priority, my_DroneId, my_Scheduled, my_PickedUp, my_Delivered);
+                            Id = id,
+                            senderId = my_senderId,
+                            targetId = my_targetId,
+                            Weight = my_Weight,
+                            Priority = my_Priority,
+                            DroneId = my_DroneId,
+                            Scheduled = my_Scheduled,
+                            PickedUp = my_PickedUp,
+                            Delivered = my_Delivered
+                        };
+
+                        dalObject1.Add_parcel(parcel);
                         break;
+                       
 
+                        
 
 
                     case options.connect_parcel_to_drone:
@@ -168,8 +210,14 @@ namespace ConsoleUI
                         break;
                     case options.put_out_drone_from_charge:
                         break;
+                        //\\\//\\//\\///\\\///\\\//\\//\\//\\//\\//\\//\\//\\//\\\///\\\///\\\\
                     case options.print_a_base_station:
+                        Console.Write("Enter id: ");
+                        stringthe_input = Console.ReadLine();
+                        int id = int.Parse(the_input);
+
                         break;
+
                     case options.print_a_drone:
                         break;
                     case options.print_a_customer:

@@ -8,21 +8,21 @@ namespace IDAL
 {
     namespace DO
     {
-        struct Customer
+       public struct Customer
         {
             public int Id { get; set; }
             public string Name { get; set; }
             public string Phone { get; set; }
             public double Longitude { get; set; }
-            public double Latitude { get; set; }
+            public double Lattitude { get; set; }
             public override string ToString()
             {
                 string result = "";
-                result += "ID: " + Id;
-                result += "\nName: " + Name;
-                result += "\nPhone: " + Phone;
-                result += "\nLongitude: " + Longitude;
-                result += "\nLatitude: " + Latitude;
+                result += "\nID: " + Id;
+                result += " Name: " + Name;
+                result += " Phone: " + Phone;
+                result += " Longitude: " + Longitude;
+                result += " Latitude: " + Latitude;
                 return result;
             }
         }

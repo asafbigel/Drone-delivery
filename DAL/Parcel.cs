@@ -29,15 +29,15 @@ namespace IDAL
             public override string ToString()
             {
                 string result = "";
-                result += "ID: " + Id;
-                result += "\nsenderId: " + senderId;
-                result += "\ntargetId: " + targetId;
-                result += "\nWeight: " + Weight;
-                result += "\nPriority: " + Priority;
-                result += "\nDroneId: " + DroneId;
-                result += "\nScheduled: " + Scheduled;
-                result += "\nPickedUp: " + PickedUp;
-                result += "\nDelivered: " + Priority;
+                result += "\nID: " + Id;
+                result += " senderId: " + senderId;
+                result += " targetId: " + targetId;
+                result += " Weight: " + Weight;
+                result += " Priority: " + Priority;
+                result += " DroneId: " + DroneId;
+                result += " Scheduled: " + Scheduled;
+                result += " PickedUp: " + PickedUp;
+                result += " Delivered: " + Priority;
                 return result;
             }
         }
