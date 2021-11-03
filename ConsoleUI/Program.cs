@@ -144,7 +144,7 @@ namespace ConsoleUI
 
                         Console.Write("Enter id: ");
                        the_input = Console.ReadLine();
-                        id = int.Parse(the_input);
+                        my_id = int.Parse(the_input);
 
                         Console.Write("Enter sender Id: ");
                        the_input = Console.ReadLine();
@@ -181,9 +181,9 @@ namespace ConsoleUI
                         Parcel parcel = new Parcel()
                         {
 
-                            Id = id,
-                            senderId = my_senderId,
-                            targetId = my_targetId,
+                            Id = my_id ,
+                            SenderId = my_senderId,
+                            TargetId = my_targetId,
                             Weight = my_Weight,
                             Priority = my_Priority,
                             DroneId = my_DroneId,
@@ -213,29 +213,68 @@ namespace ConsoleUI
                         //\\\//\\//\\///\\\///\\\//\\//\\//\\//\\//\\//\\//\\//\\\///\\\///\\\\
                     case options.print_a_base_station:
                         Console.Write("Enter id: ");
-                        stringthe_input = Console.ReadLine();
-                        int id = int.Parse(the_input);
-
+                         the_input = Console.ReadLine();
+                          my_id = int.Parse(the_input);
+                       BaseStation baseStation1 = dalObject1.Find_baseStation(my_id);
+                        Console.Write(baseStation1);
                         break;
 
                     case options.print_a_drone:
+                        Console.Write("Enter id: ");
+                        the_input = Console.ReadLine();
+                        my_id = int.Parse(the_input);
+                        Drone drone1 = dalObject1.Find_drone(my_id);
+                        Console.Write(drone1);
                         break;
                     case options.print_a_customer:
+                        Console.Write("Enter id: ");
+                        the_input = Console.ReadLine();
+                        my_id = int.Parse(the_input);
+                        Customer customer1 = dalObject1.Find_customer(my_id);
+                        Console.Write(customer1);
                         break;
+                       
                     case options.print_a_parcel:
+                        Console.Write("Enter id: ");
+                        the_input = Console.ReadLine();
+                        my_id = int.Parse(the_input);
+                        Parcel parcel1 = dalObject1.Find_parcel(my_id);
+                        Console.Write(parcel1);
                         break;
+
                     case options.print_all_base_stations:
-                        foreach (BaseStation item in dalObject1.GetAllBaseStaition())
-                        {
-                            Console.WriteLine(item);
+
+                        BaseStation[] all_baseStations = dalObject1.Get_all_base_stations();
+                 
+                        for (int i=0; i < dalObject1.GetFirstBaseStation() ; i++)                        {
+                            Console.Write(all_baseStations[i]);
                         }
                         break;
                     case options.print_all_drones:
+                        Drone[] all_drones = dalObject1.Get_all_drones();
+
+                        for (int i = 0; i < dalObject1.GetFirstDrones(); i++)
+                        {
+                            Console.Write(all_drones[i]);
+                        }
                         break;
                     case options.print_all_customers:
+                        Customer[] all_customers = dalObject1.Get_all_customers();
+
+                        for (int i = 0; i < dalObject1.GetFirstCustomer(); i++)
+                        {
+                            Console.Write(all_customers[i]);
+                        }
                         break;
                     case options.print_all_parcels:
+                        Parcel[] all_parcels = dalObject1.Get_all_parcels();
+
+                        for (int i = 0; i < dalObject1.GetFirstParcel(); i++)
+                        {
+                            Console.Write(all_parcels[i]);
+                        }
                         break;
+                        
                     case options.print_all_parcels_that_have_not_yet_been_connect_to_drone:
                         break;
                     case options.print_all_base_stations_with_free_charge_slot:

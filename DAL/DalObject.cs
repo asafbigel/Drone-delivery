@@ -220,7 +220,7 @@ namespace DalObject
             }
             return -1;
         }
-        public int Find_droneCharge_by_drone(int my_drone_id)
+        public int Find_index_droneCharge_by_drone(int my_drone_id)
         {
             for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
             {
@@ -253,7 +253,7 @@ namespace DalObject
                 if (DataSource.baseStations[i].Id == my_id)
                     return DataSource.baseStations[i]; 
             }
-            return DataSource.baseStations[1];
+            return new BaseStation();
         }
         public Customer Find_customer(int my_id)
         {
@@ -262,7 +262,7 @@ namespace DalObject
                 if (DataSource.customers[i].Id == my_id)
                     return DataSource.customers[i];
             }
-            
+            return new Customer();
         }
         public Drone Find_drone(int my_id)
         {
@@ -271,7 +271,7 @@ namespace DalObject
                 if (DataSource.drones[i].Id == my_id)
                     return DataSource.drones[i];
             }
-           
+            return new Drone();
         }
         public DroneCharge Find_droneCharge_by_drone(int my_drone_id)//????????????????????????????
         {
@@ -287,5 +287,46 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
+//*******************************************************************
+        public int GetFirstBaseStation()
+        {
+           return DataSource.Config.firstBaseStation;
+        }
+
+        public BaseStation[] Get_all_base_stations()
+        {
+            return DataSource.baseStations;
+        }
+        
+        public int GetFirstDrone()
+        {
+            return DataSource.Config.firstDrone;
+        }
+
+        public Drone[] Get_all_drones()
+        {
+            return DataSource.drones;
+        }
+        
+        public int GetFirstCustomer()
+        {
+            return DataSource.Config.firstCustomer;
+        }
+
+        public Customer[] Get_all_customers()
+        {
+            return DataSource.customers;
+        }
+
+        public int GetFirstParcel()
+        {
+            return DataSource.Config.firstParcel;
+        }
+
+        public Parcel[] Get_all_parcels()
+        {
+            return DataSource.parcels;
+        }
+
     }
 }

@@ -12,8 +12,8 @@ namespace IDAL
         public struct Parcel
         {
             public int Id { get; set; }
-            public int senderId { get; set; }
-            public int targetId { get; set; }
+            public int SenderId { get; set; }
+            public int TargetId { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
             public int DroneId { get; set; }
@@ -30,8 +30,8 @@ namespace IDAL
             {
                 string result = "";
                 result += "\nID: " + Id;
-                result += " senderId: " + senderId;
-                result += " targetId: " + targetId;
+                result += " SenderId: " + SenderId;
+                result += " TargetId: " + TargetId;
                 result += " Weight: " + Weight;
                 result += " Priority: " + Priority;
                 result += " DroneId: " + DroneId;
