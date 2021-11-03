@@ -22,7 +22,7 @@ namespace IDAL
                 result += " Name: " + Name;
                 result += " Phone: " + Phone;
                 result += " Longitude: " + Longitude;
-                result += " Latitude: " + Latitude;
+                result += " Lattitude: " + Lattitude;
                 return result;
             }
         }

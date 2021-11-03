@@ -29,7 +29,7 @@ namespace IDAL
             public override string ToString()
             {
                 string result = "";
-                result += "\nID: " + Id;
+                result += "ID: " + Id;
                 result += " SenderId: " + SenderId;
                 result += " TargetId: " + TargetId;
                 result += " Weight: " + Weight;
@@ -37,7 +37,7 @@ namespace IDAL
                 result += " DroneId: " + DroneId;
                 result += " Scheduled: " + Scheduled;
                 result += " PickedUp: " + PickedUp;
-                result += " Delivered: " + Priority;
+                result += " Delivered: " + Priority + '\n';
                 return result;
             }
         }

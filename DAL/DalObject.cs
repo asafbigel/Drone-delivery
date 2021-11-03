@@ -42,6 +42,7 @@ namespace DalObject
             int i = Find_index_parcel(drone.Id);
             DataSource.drones[i] = drone;
         }
+
         public void UpdateParcel(Parcel parcel)
         {
             int i = Find_index_parcel(parcel.Id);
@@ -288,7 +289,7 @@ namespace DalObject
             DataSource.Initialize();
         }
 //*******************************************************************
-        public int GetFirstBaseStation()
+        public int GetFirstFreeBaseStation()
         {
            return DataSource.Config.firstBaseStation;
         }
@@ -318,7 +319,7 @@ namespace DalObject
             return DataSource.customers;
         }
 
-        public int GetFirstParcel()
+        public int GetFirstFreeParcel()
         {
             return DataSource.Config.firstParcel;
         }

@@ -3,282 +3,154 @@ using DalObject;
 using IDAL.DO;
 namespace ConsoleUI
 {
-    public enum options
+    public enum Options
     {
-       exit, new_base_station, new_drone, new_customer, new_parcel, 
-       connect_parcel_to_drone, take_parcel_by_drone, delivery_parcel_to_customer, 
+       exit, new_base_station, new_drone, new_customer, new_parcel,
+        connect_parcel_to_drone, take_parcel_by_drone, delivery_parcel_to_customer, 
        send_drone_to_charge, put_out_drone_from_charge, print_a_base_station, print_a_drone, print_a_customer, print_a_parcel, 
        print_all_base_stations, print_all_drones, print_all_customers, 
        print_all_parcels, print_all_parcels_that_have_not_yet_been_connect_to_drone, 
        print_all_base_stations_with_free_charge_slot
     }
-    
+
     
     class Program
-    {            
-        static DalObject.DalObject dalObject1 = new  DalObject.DalObject();
+    {
+        static DalObject.DalObject mydal = new  DalObject.DalObject();
         static void Main(string[] args)
         {
-            menu();
+
+            show_menu();
 
             string input = Console.ReadLine();
-            options option = (options)Enum.Parse(typeof(options), input);
-
-            string the_input = " ";
+            Options option = (Options)Enum.Parse(typeof(Options), input);
             int my_id;
 
-            while (option != options.exit)
+            while (option != Options.exit)
             {
                 switch (option)
                 {
-                    case options.new_base_station:
-                        Console.Write("Enter id: ");
-                        the_input = Console.ReadLine();
-                        my_id = int.Parse(the_input);
-
-                        Console.Write("Enter name: ");
-                        the_input = Console.ReadLine();
-                        string name = the_input;
-
-                        Console.Write("Enter longitude: ");
-                       the_input = Console.ReadLine();
-                        double longitude = double.Parse(the_input);
-
-                        Console.Write("Enter lattitude: ");
-                       the_input = Console.ReadLine();
-                        double lattitude = double.Parse(the_input);
-
-                        Console.Write("Enter id: ");
-                       the_input = Console.ReadLine();
-                        int chargeSlots = int.Parse(the_input);
-                        BaseStation baseStation = new BaseStation()
-                        {
-                            Id = my_id,
-                            ChargeSlots = chargeSlots,
-                            Lattitude = lattitude,
-                            Longitude = longitude,
-                            Name = name
-                        };
-                        dalObject1.Add_base_station(baseStation);
+                    case Options.new_base_station:
+                        main_new_base_station();
                         break;
 
+                    case Options.new_drone:
+                        main_add_drone();
+                        break;
 
-                    case options.new_drone:
-                        Console.Write("Enter id: ");
-                       the_input = Console.ReadLine();
-                        id = int.Parse(the_input);
+                    case Options.new_customer:
+                        main_add_customer();
+                        break;
 
-                        Console.Write("Enter model: ");
-                       the_input = Console.ReadLine();
-                        string model =the_input;
+                    case Options.new_parcel:
+                        main_add_parcel();
+                        break;
 
-                        Console.Write("Enter maxWeight: ");
-                       the_input = Console.ReadLine();
-                        WeightCategories maxWeight = WeightCategories.Parse(the_input);
+                    case Options.connect_parcel_to_drone:
+                        main_connect_parcel_to_drone();
+                        break;
 
-                        Console.Write("Enter status: ");
-                       the_input = Console.ReadLine();
-                        DroneStatuses status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses),the_input);
+                    case Options.take_parcel_by_drone:
+                        //main_take_parcel_by_drone();
+                        break;
 
+                    case Options.delivery_parcel_to_customer:
+                        break;
 
-                        Console.Write("Enter battery: ");
-                       the_input = Console.ReadLine();
-                        double battery = double.Parse(the_input);
+                    case Options.send_drone_to_charge:
+                        Console.Write("Enter drone ID: ");
+                        my_id = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Choose base station frim the list:");
+                        main_print_all_base_stations_with_free_charge_slot();
+                        int my_baseStation_id = int.Parse(Console.ReadLine());
+                        mydal.drone_to_charge(my_baseStation_id, my_id);
+                        break;
 
+                    case Options.put_out_drone_from_charge:
+                        Console.Write("Enter drone ID: ");
+                        my_id = int.Parse(Console.ReadLine());
+                        mydal.drone_from_charge(my_id);
+                        break;
+                 
                         
-                        Drone drone = new Drone()
-                        {
-
-                            Id = id,
-                            Model = model,
-                            MaxWeight = maxWeight,
-                            Status = status,
-                            Battery = battery
-                        };
-
-                        dalObject1.Add_drone(drone);
-                        break;
-
-
-
-                    case options.new_customer:
-                        Console.Write("Enter id: ");
-                       the_input = Console.ReadLine();
-                        id = int.Parse(the_input);
-
-                        Console.Write("Enter name: ");
-                       the_input = Console.ReadLine();
-                        name =the_input;
-
-                        Console.Write("Enter phone: ");
-                       the_input = Console.ReadLine();
-                        string phone =the_input;
-
-                        Console.Write("Enter longitude: ");
-                       the_input = Console.ReadLine();
-                        longitude = double.Parse(the_input);
-
-                        Console.Write("Enter Lattitude: ");
-                       the_input = Console.ReadLine();
-                        lattitude = double.Parse(the_input);
-
-                        
-                        Customer customer = new Customer()
-                        {
-
-                            Id = id,
-                            Name = name,
-                            Phone = phone,
-                            Longitude = longitude,
-                            Lattitude = lattitude
-                        };
-
-                        dalObject1.Add_customer(customer);
-                        break;
-
-                        
-
-
-
-                    case options.new_parcel:
-
-                        Console.Write("Enter id: ");
-                       the_input = Console.ReadLine();
-                        my_id = int.Parse(the_input);
-
-                        Console.Write("Enter sender Id: ");
-                       the_input = Console.ReadLine();
-                        int my_senderId = int.Parse(the_input);
-
-                        Console.Write("Enter target Id: ");
-                       the_input = Console.ReadLine();
-                        int my_targetId = int.Parse(the_input);
-
-                        Console.Write("Enter Weight: ");
-                       the_input = Console.ReadLine();
-                        WeightCategories my_Weight = WeightCategories.Parse(the_input);
-
-                        Console.Write("Enter Priority: ");
-                       the_input = Console.ReadLine();
-                        Priorities my_Priority = Priorities.Parse(the_input);
-
-                        Console.Write("Enter Drone Id: ");
-                       the_input = Console.ReadLine();
-                        int my_DroneId = int.Parse(the_input);
-
-                        Console.Write("Enter Scheduled: ");
-                       the_input = Console.ReadLine();
-                        DateTime my_Scheduled = DateTime.Parse(the_input);
-
-                        Console.Write("Enter PickedUp: ");
-                       the_input = Console.ReadLine();
-                        DateTime my_PickedUp = DateTime.Parse(the_input);
-
-                        Console.Write("Enter Delivered: ");
-                       the_input = Console.ReadLine();
-                        DateTime my_Delivered = DateTime.Parse(the_input);
-                       
-                        Parcel parcel = new Parcel()
-                        {
-
-                            Id = my_id ,
-                            SenderId = my_senderId,
-                            TargetId = my_targetId,
-                            Weight = my_Weight,
-                            Priority = my_Priority,
-                            DroneId = my_DroneId,
-                            Scheduled = my_Scheduled,
-                            PickedUp = my_PickedUp,
-                            Delivered = my_Delivered
-                        };
-
-                        dalObject1.Add_parcel(parcel);
-                        break;
-                       
-
-                        
-
-
-                    case options.connect_parcel_to_drone:
-                        // הנה הרחפנים, תבחר אחד מהם ותעדכן
-                        break;
-                    case options.take_parcel_by_drone:
-                        break;
-                    case options.delivery_parcel_to_customer:
-                        break;
-                    case options.send_drone_to_charge:
-                        break;
-                    case options.put_out_drone_from_charge:
-                        break;
                         //\\\//\\//\\///\\\///\\\//\\//\\//\\//\\//\\//\\//\\//\\\///\\\///\\\\
-                    case options.print_a_base_station:
+                    case Options.print_a_base_station:
                         Console.Write("Enter id: ");
-                         the_input = Console.ReadLine();
-                          my_id = int.Parse(the_input);
-                       BaseStation baseStation1 = dalObject1.Find_baseStation(my_id);
+                        my_id = int.Parse(Console.ReadLine());
+                        BaseStation baseStation1 = mydal.Find_baseStation(my_id);
                         Console.Write(baseStation1);
                         break;
 
-                    case options.print_a_drone:
+                    case Options.print_a_drone:
                         Console.Write("Enter id: ");
-                        the_input = Console.ReadLine();
-                        my_id = int.Parse(the_input);
-                        Drone drone1 = dalObject1.Find_drone(my_id);
+                        my_id = int.Parse(Console.ReadLine());
+                        Drone drone1 = mydal.Find_drone(my_id);
                         Console.Write(drone1);
                         break;
-                    case options.print_a_customer:
+
+                    case Options.print_a_customer:
                         Console.Write("Enter id: ");
-                        the_input = Console.ReadLine();
-                        my_id = int.Parse(the_input);
-                        Customer customer1 = dalObject1.Find_customer(my_id);
+                        my_id = int.Parse(Console.ReadLine());
+                        Customer customer1 = mydal.Find_customer(my_id);
                         Console.Write(customer1);
                         break;
                        
-                    case options.print_a_parcel:
+                    case Options.print_a_parcel:
                         Console.Write("Enter id: ");
-                        the_input = Console.ReadLine();
-                        my_id = int.Parse(the_input);
-                        Parcel parcel1 = dalObject1.Find_parcel(my_id);
+                        my_id = int.Parse(Console.ReadLine());
+                        Parcel parcel1 = mydal.Find_parcel(my_id);
                         Console.Write(parcel1);
                         break;
 
-                    case options.print_all_base_stations:
-
-                        BaseStation[] all_baseStations = dalObject1.Get_all_base_stations();
-                 
-                        for (int i=0; i < dalObject1.GetFirstBaseStation() ; i++)                        {
+                    case Options.print_all_base_stations:
+                        BaseStation[] all_baseStations = mydal.Get_all_base_stations();
+                        for (int i=0; i < mydal.GetFirstFreeBaseStation() ; i++)    
+                        {
                             Console.Write(all_baseStations[i]);
                         }
                         break;
-                    case options.print_all_drones:
-                        Drone[] all_drones = dalObject1.Get_all_drones();
 
-                        for (int i = 0; i < dalObject1.GetFirstDrones(); i++)
+                    case Options.print_all_drones:
+                        Drone[] all_drones = mydal.Get_all_drones();
+
+                        for (int i = 0; i < mydal.GetFirstDrone(); i++)
                         {
                             Console.Write(all_drones[i]);
                         }
                         break;
-                    case options.print_all_customers:
-                        Customer[] all_customers = dalObject1.Get_all_customers();
 
-                        for (int i = 0; i < dalObject1.GetFirstCustomer(); i++)
+                    case Options.print_all_customers:
+                        Customer[] all_customers = mydal.Get_all_customers();
+
+                        for (int i = 0; i < mydal.GetFirstCustomer(); i++)
                         {
                             Console.Write(all_customers[i]);
                         }
                         break;
-                    case options.print_all_parcels:
-                        Parcel[] all_parcels = dalObject1.Get_all_parcels();
 
-                        for (int i = 0; i < dalObject1.GetFirstParcel(); i++)
+                    case Options.print_all_parcels:
+                        Parcel[] all_parcels = mydal.Get_all_parcels();
+
+                        for (int i = 0; i < mydal.GetFirstFreeParcel(); i++)
                         {
                             Console.Write(all_parcels[i]);
                         }
                         break;
                         
-                    case options.print_all_parcels_that_have_not_yet_been_connect_to_drone:
+                    case Options.print_all_parcels_that_have_not_yet_been_connect_to_drone:
+                        all_parcels = mydal.Get_all_parcels();
+
+                        for (int i = 0; i < mydal.GetFirstFreeParcel(); i++)
+                        {
+                            if (all_parcels[i].DroneId == 0)
+                                Console.Write(all_parcels[i]);
+                        }
                         break;
-                    case options.print_all_base_stations_with_free_charge_slot:
+
+                    case Options.print_all_base_stations_with_free_charge_slot:
+                        main_print_all_base_stations_with_free_charge_slot();
                         break;
+
 
                     default:
                         Console.WriteLine("Wrong input. Try again");
@@ -287,15 +159,184 @@ namespace ConsoleUI
 
                 Console.WriteLine("Choose what to do:");
                 input = Console.ReadLine();
-                option = (options)Enum.Parse(typeof(options), input);
+                option = (Options)Enum.Parse(typeof(Options), input);
             }
         }
 
-        private static void menu()
+        /*
+        private static void main_take_parcel_by_drone()
+        {
+            
+        }
+        */
+        private static void main_print_all_base_stations_with_free_charge_slot()
+        {
+            BaseStation[] all_baseStations = mydal.Get_all_base_stations();
+            for (int i = 0; i < mydal.GetFirstFreeBaseStation(); i++)
+            {
+                if (all_baseStations[i].ChargeSlots > 0)
+                    Console.Write(all_baseStations[i]);
+            }
+        }
+
+        private static void main_connect_parcel_to_drone()
+        {
+            int my_id;
+            Console.WriteLine("Enter parcel Id to connect:");
+            my_id = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter drone Id to connect:");
+            int drone_id= int.Parse(Console.ReadLine());
+            Parcel parcel = mydal.Find_parcel(my_id);
+            parcel.DroneId = drone_id;
+            mydal.UpdateParcel(parcel);
+        }
+
+        private static void main_add_parcel()
+        {
+            Console.Write("Enter id: ");
+            int my_id = int.Parse(Console.ReadLine());
+
+            Parcel parcel;
+            main_update_parcel(my_id, out parcel);
+
+            mydal.Add_parcel(parcel);
+        }
+
+        private static void main_update_parcel(int my_id, out Parcel parcel)
+        {
+            Console.Write("Enter sender Id: ");
+            int my_senderId = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter target Id: ");
+            int my_targetId = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter Weight: ");
+            WeightCategories my_Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Console.ReadLine());
+
+            Console.Write("Enter Priority: ");
+            Priorities my_Priority = (Priorities)Enum.Parse(typeof(Priorities), Console.ReadLine());
+
+            Console.Write("Enter Drone Id: ");
+            int my_DroneId = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter Scheduled: ");
+            DateTime my_Scheduled = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter PickedUp: ");
+            DateTime my_PickedUp = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter Delivered: ");
+            DateTime my_Delivered = DateTime.Parse(Console.ReadLine());
+
+            parcel = new Parcel()
+            {
+
+                Id = my_id,
+                SenderId = my_senderId,
+                TargetId = my_targetId,
+                Weight = my_Weight,
+                Priority = my_Priority,
+                DroneId = my_DroneId,
+                Scheduled = my_Scheduled,
+                PickedUp = my_PickedUp,
+                Delivered = my_Delivered
+            };
+        }
+
+        private static void main_add_customer()
+        {
+            Console.Write("Enter id: ");
+            int my_id = int.Parse(Console.ReadLine());
+            Console.Write("Enter name: ");
+            string name = Console.ReadLine();
+            Console.Write("Enter phone: ");
+            string phone = Console.ReadLine();
+            Console.Write("Enter longitude: ");
+            double longitude = double.Parse(Console.ReadLine());
+
+            Console.Write("Enter Lattitude: ");
+
+            double lattitude = double.Parse(Console.ReadLine());
+
+
+            Customer customer = new Customer()
+            {
+
+                Id = my_id,
+                Name = name,
+                Phone = phone,
+                Longitude = longitude,
+                Lattitude = lattitude
+            };
+
+            mydal.Add_customer(customer);
+        }
+
+        private static void main_add_drone()
+        {
+            Console.Write("Enter id: ");
+            int my_id = int.Parse(Console.ReadLine());
+            Console.Write("Enter model: ");
+            string model = Console.ReadLine();
+            Console.Write("Enter maxWeight: ");
+            WeightCategories maxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Console.ReadLine());
+            Console.Write("Enter status: ");
+            DroneStatuses status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), Console.ReadLine());
+            Console.Write("Enter battery: ");
+            double battery = double.Parse(Console.ReadLine());
+            Drone drone = new Drone()
+            {
+
+                Id = my_id,
+                Model = model,
+                MaxWeight = maxWeight,
+                Status = status,
+                Battery = battery
+            };
+
+            mydal.Add_drone(drone);
+        }
+
+        private static void main_new_base_station()
+        {
+            Console.Write("Enter id: ");
+            int my_id = int.Parse(Console.ReadLine());
+            main_update_baseStation(my_id);
+        }
+
+        private static string main_update_baseStation(int my_id)
+        {
+            Console.Write("Enter name: ");
+            string name = Console.ReadLine();
+            Console.Write("Enter longitude: ");
+            double longitude = double.Parse(Console.ReadLine());
+            Console.Write("Enter lattitude: ");
+            double lattitude = double.Parse(Console.ReadLine());
+            Console.Write("Enter slots: ");
+            int chargeSlots = int.Parse(Console.ReadLine());
+            BaseStation baseStation = new BaseStation()
+            {
+                Id = my_id,
+                ChargeSlots = chargeSlots,
+                Lattitude = lattitude,
+                Longitude = longitude,
+                Name = name
+            };
+            mydal.Add_base_station(baseStation);
+            return name;
+        }
+
+        private static void show_menu()
         {
             Console.WriteLine("Choose what to do:");
 
             // Adding options
+            int length = Enum.GetValues(typeof(Options)).Length;
+            for (int i = 0; i < length ; i++)
+            {
+                Console.WriteLine("{0}: : to {1}",i, (Options)i);
+            }
+            /*
             Console.WriteLine("1: to add new base station");
             Console.WriteLine("2: to add new drone");
             Console.WriteLine("3: to add new customer");
@@ -324,6 +365,8 @@ namespace ConsoleUI
 
 
             Console.WriteLine("0: to exit");
+
+            */
         }
     }
 }

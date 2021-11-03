@@ -19,11 +19,11 @@ namespace IDAL
             public override string ToString()
             {
                 string result = "";
-                result += "\nID: "+Id;
+                result += "ID: "+Id;
                 result += " Name: "+Name;
                 result += " Longitude: " + Longitude;
                 result += " Lattitude: " + Lattitude;
-                result += " ChargeSlots: " + ChargeSlots;
+                result += " ChargeSlots: " + ChargeSlots + '\n';
                 return result;
             }
         }
