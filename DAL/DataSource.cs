@@ -9,12 +9,15 @@ namespace DalObject
 {
     class DataSource
     {
+        #region The array of the data
         internal static Drone[] drones = new Drone[10];
         internal static BaseStation[] baseStations = new BaseStation[5];
         internal static Customer[] customers= new Customer[100];
         internal static Parcel[] parcels = new Parcel[1000];
         internal static DroneCharge[] droneCharges = new DroneCharge[50];
+        #endregion
 
+        // internal data (the first free index at the arrays, and the run number of the parcels
         internal class Config
         {
             internal static int firstDrone =0;
@@ -25,16 +28,19 @@ namespace DalObject
             internal static int runNumOfParcel;
         }
 
+        //ctor
         internal static void Initialize()
         {
             var rand = new Random();
 
+            #region Adding base stations
             // B_id is between 100-999
             int B_id = rand.Next(0, 900);
             baseStations[DataSource.Config.firstBaseStation++] = new BaseStation() { ChargeSlots = rand.Next(3, 11), Id = (B_id++) + 100, Name = "Talpiot", Lattitude = 35.207745, Longitude = 31.750313 };
             baseStations[DataSource.Config.firstBaseStation++] = new BaseStation() { ChargeSlots = rand.Next(3, 11), Id = ((B_id++) % 900) + 100, Name = "Pat", Lattitude = 35.199758, Longitude = 31.750590 };
+            #endregion
 
-
+            #region Adding drones
             // D_id is between 1000 - 9999
             // Battery is between 5-100
             int batt = rand.Next(5, 101);
@@ -44,7 +50,9 @@ namespace DalObject
             drones[DataSource.Config.firstDrone++] = new Drone() { Battery = ((batt + 13) % 95) + 5, Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989", Status = (DroneStatuses)rand.Next(0, 3) };
             drones[DataSource.Config.firstDrone++] = new Drone() { Battery = ((batt + 13) % 95) + 5, Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2010", Status = (DroneStatuses)rand.Next(0, 3) };
             drones[DataSource.Config.firstDrone++] = new Drone() { Battery = ((batt + 13) % 95) + 5, Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2017", Status = (DroneStatuses)rand.Next(0, 3) };
+            #endregion
 
+            #region Adding customers
             // Id is between 001000000 - 399999999
             // Lattitude is between 35.160443 -  35.252793
             // Longitude is between 31.727247 - 31.844377
@@ -59,9 +67,9 @@ namespace DalObject
             customers[DataSource.Config.firstCustomer++] = new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Reuven", Phone = "0529879564", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 };
             customers[DataSource.Config.firstCustomer++] = new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Shimon", Phone = "0589675627", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 };
             customers[DataSource.Config.firstCustomer++] = new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Yehuda", Phone = "0509875873", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 };
+            #endregion
 
-
-
+            #region Adding parcels
             // drone Id == 0    means that the parcel didn't connected to a drone
             int P_id = 10000;
             parcels[DataSource.Config.firstParcel++] = new Parcel() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
@@ -74,6 +82,7 @@ namespace DalObject
             parcels[DataSource.Config.firstParcel++] = new Parcel() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
             parcels[DataSource.Config.firstParcel++] = new Parcel() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
             parcels[DataSource.Config.firstParcel++] = new Parcel() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };
+            #endregion
 
             Config.runNumOfParcel = 11 ;
             

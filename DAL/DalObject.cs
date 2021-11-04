@@ -9,6 +9,7 @@ namespace DalObject
 {
     public class DalObject
     {
+        #region Get a object, and add to the lists (public)
         public void Add_base_station(BaseStation baseStation)
         {
             DataSource.baseStations[DataSource.Config.firstBaseStation++] = baseStation;
@@ -34,8 +35,9 @@ namespace DalObject
         {
             DataSource.droneCharges[DataSource.Config.firstDroneCharge++] = droneCharge;
         }
+        #endregion
 
-
+        #region Get an object, and update the lists (public)
         public void UpdateBaseStation(BaseStation baseStation)
         {
             int i = find_index_parcel(baseStation.Id);
@@ -59,7 +61,9 @@ namespace DalObject
             int i = find_index_droneCharge_by_drone(droneCharge.DroneId);
             DataSource.droneCharges[i] = droneCharge;
         }
+        #endregion
 
+        #region Get id of object, and find his index att the array (private)
         private int find_index_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
@@ -105,7 +109,8 @@ namespace DalObject
             }
             return -1;
         }
-        
+        #endregion
+
         /*
         public IEnumerable<BaseStation> GetAllBaseStaition()
         {
@@ -113,7 +118,7 @@ namespace DalObject
         }
         */
 
-        //////////////////////////////////////////////////////////////////////////
+        #region Get an id of object, and return the object (public)
         public Parcel Find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
@@ -175,26 +180,38 @@ namespace DalObject
 
             return new DroneCharge();
         }
-        
+        #endregion
+
+        // ctor
         public DalObject()
         {
             DataSource.Initialize();
         }
 
 
+        #region Return the first free space at the lists (public)
         public int GetFirstFreeBaseStation()
         {
             return DataSource.Config.firstBaseStation;
         }
-
-        public BaseStation[] Get_all_base_stations()
-        {
-            return DataSource.baseStations;
-        }
-
         public int GetFirstDrone()
         {
             return DataSource.Config.firstDrone;
+        }
+        public int GetFirstCustomer()
+        {
+            return DataSource.Config.firstCustomer;
+        }
+        public int GetFirstFreeParcel()
+        {
+            return DataSource.Config.firstParcel;
+        }
+        #endregion
+
+        #region Return array of all of the objects (public)
+        public BaseStation[] Get_all_base_stations()
+        {
+            return DataSource.baseStations;
         }
 
         public Drone[] Get_all_drones()
@@ -202,25 +219,16 @@ namespace DalObject
             return DataSource.drones;
         }
 
-        public int GetFirstCustomer()
-        {
-            return DataSource.Config.firstCustomer;
-        }
-
         public Customer[] Get_all_customers()
         {
             return DataSource.customers;
-        }
-
-        public int GetFirstFreeParcel()
-        {
-            return DataSource.Config.firstParcel;
         }
 
         public Parcel[] Get_all_parcels()
         {
             return DataSource.parcels;
         }
+        #endregion
     }
 
 }
