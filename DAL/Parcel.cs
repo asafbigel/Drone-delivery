@@ -35,9 +35,10 @@ namespace IDAL
                 result += " Weight: " + Weight;
                 result += " Priority: " + Priority;
                 result += " DroneId: " + DroneId;
+                result += " Requested: " + Requested;
                 result += " Scheduled: " + Scheduled;
                 result += " PickedUp: " + PickedUp;
-                result += " Delivered: " + Priority + '\n';
+                result += " Delivered: " + Delivered + '\n';
                 return result;
             }
         }

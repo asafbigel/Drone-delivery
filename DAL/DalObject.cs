@@ -30,162 +30,37 @@ namespace DalObject
 
         }
 
-       
+        public void Add_DroneCharge(DroneCharge droneCharge)
+        {
+            DataSource.droneCharges[DataSource.Config.firstDroneCharge++] = droneCharge;
+        }
+
+
         public void UpdateBaseStation(BaseStation baseStation)
         {
-            int i = Find_index_parcel(baseStation.Id);
+            int i = find_index_parcel(baseStation.Id);
             DataSource.baseStations[i] = baseStation;
         }
 
         public void UpdateDrone(Drone drone)
         {
-            int i = Find_index_parcel(drone.Id);
+            int i = find_index_parcel(drone.Id);
             DataSource.drones[i] = drone;
         }
 
         public void UpdateParcel(Parcel parcel)
         {
-            int i = Find_index_parcel(parcel.Id);
+            int i = find_index_parcel(parcel.Id);
             DataSource.parcels[i] = parcel;
         }
 
-
-
-
-
-
-        public void drone_to_charge(int base_station_id, int drone_id)
+        public void UpdateDroneCharge(DroneCharge droneCharge)
         {
-            int i_baseStation = Find_index_baseStation(base_station_id);
-            DataSource.baseStations[i_baseStation].ChargeSlots--;
-            DataSource.droneCharges[DataSource.Config.firstDroneCharge++] = new DroneCharge() { DroneId = drone_id, StationId = base_station_id };
-            // change status of the drone to "maintenance"
-            DataSource.drones[Find_index_drone(drone_id)].Status = (DroneStatuses)1;
+            int i = find_index_droneCharge_by_drone(droneCharge.DroneId);
+            DataSource.droneCharges[i] = droneCharge;
         }
 
-        public void drone_from_charge(int drone_id)
-        {
-            int index_droneCharge = Find_index_droneCharge_by_drone(drone_id);
-            int station = DataSource.droneCharges[index_droneCharge].StationId;
-            int index_station = Find_index_baseStation(station);
-            int index_drone = Find_index_drone(drone_id);
-            DataSource.baseStations[index_station].ChargeSlots++;
-            DataSource.droneCharges[index_droneCharge].DroneId = 0;
-            DataSource.droneCharges[index_droneCharge].StationId = 0;
-           // change status of the drone to "vacant"
-           DataSource.drones[index_drone].Status = (DroneStatuses)0;
-        }
-
-
-        /*
-
-
-          public void Parcel_to_drone(int my_id, int my_DroneId)
-         {
-             int i = Find_index_parcel(my_id);
-             DataSource.parcels[i].DroneId = my_DroneId;
-             DataSource.parcels[i].Scheduled = DateTime.Now;
-         }
-        public void parcel_pick_up(int my_id)
-        {
-            int i = Find_index_parcel(my_id);
-            DataSource.parcels[i].PickedUp = DateTime.Now;
-        }
-
-        public void parcel_delivered_to_target(int my_id)
-        {
-            int i = Find_index_parcel(my_id);
-            DataSource.parcels[i].Delivered = DateTime.Now;
-        }
-
-         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-         public void print_baseStation(int my_id)
-         {
-             int i = Find_index_baseStation(my_id);
-             if (i != -1)
-             Console.WriteLine(DataSource.baseStations[i]);
-         }
-
-         public void print_drone(int my_id)
-         {
-             int i = Find_index_drone(my_id);
-             if(i!=-1)
-                 Console.WriteLine(DataSource.drones[i]);
-         }
-
-         public void print_customer(int my_id)
-         {
-             int i = Find_index_customer(my_id);
-             if (i != -1)
-                 Console.WriteLine(DataSource.customers[i]);
-         }
-
-         public void print_parcel(int my_id)
-         {
-             int i = Find_index_parcel(my_id);
-             if (i != -1)
-             Console.WriteLine(DataSource.parcels[i]);
-
-         }
-
-
-
-
-         public void print_all_baseStations()
-         {
-             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
-             {
-                 Console.WriteLine(DataSource.baseStations[i].Name + ": " + DataSource.baseStations[i].Id);
-             }
-         }
-
-         public void print_all_drones()
-         {
-             for (int i = 0; i < DataSource.Config.firstDrone; i++)
-             {
-                 Console.WriteLine(DataSource.drones[i].Id);
-             }
-         }
-
-         public void print_all_customers()
-         {
-             for (int i = 0; i < DataSource.Config.firstCustomer; i++)
-             {
-                 Console.WriteLine(DataSource.customers[i].Name + ": " + DataSource.customers[i].Id);
-             }
-         }
-
-         public void print_all_parcel()
-         {
-             for (int i = 0; i < DataSource.Config.firstParcel; i++)
-             {
-                 Console.WriteLine(DataSource.parcels[i].Id);
-             }
-         }
-
-
-
-         public void print_parcel_without_drone()
-         {
-             for (int i =0;  i < DataSource.Config.firstParcel; i++)
-             {
-                 if (DataSource.parcels[i].DroneId==0)
-                     Console.WriteLine(DataSource.parcels[i]);
-             }
-         }
-
-         public void print_baseStation_with_free_charger()
-         {
-             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
-             {
-                 if(DataSource.baseStations[i].ChargeSlots > 0)
-                     Console.WriteLine(DataSource.baseStations[i]);
-             }
-         }
-         */
-
-        public int Find_index_parcel(int my_id)
+        private int find_index_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
             {
@@ -194,7 +69,7 @@ namespace DalObject
             }
             return -1;
         }
-        public int Find_index_baseStation(int my_id)
+        private int find_index_baseStation(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
             {
@@ -203,7 +78,7 @@ namespace DalObject
             }
             return -1;
         }
-        public int Find_index_customer(int my_id)
+        private int find_index_customer(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstCustomer; i++)
             {
@@ -212,7 +87,7 @@ namespace DalObject
             }
             return -1;
         }
-        public int Find_index_drone(int my_id)
+        private int find_index_drone(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstDrone; i++)
             {
@@ -221,7 +96,7 @@ namespace DalObject
             }
             return -1;
         }
-        public int Find_index_droneCharge_by_drone(int my_drone_id)
+        private int find_index_droneCharge_by_drone(int my_drone_id)
         {
             for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
             {
@@ -230,11 +105,13 @@ namespace DalObject
             }
             return -1;
         }
-
+        
+        /*
         public IEnumerable<BaseStation> GetAllBaseStaition()
         {
             return DataSource.baseStations.ToList();
         }
+        */
 
         //////////////////////////////////////////////////////////////////////////
         public Parcel Find_parcel(int my_id)
@@ -247,15 +124,27 @@ namespace DalObject
             }
             return new Parcel();
         }
+
+        public DroneCharge Find_drone_charge(int my_drone_id)
+        {
+            for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
+            {
+                if (DataSource.droneCharges[i].DroneId == my_drone_id)
+                    return DataSource.droneCharges[i];
+            }
+            return new DroneCharge();
+        }
+
         public BaseStation Find_baseStation(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
             {
                 if (DataSource.baseStations[i].Id == my_id)
-                    return DataSource.baseStations[i]; 
+                    return DataSource.baseStations[i];
             }
             return new BaseStation();
         }
+
         public Customer Find_customer(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstCustomer; i++)
@@ -265,6 +154,7 @@ namespace DalObject
             }
             return new Customer();
         }
+
         public Drone Find_drone(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstDrone; i++)
@@ -274,9 +164,10 @@ namespace DalObject
             }
             return new Drone();
         }
-        public DroneCharge Find_droneCharge_by_drone(int my_drone_id)//????????????????????????????
+
+        public DroneCharge Find_droneCharge_by_drone(int my_drone_id)
         {
-            for (int i = 0; i <  DataSource.Config.firstDroneCharge; i++)
+            for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
             {
                 if (DataSource.droneCharges[i].DroneId == my_drone_id)
                     return DataSource.droneCharges[i];
@@ -284,21 +175,23 @@ namespace DalObject
 
             return new DroneCharge();
         }
+        
         public DalObject()
         {
             DataSource.Initialize();
         }
-//*******************************************************************
+
+
         public int GetFirstFreeBaseStation()
         {
-           return DataSource.Config.firstBaseStation;
+            return DataSource.Config.firstBaseStation;
         }
 
         public BaseStation[] Get_all_base_stations()
         {
             return DataSource.baseStations;
         }
-        
+
         public int GetFirstDrone()
         {
             return DataSource.Config.firstDrone;
@@ -308,7 +201,7 @@ namespace DalObject
         {
             return DataSource.drones;
         }
-        
+
         public int GetFirstCustomer()
         {
             return DataSource.Config.firstCustomer;
@@ -328,6 +221,142 @@ namespace DalObject
         {
             return DataSource.parcels;
         }
-
     }
+
 }
+
+
+
+
+/*
+
+public void drone_to_charge(int base_station_id, int drone_id)
+{
+ int i_baseStation = find_index_baseStation(base_station_id);
+ DataSource.baseStations[i_baseStation].ChargeSlots--;
+ DataSource.droneCharges[DataSource.Config.firstDroneCharge++] = new DroneCharge() { DroneId = drone_id, StationId = base_station_id };
+ // change status of the drone to "maintenance"
+ DataSource.drones[find_index_drone(drone_id)].Status = (DroneStatuses)1;
+}
+
+public void drone_from_charge(int drone_id)
+{
+ int index_droneCharge = find_index_droneCharge_by_drone(drone_id);
+ int station = DataSource.droneCharges[index_droneCharge].StationId;
+ int index_station = find_index_baseStation(station);
+ int index_drone = find_index_drone(drone_id);
+ DataSource.baseStations[index_station].ChargeSlots++;
+ DataSource.droneCharges[index_droneCharge].DroneId = 0;
+ DataSource.droneCharges[index_droneCharge].StationId = 0;
+// change status of the drone to "vacant"
+DataSource.drones[index_drone].Status = (DroneStatuses)0;
+}
+
+
+
+
+
+public void Parcel_to_drone(int my_id, int my_DroneId)
+{
+  int i = find_index_parcel(my_id);
+  DataSource.parcels[i].DroneId = my_DroneId;
+  DataSource.parcels[i].Scheduled = DateTime.Now;
+}
+public void parcel_pick_up(int my_id)
+{
+ int i = find_index_parcel(my_id);
+ DataSource.parcels[i].PickedUp = DateTime.Now;
+}
+
+public void parcel_delivered_to_target(int my_id)
+{
+ int i = find_index_parcel(my_id);
+ DataSource.parcels[i].Delivered = DateTime.Now;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+public void print_baseStation(int my_id)
+{
+  int i = find_index_baseStation(my_id);
+  if (i != -1)
+  Console.WriteLine(DataSource.baseStations[i]);
+}
+
+public void print_drone(int my_id)
+{
+  int i = find_index_drone(my_id);
+  if(i!=-1)
+      Console.WriteLine(DataSource.drones[i]);
+}
+
+public void print_customer(int my_id)
+{
+  int i = find_index_customer(my_id);
+  if (i != -1)
+      Console.WriteLine(DataSource.customers[i]);
+}
+
+public void print_parcel(int my_id)
+{
+  int i = find_index_parcel(my_id);
+  if (i != -1)
+  Console.WriteLine(DataSource.parcels[i]);
+
+}
+
+
+
+
+public void print_all_baseStations()
+{
+  for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
+  {
+      Console.WriteLine(DataSource.baseStations[i].Name + ": " + DataSource.baseStations[i].Id);
+  }
+}
+
+public void print_all_drones()
+{
+  for (int i = 0; i < DataSource.Config.firstDrone; i++)
+  {
+      Console.WriteLine(DataSource.drones[i].Id);
+  }
+}
+
+public void print_all_customers()
+{
+  for (int i = 0; i < DataSource.Config.firstCustomer; i++)
+  {
+      Console.WriteLine(DataSource.customers[i].Name + ": " + DataSource.customers[i].Id);
+  }
+}
+
+public void print_all_parcel()
+{
+  for (int i = 0; i < DataSource.Config.firstParcel; i++)
+  {
+      Console.WriteLine(DataSource.parcels[i].Id);
+  }
+}
+
+
+
+public void print_parcel_without_drone()
+{
+  for (int i =0;  i < DataSource.Config.firstParcel; i++)
+  {
+      if (DataSource.parcels[i].DroneId==0)
+          Console.WriteLine(DataSource.parcels[i]);
+  }
+}
+
+public void print_baseStation_with_free_charger()
+{
+  for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
+  {
+      if(DataSource.baseStations[i].ChargeSlots > 0)
+          Console.WriteLine(DataSource.baseStations[i]);
+  }
+}
+*/

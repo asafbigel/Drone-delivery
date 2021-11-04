@@ -75,7 +75,7 @@ namespace DalObject
             parcels[DataSource.Config.firstParcel++] = new Parcel() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };                       
             parcels[DataSource.Config.firstParcel++] = new Parcel() { Id = (P_id++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 };
 
-            Config.runNumOfParcel = P_id ;
+            Config.runNumOfParcel = 11 ;
             
         }
 
