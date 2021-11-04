@@ -10,7 +10,8 @@ namespace ConsoleUI
        send_drone_to_charge, put_out_drone_from_charge, print_a_base_station, print_a_drone, print_a_customer, print_a_parcel, 
        print_all_base_stations, print_all_drones, print_all_customers, 
        print_all_parcels, print_all_parcels_that_have_not_yet_been_connect_to_drone, 
-       print_all_base_stations_with_free_charge_slot
+       print_all_base_stations_with_free_charge_slot,
+       show_options
     }
 
     
@@ -53,6 +54,8 @@ namespace ConsoleUI
                         break;
 
                     case Options.delivery_parcel_to_customer:
+                        main_delivery_parcel_to_customer();
+
                         break;
 
                     case Options.send_drone_to_charge:
@@ -103,6 +106,10 @@ namespace ConsoleUI
                         main_print_all_base_stations_with_free_charge_slot();
                         break;
 
+                    case Options.show_options:
+                        show_menu();
+                        break;
+
 
                     default:
                         Console.WriteLine("Wrong input. Try again");
@@ -118,6 +125,7 @@ namespace ConsoleUI
         #region Printing function
         private static void main_print_all_parcels_that_have_not_yet_been_connect_to_drone()
         {
+            Console.WriteLine("parcels that have not yet been connect to drone:");
             Parcel[] all_parcels = mydal.Get_all_parcels();
             for (int i = 0; i < mydal.GetFirstFreeParcel(); i++)
             {
@@ -128,6 +136,7 @@ namespace ConsoleUI
        
         private static void main_print_all_base_stations_with_free_charge_slot()
         {
+            Console.WriteLine("base stations with free charge slot");
             BaseStation[] all_baseStations = mydal.Get_all_base_stations();
             for (int i = 0; i < mydal.GetFirstFreeBaseStation(); i++)
             {
@@ -138,6 +147,7 @@ namespace ConsoleUI
 
         private static void main_print_all_parcels()
         {
+            Console.WriteLine("parcels:");
             Parcel[] all_parcels = mydal.Get_all_parcels();
 
             for (int i = 0; i < mydal.GetFirstFreeParcel(); i++)
@@ -148,8 +158,8 @@ namespace ConsoleUI
 
         private static void main_print_all_customers()
         {
+            Console.WriteLine("customers:");
             Customer[] all_customers = mydal.Get_all_customers();
-
             for (int i = 0; i < mydal.GetFirstCustomer(); i++)
             {
                 Console.Write(all_customers[i]);
@@ -158,6 +168,7 @@ namespace ConsoleUI
 
         private static void main_print_all_drones()
         {
+            Console.WriteLine("drones:");
             Drone[] all_drones = mydal.Get_all_drones();
 
             for (int i = 0; i < mydal.GetFirstDrone(); i++)
@@ -168,6 +179,7 @@ namespace ConsoleUI
 
         private static void main_print_all_base_stations()
         {
+            Console.WriteLine("base stations:");
             BaseStation[] all_baseStations = mydal.Get_all_base_stations();
             for (int i = 0; i < mydal.GetFirstFreeBaseStation(); i++)
             {
@@ -221,6 +233,7 @@ namespace ConsoleUI
             int my_baseStation_id = droneCharge.StationId;
             BaseStation baseStation = mydal.Find_baseStation(my_baseStation_id);
             baseStation.ChargeSlots++;
+            int previous_DroneId = droneCharge.DroneId;
             droneCharge.DroneId = 0;
             droneCharge.StationId = 0;
             Drone drone = mydal.Find_drone(my_drone_id);
@@ -228,7 +241,7 @@ namespace ConsoleUI
             drone.Status = (DroneStatuses)0;
             mydal.UpdateBaseStation(baseStation);
             mydal.UpdateDrone(drone);
-            mydal.UpdateDroneCharge(droneCharge);
+            mydal.UpdateDroneCharge(droneCharge, previous_DroneId);
         }
 
         private static void main_send_drone_to_charge()
@@ -274,13 +287,20 @@ namespace ConsoleUI
             parcel.PickedUp = DateTime.Now;
             mydal.UpdateParcel(parcel);
         }
+
+        private static void main_delivery_parcel_to_customer()
+        {
+            int my_id = Input_parcel_id();
+            Parcel parcel = mydal.Find_parcel(my_id);
+            parcel.Delivered = DateTime.Now;
+            mydal.UpdateParcel(parcel);
+        }
         #endregion
 
         #region Adding objects to the data
         private static void main_add_parcel()
         {
-            Console.Write("Enter id: ");
-            int my_id = int.Parse(Console.ReadLine());
+            int my_id = mydal.GetAndUpdateRunNumber();
 
             Console.Write("Enter sender Id: ");
             int my_senderId = int.Parse(Console.ReadLine());
@@ -324,6 +344,7 @@ namespace ConsoleUI
                 Requested = my_Requested
             };
             mydal.Add_parcel(parcel);
+            Console.WriteLine("Parcel ID is: " + my_id);
         }
 
         private static void main_add_customer()
