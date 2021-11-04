@@ -235,11 +235,12 @@ namespace ConsoleUI
         {
             Console.Write("Enter drone ID: ");
             int my_drone_id = int.Parse(Console.ReadLine());
-            Console.WriteLine("Choose base station frim the list:");
+            Console.WriteLine("Choose base station from the list:");
             main_print_all_base_stations_with_free_charge_slot();
+            Console.WriteLine("Enter base station ID: ");
             int my_baseStation_id = int.Parse(Console.ReadLine());
 
-            DroneCharge droneCharge = new()
+            DroneCharge droneCharge = new DroneCharge()
             {
                 DroneId = my_drone_id,
                 StationId = my_baseStation_id
