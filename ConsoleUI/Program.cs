@@ -121,6 +121,13 @@ namespace ConsoleUI
             }
         }
 
+        /*
+public IEnumerable<BaseStation> GetAllBaseStaition()
+{
+    return DataSource.baseStations.ToList();
+}
+        */
+
 
         #region Printing function
         private static void main_print_all_parcels_that_have_not_yet_been_connect_to_drone()

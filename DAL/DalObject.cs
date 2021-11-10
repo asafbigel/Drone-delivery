@@ -3,34 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL;
 using IDAL.DO;
+
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject : IDal
     {
         #region Get a object, and add to the lists (public)
         public void Add_base_station(BaseStation baseStation)
         {
-            DataSource.baseStations[DataSource.Config.firstBaseStation++] = baseStation;
+            if (DataSource.BaseStations.Any(bs => bs.Id == baseStation.Id))
+            {
+                throw new BaseStationExeption("id allready exist");
+            }
+            DataSource.BaseStations.Add(baseStation);
         }
-
         public void Add_drone(Drone drone)
         {
-            DataSource.drones[DataSource.Config.firstDrone++] = drone;
+            if (DataSource.Drones.Any(dr => dr.Id == drone.Id))
+                throw new DroneExeption("id allready exist");
+            DataSource.Drones.Add(drone);
         }
-
         public void Add_customer(Customer customer)
         {
-            DataSource.customers[DataSource.Config.firstCustomer++] = customer;
+            if (DataSource.Customers.Any(cs => cs.Id == customer.Id))
+                throw new CustomerExeption("id allready exist");
+            DataSource.Customers.Add(customer);
         }
-
         public void Add_parcel(Parcel parcel)
         {
-            DataSource.parcels[DataSource.Config.firstParcel++] = parcel;
-
+            if (DataSource.Parcels.Any(pr => pr.Id == parcel.Id))
+                throw new ParcelExeption("id allready exist");
+            DataSource.Parcels.Add(parcel);
         }
-
         public void Add_DroneCharge(DroneCharge droneCharge)
         {
             DataSource.droneCharges[DataSource.Config.firstDroneCharge++] = droneCharge;
@@ -43,19 +50,16 @@ namespace DalObject
             int i = find_index_baseStation(baseStation.Id);
             DataSource.baseStations[i] = baseStation;
         }
-
         public void UpdateDrone(Drone drone)
         {
             int i = find_index_drone(drone.Id);
             DataSource.drones[i] = drone;
         }
-
         public void UpdateParcel(Parcel parcel)
         {
             int i = find_index_parcel(parcel.Id);
             DataSource.parcels[i] = parcel;
         }
-
         public void UpdateDroneCharge(DroneCharge droneCharge, int DroneId)
         {
             int i = find_index_droneCharge_by_drone(DroneId);
@@ -63,7 +67,7 @@ namespace DalObject
         }
         #endregion
 
-        #region Get id of object, and find his index att the array (private)
+        #region Get id of object, and find his index at the array (private)
         private int find_index_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstParcel; i++)
@@ -111,7 +115,6 @@ namespace DalObject
         }
         #endregion
 
-
         #region Get an id of object, and return the object (public)
         public Parcel Find_parcel(int my_id)
         {
@@ -123,7 +126,6 @@ namespace DalObject
             }
             return new Parcel();
         }
-
         public DroneCharge Find_drone_charge(int my_drone_id)
         {
             for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
@@ -133,7 +135,6 @@ namespace DalObject
             }
             return new DroneCharge();
         }
-
         public BaseStation Find_baseStation(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstBaseStation; i++)
@@ -143,7 +144,6 @@ namespace DalObject
             }
             return new BaseStation();
         }
-
         public Customer Find_customer(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstCustomer; i++)
@@ -153,7 +153,6 @@ namespace DalObject
             }
             return new Customer();
         }
-
         public Drone Find_drone(int my_id)
         {
             for (int i = 0; i < DataSource.Config.firstDrone; i++)
@@ -163,7 +162,6 @@ namespace DalObject
             }
             return new Drone();
         }
-
         public DroneCharge Find_droneCharge_by_drone(int my_drone_id)
         {
             for (int i = 0; i < DataSource.Config.firstDroneCharge; i++)
@@ -207,17 +205,14 @@ namespace DalObject
         {
             return DataSource.baseStations;
         }
-
         public Drone[] Get_all_drones()
         {
             return DataSource.drones;
         }
-
         public Customer[] Get_all_customers()
         {
             return DataSource.customers;
         }
-
         public Parcel[] Get_all_parcels()
         {
             return DataSource.parcels;
