@@ -1,23 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using DalObject;
 using IDAL.DO;
 namespace ConsoleUI
 {
     public enum Options
     {
-       exit, new_base_station, new_drone, new_customer, new_parcel,
-        connect_parcel_to_drone, take_parcel_by_drone, delivery_parcel_to_customer, 
-       send_drone_to_charge, put_out_drone_from_charge, print_a_base_station, print_a_drone, print_a_customer, print_a_parcel, 
-       print_all_base_stations, print_all_drones, print_all_customers, 
-       print_all_parcels, print_all_parcels_that_have_not_yet_been_connect_to_drone, 
-       print_all_base_stations_with_free_charge_slot,
-       show_options
+        exit, new_base_station, new_drone, new_customer, new_parcel,
+        connect_parcel_to_drone, take_parcel_by_drone, delivery_parcel_to_customer,
+        send_drone_to_charge, put_out_drone_from_charge, print_a_base_station, print_a_drone, print_a_customer, print_a_parcel,
+        print_all_base_stations, print_all_drones, print_all_customers,
+        print_all_parcels, print_all_parcels_that_have_not_yet_been_connect_to_drone,
+        print_all_base_stations_with_free_charge_slot,
+        show_options
     }
 
-    
+
     class Program
     {
-        static DalObject.DalObject mydal = new  DalObject.DalObject();
+        static DalObject.DalObject mydal = new DalObject.DalObject();
         static void Main(string[] args)
         {
 
@@ -133,19 +134,19 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         private static void main_print_all_parcels_that_have_not_yet_been_connect_to_drone()
         {
             Console.WriteLine("parcels that have not yet been connect to drone:");
-            Parcel[] all_parcels = mydal.Get_all_parcels();
-            for (int i = 0; i < mydal.GetFirstFreeParcel(); i++)
+            List<Parcel> all_parcels = mydal.Get_all_parcels();
+            foreach (var item in all_parcels)
             {
-                if (all_parcels[i].DroneId == 0)
-                    Console.Write(all_parcels[i]);
+                if (item.DroneId == 0)
+                    Console.Write(item);
             }
         }
-       
+
         private static void main_print_all_base_stations_with_free_charge_slot()
         {
             Console.WriteLine("base stations with free charge slot");
-            BaseStation[] all_baseStations = mydal.Get_all_base_stations();
-            for (int i = 0; i < mydal.GetFirstFreeBaseStation(); i++)
+            List<BaseStation> all_baseStations = mydal.Get_all_base_stations();
+            for (int i = 0; i < all_baseStations.Count; i++)
             {
                 if (all_baseStations[i].ChargeSlots > 0)
                     Console.Write(all_baseStations[i]);
@@ -155,9 +156,9 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         private static void main_print_all_parcels()
         {
             Console.WriteLine("parcels:");
-            Parcel[] all_parcels = mydal.Get_all_parcels();
+            List<Parcel> all_parcels = mydal.Get_all_parcels();
 
-            for (int i = 0; i < mydal.GetFirstFreeParcel(); i++)
+            for (int i = 0; i < all_parcels.Count; i++)
             {
                 Console.Write(all_parcels[i]);
             }
@@ -166,8 +167,8 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         private static void main_print_all_customers()
         {
             Console.WriteLine("customers:");
-            Customer[] all_customers = mydal.Get_all_customers();
-            for (int i = 0; i < mydal.GetFirstCustomer(); i++)
+            List<Customer> all_customers = mydal.Get_all_customers();
+            for (int i = 0; i < all_customers.Count; i++)
             {
                 Console.Write(all_customers[i]);
             }
@@ -176,9 +177,8 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         private static void main_print_all_drones()
         {
             Console.WriteLine("drones:");
-            Drone[] all_drones = mydal.Get_all_drones();
-
-            for (int i = 0; i < mydal.GetFirstDrone(); i++)
+            List<Drone> all_drones = mydal.Get_all_drones();
+            for (int i = 0; i < all_drones.Count; i++)
             {
                 Console.Write(all_drones[i]);
             }
@@ -187,8 +187,8 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         private static void main_print_all_base_stations()
         {
             Console.WriteLine("base stations:");
-            BaseStation[] all_baseStations = mydal.Get_all_base_stations();
-            for (int i = 0; i < mydal.GetFirstFreeBaseStation(); i++)
+            List<BaseStation> all_baseStations = mydal.Get_all_base_stations();
+            for (int i = 0; i < all_baseStations.Count; i++)
             {
                 Console.Write(all_baseStations[i]);
             }
@@ -327,8 +327,8 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
             Console.Write("Enter Scheduled: ");
             DateTime my_Scheduled = DateTime.Parse(Console.ReadLine());
 
-           // Console.Write("Enter PickedUp: ");
-           // DateTime my_PickedUp = DateTime.Parse(Console.ReadLine());
+            // Console.Write("Enter PickedUp: ");
+            // DateTime my_PickedUp = DateTime.Parse(Console.ReadLine());
             DateTime my_PickedUp = default(DateTime);
 
             // Console.Write("Enter Delivered: ");
@@ -437,7 +437,7 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
 
             // Adding options
             int length = Enum.GetValues(typeof(Options)).Length;
-            for (int i = 0; i < length ; i++)
+            for (int i = 0; i < length; i++)
             {
                 Console.WriteLine($"{i}: to {(Options)i}");
             }
@@ -474,7 +474,7 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
             */
         }
 
-        // Help function, ask id num frim the user, and return it
+        // Help function, ask id num from the user, and return it
         private static int Input_parcel_id()
         {
             Console.WriteLine("Enter parcel Id to connect:");

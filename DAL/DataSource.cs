@@ -15,12 +15,14 @@ namespace DalObject
         internal static List<BaseStation> BaseStations = new List<BaseStation>();
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<Parcel> Parcels = new List<Parcel>();
+        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
         //internal static BaseStation[] baseStations = new BaseStation[5];
         //internal static Customer[] customers= new Customer[100];
         //internal static Parcel[] parcels = new Parcel[1000];
         //internal static DroneCharge[] droneCharges = new DroneCharge[50];
+
         #endregion
-        
+
         // internal data (the first free index at the arrays, and the run number of the parcels
         internal class Config
         {
@@ -29,7 +31,7 @@ namespace DalObject
           //  internal static int firstCustomer =0;
           //  internal static int firstParcel =0;
           // internal static int firstDroneCharge =0;
-          //  internal static int runNumOfParcel;
+            internal static int runNumOfParcel;
         }
 
         //ctor
