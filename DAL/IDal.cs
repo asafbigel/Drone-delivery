@@ -25,6 +25,8 @@ namespace IDAL
         IEnumerable<Customer> Get_all_customers();
         IEnumerable<Drone> Get_all_drones();
         IEnumerable<Parcel> Get_all_parcels();
+        IEnumerable<Parcel> Get_all_parcels_that_have_not_yet_been_connect_to_drone();
+        IEnumerable<BaseStation> Get_all_base_stations_with_free_charge_slot();
         #endregion
         #region Update
         void UpdateBaseStation(BaseStation baseStation);

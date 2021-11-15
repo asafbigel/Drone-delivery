@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Customer
+    class CustomerToList
     {
         int id;
         string name;
         int phone;
-        Space space;
-        List<Parcel> parcels_at_customer_from;
-        List<Parcel> parcels_at_customer_for;
+        int num_of_parcels_sent_and_arrived;
+        int num_of_parcels_sent_and_not_arrived;
+        int num_of_parcels_got;
+        int num_of_parcels_to_get;
     }
 }

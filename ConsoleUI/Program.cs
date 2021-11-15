@@ -18,7 +18,8 @@ namespace ConsoleUI
 
     class Program
     {
-        static DalObject.DalObject mydal = new DalObject.DalObject();
+        //static DalObject.DalObject mydal = new DalObject.DalObject();
+        static IDAL.IDal mydal = new DalObject.DalObject();
         static void Main(string[] args)
         {
 
