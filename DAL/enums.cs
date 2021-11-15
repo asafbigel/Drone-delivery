@@ -12,10 +12,10 @@ namespace IDAL
         {
             light, medium, heavy
         }
-        public enum DroneStatuses
+        /*public enum DroneStatuses
         {
             vacant, maintenance, sending
-        }
+        }*/
         public enum Priorities
         {
             regular, fast, emergency 

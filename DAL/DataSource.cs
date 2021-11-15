@@ -23,15 +23,16 @@ namespace DalObject
 
         #endregion
 
-        // internal data (the first free index at the arrays, and the run number of the parcels
+        // internal data (the first free index at the arrays, and the run number of the parcels)
         internal class Config
         {
-          //  internal static int firstDrone =0;
-          //  internal static int firstBaseStation =0 ;
-          //  internal static int firstCustomer =0;
-          //  internal static int firstParcel =0;
-          // internal static int firstDroneCharge =0;
             internal static int runNumOfParcel;
+            internal static double Electricity_free;
+            internal static double Electricity_light;
+            internal static double Electricity_medium;
+            internal static double Electricity_heavy;
+            internal static double Charge_at_hour;
+
         }
 
         //ctor
@@ -51,11 +52,11 @@ namespace DalObject
             // Battery is between 5-100
             int batt = rand.Next(5, 101);
             int D_id = rand.Next(0, 9000);
-            Drones.Add(new Drone() { Battery = batt, Id = (D_id) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1945", Status = (DroneStatuses)rand.Next(0, 3) });
-            Drones.Add(new Drone() { Battery = ((batt + 13) % 95) + 5, Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989", Status = (DroneStatuses)rand.Next(0, 3) });
-            Drones.Add(new Drone() { Battery = ((batt + 13) % 95) + 5, Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989", Status = (DroneStatuses)rand.Next(0, 3) });
-            Drones.Add(new Drone() { Battery = ((batt + 13) % 95) + 5, Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2010", Status = (DroneStatuses)rand.Next(0, 3) });
-            Drones.Add(new Drone() { Battery = ((batt + 13) % 95) + 5, Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2017", Status = (DroneStatuses)rand.Next(0, 3) });
+            Drones.Add(new Drone() { Id = (D_id) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1945"});
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989"});
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989"});
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2010"});
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2017"});
             #endregion
 
             #region Adding customers

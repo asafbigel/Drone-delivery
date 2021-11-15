@@ -9,7 +9,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject : IDal
     {
         #region Get a object, and add to the lists (public)
         public void Add_base_station(BaseStation baseStation)
@@ -181,8 +181,7 @@ namespace DalObject
             DataSource.Initialize();
         }
 
-        //Only //
-        #region Return the first free space at the lists (public)
+        #region //Return the first free space at the lists (public)
         //public int GetFirstFreeBaseStation()
         //{
         //    return DataSource.BaseStation;
@@ -202,19 +201,19 @@ namespace DalObject
         #endregion
 
         #region Return array of all of the objects (public)
-        public List<BaseStation> Get_all_base_stations()
+        public IEnumerable<BaseStation> Get_all_base_stations()
         {
             return DataSource.BaseStations;
         }
-        public List<Drone> Get_all_drones()
+        public IEnumerable<Drone> Get_all_drones()
         {
             return DataSource.Drones;
         }
-        public List<Customer> Get_all_customers()
+        public IEnumerable<Customer> Get_all_customers()
         {
             return DataSource.Customers;
         }
-        public List<Parcel> Get_all_parcels()
+        public IEnumerable<Parcel> Get_all_parcels()
         {
             return DataSource.Parcels;
         }
@@ -226,6 +225,20 @@ namespace DalObject
             return DataSource.Config.runNumOfParcel++;
         }
         #endregion
+
+        public double[] ElectricityUse()
+        {
+            double[] arr = new double[]
+            {
+                DataSource.Config.Electricity_free,
+                DataSource.Config.Electricity_light,
+                DataSource.Config.Electricity_medium,
+                DataSource.Config.Electricity_heavy,
+                DataSource.Config.Charge_at_hour
+            };
+            return arr;
+    }
+
     }
 
 }

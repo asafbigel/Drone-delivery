@@ -122,19 +122,12 @@ namespace ConsoleUI
             }
         }
 
-        /*
-public IEnumerable<BaseStation> GetAllBaseStaition()
-{
-    return DataSource.baseStations.ToList();
-}
-        */
-
 
         #region Printing function
         private static void main_print_all_parcels_that_have_not_yet_been_connect_to_drone()
         {
             Console.WriteLine("parcels that have not yet been connect to drone:");
-            List<Parcel> all_parcels = mydal.Get_all_parcels();
+            IEnumerable<Parcel> all_parcels = mydal.Get_all_parcels();
             foreach (var item in all_parcels)
             {
                 if (item.DroneId == 0)
@@ -145,52 +138,52 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         private static void main_print_all_base_stations_with_free_charge_slot()
         {
             Console.WriteLine("base stations with free charge slot");
-            List<BaseStation> all_baseStations = mydal.Get_all_base_stations();
-            for (int i = 0; i < all_baseStations.Count; i++)
+            IEnumerable<BaseStation> all_baseStations = mydal.Get_all_base_stations();
+            foreach (var item in all_baseStations)
             {
-                if (all_baseStations[i].ChargeSlots > 0)
-                    Console.Write(all_baseStations[i]);
+                if (item.ChargeSlots > 0)
+                    Console.Write(item);
             }
         }
 
         private static void main_print_all_parcels()
         {
             Console.WriteLine("parcels:");
-            List<Parcel> all_parcels = mydal.Get_all_parcels();
+            IEnumerable<Parcel> all_parcels = mydal.Get_all_parcels();
 
-            for (int i = 0; i < all_parcels.Count; i++)
+            foreach (var item in all_parcels)
             {
-                Console.Write(all_parcels[i]);
+                Console.Write(item);
             }
         }
 
         private static void main_print_all_customers()
         {
             Console.WriteLine("customers:");
-            List<Customer> all_customers = mydal.Get_all_customers();
-            for (int i = 0; i < all_customers.Count; i++)
+            IEnumerable<Customer> all_customers = mydal.Get_all_customers();
+            foreach (var item in all_customers)
             {
-                Console.Write(all_customers[i]);
+                Console.Write(item);
             }
         }
 
         private static void main_print_all_drones()
         {
             Console.WriteLine("drones:");
-            List<Drone> all_drones = mydal.Get_all_drones();
-            for (int i = 0; i < all_drones.Count; i++)
+            IEnumerable<Drone> all_drones = mydal.Get_all_drones();
+            foreach (var item in all_drones)
             {
-                Console.Write(all_drones[i]);
+                Console.Write(item);
             }
         }
 
         private static void main_print_all_base_stations()
         {
             Console.WriteLine("base stations:");
-            List<BaseStation> all_baseStations = mydal.Get_all_base_stations();
-            for (int i = 0; i < all_baseStations.Count; i++)
+            IEnumerable<BaseStation> all_baseStations = mydal.Get_all_base_stations();
+            foreach (var item in all_baseStations)
             {
-                Console.Write(all_baseStations[i]);
+                Console.Write(item);
             }
         }
 
@@ -244,8 +237,8 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
             droneCharge.DroneId = 0;
             droneCharge.StationId = 0;
             Drone drone = mydal.Find_drone(my_drone_id);
-            // change status of the drone to "vacant"
-            drone.Status = (DroneStatuses)0;
+            //// change status of the drone to "vacant"
+            //drone.Status = (DroneStatuses)0;
             mydal.UpdateBaseStation(baseStation);
             mydal.UpdateDrone(drone);
             mydal.UpdateDroneCharge(droneCharge, previous_DroneId);
@@ -255,7 +248,7 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         {
             Console.Write("Enter drone ID: ");
             int my_drone_id = int.Parse(Console.ReadLine());
-            Console.WriteLine("Choose base station from the list:");
+            Console.WriteLine("Choose base station from the IEnumerable:");
             main_print_all_base_stations_with_free_charge_slot();
             Console.WriteLine("Enter base station ID: ");
             int my_baseStation_id = int.Parse(Console.ReadLine());
@@ -268,8 +261,8 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
             BaseStation baseStation = mydal.Find_baseStation(my_baseStation_id);
             Drone drone = mydal.Find_drone(my_drone_id);
             baseStation.ChargeSlots--;
-            // change status of the drone to "maintenance"
-            drone.Status = (DroneStatuses)1;
+            //// change status of the drone to "maintenance"
+            //drone.Status = (DroneStatuses)1;
             mydal.Add_DroneCharge(droneCharge);
             mydal.UpdateBaseStation(baseStation);
             mydal.UpdateDrone(drone);
@@ -388,18 +381,18 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
             string model = Console.ReadLine();
             Console.Write("Enter maxWeight: ");
             WeightCategories maxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Console.ReadLine());
-            Console.Write("Enter status: ");
-            DroneStatuses status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), Console.ReadLine());
-            Console.Write("Enter battery: ");
-            double battery = double.Parse(Console.ReadLine());
+            //Console.Write("Enter status: ");
+            //DroneStatuses status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), Console.ReadLine());
+            //Console.Write("Enter battery: ");
+            //double battery = double.Parse(Console.ReadLine());
             Drone drone = new Drone()
             {
 
                 Id = my_id,
                 Model = model,
                 MaxWeight = maxWeight,
-                Status = status,
-                Battery = battery
+                //Status = status,
+                //Battery = battery
             };
 
             mydal.Add_drone(drone);
@@ -434,7 +427,6 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
         private static void show_menu()
         {
             Console.WriteLine("Choose what to do:");
-
             // Adding options
             int length = Enum.GetValues(typeof(Options)).Length;
             for (int i = 0; i < length; i++)
@@ -460,7 +452,7 @@ public IEnumerable<BaseStation> GetAllBaseStaition()
             Console.WriteLine("12: to print a customer");
             Console.WriteLine("13: to print a parcel");
 
-            // disply list options
+            // disply IEnumerable options
             Console.WriteLine("14: to print all base stations");
             Console.WriteLine("15: to print all drones");
             Console.WriteLine("16: to print all customers");
