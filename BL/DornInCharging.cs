@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class CustomerAtParcel
+    class DornInCharging
     {
-        int id;
-        string customer_name;
-
+        public int Id { get; set; }
+     
+        public double Battery { get; set; }
     }
 }
-

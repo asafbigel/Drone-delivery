@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Drone
+    class DroneToList
     {
         public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
         public double Battery { get; set; }
         public DroneStatuses Status { get; set; }
-     
-        public override string ToString()
+        Space location { get; set; };
+        int numOfParcel { get; set; };
+        /*public override string ToString()
         {
             string result = "";
             result += "ID: " + Id;
@@ -24,6 +25,9 @@ namespace IBL.BO
             result += " Battery: " + Battery;
             result += '\n';
             return result;
-        }
+        }*/
     }
+
+
+}
 }
