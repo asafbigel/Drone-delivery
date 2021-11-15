@@ -181,25 +181,6 @@ namespace DalObject
             DataSource.Initialize();
         }
 
-        #region //Return the first free space at the lists (public)
-        //public int GetFirstFreeBaseStation()
-        //{
-        //    return DataSource.BaseStation;
-        //}
-        //public int GetFirstDrone()
-        //{
-        //    return DataSource.Drone;
-        //}
-        //public int GetFirstCustomer()
-        //{
-        //    return DataSource.Customer;
-        //}
-        //public int GetFirstFreeParcel()
-        //{
-        //    return DataSource.Parcel;
-        //}
-        #endregion
-
         #region Return array of all of the objects (public)
         public IEnumerable<BaseStation> Get_all_base_stations()
         {
@@ -216,6 +197,28 @@ namespace DalObject
         public IEnumerable<Parcel> Get_all_parcels()
         {
             return DataSource.Parcels;
+        }
+        public IEnumerable<Parcel> Get_all_parcels_that_have_not_yet_been_connect_to_drone()
+        {
+            List<Parcel> all_parcels = DataSource.Parcels;
+            List<Parcel> returned_all_parcels = new List<Parcel>();
+            foreach (var item in all_parcels)
+            {
+                if (item.DroneId == 0)
+                    returned_all_parcels.Add(item);
+            }
+            return returned_all_parcels;
+        }
+        public IEnumerable<BaseStation> Get_all_base_stations_with_free_charge_slot()
+        {
+            List<BaseStation> all_BaseStations = DataSource.BaseStations;
+            List<BaseStation> returned_all_BaseStation = new List<BaseStation>();
+            foreach (var item in all_BaseStations)
+            {
+                if (item.ChargeSlots > 0)
+                    returned_all_BaseStation.Add(item);
+            }
+            return returned_all_BaseStation;
         }
         #endregion
 

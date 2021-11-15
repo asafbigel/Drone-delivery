@@ -127,22 +127,20 @@ namespace ConsoleUI
         private static void main_print_all_parcels_that_have_not_yet_been_connect_to_drone()
         {
             Console.WriteLine("parcels that have not yet been connect to drone:");
-            IEnumerable<Parcel> all_parcels = mydal.Get_all_parcels();
+            IEnumerable<Parcel> all_parcels = mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone();
             foreach (var item in all_parcels)
             {
-                if (item.DroneId == 0)
-                    Console.Write(item);
+                Console.Write(item);
             }
         }
 
         private static void main_print_all_base_stations_with_free_charge_slot()
         {
             Console.WriteLine("base stations with free charge slot");
-            IEnumerable<BaseStation> all_baseStations = mydal.Get_all_base_stations();
+            IEnumerable<BaseStation> all_baseStations = mydal.Get_all_base_stations_with_free_charge_slot();
             foreach (var item in all_baseStations)
             {
-                if (item.ChargeSlots > 0)
-                    Console.Write(item);
+                Console.Write(item);
             }
         }
 
