@@ -8,8 +8,8 @@ namespace IBL.BO
 {
     class CustomerAtParcel
     {
-        int id;
-        string customer_name;
+        public int id { get; set; }
+        public string customer_name { get; set; }
 
     }
 }

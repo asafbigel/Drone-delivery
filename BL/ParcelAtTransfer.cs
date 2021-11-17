@@ -8,15 +8,15 @@ namespace IBL.BO
 {
     class ParcelAtTransfer
     {
-        int id;
-        bool sateOfParcel;
-        Priorities priority;
-        WeightCategories weight;
-        CustomerAtParcel sender;
-        CustomerAtParcel getter;
-        Space spaceOfPickUp;
-        Space spaceOfTarget;
-        double distanceOfDelivery
+        public int id { get; set; }
+        public bool sateOfParcel { get; set; }
+        public Priorities priority { get; set; }
+        public WeightCategories weight { get; set; }
+        public CustomerAtParcel sender { get; set; }
+        public CustomerAtParcel getter { get; set; }
+        public Space spaceOfPickUp { get; set; }
+        public Space spaceOfTarget { get; set; }
+        public double distanceOfDelivery { get; set; }
 
     }
 }

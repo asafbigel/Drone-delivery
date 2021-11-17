@@ -8,11 +8,11 @@ namespace IBL.BO
 {
     class Customer
     {
-        int id;
-        string name;
-        int phone;
-        Space space;
-        List<Parcel> parcels_at_customer_from;
-        List<Parcel> parcels_at_customer_for;
+        public int id { get; set; }
+        public string name { get; set; }
+        public int phone { get; set; }
+        public Space space { get; set; }
+        public List<Parcel> parcels_at_customer_from { get; set; }
+        public List<Parcel> parcels_at_customer_for { get; set; }
     }
 }

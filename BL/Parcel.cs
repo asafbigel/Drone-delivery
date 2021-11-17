@@ -8,20 +8,20 @@ namespace IBL.BO
 {
     class Parcel
     {
-        int id;
-        CustomerAtParcel sender;
-        CustomerAtParcel getter;
-        WeightCategories weight;
-        Priorities priority;
-        DroneAtParcel droneAtParcel;
+        public int id { get; set; }
+        public CustomerAtParcel sender { get; set; }
+        public CustomerAtParcel getter { get; set; }
+        public WeightCategories weight { get; set; }
+        public Priorities priority { get; set; }
+        public DroneAtParcel droneAtParcel { get; set; }
         // created_parcel
-        DateTime Requested;
+        public DateTime Requested { get; set; }
         // Time of connected between the parcel and a drone
-        DateTime Scheduled;
+        public DateTime Scheduled { get; set; }
         // Time of taked the parcel from the sender
-        DateTime PickedUp;
+        public DateTime PickedUp { get; set; }
         // Time of getted the parcel to the sender
-        DateTime Delivered;
+        public DateTime Delivered { get; set; }
 
     }
 }

@@ -9,8 +9,8 @@ namespace IBL.BO
     class Space
     {
         // קו אורך
-        double longitude;
+        public double longitude { get; set; }
         // קו רוחב
-        double latitude;
+        public double latitude { get; set; }
     }
 }

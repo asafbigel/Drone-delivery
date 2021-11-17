@@ -8,12 +8,12 @@ namespace IBL.BO
 {
     class CustomerToList
     {
-        int id;
-        string name;
-        int phone;
-        int num_of_parcels_sent_and_arrived;
-        int num_of_parcels_sent_and_not_arrived;
-        int num_of_parcels_got;
-        int num_of_parcels_to_get;
+        public int id { get; set; }
+        public string name { get; set; }
+        public int phone { get; set; }
+        public int num_of_parcels_sent_and_arrived { get; set; }
+        public int num_of_parcels_sent_and_not_arrived { get; set; }
+        public int num_of_parcels_got { get; set; }
+        public int num_of_parcels_to_get { get; set; }
     }
 }
