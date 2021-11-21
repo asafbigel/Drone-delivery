@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class ParcelAtTransfer
+    public class ParcelAtTransfer
     {
         public int id { get; set; }
         public bool sateOfParcel { get; set; }

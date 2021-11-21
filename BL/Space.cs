@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Space
+    public class Space
     {
-        // קו אורך
+        // KAV ORECH 
         public double longitude { get; set; }
-        // קו רוחב
+        // KAV ROHAV
         public double latitude { get; set; }
     }
 }

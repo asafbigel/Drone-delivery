@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class BaseStationToList
+    public class BaseStationToList
     {
         public int id { get; set; }
         public string name { get; set; }

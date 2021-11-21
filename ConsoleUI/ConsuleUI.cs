@@ -16,7 +16,7 @@ namespace ConsoleUI
     }
 
 
-    class Program
+    class ConsuleUI
     {
         //static DalObject.DalObject mydal = new DalObject.DalObject();
         static IDAL.IDal mydal = new DalObject.DalObject();
