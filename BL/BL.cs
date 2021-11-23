@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
 using IBL.BO;
 
 namespace IBL
@@ -11,6 +10,7 @@ namespace IBL
     public partial class BL
     {
         static IDAL.IDal mydal;
+        List<DroneToList> my_drones = new List<DroneToList>();
         public BL()
         {
             mydal = new DalObject.DalObject();
@@ -20,60 +20,195 @@ namespace IBL
             double Electricity_medium = Electricity[2];
             double Electricity_heavy = Electricity[3];
             double Charge_at_hour = Electricity[4];
+            Random random = new Random();
 
 
             #region List of drone from the data layer
-            List<IBL.BO.Drone> my_drones = new List<IBL.BO.Drone>();
             List<IDAL.DO.Drone> idalDrones = mydal.Get_all_drones().ToList();
             foreach (var item in idalDrones)
             {
-                my_drones.Add(new IBL.BO.Drone
+                my_drones.Add(new DroneToList
                 {
                     Id = item.Id,
                     Model = item.Model,
-                    MaxWeight = (IBL.BO.WeightCategories)item.MaxWeight
+                    MaxWeight = (WeightCategories)item.MaxWeight,
+                    numOfParcel = 0,
+                    Status = (DroneStatuses)random.Next(0, 1)
                 });
             }
             #endregion
 
-            // List of the parcels
+            #region List of the parcels
             List<IDAL.DO.Parcel> idalParcel = mydal.Get_all_parcels().ToList();
+            #endregion
 
-            foreach (var item in my_drones)
+            #region List of customer from the data layer
+            List<IDAL.DO.Customer> idalCustomer = mydal.Get_all_customers().ToList();
+            List<Customer> customers = new List<Customer>();
+            foreach (var item in idalCustomer)
             {
-                
-            }
-
-
-            /*
-            #region List of parcel from the data layer
-            List<IBL.BO.Parcel> my_parcels = new List<IBL.BO.Parcel>();
-            List<IDAL.DO.Parcel> idalParcel = mydal.Get_all_parcels().ToList();
-            foreach (var item in idalParcel)
-            {
-                my_parcels.Add(new IBL.BO.Parcel
+                Space location = new Space();
+                location.latitude = item.Lattitude;
+                location.longitude = item.Longitude;
+                customers.Add(new Customer
                 {
-                     id = item.Id, PickedUp = item.PickedUp , priority = (BO.Priorities)item.Priority, Requested = item.Requested,
-                      Delivered = item.Delivered, Scheduled = item.Scheduled, weight = item.Weight, getter=(CustomerAtParcel)item.TargetId, sender = item.SenderId
+                    id = item.Id,
+                    name = item.Name,
+                    space = location,
+                    phone = item.Phone,
+                    parcels_at_customer_for = new List<BO.Parcel>(),
+                    parcels_at_customer_from = new List<BO.Parcel>()
                 });
             }
             #endregion
-            */
+
+            #region List of base station from the data layer
+            List<IDAL.DO.BaseStation> idalBaseStation = mydal.Get_all_base_stations().ToList();
+            List<BaseStation> baseStations = new List<BaseStation>();
+            foreach (var item in idalBaseStation)
+            {
+                Space location = new Space();
+                location.latitude = item.Lattitude;
+                location.longitude = item.Longitude;
+                baseStations.Add(new BaseStation
+                {
+                    id = item.Id,
+                    name = item.Name,
+                    Num_Free_slots_charge = item.ChargeSlots,
+                    space = location,
+                    DroneInChargings = new List<DroneInCharging>()
+                });
+            }
+            #endregion
+
+
+            foreach (var drone in my_drones)
+            {
+                List<IDAL.DO.Parcel> parcel_of_this_drone = new List<IDAL.DO.Parcel>();
+                List<IDAL.DO.Parcel> parcel_of_this_drone_Delivered = new List<IDAL.DO.Parcel>();
+                foreach (var parcel in idalParcel)
+                {
+                    if (parcel.DroneId == drone.Id)
+                    {
+                        parcel_of_this_drone.Add(parcel);
+                        drone.numOfParcel++;
+                        if (parcel.Delivered == DateTime.MinValue)
+                        {
+                            drone.Status = DroneStatuses.sending;
+                            Customer sender = find_customer(customers, parcel.SenderId);
+                            Customer getter = find_customer(customers, parcel.TargetId);
+                            BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.space);
+                            if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
+                            {
+                                BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.space);
+                                drone.location = baseStation_neer_sender.space;
+
+                                double distance1 = pow_of_distance_between_2_points(baseStation_neer_sender.space, sender.space);
+                                double distance2 = pow_of_distance_between_2_points(sender.space, getter.space);
+                                double distance3 = pow_of_distance_between_2_points(baseStation_neer_geeter.space, getter.space);
+                                double min_battery = (distance1 + distance3) * Electricity_free;
+                                switch (parcel.Weight)
+                                {
+                                    case IDAL.DO.WeightCategories.light:
+                                        min_battery += distance2 * Electricity_light;
+                                        break;
+                                    case IDAL.DO.WeightCategories.medium:
+                                        min_battery += distance2 * Electricity_medium;
+                                        break;
+                                    case IDAL.DO.WeightCategories.heavy:
+                                        min_battery += distance2 * Electricity_heavy;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                drone.Battery = random.Next((int)min_battery + 1, 100);
+                            }
+                            if (parcel.PickedUp != DateTime.MinValue)
+                            {
+                                drone.location = sender.space;
+                                double distance1 = pow_of_distance_between_2_points(sender.space, getter.space);
+                                double distance2 = pow_of_distance_between_2_points(getter.space, baseStation_neer_geeter.space);
+                                double min_battery = distance2 * Electricity_free;
+                                switch (parcel.Weight)
+                                {
+                                    case IDAL.DO.WeightCategories.light:
+                                        min_battery += distance1 * Electricity_light;
+                                        break;
+                                    case IDAL.DO.WeightCategories.medium:
+                                        min_battery += distance1 * Electricity_medium;
+                                        break;
+                                    case IDAL.DO.WeightCategories.heavy:
+                                        min_battery += distance1 * Electricity_heavy;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                drone.Battery = random.Next((int)min_battery + 1, 100);
+                            }
+                        }
+                        else
+                        {
+                            parcel_of_this_drone_Delivered.Add(parcel);
+                        }
+                    }
+                }
+
+                if (drone.Status == DroneStatuses.maintenance)
+                {
+                    int i = random.Next(0, baseStations.Count);
+                    drone.location = baseStations[i].space;
+                    drone.Battery = random.Next(0, 21);
+                }
+                if (drone.Status == DroneStatuses.vacant)
+                {
+                    int i = random.Next(0, parcel_of_this_drone_Delivered.Count);
+                    Customer getter = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId);
+                    drone.location = getter.space;
+                    BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.space);
+                    double distance = pow_of_distance_between_2_points(getter.space, baseStation_neer_geeter.space);
+                    double min_battery = distance * Electricity_free;
+                    drone.Battery = random.Next((int)distance + 1, 100);
+                }
+
+
+            }
+        }
+
+        private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Space space)
+        {
+            if (baseStations.Count == 0)
+                throw new BaseStationExeption("The list is empty");
+            BaseStation baseStation = baseStations[0];
+            double min_distance = pow_of_distance_between_2_points(baseStation.space, space);
+            foreach (var item in baseStations)
+            {
+                double distance = pow_of_distance_between_2_points(item.space, space);
+                if (distance < min_distance)
+                {
+                    min_distance = distance;
+                    baseStation = item;
+                }
+            }
+            return baseStation;
 
 
         }
-        /*
-      public void Add_base_station(BO.BaseStation baseStation)
-      {
-          IEnumerable<IDAL.DO.BaseStation> my_baseStation = mydal.Get_all_base_stations();
 
-          if (my_baseStation.Any(bs => bs.Id == baseStation.id))
-          {
-              throw new BaseStationExeption("id allready exist");
-          }
-          
-        mydal.Add_base_station(baseStation);
+        private double pow_of_distance_between_2_points(Space space1, Space space2)
+        {
+            double latitude = (space1.latitude - space2.latitude) * (space1.latitude - space2.latitude);
+            double longitude = (space1.longitude - space2.longitude) * (space1.longitude - space2.longitude);
+            return latitude + longitude;
         }
-        */
+
+        private Customer find_customer(List<Customer> customers, int senderId)
+        {
+            foreach (var item in customers)
+            {
+                if (item.id == senderId)
+                    return item;
+            }
+            throw new CustomerExeption("id not found");
+        }
     }
 }

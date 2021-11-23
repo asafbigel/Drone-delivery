@@ -10,7 +10,7 @@ namespace IBL.BO
     {
         public int id { get; set; }
         public string name { get; set; }
-        public int phone { get; set; }
+        public string phone { get; set; }
         public Space space { get; set; }
         public List<Parcel> parcels_at_customer_from { get; set; }
         public List<Parcel> parcels_at_customer_for { get; set; }

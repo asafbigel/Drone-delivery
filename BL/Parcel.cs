@@ -20,7 +20,7 @@ namespace IBL.BO
         public DateTime Scheduled { get; set; }
         // Time of taked the parcel from the sender
         public DateTime PickedUp { get; set; }
-        // Time of getted the parcel to the sender
+        // Time of getted the parcel to the getter
         public DateTime Delivered { get; set; }
 
     }
