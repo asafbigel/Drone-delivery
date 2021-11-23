@@ -14,8 +14,8 @@ namespace IBL.BO
         public WeightCategories weight { get; set; }
         public CustomerAtParcel sender { get; set; }
         public CustomerAtParcel getter { get; set; }
-        public Space spaceOfPickUp { get; set; }
-        public Space spaceOfTarget { get; set; }
+        public Location spaceOfPickUp { get; set; }
+        public Location spaceOfTarget { get; set; }
         public double distanceOfDelivery { get; set; }
 
     }

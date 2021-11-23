@@ -11,6 +11,6 @@ namespace IBL.BO
         public int Id { get; set; }
        
         public double Battery { get; set; }
-        Space location { get; set; };
+        Location location { get; set; }
     }
 }

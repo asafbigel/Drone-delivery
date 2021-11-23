@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    public class Space
+    public class Location
     {
         // KAV ORECH 
         public double longitude { get; set; }

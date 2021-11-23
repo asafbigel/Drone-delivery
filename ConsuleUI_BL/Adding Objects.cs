@@ -12,7 +12,7 @@ namespace ConsuleUI_BL
             int my_id = int.Parse(Console.ReadLine());
             Console.Write("Enter name: ");
             string my_name = Console.ReadLine();
-            Space my_space = input_location();
+            Location my_location = input_location();
             Console.Write("Enter slots: ");
             int chargeSlots = int.Parse(Console.ReadLine());
             BaseStation baseStation = new BaseStation()
@@ -21,7 +21,7 @@ namespace ConsuleUI_BL
                 id = my_id,
                 name = my_name,
                 Num_Free_slots_charge = chargeSlots,
-                space = my_space
+                space = my_location
             };
             mybi.Add_base_station(baseStation);
         }
@@ -42,7 +42,7 @@ namespace ConsuleUI_BL
             int my_id = int.Parse(Console.ReadLine());
             Console.Write("Enter model: ");
             string model = Console.ReadLine();
-            Space my_space = input_location();
+            Location my_space = input_location();
             Console.Write("Enter slots: ");
             int chargeSlots = int.Parse(Console.ReadLine());
             BaseStation baseStation = new BaseStation()
@@ -60,13 +60,13 @@ namespace ConsuleUI_BL
 
 
 
-        private static Space input_location()
+        private static Location input_location()
         {
             Console.Write("Enter longitude: ");
             double my_longitude = double.Parse(Console.ReadLine());
             Console.Write("Enter latitude: ");
             double my_latitude = double.Parse(Console.ReadLine());
-            Space space = new Space
+            Location space = new Location
             {
                 latitude = my_latitude,
                 longitude = my_longitude
