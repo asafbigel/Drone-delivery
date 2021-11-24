@@ -11,7 +11,10 @@ namespace IBL
     {
         public void Add_customer(Customer customer)
         {
-
+            IDAL.DO.Customer idalCustomer = convertor(customer);
+            mydal.Add_customer(idalCustomer);
         }
+
+
     }
 }

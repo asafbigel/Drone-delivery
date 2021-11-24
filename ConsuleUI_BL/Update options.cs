@@ -37,7 +37,13 @@ namespace ConsuleUI_BL
         // to do
         private static void update_baseStation()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter base station's id");
+            if(!int.TryParse(Console.ReadLine(),out int id)) { throw new IntReadException(); }
+            Console.Write("Enter new name ('_' to don't change");
+            string new_name = Console.ReadLine();
+            Console.Write("Enter new free slots ('_' to don't change");
+            string new_slot = Console.ReadLine();
+            mybi.update_baseStation(id, new_name, new_slot);
         }
 
         private static void update_model_drone()

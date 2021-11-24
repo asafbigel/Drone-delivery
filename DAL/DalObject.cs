@@ -143,7 +143,7 @@ namespace DalObject
                 if (DataSource.BaseStations[i].Id == my_id)
                     return DataSource.BaseStations[i];
             }
-            return new BaseStation();
+            throw new BaseStationExeption("id not found");
         }
         public Customer Find_customer(int my_id)
         {
@@ -185,6 +185,10 @@ namespace DalObject
         public IEnumerable<BaseStation> Get_all_base_stations()
         {
             return DataSource.BaseStations;
+        }
+        public IEnumerable<DroneCharge> Get_all_DroneCharge()
+        {
+            return DataSource.DroneCharges;
         }
         public IEnumerable<Drone> Get_all_drones()
         {

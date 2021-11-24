@@ -15,19 +15,13 @@ namespace IBL
             parcel.PickedUp = DateTime.MinValue;
             parcel.Scheduled = DateTime.MinValue;
             parcel.Requested = DateTime.Now;
-            IDAL.DO.Parcel idalParcel = new IDAL.DO.Parcel
-            {
-                Delivered = parcel.Delivered,
-                Requested = parcel.Requested,
-                Scheduled = parcel.Scheduled,
-                PickedUp = parcel.PickedUp,
-                DroneId = 0,
-                Id = mydal.GetAndUpdateRunNumber(),
-                Priority = (IDAL.DO.Priorities)parcel.priority,
-                Weight = (IDAL.DO.WeightCategories)parcel.weight,
-
-            };
+            IDAL.DO.Parcel idalParcel = convertor(parcel);
+            idalParcel.Id = mydal.GetAndUpdateRunNumber();
+            idalParcel.SenderId = sender_id;
+            idalParcel.TargetId = getter_id;
+            mydal.Add_parcel(idalParcel);
         }
+        
 
     }
 }

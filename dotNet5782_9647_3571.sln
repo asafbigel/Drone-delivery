@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{6366
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsuleUI_BL", "ConsuleUI_BL\ConsuleUI_BL.csproj", "{0A05D18F-3275-4529-B11F-C290E51FBF34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{74FCAD83-5BA9-4566-AC26-66517057421A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{B337B3C0-35D0-4581-9053-22E997781960}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{0A05D18F-3275-4529-B11F-C290E51FBF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A05D18F-3275-4529-B11F-C290E51FBF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A05D18F-3275-4529-B11F-C290E51FBF34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74FCAD83-5BA9-4566-AC26-66517057421A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74FCAD83-5BA9-4566-AC26-66517057421A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74FCAD83-5BA9-4566-AC26-66517057421A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74FCAD83-5BA9-4566-AC26-66517057421A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B337B3C0-35D0-4581-9053-22E997781960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B337B3C0-35D0-4581-9053-22E997781960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B337B3C0-35D0-4581-9053-22E997781960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B337B3C0-35D0-4581-9053-22E997781960}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

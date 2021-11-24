@@ -1,6 +1,7 @@
 ﻿using System;
 using IBL.BO;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace ConsuleUI_BL
 {
@@ -25,7 +26,6 @@ namespace ConsuleUI_BL
             mybi.Add_base_station(baseStation);
         }
 
-
         private static void Add_parcel()
         {
             Console.Write("Enter sender id: ");
@@ -47,22 +47,16 @@ namespace ConsuleUI_BL
 
         private static void Add_customer()
         {
+            Customer customer = new Customer();
             Console.Write("Enter id num: ");
-            int my_id = int.Parse(Console.ReadLine());
+            if(!int.TryParse(Console.ReadLine(), out int id)) { throw new IntReadException(); }
+            customer.id = id;
             Console.Write("Enter name: ");
-            string my_name = Console.ReadLine();
+            customer.name = Console.ReadLine();
             Console.Write("Enter phone: ");
-            string my_phone = Console.ReadLine();
-            Location my_location = input_location();
-            Customer customer = new Customer()
-            {
-                id = my_id,
-                name = my_name,
-                phone = my_phone,
-                space = my_location,
-                parcels_at_customer_for = new List<Parcel>(),
-                parcels_at_customer_from = new List<Parcel>()
-            };
+            customer.phone = Console.ReadLine();
+            customer .space = input_location();
+
             mybi.Add_customer(customer);
         }
 
@@ -101,6 +95,26 @@ namespace ConsuleUI_BL
                 longitude = my_longitude
             };
             return space;
+        }
+    }
+
+    [Serializable]
+    internal class IntReadException : Exception
+    {
+        public IntReadException()
+        {
+        }
+
+        public IntReadException(string message) : base(message)
+        {
+        }
+
+        public IntReadException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected IntReadException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }

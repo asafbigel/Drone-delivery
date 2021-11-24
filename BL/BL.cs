@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
@@ -173,6 +174,8 @@ namespace IBL
             }
         }
 
+
+
         public void update_model_drone(int drone_id, string model)
         {
             IDAL.DO.Drone my_drone = mydal.Find_drone(drone_id);
@@ -215,6 +218,26 @@ namespace IBL
                     return item;
             }
             throw new CustomerExeption("id not found");
+        }
+    }
+
+    [Serializable]
+    internal class slotException : Exception
+    {
+        public slotException()
+        {
+        }
+
+        public slotException(string message) : base(message)
+        {
+        }
+
+        public slotException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected slotException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }
