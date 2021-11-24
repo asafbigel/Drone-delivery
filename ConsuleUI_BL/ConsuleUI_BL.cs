@@ -156,8 +156,6 @@ namespace ConsuleUI_BL
             }
         }
 
-
-
         private static void main_Update_options()
         {
             show_update_options();
@@ -170,33 +168,31 @@ namespace ConsuleUI_BL
                         update_model_drone();
                         break;
                     case Update_options.update_baseStation:
+                        update_baseStation();
                         break;
                     case Update_options.update_customer:
+                        update_customer();
                         break;
                     case Update_options.drone_to_charge:
+                        drone_to_charge();
                         break;
                     case Update_options.drone_from_charge:
+                        drone_from_charge();
                         break;
                     case Update_options.connect_parcel_to_drone:
+                        connect_parcel_to_drone();
                         break;
                     case Update_options.pickedUp_parcel_by_drone:
+                        pickedUp_parcel_by_drone();
                         break;
                     case Update_options.delivered_parcel_by_drone:
+                        delivered_parcel_by_drone();
                         break;
                     default:
                         Console.WriteLine("Wrong input. Try again");
                         break;
                 }
             }
-        }
-
-        private static void update_model_drone()
-        {
-            Console.Write("Enter drone's id: ");
-            int drone_id = int.Parse(Console.ReadLine());
-            Console.Write("Enter drone's model: ");
-            string model = Console.ReadLine();
-            mybi.update_model_drone(drone_id,model);
         }
 
         private static void main_Showing_options()
@@ -236,16 +232,22 @@ namespace ConsuleUI_BL
                 switch (option)
                 {
                     case Show_list_options.print_all_baseStations:
+                        print_all_baseStations();
                         break;
                     case Show_list_options.print_all_drones:
+                        print_all_drones();
                         break;
                     case Show_list_options.print_all_customers:
+                        print_all_customers();
                         break;
                     case Show_list_options.print_all_parcels:
+                        print_all_parcels();
                         break;
                     case Show_list_options.print_all_parcels_without_drone:
+                        print_all_parcels_without_drone();
                         break;
                     case Show_list_options.print_all_baseStations_with_free_slots:
+                        print_all_baseStations_with_free_slots();
                         break;
                    
                     default:
