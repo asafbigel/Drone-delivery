@@ -167,6 +167,7 @@ namespace ConsuleUI_BL
                 switch (option)
                 {
                     case Update_options.update_model_drone:
+                        update_model_drone();
                         break;
                     case Update_options.update_baseStation:
                         break;
@@ -188,6 +189,16 @@ namespace ConsuleUI_BL
                 }
             }
         }
+
+        private static void update_model_drone()
+        {
+            Console.Write("Enter drone's id: ");
+            int drone_id = int.Parse(Console.ReadLine());
+            Console.Write("Enter drone's model: ");
+            string model = Console.ReadLine();
+            mybi.update_model_drone(drone_id,model);
+        }
+
         private static void main_Showing_options()
         {
             show_showing_options();
@@ -197,12 +208,16 @@ namespace ConsuleUI_BL
                 switch (option)
                 {
                     case Showing_options.print_baseStation:
+                        print_baseStation();
                         break;
                     case Showing_options.print_drone:
+                        print_drone();
                         break;
                     case Showing_options.print_customer:
+                        print_customer();
                         break;
                     case Showing_options.print_parcel:
+                        print_parcel();
                         break;
 
                     default:
@@ -211,6 +226,7 @@ namespace ConsuleUI_BL
                 }
             }
         }
+
         private static void main_Show_list_options()
         {
             show_show_list_options();

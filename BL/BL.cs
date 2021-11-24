@@ -173,6 +173,12 @@ namespace IBL
             }
         }
 
+        public void update_model_drone(int drone_id, string model)
+        {
+            IDAL.DO.Drone my_drone = mydal.Find_drone(drone_id);
+            my_drone.Model = model;
+            mydal.UpdateDrone(my_drone);
+        }
 
         private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location space)
         {

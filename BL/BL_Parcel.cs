@@ -23,10 +23,10 @@ namespace IBL
                 PickedUp = parcel.PickedUp,
                 DroneId = 0,
                 Id = mydal.GetAndUpdateRunNumber(),
-                 Priority = parcel.priority,
-                    Weight = parcel.weight,
-                     
-            }
+                Priority = (IDAL.DO.Priorities)parcel.priority,
+                Weight = (IDAL.DO.WeightCategories)parcel.weight,
+
+            };
         }
 
     }
