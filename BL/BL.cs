@@ -173,6 +173,7 @@ namespace IBL
             }
         }
 
+
         private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location space)
         {
             if (baseStations.Count == 0)

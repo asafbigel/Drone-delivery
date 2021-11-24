@@ -137,7 +137,7 @@ namespace ConsuleUI_BL
                 switch (option)
                 {
                     case Adding_Options.add_baseStation:
-                        Add_baseStation();
+                        add_baseStation();
                         break;
                     case Adding_Options.add_drone:
                         Add_drone();
