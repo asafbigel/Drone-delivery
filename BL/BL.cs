@@ -12,15 +12,20 @@ namespace IBL
     {
         static IDAL.IDal mydal;
         List<DroneToList> my_drones = new List<DroneToList>();
+        double Electricity_free;
+        double Electricity_light;
+        double Electricity_medium;
+        double Electricity_heavy;
+        double Charge_at_hour;
         public BL()
         {
             mydal = new DalObject.DalObject();
             double[] Electricity = mydal.ElectricityUse();
-            double Electricity_free = Electricity[0];
-            double Electricity_light = Electricity[1];
-            double Electricity_medium = Electricity[2];
-            double Electricity_heavy = Electricity[3];
-            double Charge_at_hour = Electricity[4];
+            Electricity_free = Electricity[0];
+            Electricity_light = Electricity[1];
+            Electricity_medium = Electricity[2];
+            Electricity_heavy = Electricity[3];
+            Charge_at_hour = Electricity[4];
             Random random = new Random();
 
 
@@ -174,15 +179,6 @@ namespace IBL
             }
         }
 
-
-
-        public void update_model_drone(int drone_id, string model)
-        {
-            IDAL.DO.Drone my_drone = mydal.Find_drone(drone_id);
-            my_drone.Model = model;
-            mydal.UpdateDrone(my_drone);
-        }
-
         private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location space)
         {
             if (baseStations.Count == 0)
@@ -219,6 +215,9 @@ namespace IBL
             }
             throw new CustomerExeption("id not found");
         }
+
+
+
     }
 
     [Serializable]

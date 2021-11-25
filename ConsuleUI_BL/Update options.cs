@@ -17,31 +17,52 @@ namespace ConsuleUI_BL
         // to do
         private static void connect_parcel_to_drone()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter drone's id: ");
+            if(!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
+            mybi.connect_parcel_to_drone(drone_id);
         }
-        // to do
+
+
+
+
+
         private static void drone_from_charge()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter drone's id: ");
+            if (!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
+            Console.Write("Enter time of charging (at hours): ");
+            if (!double.TryParse(Console.ReadLine(), out double time)) { throw new InputException("Time not valid"); }
+            mybi.drone_from_charge(drone_id, time);
         }
-        // to do
-        private static void drone_to_charge()
+
+        private static void send_drone_to_charge()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter drone's id: ");
+            if(!int.TryParse(Console.ReadLine(), out int id)) { throw new InputException("Id not valid"); }
+            mybi.send_drone_to_charge(id);
         }
-        // to do
+
         private static void update_customer()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter customer id: ");
+            if(!int.TryParse(Console.ReadLine(), out int id)) { throw new InputException("The id not valid"); }
+            Console.Write("Enter new name ('_' to don't change): ");
+            string new_name = Console.ReadLine();
+            Console.Write("Enter new phone ('_' to don't change): ");
+            string new_phone = Console.ReadLine();
+            if (new_phone != "_")
+                // only check if the id is number. Although phone is string
+                if (!int.TryParse(Console.ReadLine(), out int phone)) { throw new InputException("Phone not valid"); }
+            mybi.update_customer(id, new_name, new_phone);
         }
-        // to do
+
         private static void update_baseStation()
         {
             Console.Write("Enter base station's id");
             if(!int.TryParse(Console.ReadLine(),out int id)) { throw new IntReadException(); }
-            Console.Write("Enter new name ('_' to don't change");
+            Console.Write("Enter new name ('_' to don't change): ");
             string new_name = Console.ReadLine();
-            Console.Write("Enter new free slots ('_' to don't change");
+            Console.Write("Enter new free slots ('_' to don't change): ");
             string new_slot = Console.ReadLine();
             mybi.update_baseStation(id, new_name, new_slot);
         }
@@ -54,6 +75,7 @@ namespace ConsuleUI_BL
             string model = Console.ReadLine();
             mybi.update_model_drone(drone_id, model);
         }
+
 
     }
 }

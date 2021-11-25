@@ -15,8 +15,9 @@ namespace IBL
             parcel.PickedUp = DateTime.MinValue;
             parcel.Scheduled = DateTime.MinValue;
             parcel.Requested = DateTime.Now;
+            parcel.id = mydal.GetAndUpdateRunNumber();
+            parcel.droneAtParcel = null;
             IDAL.DO.Parcel idalParcel = convertor(parcel);
-            idalParcel.Id = mydal.GetAndUpdateRunNumber();
             idalParcel.SenderId = sender_id;
             idalParcel.TargetId = getter_id;
             mydal.Add_parcel(idalParcel);

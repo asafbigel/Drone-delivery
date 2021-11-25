@@ -228,19 +228,7 @@ namespace ConsoleUI
         {
             Console.Write("Enter drone ID: ");
             int my_drone_id = int.Parse(Console.ReadLine());
-            DroneCharge droneCharge = mydal.Find_drone_charge(my_drone_id);
-            int my_baseStation_id = droneCharge.StationId;
-            BaseStation baseStation = mydal.Find_baseStation(my_baseStation_id);
-            baseStation.ChargeSlots++;
-            int previous_DroneId = droneCharge.DroneId;
-            droneCharge.DroneId = 0;
-            droneCharge.StationId = 0;
-            Drone drone = mydal.Find_drone(my_drone_id);
-            //// change status of the drone to "vacant"
-            //drone.Status = (DroneStatuses)0;
-            mydal.UpdateBaseStation(baseStation);
-            mydal.UpdateDrone(drone);
-            mydal.UpdateDroneCharge(droneCharge, previous_DroneId);
+            mydal.put_out_drone_from_charge(my_drone_id);
         }
 
         private static void main_send_drone_to_charge()
@@ -251,20 +239,13 @@ namespace ConsoleUI
             main_print_all_base_stations_with_free_charge_slot();
             Console.WriteLine("Enter base station ID: ");
             int my_baseStation_id = int.Parse(Console.ReadLine());
-
             DroneCharge droneCharge = new DroneCharge()
             {
                 DroneId = my_drone_id,
                 StationId = my_baseStation_id
             };
-            BaseStation baseStation = mydal.Find_baseStation(my_baseStation_id);
-            Drone drone = mydal.Find_drone(my_drone_id);
-            baseStation.ChargeSlots--;
-            //// change status of the drone to "maintenance"
-            //drone.Status = (DroneStatuses)1;
-            mydal.Add_DroneCharge(droneCharge);
-            mydal.UpdateBaseStation(baseStation);
-            mydal.UpdateDrone(drone);
+            mydal.send_drone_to_charge(droneCharge);
+
         }
         #endregion
 

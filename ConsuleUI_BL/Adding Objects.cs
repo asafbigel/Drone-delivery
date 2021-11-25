@@ -62,20 +62,15 @@ namespace ConsuleUI_BL
 
         private static void Add_drone()
         {
+            Drone drone = new Drone();
             Console.Write("Enter serial num: ");
-            int my_id = int.Parse(Console.ReadLine());
+            drone.Id = int.Parse(Console.ReadLine());
             Console.Write("Enter model: ");
-            string model = Console.ReadLine();
+            drone.Model = Console.ReadLine();
             Console.Write("Enter max weight: ");
-            WeightCategories weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Console.ReadLine());
+            drone.MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Console.ReadLine());
             Console.Write("Enter base station number: ");
             int baseStation_num = int.Parse(Console.ReadLine());
-            Drone drone = new Drone()
-            {
-                Id = my_id,
-                MaxWeight = weight,
-                Model = model
-            };
             mybi.Add_drone(drone, baseStation_num);
         }
 

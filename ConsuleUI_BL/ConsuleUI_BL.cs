@@ -174,7 +174,7 @@ namespace ConsuleUI_BL
                         update_customer();
                         break;
                     case Update_options.drone_to_charge:
-                        drone_to_charge();
+                        send_drone_to_charge();
                         break;
                     case Update_options.drone_from_charge:
                         drone_from_charge();

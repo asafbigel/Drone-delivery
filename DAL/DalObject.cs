@@ -246,6 +246,28 @@ namespace DalObject
             return arr;
     }
 
+        public void send_drone_to_charge(DroneCharge droneCharge)
+        {
+            BaseStation baseStation = Find_baseStation(droneCharge.StationId);
+            Drone drone = Find_drone(droneCharge.DroneId);
+            baseStation.ChargeSlots--;
+            Add_DroneCharge(droneCharge);
+            UpdateBaseStation(baseStation);
+            UpdateDrone(drone);
+        }
+
+        public void put_out_drone_from_charge(int my_drone_id)
+        {
+            DroneCharge droneCharge = Find_drone_charge(my_drone_id);
+            int my_baseStation_id = droneCharge.StationId;
+            BaseStation baseStation = Find_baseStation(my_baseStation_id);
+            baseStation.ChargeSlots++;
+            UpdateBaseStation(baseStation);
+            DataSource.DroneCharges.Remove(droneCharge);
+            //int DroneId = droneCharge.DroneId;
+            //Drone drone = Find_drone(my_drone_id);
+            //UpdateDroneCharge(droneCharge, DroneId);
+        }
     }
 
 }

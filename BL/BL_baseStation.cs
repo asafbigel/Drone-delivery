@@ -8,7 +8,7 @@ namespace IBL
     {
         public void update_baseStation(int id, string new_name, string new_slot)
         {
-            BaseStation baseStation = new_baseStation(id);
+            BaseStation baseStation = find_baseStation(id);
             if (new_name != "_")
                 baseStation.name = new_name;
             if (new_slot != "_")
@@ -29,7 +29,7 @@ namespace IBL
         /// <returns>
         /// BL base station
         /// </returns>
-        private BaseStation new_baseStation(int id)
+        private BaseStation find_baseStation(int id)
         {
             IDAL.DO.BaseStation idalBaseStation = mydal.Find_baseStation(id);
             BaseStation baseStation = convertor(idalBaseStation);
