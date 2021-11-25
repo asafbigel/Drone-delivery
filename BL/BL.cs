@@ -110,9 +110,9 @@ namespace IBL
                             BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.space);
                             drone.location = baseStation_neer_sender.space;
 
-                            double distance1 = pow_of_distance_between_2_points(baseStation_neer_sender.space, sender.space);
-                            double distance2 = pow_of_distance_between_2_points(sender.space, getter.space);
-                            double distance3 = pow_of_distance_between_2_points(baseStation_neer_geeter.space, getter.space);
+                            double distance1 = distance_between_2_points(baseStation_neer_sender.space, sender.space);
+                            double distance2 = distance_between_2_points(sender.space, getter.space);
+                            double distance3 = distance_between_2_points(baseStation_neer_geeter.space, getter.space);
                             double min_battery = (distance1 + distance3) * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -133,8 +133,8 @@ namespace IBL
                         if (parcel.PickedUp != DateTime.MinValue)
                         {
                             drone.location = sender.space;
-                            double distance1 = pow_of_distance_between_2_points(sender.space, getter.space);
-                            double distance2 = pow_of_distance_between_2_points(getter.space, baseStation_neer_geeter.space);
+                            double distance1 = distance_between_2_points(sender.space, getter.space);
+                            double distance2 = distance_between_2_points(getter.space, baseStation_neer_geeter.space);
                             double min_battery = distance2 * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -170,7 +170,7 @@ namespace IBL
                     Customer getter = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId);
                     drone.location = getter.space;
                     BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.space);
-                    double distance = pow_of_distance_between_2_points(getter.space, baseStation_neer_geeter.space);
+                    double distance = distance_between_2_points(getter.space, baseStation_neer_geeter.space);
                     double min_battery = distance * Electricity_free;
                     drone.Battery = random.Next((int)distance + 1, 100);
                 }
@@ -184,10 +184,10 @@ namespace IBL
             if (baseStations.Count == 0)
                 throw new BaseStationExeption("The list is empty");
             BaseStation baseStation = baseStations[0];
-            double min_distance = pow_of_distance_between_2_points(baseStation.space, space);
+            double min_distance = distance_between_2_points(baseStation.space, space);
             foreach (var item in baseStations)
             {
-                double distance = pow_of_distance_between_2_points(item.space, space);
+                double distance = distance_between_2_points(item.space, space);
                 if (distance < min_distance)
                 {
                     min_distance = distance;
@@ -199,11 +199,11 @@ namespace IBL
 
         }
 
-        private double pow_of_distance_between_2_points(Location space1, Location space2)
+        private double distance_between_2_points(Location space1, Location space2)
         {
             double latitude = (space1.latitude - space2.latitude) * (space1.latitude - space2.latitude);
             double longitude = (space1.longitude - space2.longitude) * (space1.longitude - space2.longitude);
-            return latitude + longitude;
+            return Math.Sqrt(latitude + longitude);
         }
 
         private Customer find_customer(List<Customer> customers, int senderId)

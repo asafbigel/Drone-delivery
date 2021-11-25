@@ -40,7 +40,7 @@ namespace IBL
                 throw new DroneException("Drone not vacant");
             List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations_with_free_charge_slot());
             BaseStation baseStation = BaseStation_close_to_location(baseStations, drone.location);
-            double needen_fual = pow_of_distance_between_2_points(baseStation.space, drone.location) * Electricity_free;
+            double needen_fual = distance_between_2_points(baseStation.space, drone.location) * Electricity_free;
             if (needen_fual > drone.Battery)
                 throw new DroneException("Not enaugh foul");
             drone.Battery -= needen_fual;
@@ -86,25 +86,37 @@ namespace IBL
                 if (parcelsHighWeigth.Count == 0)
                     parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.weight == WeightCategories.light);
             }
-            Parcel parcel = parcelsHighWeigth[0];
-            Location sender_location = new Location();
-            IDAL.DO.Customer idalSender;
-            //Location getter_location = new Location();
-            //IDAL.DO.Customer idalGetter;
-            double min_distance;
-            foreach (var item in parcelsHighWeigth)
+            List<ParcelAtTransfer> parcelsAtTransfer = convertor1(parcelsHighPriority);
+            ParcelAtTransfer parcelAtTransfer = parcelsAtTransfer[0];
+            double min_distance = distance_between_2_points(drone.location, parcelAtTransfer.spaceOfPickUp);
+            double this_distance;
+            foreach (var item in parcelsAtTransfer)
             {
-                idalSender = mydal.Find_customer(item.sender.id); 
-                //idalGetter = mydal.Find_customer(item.getter.id);
-                sender_location.latitude = idalSender.Lattitude;
-                sender_location.longitude = idalSender.Longitude;
-                //getter_location.latitude = idalSender.Lattitude;
-                //getter_location.longitude = idalSender.Longitude;
-                min_distance = pow_of_distance_between_2_points(drone.location, sender_location);
-                this_distance = pow_of_distance_between_2_points(drone.location, parcel.);
+                this_distance = distance_between_2_points(drone.location, item.spaceOfPickUp);
+                if (this_distance < min_distance)
+                {
+                    parcelAtTransfer = item;
+                    min_distance = this_distance;
+                }
             }
+            BaseStation baseStation = BaseStation_close_to_location(convertor(mydal.Get_all_base_stations().ToList()),parcelAtTransfer.spaceOfTarget);
+            double battery_needed = 0;
+            battery_needed += distance_between_2_points(drone.location, parcelAtTransfer.spaceOfPickUp) * Electricity_free;
+            if(parcelAtTransfer.weight == WeightCategories.heavy)
+                battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfPickUp, parcelAtTransfer.spaceOfTarget) * Electricity_heavy;
+            if (parcelAtTransfer.weight == WeightCategories.medium)
+                battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfPickUp, parcelAtTransfer.spaceOfTarget) * Electricity_medium;
+            if (parcelAtTransfer.weight == WeightCategories.light)
+                battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfPickUp, parcelAtTransfer.spaceOfTarget) * Electricity_light;
+            battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfTarget,baseStation.space ) * Electricity_free;
 
+            if (battery_needed > drone.Battery)
+                throw new DroneException("No enaugh battery");
+            drone.Status = DroneStatuses.sending;
+            IDAL.DO.Parcel parcel = mydal.Find_parcel(parcelAtTransfer.id);
+            parcel.DroneId = drone.Id;
+            parcel.Scheduled = DateTime.Now;
+            mydal.UpdateParcel(parcel);
         }
-
     }
 }

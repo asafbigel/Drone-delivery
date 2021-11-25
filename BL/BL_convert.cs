@@ -105,19 +105,6 @@ namespace IBL
             };
 
         }
-        /*
-        private ParcelAtTransfer convertor1(Parcel parcel)
-        {
-            ParcelAtTransfer = new ParcelAtTransfer()
-            {
-                id = parcel.id,
-                sender = parcel.sender,
-                getter = parcel.getter,
-                priority = parcel.priority,
-                weight = parcel.weight
-            };
-        }
-        */
         private DroneAtParcel convertor1(DroneToList drone)
         {
             return new DroneAtParcel()
@@ -176,9 +163,44 @@ namespace IBL
             List<Parcel> parcels = new List<Parcel>();
             foreach (var item in idalparcels)
             {
-                parcels.Add(convertor(item);
+                parcels.Add(convertor(item));
             }
             return parcels;
         }
+
+        private ParcelAtTransfer covnertor1(Parcel parcel)
+        {
+            Location getterLlocation = new Location();
+            Location senderLlocation = new Location();
+            IDAL.DO.Customer iadlGetter = mydal.Find_customer(parcel.getter.id);
+            IDAL.DO.Customer iadlSender = mydal.Find_customer(parcel.sender.id);
+            getterLlocation.latitude = iadlGetter.Lattitude;
+            getterLlocation.longitude = iadlGetter.Longitude;
+            senderLlocation.latitude = iadlSender.Lattitude;
+            senderLlocation.longitude = iadlSender.Longitude;
+            return new ParcelAtTransfer()
+            {
+                id = parcel.id,
+                weight = parcel.weight,
+                getter = parcel.getter,
+                sender = parcel.sender,
+                priority = parcel.priority,
+                sateOfParcel = (parcel.PickedUp != DateTime.MinValue),
+                spaceOfPickUp = senderLlocation,
+                spaceOfTarget = getterLlocation,
+                distanceOfDelivery = distance_between_2_points(getterLlocation, senderLlocation)
+            };
+        }
+
+        private List<ParcelAtTransfer> convertor1(List<Parcel> parcelsHighPriority)
+        {
+            List<ParcelAtTransfer> new_list = new List<ParcelAtTransfer>();
+            foreach (var item in parcelsHighPriority)
+            {
+                new_list.Add(covnertor1(item));
+            }
+            return new_list;
+        }
+
     }
 }
