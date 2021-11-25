@@ -4,27 +4,35 @@ namespace ConsuleUI_BL
 {
     public partial class ConsuleUI_BL
     {
-        // to do
+        // to do, not finish mybi.delivered_parcel_by_drone
         private static void delivered_parcel_by_drone()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter drone's id: ");
+            if (!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
+            mybi.delivered_parcel_by_drone(drone_id);
         }
-        // to do
+
+
+
+
+
+
         private static void pickedUp_parcel_by_drone()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter drone's id: ");
+            if (!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
+            mybi.pickedUp_parcel_by_drone(drone_id);
         }
-        // to do
+
+
+
+
         private static void connect_parcel_to_drone()
         {
             Console.Write("Enter drone's id: ");
             if(!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
             mybi.connect_parcel_to_drone(drone_id);
         }
-
-
-
-
 
         private static void drone_from_charge()
         {

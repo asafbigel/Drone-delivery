@@ -105,6 +105,30 @@ namespace IBL
             };
 
         }
+        private ParcelAtTransfer convertor1(Parcel parcel)
+        {
+            IDAL.DO.Customer sender = mydal.Find_customer(parcel.sender.id);
+            Location location = new Location();
+            location.longitude = sender.Longitude;
+            location.latitude = sender.Lattitude;
+            IDAL.DO.Customer getter = mydal.Find_customer(parcel.getter.id);
+            Location getter_location = new Location();
+            getter_location.longitude = sender.Longitude;
+            getter_location.latitude = sender.Lattitude;
+            return new ParcelAtTransfer()
+            {
+                id = parcel.id,
+                priority = parcel.priority,
+                weight = parcel.weight,
+                sender = parcel.sender,
+                getter = parcel.getter,
+                spaceOfPickUp = location,
+                sateOfParcel = (parcel.PickedUp != DateTime.MinValue),
+                distanceOfDelivery = distance_between_2_points(getter_location, location),
+                spaceOfTarget = getter_location
+            };
+        }
+
         private DroneAtParcel convertor1(DroneToList drone)
         {
             return new DroneAtParcel()

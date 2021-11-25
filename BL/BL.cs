@@ -14,6 +14,7 @@ namespace IBL
         List<DroneToList> my_drones = new List<DroneToList>();
         double Electricity_free;
         double Electricity_light;
+
         double Electricity_medium;
         double Electricity_heavy;
         double Charge_at_hour;
