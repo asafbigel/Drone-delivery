@@ -4,36 +4,24 @@ namespace ConsuleUI_BL
 {
     public partial class ConsuleUI_BL
     {
-        // to do, not finish mybi.delivered_parcel_by_drone
         private static void delivered_parcel_by_drone()
         {
             Console.Write("Enter drone's id: ");
             if (!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
             mybi.delivered_parcel_by_drone(drone_id);
         }
-
-
-
-
-
-
         private static void pickedUp_parcel_by_drone()
         {
             Console.Write("Enter drone's id: ");
             if (!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
             mybi.pickedUp_parcel_by_drone(drone_id);
         }
-
-
-
-
         private static void connect_parcel_to_drone()
         {
             Console.Write("Enter drone's id: ");
             if(!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
             mybi.connect_parcel_to_drone(drone_id);
         }
-
         private static void drone_from_charge()
         {
             Console.Write("Enter drone's id: ");
@@ -42,14 +30,12 @@ namespace ConsuleUI_BL
             if (!double.TryParse(Console.ReadLine(), out double time)) { throw new InputException("Time not valid"); }
             mybi.drone_from_charge(drone_id, time);
         }
-
         private static void send_drone_to_charge()
         {
             Console.Write("Enter drone's id: ");
             if(!int.TryParse(Console.ReadLine(), out int id)) { throw new InputException("Id not valid"); }
             mybi.send_drone_to_charge(id);
         }
-
         private static void update_customer()
         {
             Console.Write("Enter customer id: ");
@@ -63,7 +49,6 @@ namespace ConsuleUI_BL
                 if (!int.TryParse(Console.ReadLine(), out int phone)) { throw new InputException("Phone not valid"); }
             mybi.update_customer(id, new_name, new_phone);
         }
-
         private static void update_baseStation()
         {
             Console.Write("Enter base station's id");
@@ -74,7 +59,6 @@ namespace ConsuleUI_BL
             string new_slot = Console.ReadLine();
             mybi.update_baseStation(id, new_name, new_slot);
         }
-
         private static void update_model_drone()
         {
             Console.Write("Enter drone's id: ");
@@ -83,7 +67,5 @@ namespace ConsuleUI_BL
             string model = Console.ReadLine();
             mybi.update_model_drone(drone_id, model);
         }
-
-
     }
 }

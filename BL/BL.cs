@@ -14,7 +14,6 @@ namespace IBL
         List<DroneToList> my_drones = new List<DroneToList>();
         double Electricity_free;
         double Electricity_light;
-
         double Electricity_medium;
         double Electricity_heavy;
         double Charge_at_hour;
@@ -77,7 +76,7 @@ namespace IBL
                 Location location = new Location();
                 location.latitude = item.Lattitude;
                 location.longitude = item.Longitude;
-                baseStations.Add(new BaseStation
+                baseStations.Add(new BaseStation()
                 {
                     id = item.Id,
                     name = item.Name,
@@ -179,7 +178,6 @@ namespace IBL
 
             }
         }
-
         private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location space)
         {
             if (baseStations.Count == 0)
@@ -199,14 +197,12 @@ namespace IBL
 
 
         }
-
         private double distance_between_2_points(Location space1, Location space2)
         {
             double latitude = (space1.latitude - space2.latitude) * (space1.latitude - space2.latitude);
             double longitude = (space1.longitude - space2.longitude) * (space1.longitude - space2.longitude);
             return Math.Sqrt(latitude + longitude);
         }
-
         private Customer find_customer(List<Customer> customers, int senderId)
         {
             foreach (var item in customers)
@@ -216,9 +212,6 @@ namespace IBL
             }
             throw new CustomerExeption("id not found");
         }
-
-
-
     }
 
     [Serializable]

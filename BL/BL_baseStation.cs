@@ -1,4 +1,5 @@
 ﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,12 +36,31 @@ namespace IBL
             BaseStation baseStation = convertor(idalBaseStation);
             return baseStation;
         }
-
         public void Add_base_station(BaseStation baseStation)
         {
             baseStation.DroneInChargings = new List<DroneInCharging>();
             IDAL.DO.BaseStation idalBaseStation = convertor(baseStation);
             mydal.Add_base_station(idalBaseStation);
+        }
+        public void print_baseStation(int baseStation_id)
+        {
+            Console.WriteLine(convertor(mydal.Find_baseStation(baseStation_id)));
+        }
+        public void print_all_baseStations()
+        {
+            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations());
+            foreach (var item in baseStations)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        public void print_all_baseStations_with_free_slots()
+        {
+            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations_with_free_charge_slot());
+            foreach (var item in baseStations)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

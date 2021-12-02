@@ -4,25 +4,29 @@ namespace ConsuleUI_BL
 {
     public partial class ConsuleUI_BL
     {
-        // to do
         private static void print_parcel()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Id number: ");
+            if (!int.TryParse(Console.ReadLine(), out int parcel_id)) { throw new InputException("Id not valid"); }
+            mybi.print_parcel(parcel_id);
         }
-        // to do
         private static void print_customer()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Id number: ");
+            if (!int.TryParse(Console.ReadLine(), out int customer_id)) { throw new InputException("Id not valid"); }
+            mybi.print_customer(customer_id);
         }
-        // to do
         private static void print_drone()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Id number: ");
+            if (!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
+            mybi.print_drone(drone_id);
         }
-        // to do
         private static void print_baseStation()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Id number: ");
+            if (!int.TryParse(Console.ReadLine(), out int baseStation_id)) { throw new InputException("Id not valid"); }
+            mybi.print_baseStation(baseStation_id);
         }
     }
 }

@@ -62,5 +62,17 @@ namespace IBL
             drone.Status = DroneStatuses.vacant;
             mydal.put_out_drone_from_charge(drone.Id);
         }
+        public void print_drone(int drone_id)
+        {
+            Console.WriteLine(convertor(mydal.Find_drone(drone_id)));
+        }
+        public void print_all_drones()
+        {
+            List<DroneToList> drones = convertor(mydal.Get_all_drones());
+            foreach (var item in drones)
+            {
+                Console.WriteLine(item);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using IBL.BO;
 namespace ConsuleUI_BL
 {
@@ -32,7 +33,8 @@ namespace ConsuleUI_BL
         // to do
         private static void print_all_baseStations()
         {
-            throw new NotImplementedException();
+            mybi.print_all_baseStations();
         }
     }
 }
+*/

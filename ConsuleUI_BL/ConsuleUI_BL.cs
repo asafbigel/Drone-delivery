@@ -232,22 +232,22 @@ namespace ConsuleUI_BL
                 switch (option)
                 {
                     case Show_list_options.print_all_baseStations:
-                        print_all_baseStations();
+                        mybi.print_all_baseStations();
                         break;
                     case Show_list_options.print_all_drones:
-                        print_all_drones();
+                        mybi.print_all_drones();
                         break;
                     case Show_list_options.print_all_customers:
-                        print_all_customers();
+                        mybi.print_all_customers();
                         break;
                     case Show_list_options.print_all_parcels:
-                        print_all_parcels();
+                        mybi.print_all_parcels();
                         break;
                     case Show_list_options.print_all_parcels_without_drone:
-                        print_all_parcels_without_drone();
+                        mybi.print_all_parcels_without_drone();
                         break;
                     case Show_list_options.print_all_baseStations_with_free_slots:
-                        print_all_baseStations_with_free_slots();
+                        mybi.print_all_baseStations_with_free_slots();
                         break;
                    
                     default:

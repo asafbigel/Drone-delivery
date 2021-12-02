@@ -26,7 +26,7 @@ namespace IBL
                 id = idalBaseStation.Id,
                 name = idalBaseStation.Name,
                 Num_Free_slots_charge = idalBaseStation.ChargeSlots,
-                DroneInChargings = new List<DroneInCharging>()
+                DroneInChargings = new List<DroneInCharging>() 
             };
             IEnumerable<IDAL.DO.DroneCharge> droneCharges = mydal.Get_all_DroneCharge();
             foreach (var item in droneCharges)
@@ -40,6 +40,10 @@ namespace IBL
             baseStation.Num_Free_slots_charge -= baseStation.DroneInChargings.Count();
             if (baseStation.Num_Free_slots_charge < 0)
                 throw new DroneChargeException("There more drone from slots");
+            Location location = new Location();
+            location.latitude = idalBaseStation.Lattitude;
+            location.longitude = idalBaseStation.Longitude;
+            baseStation.space = location;
             return baseStation;
         }
         private IDAL.DO.BaseStation convertor(BaseStation baseStation)
@@ -107,12 +111,12 @@ namespace IBL
         }
         private ParcelAtTransfer convertor1(Parcel parcel)
         {
-            IDAL.DO.Customer sender = mydal.Find_customer(parcel.sender.id);
-            Location location = new Location();
-            location.longitude = sender.Longitude;
-            location.latitude = sender.Lattitude;
-            IDAL.DO.Customer getter = mydal.Find_customer(parcel.getter.id);
+            Location senderLlocation = new Location();
             Location getter_location = new Location();
+            IDAL.DO.Customer sender = mydal.Find_customer(parcel.sender.id);
+            IDAL.DO.Customer getter = mydal.Find_customer(parcel.getter.id);
+            senderLlocation.longitude = sender.Longitude;
+            senderLlocation.latitude = sender.Lattitude;
             getter_location.longitude = sender.Longitude;
             getter_location.latitude = sender.Lattitude;
             return new ParcelAtTransfer()
@@ -122,13 +126,12 @@ namespace IBL
                 weight = parcel.weight,
                 sender = parcel.sender,
                 getter = parcel.getter,
-                spaceOfPickUp = location,
+                spaceOfPickUp = senderLlocation,
                 sateOfParcel = (parcel.PickedUp != DateTime.MinValue),
-                distanceOfDelivery = distance_between_2_points(getter_location, location),
+                distanceOfDelivery = distance_between_2_points(getter_location, senderLlocation),
                 spaceOfTarget = getter_location
             };
         }
-
         private DroneAtParcel convertor1(DroneToList drone)
         {
             return new DroneAtParcel()
@@ -173,6 +176,15 @@ namespace IBL
             };
             return droneToList;
         }
+        private List<BaseStationToList> convertor1(IEnumerable<IDAL.DO.BaseStation> enumerable)
+        {
+            List<BaseStationToList> baseStations = new List<BaseStationToList>();
+            foreach (var item in enumerable)
+            {
+                baseStations.Add(convertor1(item));
+            }
+            return baseStations;
+        }
         private List<BaseStation> convertor(IEnumerable<IDAL.DO.BaseStation> enumerable)
         {
             List<BaseStation> baseStations = new List<BaseStation>();
@@ -181,6 +193,124 @@ namespace IBL
                 baseStations.Add(convertor(item));
             }
             return baseStations;
+        }
+        private BaseStationToList convertor1(IDAL.DO.BaseStation item)
+        {
+            List<DroneInCharging> droneCharge = convertor(mydal.Get_all_DroneCharge().ToList().FindAll(charge => charge.StationId == item.Id));
+            return new BaseStationToList()
+            {
+                id = item.Id,
+                name = item.Name,
+                num_of_busy_slots = droneCharge.Count(),
+                num_of_free_slots = item.ChargeSlots
+            };
+        }
+        private List<DroneInCharging> convertor(List<IDAL.DO.DroneCharge> idal_droneCharges)
+        {
+            List<DroneInCharging> droneInChargings = new List<DroneInCharging>();
+            foreach (var item in idal_droneCharges)
+            {
+                droneInChargings.Add(convertor(item));
+            }
+            return droneInChargings;
+        }
+        private List<ParcelToList> convertor1(IEnumerable<IDAL.DO.Parcel> enumerable)
+        {
+            List<ParcelToList> parcels = new List<ParcelToList>();
+            foreach (var item in enumerable)
+            {
+                parcels.Add(convertor1(item));
+            }
+            return parcels;
+        }
+        private List<ParcelToList> convertor(IEnumerable<IDAL.DO.Parcel> enumerable)
+        {
+            List<ParcelToList> parcels = new List<ParcelToList>();
+            foreach (var item in enumerable)
+            {
+                parcels.Add(convertor1(item));
+            }
+            return parcels;
+        }
+        private ParcelToList convertor1(IDAL.DO.Parcel item)
+        {
+            ParcelStatuses parcelStatuses;
+            if (item.Delivered != DateTime.MinValue)
+                parcelStatuses = ParcelStatuses.delivered;
+            else
+            {
+                if (item.PickedUp != DateTime.MinValue)
+                    parcelStatuses = ParcelStatuses.picked_up;
+                else
+                {
+                    if (item.Scheduled != DateTime.MinValue)
+                        parcelStatuses = ParcelStatuses.Belongs;
+                    else
+                        parcelStatuses = ParcelStatuses.Defined;
+
+                }
+            }
+            string target_name = mydal.Find_customer(item.TargetId).Name;
+            string sender_name = mydal.Find_customer(item.SenderId).Name;
+            return new ParcelToList()
+            {
+                getter = target_name,
+                sender = sender_name,
+                id = item.Id,
+                priority = (IBL.BO.Priorities)item.Priority,
+                status = parcelStatuses,
+                weight = (IBL.BO.WeightCategories)item.Weight
+            };
+        }
+        private List<CustomerToList> convertor(IEnumerable<IDAL.DO.Customer> enumerable)
+        {
+            List<CustomerToList> customers = new List<CustomerToList>();
+            foreach (var item in enumerable)
+            {
+                customers.Add(convertor1(item));
+            }
+            return customers;
+        }
+        private CustomerToList convertor1(IDAL.DO.Customer item)
+        {
+            List<IDAL.DO.Parcel> parcels_got = mydal.Get_all_parcels().ToList().FindAll                 (parcel => parcel.TargetId == item.Id && parcel.Delivered != DateTime.MinValue);
+            List<IDAL.DO.Parcel> parcels_to_get = mydal.Get_all_parcels().ToList().FindAll              (parcel => parcel.TargetId == item.Id && parcel.Delivered == DateTime.MinValue);
+            List<IDAL.DO.Parcel> parcels_sent_and_arrived = mydal.Get_all_parcels().ToList().FindAll    (parcel => parcel.SenderId == item.Id && parcel.Delivered != DateTime.MinValue);
+            List<IDAL.DO.Parcel> parcels_sent_and_not_arrived = mydal.Get_all_parcels().ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered == DateTime.MinValue);
+            return new CustomerToList()
+            {
+                id = item.Id,
+                name = item.Name,
+                phone = item.Phone,
+                num_of_parcels_got = parcels_got.Count(),
+                num_of_parcels_sent_and_arrived = parcels_sent_and_arrived.Count(),
+                num_of_parcels_sent_and_not_arrived = parcels_sent_and_not_arrived.Count(),
+                num_of_parcels_to_get = parcels_to_get.Count()
+            };
+        }
+        private List<DroneToList> convertor(IEnumerable<IDAL.DO.Drone> enumerable)
+        {
+            List<DroneToList> drones = new List<DroneToList>();
+            foreach (var item in enumerable)
+            {
+                drones.Add(convertor1(item));
+            }
+            return drones;
+        }
+        private DroneToList convertor1(IDAL.DO.Drone item)
+        {
+            Drone drone = convertor(item);
+            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList().FindAll(parcel => parcel.DroneId == item.Id);
+            return new DroneToList()
+            {
+                Battery = drone.Battery,
+                Id = drone.Id,
+                location = drone.Space,
+                MaxWeight = drone.MaxWeight,
+                Model = drone.Model,
+                Status = drone.Status,
+                numOfParcel = parcels.Count()
+            };
         }
         private List<Parcel> convertor(List<IDAL.DO.Parcel> idalparcels)
         {
@@ -191,40 +321,51 @@ namespace IBL
             }
             return parcels;
         }
-
-        private ParcelAtTransfer covnertor1(Parcel parcel)
-        {
-            Location getterLlocation = new Location();
-            Location senderLlocation = new Location();
-            IDAL.DO.Customer iadlGetter = mydal.Find_customer(parcel.getter.id);
-            IDAL.DO.Customer iadlSender = mydal.Find_customer(parcel.sender.id);
-            getterLlocation.latitude = iadlGetter.Lattitude;
-            getterLlocation.longitude = iadlGetter.Longitude;
-            senderLlocation.latitude = iadlSender.Lattitude;
-            senderLlocation.longitude = iadlSender.Longitude;
-            return new ParcelAtTransfer()
-            {
-                id = parcel.id,
-                weight = parcel.weight,
-                getter = parcel.getter,
-                sender = parcel.sender,
-                priority = parcel.priority,
-                sateOfParcel = (parcel.PickedUp != DateTime.MinValue),
-                spaceOfPickUp = senderLlocation,
-                spaceOfTarget = getterLlocation,
-                distanceOfDelivery = distance_between_2_points(getterLlocation, senderLlocation)
-            };
-        }
-
         private List<ParcelAtTransfer> convertor1(List<Parcel> parcelsHighPriority)
         {
             List<ParcelAtTransfer> new_list = new List<ParcelAtTransfer>();
             foreach (var item in parcelsHighPriority)
             {
-                new_list.Add(covnertor1(item));
+                new_list.Add(convertor1(item));
             }
             return new_list;
         }
-
+        private Drone convertor(IDAL.DO.Drone idalDrone)
+        {
+            DroneToList droneToList = my_drones.Find(item => item.Id == idalDrone.Id);
+            return new Drone()
+            {
+                Battery = droneToList.Battery,
+                Id = droneToList.Id,
+                MaxWeight = droneToList.MaxWeight,
+                Model = droneToList.Model,
+                Space = droneToList.location,
+                Status = droneToList.Status
+            };
+        }
+        private Customer convertor(IDAL.DO.Customer idal_customer)
+        {
+            Location location = new Location();
+            location.latitude = idal_customer.Lattitude;
+            location.longitude = idal_customer.Longitude;
+            Customer customer = new Customer()
+            {
+                id = idal_customer.Id,
+                name = idal_customer.Name,
+                phone = idal_customer.Phone,
+                space = location
+            };
+            customer.parcels_at_customer_for = new List<Parcel>();
+            customer.parcels_at_customer_from = new List<Parcel>();
+            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
+            foreach (var parcel in parcels)
+            {
+                if (parcel.SenderId == idal_customer.Id)
+                    customer.parcels_at_customer_from.Add(convertor(parcel));
+                if (parcel.TargetId == idal_customer.Id)
+                    customer.parcels_at_customer_for.Add(convertor(parcel));
+            }
+            return customer;
+        }
     }
 }
