@@ -12,5 +12,15 @@ namespace IBL.BO
         public double longitude { get; set; }
         // KAV ROHAV
         public double latitude { get; set; }
+
+        public override string ToString()
+        {
+            string result = "";
+            result += " longitude:" + longitude;
+            result += " Lattitude: " + latitude;
+            return result;
+        }
     }
+
+}
 }

@@ -13,19 +13,21 @@ namespace IBL.BO
         public WeightCategories MaxWeight { get; set; }
         public double Battery { get; set; }
         public DroneStatuses Status { get; set; }
-        public Location location { get; set; }
-        public int numOfParcel { get; set; }
-        /*public override string ToString()
+        public Location TheLocation { get; set; }
+        public int NumOfParcel { get; set; }
+        public override string ToString()
         {
             string result = "";
             result += "ID: " + Id;
             result += " Model: " + Model;
             result += " MaxWeight: " + MaxWeight;
-            result += " Status: " + Status;
             result += " Battery: " + Battery;
+            result += " Status: " + Status;
+            result += " Location: " + TheLocation;
+            result += " Number Of the Parcel: " + NumOfParcel;
             result += '\n';
             return result;
-        }*/
+        }
     }
 
 

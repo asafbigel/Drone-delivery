@@ -38,7 +38,7 @@ namespace IBL
                     Id = item.Id,
                     Model = item.Model,
                     MaxWeight = (WeightCategories)item.MaxWeight,
-                    numOfParcel = 0,
+                    NumOfParcel = 0,
                     Status = (DroneStatuses)random.Next(0, 1)
                 });
             }
@@ -60,7 +60,7 @@ namespace IBL
                 {
                     id = item.Id,
                     name = item.Name,
-                    space = location,
+                    TheLocation = location,
                     phone = item.Phone,
                     parcels_at_customer_for = new List<BO.Parcel>(),
                     parcels_at_customer_from = new List<BO.Parcel>()
@@ -92,7 +92,7 @@ namespace IBL
             {
                 List<IDAL.DO.Parcel> parcel_of_this_drone = idalParcel.FindAll(x => x.DroneId == drone.Id);
                 List<IDAL.DO.Parcel> parcel_of_this_drone_Delivered = parcel_of_this_drone.FindAll(x => x.Delivered != DateTime.MinValue);
-                drone.numOfParcel = parcel_of_this_drone.Count();
+                drone.NumOfParcel = parcel_of_this_drone.Count();
                 if (parcel_of_this_drone.Count() - parcel_of_this_drone_Delivered.Count() != 0)
                     drone.Status = DroneStatuses.sending;
 
@@ -104,15 +104,15 @@ namespace IBL
                     {
                         Customer sender = find_customer(customers, parcel.SenderId);
                         Customer getter = find_customer(customers, parcel.TargetId);
-                        BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.space);
+                        BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.TheLocation);
                         if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
                         {
-                            BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.space);
-                            drone.location = baseStation_neer_sender.space;
+                            BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.TheLocation);
+                            drone.TheLocation = baseStation_neer_sender.space;
 
-                            double distance1 = distance_between_2_points(baseStation_neer_sender.space, sender.space);
-                            double distance2 = distance_between_2_points(sender.space, getter.space);
-                            double distance3 = distance_between_2_points(baseStation_neer_geeter.space, getter.space);
+                            double distance1 = distance_between_2_points(baseStation_neer_sender.space, sender.TheLocation);
+                            double distance2 = distance_between_2_points(sender.TheLocation, getter.TheLocation);
+                            double distance3 = distance_between_2_points(baseStation_neer_geeter.space, getter.TheLocation);
                             double min_battery = (distance1 + distance3) * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -132,9 +132,9 @@ namespace IBL
                         }
                         if (parcel.PickedUp != DateTime.MinValue)
                         {
-                            drone.location = sender.space;
-                            double distance1 = distance_between_2_points(sender.space, getter.space);
-                            double distance2 = distance_between_2_points(getter.space, baseStation_neer_geeter.space);
+                            drone.TheLocation = sender.TheLocation;
+                            double distance1 = distance_between_2_points(sender.TheLocation, getter.TheLocation);
+                            double distance2 = distance_between_2_points(getter.TheLocation, baseStation_neer_geeter.space);
                             double min_battery = distance2 * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -160,7 +160,7 @@ namespace IBL
                 if (drone.Status == DroneStatuses.maintenance)
                 {
                     int i = random.Next(0, baseStations.Count);
-                    drone.location = baseStations[i].space;
+                    drone.TheLocation = baseStations[i].space;
                     drone.Battery = random.Next(0, 21);
                 }
                 // case status is vacant
@@ -168,9 +168,9 @@ namespace IBL
                 {
                     int i = random.Next(0, parcel_of_this_drone_Delivered.Count);
                     Customer getter = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId);
-                    drone.location = getter.space;
-                    BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.space);
-                    double distance = distance_between_2_points(getter.space, baseStation_neer_geeter.space);
+                    drone.TheLocation = getter.TheLocation;
+                    BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.TheLocation);
+                    double distance = distance_between_2_points(getter.TheLocation, baseStation_neer_geeter.space);
                     double min_battery = distance * Electricity_free;
                     drone.Battery = random.Next((int)distance + 1, 100);
                 }

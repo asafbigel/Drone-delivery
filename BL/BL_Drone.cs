@@ -15,8 +15,8 @@ namespace IBL
             drone.Battery = rand.Next(20, 41);
             drone.Status = DroneStatuses.maintenance;
             IDAL.DO.BaseStation baseStation = mydal.Find_baseStation(baseStation_num);
-            drone.Space.longitude = baseStation.Longitude;
-            drone.Space.latitude = baseStation.Lattitude;
+            drone.TheLocation.longitude = baseStation.Longitude;
+            drone.TheLocation.latitude = baseStation.Lattitude;
             my_drones.Add(convertor1(drone));
             IDAL.DO.Drone idalDrone = convertor(drone);
             mydal.Add_drone(idalDrone);
@@ -39,12 +39,12 @@ namespace IBL
             if (drone.Status != DroneStatuses.vacant)
                 throw new DroneException("Drone not vacant");
             List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations_with_free_charge_slot());
-            BaseStation baseStation = BaseStation_close_to_location(baseStations, drone.location);
-            double needen_fual = distance_between_2_points(baseStation.space, drone.location) * Electricity_free;
+            BaseStation baseStation = BaseStation_close_to_location(baseStations, drone.TheLocation);
+            double needen_fual = distance_between_2_points(baseStation.space, drone.TheLocation) * Electricity_free;
             if (needen_fual > drone.Battery)
                 throw new DroneException("Not enaugh foul");
             drone.Battery -= needen_fual;
-            drone.location = baseStation.space;
+            drone.TheLocation = baseStation.space;
             drone.Status = DroneStatuses.maintenance;
             IDAL.DO.DroneCharge charge = new IDAL.DO.DroneCharge();
             charge.DroneId = drone.Id;

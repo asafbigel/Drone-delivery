@@ -11,8 +11,28 @@ namespace IBL.BO
         public int id { get; set; }
         public string name { get; set; }
         public string phone { get; set; }
-        public Location space { get; set; }
-        public List<Parcel> parcels_at_customer_from { get; set; }
-        public List<Parcel> parcels_at_customer_for { get; set; }
+        public Location TheLocation { get; set; }
+        public List<ParcelAtCustomer> parcels_at_customer_from { get; set; }
+        public List<ParcelAtCustomer> parcels_at_customer_for { get; set; }
+
+        public override string ToString()
+        {
+            string result = "";
+            result += "ID: " + id;
+            result += " Name: " + name;
+            result += " Phone: " + phone;
+            result += TheLocation;
+            result += "parcels from the customer:\n";
+            foreach (var item in parcels_at_customer_from)
+            {
+                result += item.ToString();
+            }
+            result += "parcels for the customer:\n";
+            foreach (var item in parcels_at_customer_for)
+            {
+                result += item.ToString();
+            }
+            return result;
+        }
     }
 }

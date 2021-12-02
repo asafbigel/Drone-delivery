@@ -39,8 +39,8 @@ namespace ConsuleUI_BL
             Console.Write("Enter getter id: "); 
             Parcel parcel= new Parcel()
             {
-                priority = priority,
-                 weight = weight
+                Priority = priority,
+                 Weight = weight
             };
             mybi.Add_parcel(parcel, sender_id, getter_id);
         }
@@ -55,7 +55,7 @@ namespace ConsuleUI_BL
             customer.name = Console.ReadLine();
             Console.Write("Enter phone: ");
             customer.phone = Console.ReadLine();
-            customer .space = input_location();
+            customer .TheLocation = input_location();
 
             mybi.Add_customer(customer);
         }

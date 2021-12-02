@@ -11,6 +11,16 @@ namespace IBL.BO
         public int Id { get; set; }
        
         public double Battery { get; set; }
-        Location location { get; set; }
+        public Location TheLocation { get; set; }
+        public override string ToString()
+        {
+            string result = "";
+            result += "ID: " + Id;
+            result += " Battery: " + Battery;
+            result += " Location: " + TheLocation;
+            result += '\n';
+            return result;
+        }
+
     }
 }

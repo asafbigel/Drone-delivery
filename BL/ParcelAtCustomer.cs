@@ -8,10 +8,21 @@ namespace IBL.BO
 {
     public class ParcelAtCustomer
     {
-        public int id { get; set; }
-        public WeightCategories weight { get; set; }
-        public Priorities priority { get; set; }
-        public ParcelStatuses status { get; set; }
-        public CustomerAtParcel other_customer { get; set; }
+        public int Id { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Priority { get; set; }
+        public ParcelStatuses Status { get; set; }
+        public CustomerAtParcel OtherCustomer { get; set; }
+
+        public override string ToString()
+        {
+            string result = "";
+            result += "ID: " + Id;
+            result += " Weight: " + Weight;
+            result += " Priority: " + Priority;
+            result += " Status: " + Status;
+            result += "\nThe other customer:" + OtherCustomer;
+            return result;
+        }
     }
 }

@@ -9,11 +9,24 @@ namespace IBL.BO
 {
     public class ParcelToList
     {
-        public int id { get; set; }
-        public string sender { get; set; }
-        public string getter { get; set; }
-        public WeightCategories weight { get; set; }
-        public Priorities priority { get; set; }
-        public ParcelStatuses status { get; set; }
+        public int Id { get; set; }
+        public string NameSender { get; set; }
+        public string NameGetter { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Priority { get; set; }
+        public ParcelStatuses Status { get; set; }
+
+        public override string ToString()
+        {
+            string result = "";
+            result += "ID: " + Id;
+            result += " Sender: " + NameSender;
+            result += " Target: " + NameGetter;
+            result += " Weight: " + Weight;
+            result += " Priority: " + Priority;
+            result += " Status: " + Status + "\n";
+            return result;
+        }
     }
+
 }

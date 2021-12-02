@@ -15,8 +15,8 @@ namespace IBL
             parcel.PickedUp = DateTime.MinValue;
             parcel.Scheduled = DateTime.MinValue;
             parcel.Requested = DateTime.Now;
-            parcel.id = mydal.GetAndUpdateRunNumber();
-            parcel.droneAtParcel = null;
+            parcel.Id = mydal.GetAndUpdateRunNumber();
+            parcel.TheDrone = null;
             IDAL.DO.Parcel idalParcel = convertor(parcel);
             idalParcel.SenderId = sender_id;
             idalParcel.TargetId = getter_id;
@@ -32,48 +32,48 @@ namespace IBL
             if (idalparcels.Count == 0)
                 throw new ParcelException("No parcel exist");
             List<Parcel> parcels = convertor(idalparcels);
-            List<Parcel> parcelsHighPriority = parcels.FindAll(item => item.priority == Priorities.emergency);
+            List<Parcel> parcelsHighPriority = parcels.FindAll(item => item.Priority == Priorities.emergency);
             if (parcelsHighPriority.Count == 0)
             {
-                parcelsHighPriority = parcels.FindAll(item => item.priority == Priorities.fast);
+                parcelsHighPriority = parcels.FindAll(item => item.Priority == Priorities.fast);
                 if (parcelsHighPriority.Count == 0)
-                    parcelsHighPriority = parcels.FindAll(item => item.priority == Priorities.regular);
+                    parcelsHighPriority = parcels.FindAll(item => item.Priority == Priorities.regular);
             }
-            List<Parcel> parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.weight == WeightCategories.heavy);
+            List<Parcel> parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.Weight == WeightCategories.heavy);
             if (parcelsHighWeigth.Count == 0)
             {
-                parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.weight == WeightCategories.medium);
+                parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.Weight == WeightCategories.medium);
                 if (parcelsHighWeigth.Count == 0)
-                    parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.weight == WeightCategories.light);
+                    parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.Weight == WeightCategories.light);
             }
             List<ParcelAtTransfer> parcelsAtTransfer = convertor1(parcelsHighPriority);
             ParcelAtTransfer parcelAtTransfer = parcelsAtTransfer[0];
-            double min_distance = distance_between_2_points(drone.location, parcelAtTransfer.spaceOfPickUp);
+            double min_distance = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfPickUp);
             double this_distance;
             foreach (var item in parcelsAtTransfer)
             {
-                this_distance = distance_between_2_points(drone.location, item.spaceOfPickUp);
+                this_distance = distance_between_2_points(drone.TheLocation, item.LocationOfPickUp);
                 if (this_distance < min_distance)
                 {
                     parcelAtTransfer = item;
                     min_distance = this_distance;
                 }
             }
-            BaseStation baseStation = BaseStation_close_to_location(convertor(mydal.Get_all_base_stations()), parcelAtTransfer.spaceOfTarget);
+            BaseStation baseStation = BaseStation_close_to_location(convertor(mydal.Get_all_base_stations()), parcelAtTransfer.LocationOfTarget);
             double battery_needed = 0;
-            battery_needed += distance_between_2_points(drone.location, parcelAtTransfer.spaceOfPickUp) * Electricity_free;
-            if (parcelAtTransfer.weight == WeightCategories.heavy)
-                battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfPickUp, parcelAtTransfer.spaceOfTarget) * Electricity_heavy;
-            if (parcelAtTransfer.weight == WeightCategories.medium)
-                battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfPickUp, parcelAtTransfer.spaceOfTarget) * Electricity_medium;
-            if (parcelAtTransfer.weight == WeightCategories.light)
-                battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfPickUp, parcelAtTransfer.spaceOfTarget) * Electricity_light;
-            battery_needed += distance_between_2_points(parcelAtTransfer.spaceOfTarget, baseStation.space) * Electricity_free;
+            battery_needed += distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
+            if (parcelAtTransfer.Weight == WeightCategories.heavy)
+                battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfPickUp, parcelAtTransfer.LocationOfTarget) * Electricity_heavy;
+            if (parcelAtTransfer.Weight == WeightCategories.medium)
+                battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfPickUp, parcelAtTransfer.LocationOfTarget) * Electricity_medium;
+            if (parcelAtTransfer.Weight == WeightCategories.light)
+                battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfPickUp, parcelAtTransfer.LocationOfTarget) * Electricity_light;
+            battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfTarget, baseStation.space) * Electricity_free;
 
             if (battery_needed > drone.Battery)
                 throw new DroneException("No enaugh battery");
             drone.Status = DroneStatuses.sending;
-            IDAL.DO.Parcel parcel = mydal.Find_parcel(parcelAtTransfer.id);
+            IDAL.DO.Parcel parcel = mydal.Find_parcel(parcelAtTransfer.Id);
             parcel.DroneId = drone.Id;
             parcel.Scheduled = DateTime.Now;
             mydal.UpdateParcel(parcel);
@@ -95,11 +95,11 @@ namespace IBL
             if (parcel.DroneId != drone_id)
                 throw new DroneException("Don't has parcel that don't picked up");
             ParcelAtTransfer parcelAtTransfer = convertor1(convertor(parcel));
-            double min_battery = distance_between_2_points(drone.location, parcelAtTransfer.spaceOfPickUp) * Electricity_free;
+            double min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
             if (drone.Battery < min_battery)
                 throw new ParcelException("Has not enaugh battery");
             drone.Battery -= min_battery;
-            drone.location = parcelAtTransfer.spaceOfPickUp;
+            drone.TheLocation = parcelAtTransfer.LocationOfPickUp;
             parcel.PickedUp = DateTime.Now;
             mydal.UpdateParcel(parcel);
         }
@@ -116,13 +116,13 @@ namespace IBL
             switch (parcel.Weight)
             {
                 case IDAL.DO.WeightCategories.light:
-                    min_battery = distance_between_2_points(drone.location, parcelAtTransfer.spaceOfTarget)* Electricity_light;
+                    min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfTarget)* Electricity_light;
                     break;
                 case IDAL.DO.WeightCategories.medium:
-                    min_battery = distance_between_2_points(drone.location, parcelAtTransfer.spaceOfTarget) * Electricity_medium;
+                    min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfTarget) * Electricity_medium;
                     break;
                 case IDAL.DO.WeightCategories.heavy:
-                    min_battery = distance_between_2_points(drone.location, parcelAtTransfer.spaceOfTarget) * Electricity_heavy;
+                    min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfTarget) * Electricity_heavy;
                     break;
                 default:
                     min_battery = 0;
@@ -131,7 +131,7 @@ namespace IBL
             if (drone.Battery < min_battery)
                 throw new ParcelException("Has not enaugh battery");
             drone.Battery -= min_battery;
-            drone.location = parcelAtTransfer.spaceOfTarget;
+            drone.TheLocation = parcelAtTransfer.LocationOfTarget;
             drone.Status = DroneStatuses.vacant;
             parcel.Delivered = DateTime.Now;
             mydal.UpdateParcel(parcel);
