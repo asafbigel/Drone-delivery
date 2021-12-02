@@ -29,7 +29,7 @@ namespace IBL
         }
         public void print_all_customers()
         {
-            List<IBL.BO.CustomerToList> customers = convertor(mydal.Get_all_customers());
+            List<CustomerToList> customers = convertor(mydal.Get_all_customers());
             foreach (var item in customers)
             {
                 Console.WriteLine(item);
