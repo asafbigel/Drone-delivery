@@ -8,14 +8,14 @@ namespace IBL.BO
 {
     public class CustomerAtParcel
     {
-        public int id { get; set; }
-        public string customer_name { get; set; }
+        public int Id { get; set; }
+        public string CustomerName { get; set; }
 
         public override string ToString()
         {
             string result = "";
-            result += "ID: " + id;
-            result += " Name: " + customer_name;
+            result += "ID: " + Id + ",";
+            result += " Name: " + CustomerName ;
             return result;
 ;       }
     }

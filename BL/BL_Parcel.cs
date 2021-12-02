@@ -48,11 +48,11 @@ namespace IBL
             }
             List<ParcelAtTransfer> parcelsAtTransfer = convertor1(parcelsHighPriority);
             ParcelAtTransfer parcelAtTransfer = parcelsAtTransfer[0];
-            double min_distance = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfPickUp);
+            double min_distance = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfPickUp);
             double this_distance;
             foreach (var item in parcelsAtTransfer)
             {
-                this_distance = distance_between_2_points(drone.TheLocation, item.LocationOfPickUp);
+                this_distance = distance_between_2_points(drone.DroneLocation, item.LocationOfPickUp);
                 if (this_distance < min_distance)
                 {
                     parcelAtTransfer = item;
@@ -61,14 +61,14 @@ namespace IBL
             }
             BaseStation baseStation = BaseStation_close_to_location(convertor(mydal.Get_all_base_stations()), parcelAtTransfer.LocationOfTarget);
             double battery_needed = 0;
-            battery_needed += distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
+            battery_needed += distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
             if (parcelAtTransfer.Weight == WeightCategories.heavy)
                 battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfPickUp, parcelAtTransfer.LocationOfTarget) * Electricity_heavy;
             if (parcelAtTransfer.Weight == WeightCategories.medium)
                 battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfPickUp, parcelAtTransfer.LocationOfTarget) * Electricity_medium;
             if (parcelAtTransfer.Weight == WeightCategories.light)
                 battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfPickUp, parcelAtTransfer.LocationOfTarget) * Electricity_light;
-            battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfTarget, baseStation.space) * Electricity_free;
+            battery_needed += distance_between_2_points(parcelAtTransfer.LocationOfTarget, baseStation.BaseStationLocation) * Electricity_free;
 
             if (battery_needed > drone.Battery)
                 throw new DroneException("No enaugh battery");
@@ -95,11 +95,11 @@ namespace IBL
             if (parcel.DroneId != drone_id)
                 throw new DroneException("Don't has parcel that don't picked up");
             ParcelAtTransfer parcelAtTransfer = convertor1(convertor(parcel));
-            double min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
+            double min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
             if (drone.Battery < min_battery)
                 throw new ParcelException("Has not enaugh battery");
             drone.Battery -= min_battery;
-            drone.TheLocation = parcelAtTransfer.LocationOfPickUp;
+            drone.DroneLocation = parcelAtTransfer.LocationOfPickUp;
             parcel.PickedUp = DateTime.Now;
             mydal.UpdateParcel(parcel);
         }
@@ -116,13 +116,13 @@ namespace IBL
             switch (parcel.Weight)
             {
                 case IDAL.DO.WeightCategories.light:
-                    min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfTarget)* Electricity_light;
+                    min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfTarget)* Electricity_light;
                     break;
                 case IDAL.DO.WeightCategories.medium:
-                    min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfTarget) * Electricity_medium;
+                    min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfTarget) * Electricity_medium;
                     break;
                 case IDAL.DO.WeightCategories.heavy:
-                    min_battery = distance_between_2_points(drone.TheLocation, parcelAtTransfer.LocationOfTarget) * Electricity_heavy;
+                    min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfTarget) * Electricity_heavy;
                     break;
                 default:
                     min_battery = 0;
@@ -131,7 +131,7 @@ namespace IBL
             if (drone.Battery < min_battery)
                 throw new ParcelException("Has not enaugh battery");
             drone.Battery -= min_battery;
-            drone.TheLocation = parcelAtTransfer.LocationOfTarget;
+            drone.DroneLocation = parcelAtTransfer.LocationOfTarget;
             drone.Status = DroneStatuses.vacant;
             parcel.Delivered = DateTime.Now;
             mydal.UpdateParcel(parcel);

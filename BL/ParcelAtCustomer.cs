@@ -17,10 +17,10 @@ namespace IBL.BO
         public override string ToString()
         {
             string result = "";
-            result += "ID: " + Id;
-            result += " Weight: " + Weight;
-            result += " Priority: " + Priority;
-            result += " Status: " + Status;
+            result += "ID: " + Id + ",";
+            result += " Weight: " + Weight + ",";
+            result += " Priority: " + Priority + ",";
+            result += " Status: " + Status + ",";
             result += "\nThe other customer:" + OtherCustomer;
             return result;
         }

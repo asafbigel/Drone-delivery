@@ -11,7 +11,7 @@ namespace IBL
         {
             BaseStation baseStation = find_baseStation(id);
             if (new_name != "_")
-                baseStation.name = new_name;
+                baseStation.Name = new_name;
             if (new_slot != "_")
             {
                 if (!int.TryParse(new_slot, out int slot)) { throw new IntReadException(); }

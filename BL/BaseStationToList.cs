@@ -9,16 +9,16 @@ namespace IBL.BO
     public class BaseStationToList
     {
         public int Id { get; set; }
-        public string name { get; set; }
-        public int num_of_free_slots { get; set; }
-        public int num_of_busy_slots { get; set; }
+        public string Name { get; set; }
+        public int NumOfFreeSlots { get; set; }
+        public int NumOfBusySlots { get; set; }
         public override string ToString()
         {
             string result = "";
-            result += "ID: " + Id;
-            result += " Name: " + name;
-            result += " num of free slots: " + num_of_free_slots;
-            result += " num of busy slots: " + num_of_busy_slots;
+            result += "ID: " + Id + ",";
+            result += " Name: " + Name + ",";
+            result += " num of free slots: " + NumOfFreeSlots + ",";
+            result += " num of busy slots: " + NumOfBusySlots;
  
             return result;
         }

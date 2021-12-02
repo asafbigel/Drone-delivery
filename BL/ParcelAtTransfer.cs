@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IBL.BO
+﻿namespace IBL.BO
 {
     public class ParcelAtTransfer
     {
@@ -28,12 +22,12 @@ namespace IBL.BO
             else
                 result += "Parcel wait to pick up";
         
-            result += " Priority: " + Priority;
-            result += " Weight: " + Weight;
-            result += " Sender: " + Sender;
-            result += " Target: " + Getter;
-            result += " Location of pick up: " + LocationOfPickUp;
-            result += " Location of target: " + LocationOfTarget;
+            result += " Priority: " + Priority + ",";
+            result += " Weight: " + Weight + ",";
+            result += " Sender: " + Sender + ",";
+            result += " Target: " + Getter + ",";
+            result += " Location of pick up: " + LocationOfPickUp + ",";
+            result += " Location of target: " + LocationOfTarget + ",";
             result += " Location of delivery: " + DistanceOfDelivery;
             result += "\n";
             return result;

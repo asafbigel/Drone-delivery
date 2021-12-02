@@ -23,15 +23,15 @@ namespace IBL
         {
             BaseStation baseStation = new BaseStation
             {
-                id = idalBaseStation.Id,
-                name = idalBaseStation.Name,
+                Id = idalBaseStation.Id,
+                Name = idalBaseStation.Name,
                 Num_Free_slots_charge = idalBaseStation.ChargeSlots,
                 DroneInChargings = new List<DroneInCharging>() 
             };
             IEnumerable<IDAL.DO.DroneCharge> droneCharges = mydal.Get_all_DroneCharge();
             foreach (var item in droneCharges)
             {
-                if (item.StationId == baseStation.id)
+                if (item.StationId == baseStation.Id)
                 {
                     DroneInCharging drone = convertor(item);
                     baseStation.DroneInChargings.Add(drone);
@@ -43,7 +43,7 @@ namespace IBL
             Location location = new Location();
             location.latitude = idalBaseStation.Lattitude;
             location.longitude = idalBaseStation.Longitude;
-            baseStation.space = location;
+            baseStation.BaseStationLocation = location;
             return baseStation;
         }
         private IDAL.DO.BaseStation convertor(BaseStation baseStation)
@@ -51,10 +51,10 @@ namespace IBL
             IDAL.DO.BaseStation idalBaseStation = new IDAL.DO.BaseStation()
             {
                 ChargeSlots = baseStation.Num_Free_slots_charge,
-                Id = baseStation.id,
-                Lattitude = baseStation.space.latitude,
-                Longitude = baseStation.space.longitude,
-                Name = baseStation.name
+                Id = baseStation.Id,
+                Lattitude = baseStation.BaseStationLocation.latitude,
+                Longitude = baseStation.BaseStationLocation.longitude,
+                Name = baseStation.Name
             };
             return idalBaseStation;
         }
@@ -74,8 +74,8 @@ namespace IBL
                 DroneId = drone_id,
                 Priority = (IDAL.DO.Priorities)parcel.Priority,
                 Weight = (IDAL.DO.WeightCategories)parcel.Weight,
-                SenderId = parcel.Sender.id,
-                TargetId = parcel.Getter.id
+                SenderId = parcel.Sender.Id,
+                TargetId = parcel.Getter.Id
             };
             return idalParcel;
         }
@@ -85,13 +85,13 @@ namespace IBL
             IDAL.DO.Customer idalSender = mydal.Find_customer(idalParcel.SenderId);
             CustomerAtParcel getter = new CustomerAtParcel()
             {
-                customer_name = idalGetter.Name,
-                id = idalGetter.Id
+                CustomerName = idalGetter.Name,
+                Id = idalGetter.Id
             };
             CustomerAtParcel sender = new CustomerAtParcel()
             {
-                customer_name = idalSender.Name,
-                id = idalSender.Id
+                CustomerName = idalSender.Name,
+                Id = idalSender.Id
             };
             DroneToList drone = my_drones.Find(item => item.Id == idalParcel.Id);
             return new Parcel()
@@ -113,8 +113,8 @@ namespace IBL
         {
             Location senderLlocation = new Location();
             Location getter_location = new Location();
-            IDAL.DO.Customer sender = mydal.Find_customer(parcel.Sender.id);
-            IDAL.DO.Customer getter = mydal.Find_customer(parcel.Getter.id);
+            IDAL.DO.Customer sender = mydal.Find_customer(parcel.Sender.Id);
+            IDAL.DO.Customer getter = mydal.Find_customer(parcel.Getter.Id);
             senderLlocation.longitude = sender.Longitude;
             senderLlocation.latitude = sender.Lattitude;
             getter_location.longitude = sender.Longitude;
@@ -170,7 +170,7 @@ namespace IBL
                 MaxWeight = drone.MaxWeight,
                 Model = drone.Model,
                 Battery = drone.Battery,
-                TheLocation = drone.TheLocation,
+                DroneLocation = drone.DroneLocation,
                 Status = drone.Status,
                 NumOfParcel = 0
             };
@@ -200,9 +200,9 @@ namespace IBL
             return new BaseStationToList()
             {
                 Id = item.Id,
-                name = item.Name,
-                num_of_busy_slots = droneCharge.Count(),
-                num_of_free_slots = item.ChargeSlots
+                Name = item.Name,
+                NumOfBusySlots = droneCharge.Count(),
+                NumOfFreeSlots = item.ChargeSlots
             };
         }
         private List<DroneInCharging> convertor(List<IDAL.DO.DroneCharge> idal_droneCharges)
@@ -254,8 +254,8 @@ namespace IBL
             string sender_name = mydal.Find_customer(item.SenderId).Name;
             return new ParcelToList()
             {
-                NameGetter = target_name,
-                NameSender = sender_name,
+                GetterName = target_name,
+                SenderName = sender_name,
                 Id = item.Id,
                 Priority = (IBL.BO.Priorities)item.Priority,
                 Status = parcelStatuses,
@@ -288,13 +288,13 @@ namespace IBL
             List<IDAL.DO.Parcel> parcels_sent_and_not_arrived = mydal.Get_all_parcels().ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered == DateTime.MinValue);
             return new CustomerToList()
             {
-                id = item.Id,
-                name = item.Name,
-                phone = item.Phone,
-                num_of_parcels_got = parcels_got.Count(),
-                num_of_parcels_sent_and_arrived = parcels_sent_and_arrived.Count(),
-                num_of_parcels_sent_and_not_arrived = parcels_sent_and_not_arrived.Count(),
-                num_of_parcels_to_get = parcels_to_get.Count()
+                Id = item.Id,
+                Name = item.Name,
+                Phone = item.Phone,
+                NumOfParcelsGot = parcels_got.Count(),
+                NumOfParcelsSentAndArrived = parcels_sent_and_arrived.Count(),
+                NumOfParcelsSentAndNotArrived = parcels_sent_and_not_arrived.Count(),
+                numOfParcelsToGet = parcels_to_get.Count()
             };
         }
         private List<DroneToList> convertor(IEnumerable<IDAL.DO.Drone> enumerable)
@@ -314,7 +314,7 @@ namespace IBL
             {
                 Battery = drone.Battery,
                 Id = drone.Id,
-                TheLocation = drone.TheLocation,
+                DroneLocation = drone.DroneLocation,
                 MaxWeight = drone.MaxWeight,
                 Model = drone.Model,
                 Status = drone.Status,
@@ -348,7 +348,7 @@ namespace IBL
                 Id = droneToList.Id,
                 MaxWeight = droneToList.MaxWeight,
                 Model = droneToList.Model,
-                TheLocation = droneToList.TheLocation,
+                DroneLocation = droneToList.DroneLocation,
                 Status = droneToList.Status
             };
         }

@@ -18,10 +18,10 @@ namespace ConsuleUI_BL
             int chargeSlots = int.Parse(Console.ReadLine());
             BaseStation baseStation = new BaseStation()
             {
-                id = my_id,
-                name = my_name,
+                Id = my_id,
+                Name = my_name,
                 Num_Free_slots_charge = chargeSlots,
-                space = my_location
+                BaseStationLocation = my_location
             };
             mybi.Add_base_station(baseStation);
         }

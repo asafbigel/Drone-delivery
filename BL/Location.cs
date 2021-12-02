@@ -16,11 +16,11 @@ namespace IBL.BO
         public override string ToString()
         {
             string result = "";
-            result += " longitude:" + longitude;
+            result += " longitude:" + longitude + ",";
             result += " Lattitude: " + latitude;
             return result;
         }
     }
 
 }
-}
+

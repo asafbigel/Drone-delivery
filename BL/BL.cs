@@ -118,11 +118,11 @@ namespace IBL
                         if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
                         {
                             BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.TheLocation);
-                            drone.TheLocation = baseStation_neer_sender.space;
+                            drone.DroneLocation = baseStation_neer_sender.BaseStationLocation;
 
-                            double distance1 = distance_between_2_points(baseStation_neer_sender.space, sender.TheLocation);
+                            double distance1 = distance_between_2_points(baseStation_neer_sender.BaseStationLocation, sender.TheLocation);
                             double distance2 = distance_between_2_points(sender.TheLocation, getter.TheLocation);
-                            double distance3 = distance_between_2_points(baseStation_neer_geeter.space, getter.TheLocation);
+                            double distance3 = distance_between_2_points(baseStation_neer_geeter.BaseStationLocation, getter.TheLocation);
                             double min_battery = (distance1 + distance3) * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -142,9 +142,9 @@ namespace IBL
                         }
                         if (parcel.PickedUp != DateTime.MinValue)
                         {
-                            drone.TheLocation = sender.TheLocation;
+                            drone.DroneLocation = sender.TheLocation;
                             double distance1 = distance_between_2_points(sender.TheLocation, getter.TheLocation);
-                            double distance2 = distance_between_2_points(getter.TheLocation, baseStation_neer_geeter.space);
+                            double distance2 = distance_between_2_points(getter.TheLocation, baseStation_neer_geeter.BaseStationLocation);
                             double min_battery = distance2 * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -170,7 +170,7 @@ namespace IBL
                 if (drone.Status == DroneStatuses.maintenance)
                 {
                     int i = random.Next(0, baseStations.Count);
-                    drone.TheLocation = baseStations[i].space;
+                    drone.DroneLocation = baseStations[i].BaseStationLocation;
                     drone.Battery = random.Next(0, 21);
                 }
                 // case status is vacant
@@ -181,7 +181,7 @@ namespace IBL
                     if (parcel_of_this_drone_Delivered.Count() > 0)
                     {
                         int i = random.Next(0, parcel_of_this_drone_Delivered.Count() - 1);
-                        location = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId).space;
+                        location = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId).TheLocation;
                     }
                     // case there are not parcels connected to this drone
                     // rand location
@@ -190,9 +190,9 @@ namespace IBL
                         location.latitude = rand.Next(35160443, 35252793) * 0.000001;
                         location.longitude = rand.Next(31727247, 31844377) * 0.000001;
                     }
-                    drone.location = location;
+                    drone.DroneLocation = location;
                     BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, location);
-                    double distance = distance_between_2_points(location, baseStation_neer_geeter.space);
+                    double distance = distance_between_2_points(location, baseStation_neer_geeter.BaseStationLocation);
                     double min_battery = distance * Electricity_free;
                     drone.Battery = random.Next((int)distance + 1, 100);
                 }
@@ -205,10 +205,10 @@ namespace IBL
             if (baseStations.Count == 0)
                 throw new BaseStationExeption("The list is empty");
             BaseStation baseStation = baseStations[0];
-            double min_distance = distance_between_2_points(baseStation.space, space);
+            double min_distance = distance_between_2_points(baseStation.BaseStationLocation, space);
             foreach (var item in baseStations)
             {
-                double distance = distance_between_2_points(item.space, space);
+                double distance = distance_between_2_points(item.BaseStationLocation, space);
                 if (distance < min_distance)
                 {
                     min_distance = distance;

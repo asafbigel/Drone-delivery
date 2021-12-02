@@ -15,7 +15,7 @@ namespace IBL.BO
         public override string ToString()
         {
             string result = "";
-            result += "ID: " + Id;
+            result += "ID: " + Id +",";
             result += " Battery: " + Battery;
             result += '\n';
             return result;

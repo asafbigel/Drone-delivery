@@ -26,15 +26,15 @@ namespace IBL.BO
         public override string ToString()
         {
             string result = "";
-            result += "ID: " + Id;
-            result += " Sender: " + Sender;
-            result += " Target: " + Getter;
-            result += " Weight: " + Weight;
-            result += " Priority: " + Priority;
-            result += " The Drone: " + TheDrone;
-            result += " Requested: " + Requested;
-            result += " Scheduled: " + Scheduled;
-            result += " PickedUp: " + PickedUp;
+            result += "ID: " + Id + ",";
+            result += " Sender: " + Sender + ",";
+            result += " Target: " + Getter + ",";
+            result += " Weight: " + Weight + ",";
+            result += " Priority: " + Priority + ",";
+            result += " The Drone: " + TheDrone + ",";
+            result += " Requested: " + Requested + ",";
+            result += " Scheduled: " + Scheduled + ",";
+            result += " PickedUp: " + PickedUp + ",";
             result += " Delivered: " + Delivered + "\n";
             return result;
         }
