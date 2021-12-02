@@ -11,7 +11,7 @@ namespace IBL
     public partial class BL
     {
         static IDAL.IDal mydal;
-        List<DroneToList> my_drones = new List<DroneToList>();
+        List<DroneToList> my_drones;
         double Electricity_free;
         double Electricity_light;
         double Electricity_medium;
@@ -19,6 +19,7 @@ namespace IBL
         double Charge_at_hour;
         public BL()
         {
+            my_drones = new List<DroneToList>();
             mydal = new DalObject.DalObject();
             double[] Electricity = mydal.ElectricityUse();
             Electricity_free = Electricity[0];
@@ -30,6 +31,7 @@ namespace IBL
 
 
             #region List of drone from the data layer
+             //my_drones = convertor(mydal.Get_all_drones());
             List<IDAL.DO.Drone> idalDrones = mydal.Get_all_drones().ToList();
             foreach (var item in idalDrones)
             {
@@ -42,6 +44,7 @@ namespace IBL
                     Status = (DroneStatuses)random.Next(0, 1)
                 });
             }
+            
             #endregion
 
             #region List of the parcels
@@ -49,6 +52,8 @@ namespace IBL
             #endregion
 
             #region List of customer from the data layer
+            List<Customer> customers = convertor1(mydal.Get_all_customers());
+            /*
             List<IDAL.DO.Customer> idalCustomer = mydal.Get_all_customers().ToList();
             List<Customer> customers = new List<Customer>();
             foreach (var item in idalCustomer)
@@ -66,11 +71,14 @@ namespace IBL
                     parcels_at_customer_from = new List<BO.Parcel>()
                 });
             }
+            */
             #endregion
 
             #region List of base station from the data layer
+            List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations());
+            /*
             List<IDAL.DO.BaseStation> idalBaseStation = mydal.Get_all_base_stations().ToList();
-            List<BaseStation> baseStations = new List<BaseStation>();
+            List<BaseStation> baseStations1 = new List<BaseStation>();
             foreach (var item in idalBaseStation)
             {
                 Location location = new Location();
@@ -85,6 +93,7 @@ namespace IBL
                     DroneInChargings = new List<DroneInCharging>()
                 });
             }
+            */
             #endregion
 
 
@@ -97,6 +106,7 @@ namespace IBL
                     drone.Status = DroneStatuses.sending;
 
                 // choose location and random the battery ofeach drone
+                if(parcel_of_this_drone.Count()>0)
                 foreach (var parcel in parcel_of_this_drone)
                 {
                     // case the parcel has not delivere
@@ -166,11 +176,23 @@ namespace IBL
                 // case status is vacant
                 if (drone.Status == DroneStatuses.vacant)
                 {
-                    int i = random.Next(0, parcel_of_this_drone_Delivered.Count);
-                    Customer getter = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId);
-                    drone.TheLocation = getter.TheLocation;
-                    BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.TheLocation);
-                    double distance = distance_between_2_points(getter.TheLocation, baseStation_neer_geeter.space);
+                    Location location = new Location();
+                    // case there are parcels connected to this drone
+                    if (parcel_of_this_drone_Delivered.Count() > 0)
+                    {
+                        int i = random.Next(0, parcel_of_this_drone_Delivered.Count() - 1);
+                        location = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId).space;
+                    }
+                    // case there are not parcels connected to this drone
+                    // rand location
+                    else
+                    {
+                        location.latitude = rand.Next(35160443, 35252793) * 0.000001;
+                        location.longitude = rand.Next(31727247, 31844377) * 0.000001;
+                    }
+                    drone.location = location;
+                    BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, location);
+                    double distance = distance_between_2_points(location, baseStation_neer_geeter.space);
                     double min_battery = distance * Electricity_free;
                     drone.Battery = random.Next((int)distance + 1, 100);
                 }

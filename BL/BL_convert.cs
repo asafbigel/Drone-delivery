@@ -271,6 +271,15 @@ namespace IBL
             }
             return customers;
         }
+        private List<Customer> convertor1(IEnumerable<IDAL.DO.Customer> enumerable)
+        {
+            List<Customer> customers = new List<Customer>();
+            foreach (var item in enumerable)
+            {
+                customers.Add(convertor(item));
+            }
+            return customers;
+        }
         private CustomerToList convertor1(IDAL.DO.Customer item)
         {
             List<IDAL.DO.Parcel> parcels_got = mydal.Get_all_parcels().ToList().FindAll                 (parcel => parcel.TargetId == item.Id && parcel.Delivered != DateTime.MinValue);
