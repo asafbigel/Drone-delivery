@@ -19,6 +19,7 @@ namespace IDAL
         DroneCharge Find_droneCharge_by_drone(int my_drone_id);
         DroneCharge Find_drone_charge(int my_drone_id);
         Parcel Find_parcel(int my_id);
+        void UpdateCustomer(Customer customer);
         #endregion
         #region Get all
         IEnumerable<BaseStation> Get_all_base_stations();

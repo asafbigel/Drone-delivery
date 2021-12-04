@@ -62,7 +62,7 @@ namespace ConsuleUI_BL
         private static void update_model_drone()
         {
             Console.Write("Enter drone's id: ");
-            int drone_id = int.Parse(Console.ReadLine());
+            if(!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
             Console.Write("Enter drone's model: ");
             string model = Console.ReadLine();
             mybi.update_model_drone(drone_id, model);

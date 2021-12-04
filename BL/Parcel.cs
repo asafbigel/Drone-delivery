@@ -35,7 +35,8 @@ namespace IBL.BO
             result += " Requested: " + Requested + ",";
             result += " Scheduled: " + Scheduled + ",";
             result += " PickedUp: " + PickedUp + ",";
-            result += " Delivered: " + Delivered + "\n";
+            result += " Delivered: " + Delivered;
+            //+ "\n";
             return result;
         }
 

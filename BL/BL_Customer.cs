@@ -21,19 +21,22 @@ namespace IBL
                 customer.Name = new_name;
             if (new_phone != "_")
                 customer.Phone = new_phone;
-
+            mydal.UpdateCustomer(customer);
         }
-        public void print_customer(int customer_id)
+        public string print_customer(int customer_id)
         {
-            Console.WriteLine(convertor(mydal.Find_customer(customer_id)));
+            return convertor(mydal.Find_customer(customer_id)).ToString();
         }
-        public void print_all_customers()
+        public string print_all_customers()
         {
+            string result = "";
             List<CustomerToList> customers = convertor(mydal.Get_all_customers());
             foreach (var item in customers)
             {
-                Console.WriteLine(item);
+                result += item.ToString();
+                result += "\n";
             }
+            return result;
         }
     }
 }

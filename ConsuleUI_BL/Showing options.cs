@@ -8,25 +8,25 @@ namespace ConsuleUI_BL
         {
             Console.Write("Enter Id number: ");
             if (!int.TryParse(Console.ReadLine(), out int parcel_id)) { throw new InputException("Id not valid"); }
-            mybi.print_parcel(parcel_id);
+            Console.WriteLine(mybi.print_parcel(parcel_id) );
         }
         private static void print_customer()
         {
             Console.Write("Enter Id number: ");
             if (!int.TryParse(Console.ReadLine(), out int customer_id)) { throw new InputException("Id not valid"); }
-            mybi.print_customer(customer_id);
+            Console.WriteLine(mybi.print_customer(customer_id) ); 
         }
         private static void print_drone()
         {
             Console.Write("Enter Id number: ");
             if (!int.TryParse(Console.ReadLine(), out int drone_id)) { throw new InputException("Id not valid"); }
-            mybi.print_drone(drone_id);
+            Console.WriteLine(mybi.print_drone(drone_id));
         }
         private static void print_baseStation()
         {
             Console.Write("Enter Id number: ");
             if (!int.TryParse(Console.ReadLine(), out int baseStation_id)) { throw new InputException("Id not valid"); }
-            mybi.print_baseStation(baseStation_id);
+            Console.WriteLine(mybi.Print_baseStation(baseStation_id)); 
         }
     }
 }

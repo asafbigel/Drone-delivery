@@ -24,7 +24,8 @@ namespace IBL.BO
             result += " Target: " + GetterName + ",";
             result += " Weight: " + Weight + ",";
             result += " Priority: " + Priority + ",";
-            result += " Status: " + Status + "\n";
+            result += " Status: " + Status;
+            //+ "\n";
             return result;
         }
     }

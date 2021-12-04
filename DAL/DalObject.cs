@@ -62,6 +62,11 @@ namespace DalObject
             int i = find_index_parcel(parcel.Id);
             DataSource.Parcels[i] = parcel;
         }
+        public void UpdateCustomer(Customer customer)
+        {
+            int i = find_index_customer(customer.Id);
+            DataSource.Customers[i] = customer;
+        }
         public void UpdateDroneCharge(DroneCharge droneCharge, int DroneId)
         {
             int i = find_index_droneCharge_by_drone(DroneId);

@@ -25,7 +25,8 @@ namespace IBL.BO
             result += " num of parcels sent and arrived: " + NumOfParcelsSentAndArrived + ",";
             result += " num of parcels sent and not arrived: " + NumOfParcelsSentAndNotArrived + ",";
             result += " num of parcels that the customer got: " + NumOfParcelsGot + ",";
-            result += " num of parcels that the customer  will get: " + numOfParcelsToGet + "\n";
+            result += " num of parcels that the customer  will get: " + numOfParcelsToGet;
+            //+ "\n";
             
             return result;
         }

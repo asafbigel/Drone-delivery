@@ -24,7 +24,7 @@ namespace IBL.BO
             {
                 result += item.ToString();
             }
-            result += "\n";
+            //result += "\n";
             return result;
         }
     }

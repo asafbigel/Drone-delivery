@@ -10,12 +10,12 @@ namespace ConsuleUI_BL
         private static void add_baseStation()
         {
             Console.Write("Enter station num: ");
-            int my_id = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int my_id)) { throw new IntReadException(); }
             Console.Write("Enter name: ");
             string my_name = Console.ReadLine();
             Location my_location = input_location();
             Console.Write("Enter slots: ");
-            int chargeSlots = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int chargeSlots)) { throw new IntReadException(); }
             BaseStation baseStation = new BaseStation()
             {
                 Id = my_id,
@@ -29,14 +29,19 @@ namespace ConsuleUI_BL
         private static void Add_parcel()
         {
             Console.Write("Enter sender id: ");
-            int sender_id = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int sender_id)) { throw new IntReadException(); }
             Console.Write("Enter getter id: ");
-            int getter_id = int.Parse(Console.ReadLine());
-            Console.Write("Enter weight: ");
-            WeightCategories weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Console.ReadLine());
-            Console.Write("Enter priority: ");
-            Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), Console.ReadLine());
-            Console.Write("Enter getter id: "); 
+            if (!int.TryParse(Console.ReadLine(), out int getter_id)) { throw new IntReadException(); }
+            Console.Write("Enter max weight (0: light,  1: medium,  2: heavy): ");
+            string input = Console.ReadLine();
+            if (input != "0" && input != "1" && input != "2")
+                throw new InputException("not invalid weight");
+            WeightCategories weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), input);
+            Console.Write("Enter priority (0: regular,  1: fast,  2: emergency): ");
+            input = Console.ReadLine();
+            if (input != "0" && input != "1" && input != "2")
+                throw new InputException("not invalid weight");
+            Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), input);
             Parcel parcel= new Parcel()
             {
                 Priority = priority,
@@ -64,14 +69,18 @@ namespace ConsuleUI_BL
         {
             Drone drone = new Drone();
             Console.Write("Enter serial num: ");
-            drone.Id = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int id)) { throw new InputException("not invalid num input"); }
+            drone.Id = id;
             Console.Write("Enter model: ");
             drone.Model = Console.ReadLine();
-            Console.Write("Enter max weight: ");
-            drone.MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Console.ReadLine());
+            Console.Write("Enter max weight (0: light,  1: medium,  2: heavy): ");
+            string input = Console.ReadLine();
+            if (input != "0" && input != "1" && input != "2")
+                throw new InputException("not invalid weight");
+            drone.MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories),input);
             Console.Write("Enter base station number: ");
-            int baseStation_num = int.Parse(Console.ReadLine());
-            mybi.Add_drone(drone, baseStation_num);
+            if(!int.TryParse(Console.ReadLine(), out int baseStationNum)) { throw new InputException("not invalid num input"); }
+            mybi.Add_drone(drone, baseStationNum);
         }
 
 
