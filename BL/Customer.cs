@@ -8,27 +8,27 @@ namespace IBL.BO
 {
     public class Customer
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string phone { get; set; }
-        public Location TheLocation { get; set; }
-        public List<Parcel> parcels_at_customer_from { get; set; }//.///////need to be      List<ParcelAtCustomer>
-        public List<Parcel> parcels_at_customer_for { get; set; }//.///////need to be      List<ParcelAtCustomer>
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public Location CustomerLocation { get; set; }
+        public List<Parcel> ParcelsAtCustomerFrom { get; set; }//.///////need to be      List<ParcelAtCustomer>
+        public List<Parcel> parcelsAtCustomerFor { get; set; }//.///////need to be      List<ParcelAtCustomer>
 
         public override string ToString()
         {
             string result = "";
-            result += "ID: " + id;
-            result += " Name: " + name;
-            result += " Phone: " + phone;
-            result += TheLocation;
+            result += "ID: " + Id;
+            result += " Name: " + Name;
+            result += " Phone: " + Phone;
+            result += CustomerLocation;
             result += "parcels from the customer:\n";
-            foreach (var item in parcels_at_customer_from)
+            foreach (var item in ParcelsAtCustomerFrom)
             {
                 result += item.ToString();
             }
             result += "parcels for the customer:\n";
-            foreach (var item in parcels_at_customer_for)
+            foreach (var item in parcelsAtCustomerFor)
             {
                 result += item.ToString();
             }

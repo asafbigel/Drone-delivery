@@ -17,7 +17,7 @@ namespace IBL
         double Electricity_medium;
         double Electricity_heavy;
         double Charge_at_hour;
-        public BL()
+        public BL() 
         {
             my_drones = new List<DroneToList>();
             mydal = new DalObject.DalObject();
@@ -114,15 +114,15 @@ namespace IBL
                     {
                         Customer sender = find_customer(customers, parcel.SenderId);
                         Customer getter = find_customer(customers, parcel.TargetId);
-                        BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.TheLocation);
+                        BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.CustomerLocation);
                         if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
                         {
-                            BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.TheLocation);
+                            BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.CustomerLocation);
                             drone.DroneLocation = baseStation_neer_sender.BaseStationLocation;
 
-                            double distance1 = distance_between_2_points(baseStation_neer_sender.BaseStationLocation, sender.TheLocation);
-                            double distance2 = distance_between_2_points(sender.TheLocation, getter.TheLocation);
-                            double distance3 = distance_between_2_points(baseStation_neer_geeter.BaseStationLocation, getter.TheLocation);
+                            double distance1 = distance_between_2_points(baseStation_neer_sender.BaseStationLocation, sender.CustomerLocation);
+                            double distance2 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
+                            double distance3 = distance_between_2_points(baseStation_neer_geeter.BaseStationLocation, getter.CustomerLocation);
                             double min_battery = (distance1 + distance3) * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -142,9 +142,9 @@ namespace IBL
                         }
                         if (parcel.PickedUp != DateTime.MinValue)
                         {
-                            drone.DroneLocation = sender.TheLocation;
-                            double distance1 = distance_between_2_points(sender.TheLocation, getter.TheLocation);
-                            double distance2 = distance_between_2_points(getter.TheLocation, baseStation_neer_geeter.BaseStationLocation);
+                            drone.DroneLocation = sender.CustomerLocation;
+                            double distance1 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
+                            double distance2 = distance_between_2_points(getter.CustomerLocation, baseStation_neer_geeter.BaseStationLocation);
                             double min_battery = distance2 * Electricity_free;
                             switch (parcel.Weight)
                             {
@@ -181,7 +181,7 @@ namespace IBL
                     if (parcel_of_this_drone_Delivered.Count() > 0)
                     {
                         int i = random.Next(0, parcel_of_this_drone_Delivered.Count() - 1);
-                        location = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId).TheLocation;
+                        location = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId).CustomerLocation;
                     }
                     // case there are not parcels connected to this drone
                     // rand location
@@ -229,7 +229,7 @@ namespace IBL
         {
             foreach (var item in customers)
             {
-                if (item.id == senderId)
+                if (item.Id == senderId)
                     return item;
             }
             throw new CustomerExeption("id not found");

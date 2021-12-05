@@ -144,11 +144,11 @@ namespace IBL
         {
             IDAL.DO.Customer idalCustomer = new IDAL.DO.Customer()
             {
-                Id = customer.id,
-                Name = customer.name,
-                Lattitude = customer.TheLocation.latitude,
-                Longitude = customer.TheLocation.longitude,
-                Phone = customer.phone
+                Id = customer.Id,
+                Name = customer.Name,
+                Lattitude = customer.CustomerLocation.latitude,
+                Longitude = customer.CustomerLocation.longitude,
+                Phone = customer.Phone
             };
             return idalCustomer;
         }
@@ -359,20 +359,20 @@ namespace IBL
             location.longitude = idal_customer.Longitude;
             Customer customer = new Customer()
             {
-                id = idal_customer.Id,
-                name = idal_customer.Name,
-                phone = idal_customer.Phone,
-                TheLocation = location
+                Id = idal_customer.Id,
+                Name = idal_customer.Name,
+                Phone = idal_customer.Phone,
+                CustomerLocation = location
             };
-            customer.parcels_at_customer_for = new List<Parcel>();
-            customer.parcels_at_customer_from = new List<Parcel>();
+            customer.parcelsAtCustomerFor = new List<Parcel>();
+            customer.ParcelsAtCustomerFrom = new List<Parcel>();
             List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
             foreach (var parcel in parcels)
             {
                 if (parcel.SenderId == idal_customer.Id)
-                    customer.parcels_at_customer_from.Add(convertor(parcel));
+                    customer.ParcelsAtCustomerFrom.Add(convertor(parcel));
                 if (parcel.TargetId == idal_customer.Id)
-                    customer.parcels_at_customer_for.Add(convertor(parcel));
+                    customer.parcelsAtCustomerFor.Add(convertor(parcel));
             }
             return customer;
         }

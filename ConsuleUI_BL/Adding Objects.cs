@@ -50,12 +50,12 @@ namespace ConsuleUI_BL
             Customer customer = new Customer();
             Console.Write("Enter id num: ");
             if(!int.TryParse(Console.ReadLine(), out int id)) { throw new IntReadException(); }
-            customer.id = id;
+            customer.Id = id;
             Console.Write("Enter name: ");
-            customer.name = Console.ReadLine();
+            customer.Name = Console.ReadLine();
             Console.Write("Enter phone: ");
-            customer.phone = Console.ReadLine();
-            customer .TheLocation = input_location();
+            customer.Phone = Console.ReadLine();
+            customer .CustomerLocation = input_location();
 
             mybi.Add_customer(customer);
         }
