@@ -136,25 +136,31 @@ namespace IBL
             parcel.Delivered = DateTime.Now;
             mydal.UpdateParcel(parcel);
         }
-        public void print_parcel(int parcel_id)
+        public string print_parcel(int parcel_id)
         {
-            Console.WriteLine(convertor(mydal.Find_parcel(parcel_id)));
+            return convertor(mydal.Find_parcel(parcel_id)).ToString();
         }
-        public void print_all_parcels()
+        public string print_all_parcels()
         {
+            string result = "";
             List<ParcelToList> parcels = convertor1(mydal.Get_all_parcels().ToList());
             foreach (var item in parcels)
             {
-                Console.WriteLine(item);
+                result += item.ToString();
+                result += "\n";
             }
+            return result;
         }
-        public void print_all_parcels_without_drone()
+        public string print_all_parcels_without_drone()
         {
+            string result = "";
             List<ParcelToList> parcels = convertor1(mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone().ToList());
             foreach (var item in parcels)
             {
-                Console.WriteLine(item);
+                result += item.ToString();
+                result += "\n";
             }
+            return result;
         }
     }
 }

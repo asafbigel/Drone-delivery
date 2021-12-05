@@ -15,6 +15,7 @@ namespace IBL
             drone.Battery = rand.Next(20, 41);
             drone.Status = DroneStatuses.maintenance;
             IDAL.DO.BaseStation baseStation = mydal.Find_baseStation(baseStation_num);
+            drone.DroneLocation = new Location();
             drone.DroneLocation.longitude = baseStation.Longitude;
             drone.DroneLocation.latitude = baseStation.Lattitude;
             my_drones.Add(convertor1(drone));
@@ -30,6 +31,7 @@ namespace IBL
             IDAL.DO.Drone my_drone = mydal.Find_drone(drone_id);
             my_drone.Model = model;
             mydal.UpdateDrone(my_drone);
+            my_drones.Find(item => item.Id == drone_id).Model = model;
         }
         public void send_drone_to_charge(int id)
         {
@@ -62,17 +64,20 @@ namespace IBL
             drone.Status = DroneStatuses.vacant;
             mydal.put_out_drone_from_charge(drone.Id);
         }
-        public void print_drone(int drone_id)
+        public string print_drone(int drone_id)
         {
-            Console.WriteLine(convertor(mydal.Find_drone(drone_id)));
+            return convertor(mydal.Find_drone(drone_id)).ToString();
         }
-        public void print_all_drones()
+        public string print_all_drones()
         {
             List<DroneToList> drones = convertor(mydal.Get_all_drones());
+            string result = "";
             foreach (var item in drones)
             {
-                Console.WriteLine(item);
+                result += item.ToString();
+                result += "\n";
             }
+            return result;
         }
     }
 }

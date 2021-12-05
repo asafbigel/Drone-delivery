@@ -23,7 +23,7 @@ namespace IBL.BO
             result += " Battery: " + Battery + ",";
             result += " Status: " + Status + ",";
             result += " Location: " + DroneLocation;
-            result += '\n';
+            //result += '\n';
             return result;
         }
     }

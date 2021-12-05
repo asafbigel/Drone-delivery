@@ -15,12 +15,15 @@ namespace IBL
         {
             DroneInCharging new_drone = new DroneInCharging();
             DroneToList drone = my_drones.Find(x => x.Id == droneCharge.DroneId);
+            if (drone == null)
+                drone = new DroneToList();
             new_drone.Battery = drone.Battery;
             new_drone.Id = droneCharge.DroneId;
             return new_drone;
         }
         private BaseStation convertor(IDAL.DO.BaseStation idalBaseStation)
         {
+
             BaseStation baseStation = new BaseStation
             {
                 Id = idalBaseStation.Id,
@@ -60,11 +63,15 @@ namespace IBL
         }
         private IDAL.DO.Parcel convertor(Parcel parcel)
         {
-            int drone_id;
-            if (parcel.TheDrone == null)
-                drone_id = 0;
-            else
+            int drone_id =0 ;
+            int senderId = 0;
+            int TargetId = 0;
+            if (parcel.TheDrone != null)
                 drone_id = parcel.TheDrone.Id;
+            if (parcel.Sender != null)
+                senderId = parcel.Sender.Id;
+            if (parcel.Getter != null)
+                TargetId = parcel.Getter.Id;
             IDAL.DO.Parcel idalParcel = new IDAL.DO.Parcel
             {
                 Delivered = parcel.Delivered,
@@ -74,8 +81,9 @@ namespace IBL
                 DroneId = drone_id,
                 Priority = (IDAL.DO.Priorities)parcel.Priority,
                 Weight = (IDAL.DO.WeightCategories)parcel.Weight,
-                SenderId = parcel.Sender.Id,
-                TargetId = parcel.Getter.Id
+                SenderId = senderId,
+                TargetId = TargetId,
+                Id = parcel.Id
             };
             return idalParcel;
         }
@@ -94,6 +102,8 @@ namespace IBL
                 Id = idalSender.Id
             };
             DroneToList drone = my_drones.Find(item => item.Id == idalParcel.Id);
+            if (drone == null)
+                drone = new DroneToList();
             return new Parcel()
             {
                 Delivered = idalParcel.Delivered,
@@ -134,6 +144,8 @@ namespace IBL
         }
         private DroneAtParcel convertor1(DroneToList drone)
         {
+            if (drone == null)
+                return null;
             return new DroneAtParcel()
             {
                 Battery = drone.Battery,
@@ -342,6 +354,8 @@ namespace IBL
         private Drone convertor(IDAL.DO.Drone idalDrone)
         {
             DroneToList droneToList = my_drones.Find(item => item.Id == idalDrone.Id);
+            if (droneToList == null)
+                droneToList = new DroneToList();
             return new Drone()
             {
                 Battery = droneToList.Battery,

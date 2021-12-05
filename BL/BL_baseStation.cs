@@ -42,25 +42,31 @@ namespace IBL
             IDAL.DO.BaseStation idalBaseStation = convertor(baseStation);
             mydal.Add_base_station(idalBaseStation);
         }
-        public void print_baseStation(int baseStation_id)
+        public string Print_baseStation(int baseStation_id)
         {
-            Console.WriteLine(convertor(mydal.Find_baseStation(baseStation_id)));
+            return convertor(mydal.Find_baseStation(baseStation_id)).ToString();
         }
-        public void print_all_baseStations()
+        public string print_all_baseStations()
         {
             List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations());
+            string result = "";
             foreach (var item in baseStations)
             {
-                Console.WriteLine(item);
+                result += item.ToString();
+                result += "\n";
             }
+            return result;
         }
-        public void print_all_baseStations_with_free_slots()
+        public string print_all_baseStations_with_free_slots()
         {
             List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations_with_free_charge_slot());
+            string result = "";
             foreach (var item in baseStations)
             {
-                Console.WriteLine(item);
+                result += item.ToString();
+                result += "\n";
             }
+            return result;
         }
     }
 }

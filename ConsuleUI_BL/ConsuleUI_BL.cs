@@ -44,29 +44,37 @@ namespace ConsuleUI_BL
             Options option = (Options)Enum.Parse(typeof(Options), Console.ReadLine());
             while (option != Options.exit)
             {
-                switch (option)
+                try
                 {
-                    case Options.Adding_options:
-                        main_Adding_options();
-                        break;
-                    case Options.Update_options:
-                        main_Update_options();
-                        break;
-                    case Options.Showing_options:
-                        main_Showing_options();
-                        break;
-                    case Options.Show_list_options:
-                        main_Show_list_options();
-                        break;
-                    case Options.options:
-                        show_menu();
-                        break;
+                    switch (option)
+                    {
+                        case Options.Adding_options:
+                            main_Adding_options();
+                            break;
+                        case Options.Update_options:
+                            main_Update_options();
+                            break;
+                        case Options.Showing_options:
+                            main_Showing_options();
+                            break;
+                        case Options.Show_list_options:
+                            main_Show_list_options();
+                            break;
+                        case Options.options:
+                            show_menu();
+                            break;
 
-                    default:
-                        Console.WriteLine("Wrong input. Try again");
-                        break;
+                        default:
+                            Console.WriteLine("Wrong input. Try again");
+                            break;
+                    }
+
                 }
+                catch (Exception ex)
+                {
 
+                    Console.WriteLine(ex);
+                }
                 Console.WriteLine("Choose what to do:");
                 option = (Options)Enum.Parse(typeof(Options), Console.ReadLine());
             }
@@ -155,7 +163,6 @@ namespace ConsuleUI_BL
                 }
             }
         }
-
         private static void main_Update_options()
         {
             show_update_options();
@@ -194,7 +201,6 @@ namespace ConsuleUI_BL
                 }
             }
         }
-
         private static void main_Showing_options()
         {
             show_showing_options();
@@ -222,7 +228,6 @@ namespace ConsuleUI_BL
                 }
             }
         }
-
         private static void main_Show_list_options()
         {
             show_show_list_options();
@@ -232,22 +237,22 @@ namespace ConsuleUI_BL
                 switch (option)
                 {
                     case Show_list_options.print_all_baseStations:
-                        mybi.print_all_baseStations();
+                        Console.WriteLine(mybi.print_all_baseStations());
                         break;
                     case Show_list_options.print_all_drones:
-                        mybi.print_all_drones();
+                        Console.WriteLine(mybi.print_all_drones());
                         break;
                     case Show_list_options.print_all_customers:
-                        mybi.print_all_customers();
+                        Console.WriteLine(mybi.print_all_customers());
                         break;
                     case Show_list_options.print_all_parcels:
-                        mybi.print_all_parcels();
+                        Console.WriteLine(mybi.print_all_parcels());
                         break;
                     case Show_list_options.print_all_parcels_without_drone:
-                        mybi.print_all_parcels_without_drone();
+                        Console.WriteLine(mybi.print_all_parcels_without_drone());
                         break;
                     case Show_list_options.print_all_baseStations_with_free_slots:
-                        mybi.print_all_baseStations_with_free_slots();
+                        Console.WriteLine(mybi.print_all_baseStations_with_free_slots());
                         break;
                    
                     default:

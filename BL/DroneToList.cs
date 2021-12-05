@@ -25,7 +25,7 @@ namespace IBL.BO
             result += " Status: " + Status + ",";
             result += " Location: " + DroneLocation + ",";
             result += " Number Of the Parcel: " + NumOfParcel;
-            result += '\n';
+            //result += '\n';
             return result;
         }
     }
