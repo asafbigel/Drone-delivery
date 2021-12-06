@@ -378,17 +378,54 @@ namespace IBL
                 Phone = idal_customer.Phone,
                 CustomerLocation = location
             };
-            customer.parcelsAtCustomerFor = new List<Parcel>();
-            customer.ParcelsAtCustomerFrom = new List<Parcel>();
+            customer.parcelsAtCustomerFor = new List<ParcelAtCustomer>();
+            customer.ParcelsAtCustomerFrom = new List<ParcelAtCustomer>();
             List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
             foreach (var parcel in parcels)
             {
+                ParcelAtCustomer parcelAtCustomer = convertor2(parcel);
                 if (parcel.SenderId == idal_customer.Id)
-                    customer.ParcelsAtCustomerFrom.Add(convertor(parcel));
+                {
+                    parcelAtCustomer.OtherCustomer = convertor1(convertor(mydal.Find_customer(parcel.TargetId)));
+                    customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
+                }
                 if (parcel.TargetId == idal_customer.Id)
-                    customer.parcelsAtCustomerFor.Add(convertor(parcel));
+                {
+                    parcelAtCustomer.OtherCustomer = convertor1(convertor(mydal.Find_customer(parcel.SenderId)));
+                    customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
+                }
             }
             return customer;
+        }
+
+        private ParcelAtCustomer convertor2(IDAL.DO.Parcel parcel)
+        {
+            ParcelStatuses status = ParcelStatuses.Defined;
+            if (parcel.Requested != DateTime.MinValue)
+                status = ParcelStatuses.Belongs;
+            if (parcel.PickedUp != DateTime.MinValue)
+                status = ParcelStatuses.picked_up;
+            if (parcel.Delivered != DateTime.MinValue)
+                status = ParcelStatuses.delivered;
+            //CustomerAtParcel other;
+            //if ()
+            //other = convertor1(convertor(mydal.Find_customer(parcel.SenderId)));
+            return new ParcelAtCustomer()
+            {
+                Id = parcel.Id,
+                Priority = (Priorities)parcel.Priority,
+                Status = status,
+                Weight = (WeightCategories)parcel.Weight
+            };
+        }
+
+        private CustomerAtParcel convertor1(Customer customer)
+        {
+            return new CustomerAtParcel()
+            {
+                CustomerName = customer.Name,
+                Id = customer.Id
+            };
         }
     }
 }

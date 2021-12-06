@@ -40,6 +40,12 @@ namespace ConsuleUI_BL
         static IBL.BL mybi = new IBL.BL();
         static void Main(string[] args)
         {
+            Random ran = new Random();
+            int x = ran.Next(95, 100);
+            while (x != 100)
+            {
+                x = ran.Next(95, 101);
+            }
             show_menu();
             Options option = (Options)Enum.Parse(typeof(Options), Console.ReadLine());
             while (option != Options.exit)

@@ -103,7 +103,16 @@ namespace DalObject
             Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
             Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
             Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });
-            #endregion       
+            #endregion
+
+            #region Electricity set
+            Config.Electricity_free = 50;
+            Config.Electricity_light = 60;
+            Config.Electricity_medium = 70;
+            Config.Electricity_heavy = 80;
+            Config.Charge_at_hour = 30;
+
+            #endregion
         }
 
     }

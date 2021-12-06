@@ -61,7 +61,9 @@ namespace IBL
             if (drone.Status != DroneStatuses.maintenance)
                 throw new DroneException("The drone isn't maintenance");
             drone.Battery += time * Charge_at_hour;
-            drone.Status = DroneStatuses.vacant;
+            if (drone.Battery > 100)
+                drone.Battery = 100;
+                drone.Status = DroneStatuses.vacant;
             mydal.put_out_drone_from_charge(drone.Id);
         }
         public string print_drone(int drone_id)

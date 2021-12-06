@@ -89,11 +89,10 @@ namespace IBL
             //    throw new DroneException("There are more than 1 parcels scheduled with this drone");
             if (parcelsOfThisDrone.Count == 0)
                 throw new DroneException("There aren't parcel ");
-            IDAL.DO.Parcel parcel = parcelsOfThisDrone.Find(item =>item.PickedUp == DateTime.MinValue);
-            //if (parcel.PickedUp != DateTime.MinValue)
-            //    throw new DroneException("The parcel have picken up");
-            if (parcel.DroneId != drone_id)
+            List<IDAL.DO.Parcel> parcelsNotPickedUp = parcelsOfThisDrone.FindAll(item =>item.PickedUp == DateTime.MinValue);
+            if (parcelsNotPickedUp.Count == 0)
                 throw new DroneException("Don't has parcel that don't picked up");
+            IDAL.DO.Parcel parcel = parcelsNotPickedUp[0];
             ParcelAtTransfer parcelAtTransfer = convertor1(convertor(parcel));
             double min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
             if (drone.Battery < min_battery)
@@ -108,9 +107,10 @@ namespace IBL
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
             List<IDAL.DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
-            IDAL.DO.Parcel parcel = parcelsOfThisDrone.Find(item => item.PickedUp != DateTime.MinValue && item.Delivered == DateTime.MinValue);
-            if (parcel.DroneId != drone_id)
+            List<IDAL.DO.Parcel> parcelsNotDelivered = parcelsOfThisDrone.FindAll(item => item.PickedUp == DateTime.MinValue);
+            if (parcelsNotDelivered.Count == 0)
                 throw new DroneException("Don't has parcel that picked up and not delivered");
+            IDAL.DO.Parcel parcel = parcelsNotDelivered[0];
             ParcelAtTransfer parcelAtTransfer = convertor1(convertor(parcel));
             double min_battery;
             switch (parcel.Weight)

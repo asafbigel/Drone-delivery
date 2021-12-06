@@ -41,7 +41,7 @@ namespace IBL
                     Model = item.Model,
                     MaxWeight = (WeightCategories)item.MaxWeight,
                     NumOfParcel = 0,
-                    Status = (DroneStatuses)random.Next(0, 1)
+                    Status = (DroneStatuses)random.Next(0, 2)
                 });
             }
             
@@ -138,7 +138,7 @@ namespace IBL
                                 default:
                                     break;
                             }
-                            drone.Battery = random.Next((int)min_battery + 1, 100);
+                            drone.Battery = random.Next((int)min_battery + 1, 101);
                         }
                         if (parcel.PickedUp != DateTime.MinValue)
                         {
@@ -160,7 +160,7 @@ namespace IBL
                                 default:
                                     break;
                             }
-                            drone.Battery = random.Next((int)min_battery + 1, 100);
+                            drone.Battery = random.Next((int)min_battery + 1, 101);
                         }
                     }
 
@@ -180,7 +180,7 @@ namespace IBL
                     // case there are parcels connected to this drone
                     if (parcel_of_this_drone_Delivered.Count() > 0)
                     {
-                        int i = random.Next(0, parcel_of_this_drone_Delivered.Count() - 1);
+                        int i = random.Next(0, parcel_of_this_drone_Delivered.Count());
                         location = find_customer(customers, parcel_of_this_drone_Delivered[i].TargetId).CustomerLocation;
                     }
                     // case there are not parcels connected to this drone
@@ -194,7 +194,7 @@ namespace IBL
                     BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, location);
                     double distance = distance_between_2_points(location, baseStation_neer_geeter.BaseStationLocation);
                     double min_battery = distance * Electricity_free;
-                    drone.Battery = random.Next((int)distance + 1, 100);
+                    drone.Battery = random.Next((int)distance + 1, 101);
                 }
 
 
