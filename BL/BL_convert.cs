@@ -40,9 +40,9 @@ namespace IBL
                     baseStation.DroneInChargings.Add(drone);
                 }
             }
-            baseStation.Num_Free_slots_charge -= baseStation.DroneInChargings.Count();
-            if (baseStation.Num_Free_slots_charge < 0)
-                throw new DroneChargeException("There more drone from slots");
+            //baseStation.Num_Free_slots_charge -= baseStation.DroneInChargings.Count();
+            //if (baseStation.Num_Free_slots_charge < 0)
+            //    throw new DroneChargeException("There more drone from slots");
             Location location = new Location();
             location.latitude = idalBaseStation.Lattitude;
             location.longitude = idalBaseStation.Longitude;

@@ -10,8 +10,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IBL;
 
 namespace PL
 {
@@ -20,9 +20,21 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        IBL.BL theBL;
+        //IBL.IBL theBL;
         public MainWindow()
         {
-            InitializeComponent();
+            theBL = new IBL.BL();
+        }
+
+        private void btnListDrone_Click(object sender, RoutedEventArgs e)
+        {
+            new ListDroneWindow(theBL).Show();
+        }
+
+        private void btnAddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            new AddDroneWindow(theBL).Show();
         }
     }
 }

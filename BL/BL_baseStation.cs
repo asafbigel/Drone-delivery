@@ -36,12 +36,27 @@ namespace IBL
             BaseStation baseStation = convertor(idalBaseStation);
             return baseStation;
         }
+        /// <summary>
+        /// Add base station to the list
+        /// </summary>
+        /// <param name="baseStation">
+        /// The base station
+        /// </param>
         public void Add_base_station(BaseStation baseStation)
         {
             baseStation.DroneInChargings = new List<DroneInCharging>();
             IDAL.DO.BaseStation idalBaseStation = convertor(baseStation);
             mydal.Add_base_station(idalBaseStation);
         }
+        /// <summary>
+        /// return string of details of this base station
+        /// </summary>
+        /// <param name="baseStation_id">
+        /// Id of the base station
+        /// </param>
+        /// <returns>
+        /// string of details of this base station
+        /// </returns>
         public string Print_baseStation(int baseStation_id)
         {
             return convertor(mydal.Find_baseStation(baseStation_id)).ToString();

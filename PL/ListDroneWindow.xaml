@@ -8,11 +8,42 @@
         Title="ListDroneWindow" Height="450" Width="800">
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="400"></RowDefinition>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="UpGrid"
-              HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-              VerticalAlignment="Stretch" Width="auto"/>
+        <Grid x:Name="upGrid" HorizontalAlignment="Stretch"
+              Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <TextBox x:Name="DroneStatus" Text="Drone status:" Grid.Column="0" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
+                     TextAlignment="Center" Foreground="#FFC71E1E" FontWeight="Bold" />
+            <ComboBox Name="StatusSelector" Text="choose status:"
+                      Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                      Grid.ColumnSpan="2" Margin="6,-13,194,13" 
+                      HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                      FontSize="20" FontWeight="Bold" Width="auto" SelectionChanged="StatusSelector_SelectionChanged"/>
+            <TextBox x:Name="MaxWeight" Text="Max weight:" Grid.Column="2" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
+                     TextAlignment="Center" Foreground="#FFC71E1E" FontWeight="Bold" />
+            <ComboBox Name="WeightSelector" Text="choose weight:"
+                      Grid.Column="3" IsEditable="True" IsReadOnly="True"
+                      Grid.ColumnSpan="2" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      FontSize="20" FontWeight="Bold" Width="174" SelectionChanged="WeightSelector_SelectionChanged"/>
+
+        </Grid>
+        <ListView x:Name="DroneListView" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
