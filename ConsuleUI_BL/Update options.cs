@@ -73,7 +73,7 @@ namespace ConsuleUI_BL
         private static void update_baseStation()
         {
             Console.Write("Enter base station's id");
-            if(!int.TryParse(Console.ReadLine(),out int id)) { throw new IntReadException(); }
+            if(!int.TryParse(Console.ReadLine(),out int id)) { throw new IntReadException("Wrong input"); }
             Console.Write("Enter new name ('_' to don't change): ");
             string new_name = Console.ReadLine();
             Console.Write("Enter new free slots ('_' to don't change): ");

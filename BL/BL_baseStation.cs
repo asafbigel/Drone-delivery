@@ -20,7 +20,7 @@ namespace IBL
                 baseStation.Name = new_name;
             if (new_slot != "_")
             {
-                if (!int.TryParse(new_slot, out int slot)) { throw new IntReadException(); }
+                if (!int.TryParse(new_slot, out int slot)) { throw new IntReadException("Wrong input"); }
                 if (slot >= baseStation.Num_Free_slots_charge)
                     baseStation.Num_Free_slots_charge = slot;
                 else
