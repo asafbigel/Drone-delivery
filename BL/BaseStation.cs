@@ -19,9 +19,11 @@ namespace IBL.BO
             result += "ID: " + Id +",";
             result += " Name: " + Name + ",";
             result += " Location: " + BaseStationLocation + ",";
-            result += " Num Free slots charge: " + Num_Free_slots_charge + ",";
+            result += " Num Free slots charge: " + Num_Free_slots_charge + "\n";
+            result += "Drones in charge:\n";
             foreach (var item in DroneInChargings)
             {
+                result += "\t";
                 result += item.ToString();
             }
             //result += "\n";

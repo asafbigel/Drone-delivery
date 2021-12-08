@@ -27,15 +27,15 @@ namespace IBL.BO
         {
             string result = "";
             result += "ID: " + Id + ",";
-            result += " Sender: " + Sender + ",";
-            result += " Target: " + Getter + ",";
             result += " Weight: " + Weight + ",";
             result += " Priority: " + Priority + ",";
-            result += " The Drone: " + TheDrone + ",";
             result += " Requested: " + Requested + ",";
             result += " Scheduled: " + Scheduled + ",";
             result += " PickedUp: " + PickedUp + ",";
-            result += " Delivered: " + Delivered;
+            result += " Delivered: " + Delivered + "\n";
+            result += "Sender:\t" + Sender + "\n";
+            result += "Target:\t" + Getter + "\n";
+            result += "The Drone: " + TheDrone;
             //+ "\n";
             return result;
         }

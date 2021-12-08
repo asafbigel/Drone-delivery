@@ -21,14 +21,18 @@ namespace IBL.BO
             result += " Name: " + Name;
             result += " Phone: " + Phone;
             result += CustomerLocation;
-            result += "parcels from the customer:\n";
+            result += "\nparcels from the customer:\n";
             foreach (var item in ParcelsAtCustomerFrom)
             {
+                result += "\t";
                 result += item.ToString();
+                result += "\n";
+
             }
-            result += "parcels for the customer:\n";
+            result += "\nparcels for the customer:\n";
             foreach (var item in parcelsAtCustomerFor)
             {
+                result += "\t";
                 result += item.ToString();
             }
             return result;

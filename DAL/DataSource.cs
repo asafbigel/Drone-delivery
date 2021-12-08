@@ -105,6 +105,166 @@ namespace DalObject
             Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });
             #endregion
 
+            #region temp items
+            BaseStations.Add(new BaseStation()
+            {
+                ChargeSlots = 5,
+                Id = 1,
+                Name = "A",
+                Lattitude = 35,
+                Longitude = 31
+            });
+            Customers.Add(new Customer()
+            {
+                Id = 1,
+                Name = "Temp1",
+                Phone = "0537829463",
+                Lattitude = 35.001,
+                Longitude = 31.001
+            });
+            Customers.Add(new Customer()
+            {
+                Id = 2,
+                Name = "Temp2",
+                Phone = "0537829463",
+                Lattitude = 35.011,
+                Longitude = 31.011
+            });
+            Customers.Add(new Customer()
+            {
+                Id = 3,
+                Name = "Temp3",
+                Phone = "0537829463",
+                Lattitude = 35.101,
+                Longitude = 31.101
+            });
+            /*
+            Customers.Add(new Customer()
+            {
+                Id = 4,
+                Name = "Temp4",
+                Phone = "0537829463",
+                Lattitude = 35.111,
+                Longitude = 31.111
+            });
+            */
+            Parcels.Add(new Parcel()
+            {
+                Id = 1,
+                Weight = WeightCategories.medium,
+                TargetId = 1,
+                SenderId = 2,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 12, 0, 0),
+                Scheduled = new DateTime(2020, 10, 1, 12, 5, 0),
+                PickedUp = new DateTime(2020, 10, 1, 12, 10, 0),
+                Delivered = new DateTime(2020, 10, 1, 12, 15, 0),
+                DroneId = 1
+            });
+            Parcels.Add(new Parcel()
+            {
+                Id = 2,
+                Weight = WeightCategories.medium,
+                TargetId = 2,
+                SenderId = 3,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 13, 0, 0),
+                Scheduled = new DateTime(2020, 10, 1, 13, 5, 0),
+                PickedUp = new DateTime(2020, 10, 1, 13, 10, 0),
+                DroneId = 1
+            });
+            Parcels.Add(new Parcel()
+            {
+                Id = 3,
+                Weight = WeightCategories.medium,
+                TargetId = 2,
+                SenderId = 3,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 14, 0, 0),
+                Scheduled = new DateTime(2020, 10, 1, 14, 5, 0),
+                PickedUp = new DateTime(2020, 10, 1, 14, 10, 0),
+                Delivered = new DateTime(2020, 10, 1, 14, 15, 0),
+                DroneId = 2
+            });
+            Parcels.Add(new Parcel()
+            {
+                Id = 4,
+                Weight = WeightCategories.medium,
+                TargetId = 2,
+                SenderId = 1,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 15, 0, 0),
+                Scheduled = new DateTime(2020, 10, 1, 15, 5, 0),
+                DroneId = 2
+            });
+            Parcels.Add(new Parcel()
+            {
+                Id = 5,
+                Weight = WeightCategories.medium,
+                TargetId = 2,
+                SenderId = 1,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 16, 0, 0),
+                Scheduled = new DateTime(2020, 10, 1, 16, 5, 0),
+                PickedUp = new DateTime(2020, 10, 1, 16, 15, 0),
+                Delivered = new DateTime(2020, 10, 1, 16, 25, 0),
+                DroneId = 3
+            });
+            Parcels.Add(new Parcel()
+            {
+                Id = 6,
+                Weight = WeightCategories.medium,
+                TargetId = 1,
+                SenderId = 3,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 17, 0, 0),
+                Scheduled = new DateTime(2020, 10, 1, 17, 5, 0),
+                PickedUp = new DateTime(2020, 10, 1, 17, 15, 0),
+                Delivered = new DateTime(2020, 10, 1, 17, 25, 0),
+                DroneId = 3
+            });
+            Parcels.Add(new Parcel()
+            {
+                Id = 7,
+                Weight = WeightCategories.medium,
+                TargetId = 3,
+                SenderId = 2,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 18, 0, 0),
+                Scheduled = new DateTime(2020, 10, 1, 18, 5, 0),
+                PickedUp = new DateTime(2020, 10, 1, 18, 15, 0),
+                Delivered = new DateTime(2020, 10, 1, 18, 25, 0),
+                DroneId = 3
+            });
+            Parcels.Add(new Parcel()
+            {
+                Id = 8,
+                Weight = WeightCategories.medium,
+                TargetId = 3,
+                SenderId = 2,
+                Priority = Priorities.fast,
+                Requested = new DateTime(2020, 10, 1, 18, 0, 0)
+            });
+            Drones.Add(new Drone()
+            {
+                Id = 1,
+                MaxWeight = WeightCategories.heavy,
+                Model = "A"
+            });
+            Drones.Add(new Drone()
+            {
+                Id = 2,
+                MaxWeight = WeightCategories.medium,
+                Model = "B"
+            }); 
+            Drones.Add(new Drone()
+            {
+                Id = 3,
+                MaxWeight = WeightCategories.heavy,
+                Model = "C"
+            });
+            #endregion
+
             #region Electricity set
             Config.Electricity_free = 50;
             Config.Electricity_light = 60;

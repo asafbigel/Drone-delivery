@@ -21,7 +21,9 @@ namespace IBL.BO
             result += " Weight: " + Weight + ",";
             result += " Priority: " + Priority + ",";
             result += " Status: " + Status + ",";
-            result += "\nThe other customer:" + OtherCustomer;
+            result += "\t\tThe other customer:";
+            result += "\t";
+            result += OtherCustomer;
             return result;
         }
     }

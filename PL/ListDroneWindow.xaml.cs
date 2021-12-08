@@ -35,13 +35,15 @@ namespace PL
             DroneStatuses status = (DroneStatuses)StatusSelector.SelectedItem;
             //this.DroneStatus.Text = status.ToString();
             this.DroneListView.ItemsSource = bl.GetAllDrones(item => item.Status == status);
+            //this.WeightSelector.Text = "choose weight:";
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             WeightCategories weight = (WeightCategories)WeightSelector.SelectedItem;
-            this.MaxWeight.Text = weight.ToString();
+            //this.MaxWeight.Text = weight.ToString();
             this.DroneListView.ItemsSource = bl.GetAllDrones(item => item.MaxWeight == weight);
+            //this.StatusSelector.Text = "choose status:";
         }
     }
 }

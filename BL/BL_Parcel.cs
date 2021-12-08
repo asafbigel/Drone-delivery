@@ -125,7 +125,7 @@ namespace IBL
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
             List<IDAL.DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
-            List<IDAL.DO.Parcel> parcelsNotDelivered = parcelsOfThisDrone.FindAll(item => item.PickedUp == DateTime.MinValue);
+            List<IDAL.DO.Parcel> parcelsNotDelivered = parcelsOfThisDrone.FindAll(item => item.Delivered == DateTime.MinValue);
             if (parcelsNotDelivered.Count == 0)
                 throw new DroneException("Don't has parcel that picked up and not delivered");
             IDAL.DO.Parcel parcel = parcelsNotDelivered[0];
