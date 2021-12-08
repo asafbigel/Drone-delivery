@@ -79,7 +79,7 @@ namespace ConsuleUI_BL
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
                 Console.WriteLine("Choose what to do:");
                 option = (Options)Enum.Parse(typeof(Options), Console.ReadLine());

@@ -13,7 +13,7 @@ namespace ConsuleUI_BL
         private static void add_baseStation()
         {
             Console.Write("Enter station num: ");
-            if (!int.TryParse(Console.ReadLine(), out int my_id)) { throw new IntReadException(); }
+            if (!int.TryParse(Console.ReadLine(), out int my_id)) { throw new IntReadException("Wrong input"); }
             Console.Write("Enter name: ");
             string my_name = Console.ReadLine();
             Location my_location = input_location();
@@ -55,6 +55,9 @@ namespace ConsuleUI_BL
             };
             mybi.Add_parcel(parcel, sender_id, getter_id);
         }
+        /// <summary>
+        /// A function that  creates customer object by inpot and sends it an add function that add it
+        /// </summary>
         private static void Add_customer()
         {
             Customer customer = new Customer();
@@ -69,6 +72,9 @@ namespace ConsuleUI_BL
 
             mybi.Add_customer(customer);
         }
+        /// <summary>
+        ///  A function that  creates drone object by inpot and sends it an add function that add it
+        /// </summary>
         private static void Add_drone()
         {
             Drone drone = new Drone();
@@ -86,19 +92,22 @@ namespace ConsuleUI_BL
             if(!int.TryParse(Console.ReadLine(), out int baseStationNum)) { throw new InputException("not invalid num input"); }
             mybi.Add_drone(drone, baseStationNum);
         }
-
+        /// <summary>
+        /// A function that creates Location object by inpot
+        /// </summary>
+        /// <returns></returns>
         private static Location input_location()
         {
             Console.Write("Enter longitude: ");
             double my_longitude = double.Parse(Console.ReadLine());
             Console.Write("Enter latitude: ");
             double my_latitude = double.Parse(Console.ReadLine());
-            Location space = new Location
+            Location myLocation = new Location
             {
                 latitude = my_latitude,
                 longitude = my_longitude
             };
-            return space;
+            return myLocation;
         }
     }
 }
