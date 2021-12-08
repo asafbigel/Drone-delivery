@@ -243,22 +243,22 @@ namespace ConsuleUI_BL
                 switch (option)
                 {
                     case Show_list_options.print_all_baseStations:
-                        Console.WriteLine(mybi.print_all_baseStations());
+                        Console.WriteLine(mybi.string_all_baseStations());
                         break;
                     case Show_list_options.print_all_drones:
-                        Console.WriteLine(mybi.print_all_drones());
+                        Console.WriteLine(mybi.StringAllDrones());
                         break;
                     case Show_list_options.print_all_customers:
-                        Console.WriteLine(mybi.print_all_customers());
+                        Console.WriteLine(mybi.StringAllCustomers());
                         break;
                     case Show_list_options.print_all_parcels:
-                        Console.WriteLine(mybi.print_all_parcels());
+                        Console.WriteLine(mybi.StringAllParcels());
                         break;
                     case Show_list_options.print_all_parcels_without_drone:
-                        Console.WriteLine(mybi.print_all_parcels_without_drone());
+                        Console.WriteLine(mybi.StringAllParcelsWithout_drone());
                         break;
                     case Show_list_options.print_all_baseStations_with_free_slots:
-                        Console.WriteLine(mybi.print_all_baseStations_with_free_slots());
+                        Console.WriteLine(mybi.string_all_baseStations_with_free_slots());
                         break;
                    
                     default:

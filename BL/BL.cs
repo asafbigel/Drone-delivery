@@ -200,15 +200,21 @@ namespace IBL
 
             }
         }
-        private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location space)
+        /// <summary>
+        /// A function that searches for the nearest baseStation from the list to a specific location
+        /// </summary>
+        /// <param name="baseStations"> list of baseStations  </param>
+        /// <param name="myLocation"> the location that  The location for which we are looking for a base station close to it </param>
+        /// <returns> the nearest baseStation from the list to the location</returns>
+        private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location myLocation)
         {
             if (baseStations.Count == 0)
                 throw new BaseStationExeption("The list is empty");
             BaseStation baseStation = baseStations[0];
-            double min_distance = distance_between_2_points(baseStation.BaseStationLocation, space);
+            double min_distance = distance_between_2_points(baseStation.BaseStationLocation, myLocation);
             foreach (var item in baseStations)
             {
-                double distance = distance_between_2_points(item.BaseStationLocation, space);
+                double distance = distance_between_2_points(item.BaseStationLocation, myLocation);
                 if (distance < min_distance)
                 {
                     min_distance = distance;
@@ -219,17 +225,29 @@ namespace IBL
 
 
         }
-        private double distance_between_2_points(Location space1, Location space2)
+        /// <summary>
+        /// A function that calculates  distance between 2 locations
+        /// </summary>
+        /// <param name="location1"> the first location </param>
+        /// <param name="location2">the second location</param>
+        /// <returns></returns>
+        private double distance_between_2_points(Location location1, Location location2)
         {
-            double latitude = (space1.latitude - space2.latitude) * (space1.latitude - space2.latitude);
-            double longitude = (space1.longitude - space2.longitude) * (space1.longitude - space2.longitude);
+            double latitude = (location1.latitude - location2.latitude) * (location1.latitude - location2.latitude);
+            double longitude = (location1.longitude - location2.longitude) * (location1.longitude - location2.longitude);
             return Math.Sqrt(latitude + longitude);
         }
-        private Customer find_customer(List<Customer> customers, int senderId)
+        /// <summary>
+        ///  find customer in list by id
+        /// </summary>
+        /// <param name="customers"> list of customers </param>
+        /// <param name="customerId">the id of the customer that we searches </param>
+        /// <returns></returns>
+        private Customer find_customer(List<Customer> customers, int customerId)
         {
             foreach (var item in customers)
             {
-                if (item.Id == senderId)
+                if (item.Id == customerId)
                     return item;
             }
             throw new CustomerExeption("id not found");

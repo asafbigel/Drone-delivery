@@ -9,6 +9,12 @@ namespace IBL
 {
     public partial class BL
     {
+        /// <summary>
+        /// fanction that update parcel
+        /// </summary>
+        /// <param name="parcel">new parcel to add</param>
+        /// <param name="sender_id">  the id of the sender of the new parcel </param>
+        /// <param name="getter_id"></param>
         public void Add_parcel(Parcel parcel, int sender_id, int getter_id)
         {
             parcel.Delivered = DateTime.MinValue;
@@ -22,6 +28,10 @@ namespace IBL
             idalParcel.TargetId = getter_id;
             mydal.Add_parcel(idalParcel);
         }
+        /// <summary>
+        /// fanction that connect parcel to specific drone
+        /// </summary>
+        /// <param name="drone_id"> the id of the drone </param>
         public void connect_parcel_to_drone(int drone_id)
         {
             IDAL.DO.Drone idalDrone = mydal.Find_drone(drone_id);
@@ -78,6 +88,10 @@ namespace IBL
             parcel.Scheduled = DateTime.Now;
             mydal.UpdateParcel(parcel);
         }
+        /// <summary>
+        /// pickedUp parcel by the drone
+        /// </summary>
+        /// <param name="drone_id">  the id of the drone </param>
         public void pickedUp_parcel_by_drone(int drone_id)
         {
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
@@ -102,6 +116,10 @@ namespace IBL
             parcel.PickedUp = DateTime.Now;
             mydal.UpdateParcel(parcel);
         }
+        /// <summary>
+        /// delivered parcel by the drone
+        /// </summary>
+        /// <param name="drone_id"> the id of the drone </param>
         public void delivered_parcel_by_drone(int drone_id)
         {
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
@@ -136,14 +154,23 @@ namespace IBL
             parcel.Delivered = DateTime.Now;
             mydal.UpdateParcel(parcel);
         }
-        public string print_parcel(int parcel_id)
+        /// <summary>
+        /// A function that returns the ToString of parcel
+        /// </summary>
+        /// <param name="parcel_id"> the id of the parcel </param>
+        /// <returns> ToString of the parcel</returns>
+        public string StringParcel(int parcel_id)
         {
             return convertor(mydal.Find_parcel(parcel_id)).ToString();
         }
-        public string print_all_parcels()
+        /// <summary>
+        /// A function that returns the ToString of the list of all the Parcels
+        /// </summary>
+        /// <returns> ToString of the list of all the Parcels </returns>
+        public string StringAllParcels()
         {
             string result = "";
-            List<ParcelToList> parcels = convertor1(mydal.Get_all_parcels().ToList());
+            List<ParcelToList> parcels = convertor4(mydal.Get_all_parcels().ToList());
             foreach (var item in parcels)
             {
                 result += item.ToString();
@@ -151,10 +178,14 @@ namespace IBL
             }
             return result;
         }
-        public string print_all_parcels_without_drone()
+        /// <summary>
+        /// A function that returns the ToString of the list of all the Parcels that dons't connected to drone
+        /// </summary>
+        /// <returns> ToString of the list of all the Parcels that dons't connected to drone </returns>
+        public string StringAllParcelsWithout_drone()
         {
             string result = "";
-            List<ParcelToList> parcels = convertor1(mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone().ToList());
+            List<ParcelToList> parcels = convertor4(mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone().ToList());
             foreach (var item in parcels)
             {
                 result += item.ToString();

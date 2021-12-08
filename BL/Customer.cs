@@ -12,9 +12,8 @@ namespace IBL.BO
         public string Name { get; set; }
         public string Phone { get; set; }
         public Location CustomerLocation { get; set; }
-        public List<ParcelAtCustomer> ParcelsAtCustomerFrom { get; set; }//.///////need to be      List<ParcelAtCustomer>
-        public List<ParcelAtCustomer> parcelsAtCustomerFor { get; set; }//.///////need to be      List<ParcelAtCustomer>
-
+        public List<ParcelAtCustomer> ParcelsAtCustomerFrom { get; set; }
+        public List<ParcelAtCustomer> parcelsAtCustomerFor { get; set; }
         public override string ToString()
         {
             string result = "";

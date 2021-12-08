@@ -10,6 +10,11 @@ namespace IBL
     public partial class BL
     {
         Random rand = new Random();
+        /// <summary>
+        ///  A function that add a new drone
+        /// </summary>
+        /// <param name="drone">  new drone to add</param>
+        /// <param name="baseStation_num"> the num of the baseStation of the new drone   </param>
         public void Add_drone(Drone drone, int baseStation_num)
         {
             drone.Battery = rand.Next(20, 41);
@@ -18,7 +23,7 @@ namespace IBL
             drone.DroneLocation = new Location();
             drone.DroneLocation.longitude = baseStation.Longitude;
             drone.DroneLocation.latitude = baseStation.Lattitude;
-            my_drones.Add(convertor1(drone));
+            my_drones.Add(convertor3(drone));
             IDAL.DO.Drone idalDrone = convertor(drone);
             mydal.Add_drone(idalDrone);
             IDAL.DO.DroneCharge droneCharge = new IDAL.DO.DroneCharge();
@@ -26,6 +31,11 @@ namespace IBL
             droneCharge.StationId = baseStation.Id;
             mydal.Add_DroneCharge(droneCharge);
         }
+        /// <summary>
+        /// A function that update model of drone
+        /// </summary>
+        /// <param name="drone_id"> the id of the drone </param>
+        /// <param name="model"> the new model of the drone </param>
         public void update_model_drone(int drone_id, string model)
         {
             IDAL.DO.Drone my_drone = mydal.Find_drone(drone_id);
@@ -33,6 +43,10 @@ namespace IBL
             mydal.UpdateDrone(my_drone);
             my_drones.Find(item => item.Id == drone_id).Model = model;
         }
+        /// <summary>
+        /// A function that send drone to charge
+        /// </summary>
+        /// <param name="id"> the id of the drone </param>
         public void send_drone_to_charge(int id)
         {
             DroneToList drone = my_drones.Find(item => item.Id == id);
@@ -53,6 +67,11 @@ namespace IBL
             charge.StationId = baseStation.Id;
             mydal.send_drone_to_charge(charge);
         }
+        /// <summary>
+        /// A function that remove drone to charge
+        /// </summary>
+        /// <param name="drone_id"> the id of the drone </param>
+        /// <param name="time"> the time that the drone was in charge</param>
         public void drone_from_charge(int drone_id, double time)
         {
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
@@ -66,11 +85,20 @@ namespace IBL
                 drone.Status = DroneStatuses.vacant;
             mydal.put_out_drone_from_charge(drone.Id);
         }
-        public string print_drone(int drone_id)
+        /// <summary>
+        /// A function that returns the ToString of the drone
+        /// </summary>
+        /// <param name="drone_id"> the id of the drone </param>
+        /// <returns> ToString of the drone </returns>
+        public string StringDrone(int drone_id)
         {
             return convertor(mydal.Find_drone(drone_id)).ToString();
         }
-        public string print_all_drones()
+        /// <summary>
+        /// A function that returns the ToString of the list of all the drone
+        /// </summary>
+        /// <returns>  ToString of the list of all the drone </returns>
+        public string StringAllDrones()
         {
             List<DroneToList> drones = convertor(mydal.Get_all_drones());
             string result = "";
@@ -81,6 +109,8 @@ namespace IBL
             }
             return result;
         }
+
+        //to targil 3
         public List<DroneToList> GetAllDrones(Predicate<DroneToList> match)
         {
             List<DroneToList> drones = convertor(mydal.Get_all_drones()).FindAll(match);

@@ -7,6 +7,12 @@ namespace IBL
 {
     public partial class BL
     {
+        /// <summary>
+        /// fanction that update baseStation
+        /// </summary>
+        /// <param name="id">id of  baseStation </param>
+        /// <param name="new_name"> the new name of the update baseStation   </param>
+        /// <param name="new_slot">the new number of free slot charge of  the update baseStation</param>
         public void update_baseStation(int id, string new_name, string new_slot)
         {
             BaseStation baseStation = find_baseStation(id);
@@ -52,16 +58,20 @@ namespace IBL
         /// return string of details of this base station
         /// </summary>
         /// <param name="baseStation_id">
-        /// Id of the base station
+        /// Id of the base station  
         /// </param>
         /// <returns>
         /// string of details of this base station
         /// </returns>
-        public string Print_baseStation(int baseStation_id)
+        public string string_baseStation(int baseStation_id)
         {
             return convertor(mydal.Find_baseStation(baseStation_id)).ToString();
         }
-        public string print_all_baseStations()
+        /// <summary>
+        /// ToString of all the baseStations
+        /// </summary>
+        /// <returns> the string of ToString of all the baseStations </returns>
+        public string string_all_baseStations()
         {
             List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations());
             string result = "";
@@ -72,7 +82,11 @@ namespace IBL
             }
             return result;
         }
-        public string print_all_baseStations_with_free_slots()
+        /// <summary>
+        /// ToString of all the baseStations with free slots
+        /// </summary>
+        /// <returns>the string of ToString of all the baseStations with free slots</returns>
+        public string string_all_baseStations_with_free_slots()
         {
             List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations_with_free_charge_slot());
             string result = "";
