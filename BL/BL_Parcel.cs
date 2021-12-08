@@ -28,7 +28,7 @@ namespace IBL
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             if (drone.Status != DroneStatuses.vacant)
                 throw new DroneException("The drone isn't vacant");
-            List<IDAL.DO.Parcel> idalparcels = mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone().ToList();
+            List<IDAL.DO.Parcel> idalparcels = mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone().ToList().FindAll(item => (int)item.Weight <= (int)drone.MaxWeight);
             if (idalparcels.Count == 0)
                 throw new ParcelException("No parcel exist");
             List<Parcel> parcels = convertor(idalparcels);

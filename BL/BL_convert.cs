@@ -11,6 +11,7 @@ namespace IBL
     {
         // convertor is between IDAL.DO object and IBL.BO object
         // covnertor1 is between IBL.BO object and IBL.BO object
+
         private DroneInCharging convertor(IDAL.DO.DroneCharge droneCharge)
         {
             DroneInCharging new_drone = new DroneInCharging();
@@ -394,7 +395,7 @@ namespace IBL
                 if (parcel.TargetId == idal_customer.Id)
                 {
                     parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.SenderId));
-                    customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
+                    customer.parcelsAtCustomerFor.Add(parcelAtCustomer);
                 }
             }
             return customer;

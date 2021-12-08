@@ -25,7 +25,6 @@ namespace ConsuleUI_BL
             };
             mybi.Add_base_station(baseStation);
         }
-
         private static void Add_parcel()
         {
             Console.Write("Enter sender id: ");
@@ -42,14 +41,14 @@ namespace ConsuleUI_BL
             if (input != "0" && input != "1" && input != "2")
                 throw new InputException("not invalid weight");
             Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), input);
-            Parcel parcel= new Parcel()
+            Parcel parcel = new Parcel()
             {
                 Priority = priority,
-                 Weight = weight
+                Weight = weight,
+                Requested = DateTime.Now
             };
             mybi.Add_parcel(parcel, sender_id, getter_id);
         }
-
         private static void Add_customer()
         {
             Customer customer = new Customer();
@@ -64,7 +63,6 @@ namespace ConsuleUI_BL
 
             mybi.Add_customer(customer);
         }
-
         private static void Add_drone()
         {
             Drone drone = new Drone();
@@ -82,10 +80,6 @@ namespace ConsuleUI_BL
             if(!int.TryParse(Console.ReadLine(), out int baseStationNum)) { throw new InputException("not invalid num input"); }
             mybi.Add_drone(drone, baseStationNum);
         }
-
-
-
-
 
         private static Location input_location()
         {

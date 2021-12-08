@@ -138,16 +138,6 @@ namespace DalObject
                 Lattitude = 35.101,
                 Longitude = 31.101
             });
-            /*
-            Customers.Add(new Customer()
-            {
-                Id = 4,
-                Name = "Temp4",
-                Phone = "0537829463",
-                Lattitude = 35.111,
-                Longitude = 31.111
-            });
-            */
             Parcels.Add(new Parcel()
             {
                 Id = 1,

@@ -238,24 +238,4 @@ namespace IBL
             throw new CustomerExeption("id not found");
         }
     }
-
-    [Serializable]
-    internal class slotException : Exception
-    {
-        public slotException()
-        {
-        }
-
-        public slotException(string message) : base(message)
-        {
-        }
-
-        public slotException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected slotException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-    }
 }
