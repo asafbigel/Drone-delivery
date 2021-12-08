@@ -26,14 +26,11 @@ namespace PL
         //public AddDroneWindow(IBL.IBL bl)
         public AddDroneWindow(IBL.BL theBL)
         {
+            InitializeComponent();
             bl = theBL;
             newDrone = new DroneToList();
             this.DataContext = newDrone;
-            InitializeComponent();
-
-//            this.maxWeightColumn. = Enum.GetValues(typeof(DroneStatuses));
-  //          this.maxWeightColumn.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-    //        this.we
+            this.Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
         }
     }
 }

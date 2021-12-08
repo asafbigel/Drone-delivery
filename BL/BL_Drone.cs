@@ -83,8 +83,7 @@ namespace IBL
         }
         public List<DroneToList> GetAllDrones(Predicate<DroneToList> match)
         {
-            List<DroneToList> drones = convertor(mydal.Get_all_drones()).FindAll(match);
-            return drones;
+            return convertor(mydal.Get_all_drones()).FindAll(match);
         }
     }
 }

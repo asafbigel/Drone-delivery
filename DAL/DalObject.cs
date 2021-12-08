@@ -199,6 +199,7 @@ namespace DalObject
         {
             return DataSource.Drones;
         }
+
         public IEnumerable<Customer> Get_all_customers()
         {
             return DataSource.Customers;

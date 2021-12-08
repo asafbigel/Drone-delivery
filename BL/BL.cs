@@ -170,8 +170,13 @@ namespace IBL
                 if (drone.Status == DroneStatuses.maintenance)
                 {
                     int i = random.Next(0, baseStations.Count);
+                   // send_drone_to_charge(baseStations[i].Id);
                     drone.DroneLocation = baseStations[i].BaseStationLocation;
                     drone.Battery = random.Next(0, 21);
+                    IDAL.DO.DroneCharge charge = new IDAL.DO.DroneCharge();
+                    charge.DroneId = drone.Id;
+                    charge.StationId = baseStations[i].Id;
+                    mydal.send_drone_to_charge(charge);
                 }
                 // case status is vacant
                 if (drone.Status == DroneStatuses.vacant)
@@ -196,8 +201,6 @@ namespace IBL
                     double min_battery = distance * Electricity_free;
                     drone.Battery = random.Next((int)distance + 1, 101);
                 }
-
-
             }
         }
         private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location space)

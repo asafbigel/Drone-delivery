@@ -101,7 +101,7 @@ namespace IBL
                 CustomerName = idalSender.Name,
                 Id = idalSender.Id
             };
-            DroneToList drone = my_drones.Find(item => item.Id == idalParcel.Id);
+            DroneToList drone = my_drones.Find(item => item.Id == idalParcel.DroneId);
             if (drone == null)
                 drone = new DroneToList();
             return new Parcel()
@@ -127,8 +127,8 @@ namespace IBL
             IDAL.DO.Customer getter = mydal.Find_customer(parcel.Getter.Id);
             senderLlocation.longitude = sender.Longitude;
             senderLlocation.latitude = sender.Lattitude;
-            getter_location.longitude = sender.Longitude;
-            getter_location.latitude = sender.Lattitude;
+            getter_location.longitude = getter.Longitude;
+            getter_location.latitude = getter.Lattitude;
             return new ParcelAtTransfer()
             {
                 Id = parcel.Id,
@@ -149,7 +149,8 @@ namespace IBL
             return new DroneAtParcel()
             {
                 Battery = drone.Battery,
-                Id = drone.Id
+                Id = drone.Id,
+                DroneLocation = drone.DroneLocation
             };
         }
         private IDAL.DO.Customer convertor(Customer customer)
@@ -386,18 +387,26 @@ namespace IBL
                 ParcelAtCustomer parcelAtCustomer = convertor2(parcel);
                 if (parcel.SenderId == idal_customer.Id)
                 {
-                    parcelAtCustomer.OtherCustomer = convertor1(convertor(mydal.Find_customer(parcel.TargetId)));
+                    
+                    parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.TargetId));
                     customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
                 }
                 if (parcel.TargetId == idal_customer.Id)
                 {
-                    parcelAtCustomer.OtherCustomer = convertor1(convertor(mydal.Find_customer(parcel.SenderId)));
+                    parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.SenderId));
                     customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
                 }
             }
             return customer;
         }
-
+        private CustomerAtParcel convertor2(IDAL.DO.Customer customer)
+        {
+            return new CustomerAtParcel()
+            {
+                CustomerName = customer.Name,
+                Id = customer.Id
+            };
+        }
         private ParcelAtCustomer convertor2(IDAL.DO.Parcel parcel)
         {
             ParcelStatuses status = ParcelStatuses.Defined;
@@ -418,7 +427,6 @@ namespace IBL
                 Weight = (WeightCategories)parcel.Weight
             };
         }
-
         private CustomerAtParcel convertor1(Customer customer)
         {
             return new CustomerAtParcel()
