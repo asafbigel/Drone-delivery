@@ -125,6 +125,9 @@ namespace ConsoleUI
 
 
         #region Printing function
+        /// <summary>
+        ///  print all parcels that have not yet been connect to drone
+        /// </summary>
         private static void main_print_all_parcels_that_have_not_yet_been_connect_to_drone()
         {
             Console.WriteLine("parcels that have not yet been connect to drone:");
@@ -134,7 +137,9 @@ namespace ConsoleUI
                 Console.Write(item);
             }
         }
-
+        /// <summary>
+        /// print all base stations with free charge slot
+        /// </summary>
         private static void main_print_all_base_stations_with_free_charge_slot()
         {
             Console.WriteLine("base stations with free charge slot");
@@ -145,6 +150,9 @@ namespace ConsoleUI
             }
         }
 
+        /// <summary>
+        /// print all parcels
+        /// </summary>
         private static void main_print_all_parcels()
         {
             Console.WriteLine("parcels:");
@@ -156,6 +164,9 @@ namespace ConsoleUI
             }
         }
 
+        /// <summary>
+        /// print all customers
+        /// </summary>
         private static void main_print_all_customers()
         {
             Console.WriteLine("customers:");
@@ -166,6 +177,9 @@ namespace ConsoleUI
             }
         }
 
+        /// <summary>
+        /// print all drones
+        /// </summary>
         private static void main_print_all_drones()
         {
             Console.WriteLine("drones:");
@@ -176,6 +190,9 @@ namespace ConsoleUI
             }
         }
 
+        /// <summary>
+        /// print all base stations
+        /// </summary>
         private static void main_print_all_base_stations()
         {
             Console.WriteLine("base stations:");
@@ -186,6 +203,9 @@ namespace ConsoleUI
             }
         }
 
+        /// <summary>
+        /// print a parcel by id input
+        /// </summary>
         private static void main_print_a_parcel()
         {
             int my_id;
@@ -195,6 +215,9 @@ namespace ConsoleUI
             Console.Write(parcel1);
         }
 
+        /// <summary>
+        /// print a customer by id input
+        /// </summary>
         private static void main_print_a_customer()
         {
             int my_id;
@@ -204,6 +227,9 @@ namespace ConsoleUI
             Console.Write(customer1);
         }
 
+        /// <summary>
+        /// print a drone by id input
+        /// </summary>
         private static void main_print_a_drone()
         {
             int my_id;
@@ -213,6 +239,9 @@ namespace ConsoleUI
             Console.Write(drone1);
         }
 
+        /// <summary>
+        /// print a base station by id input
+        /// </summary>
         private static void main_print_a_base_station()
         {
             int my_id;
@@ -224,6 +253,10 @@ namespace ConsoleUI
         #endregion
 
         #region Charging options
+
+        /// <summary>
+        /// remove specific drone from charge
+        /// </summary>
         private static void main_put_out_drone_from_charge()
         {
             Console.Write("Enter drone ID: ");
@@ -231,6 +264,9 @@ namespace ConsoleUI
             mydal.put_out_drone_from_charge(my_drone_id);
         }
 
+        /// <summary>
+        /// send specific drone to charge
+        /// </summary>
         private static void main_send_drone_to_charge()
         {
             Console.Write("Enter drone ID: ");
@@ -250,6 +286,9 @@ namespace ConsoleUI
         #endregion
 
         #region Changes at the data (parcels and drones)
+        /// <summary>
+        /// connect parcel to drone
+        /// </summary>
         private static void main_connect_parcel_to_drone()
         {
             int my_id = Input_parcel_id();
@@ -259,7 +298,9 @@ namespace ConsoleUI
             parcel.DroneId = drone_id;
             mydal.UpdateParcel(parcel);
         }
-
+        /// <summary>
+        /// take parcel by the drone
+        /// </summary>
         private static void main_take_parcel_by_drone()
         {
             int my_id = Input_parcel_id();
@@ -268,6 +309,9 @@ namespace ConsoleUI
             mydal.UpdateParcel(parcel);
         }
 
+        /// <summary>
+        /// delivery parcel to customer
+        /// </summary>
         private static void main_delivery_parcel_to_customer()
         {
             int my_id = Input_parcel_id();
@@ -278,6 +322,9 @@ namespace ConsoleUI
         #endregion
 
         #region Adding objects to the data
+        /// <summary>
+        /// add new parcel 
+        /// </summary>
         private static void main_add_parcel()
         {
             int my_id = mydal.GetAndUpdateRunNumber();
@@ -327,6 +374,9 @@ namespace ConsoleUI
             Console.WriteLine("Parcel ID is: " + my_id);
         }
 
+        /// <summary>
+        /// add new customer 
+        /// </summary>
         private static void main_add_customer()
         {
             Console.Write("Enter id: ");
@@ -353,6 +403,9 @@ namespace ConsoleUI
             mydal.Add_customer(customer);
         }
 
+        /// <summary>
+        /// add new drone 
+        /// </summary>
         private static void main_add_drone()
         {
             Console.Write("Enter id: ");
@@ -378,6 +431,9 @@ namespace ConsoleUI
             mydal.Add_drone(drone);
         }
 
+        /// <summary>
+        /// add new base station
+        /// </summary>
         private static void main_new_base_station()
         {
             Console.Write("Enter id: ");
@@ -403,7 +459,9 @@ namespace ConsoleUI
         #endregion
 
 
-        // show menu at the main
+        /// <summary>
+        /// show menu at the main
+        /// </summary>
         private static void show_menu()
         {
             Console.WriteLine("Choose what to do:");
@@ -446,7 +504,10 @@ namespace ConsoleUI
             */
         }
 
-        // Help function, ask id num from the user, and return it
+        /// <summary>
+        ///  Help function, ask id num from the user, and return it
+        /// </summary>
+        /// <returns> parcel id</returns>
         private static int Input_parcel_id()
         {
             Console.WriteLine("Enter parcel Id to connect:");
