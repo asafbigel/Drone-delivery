@@ -35,5 +35,10 @@ namespace PL
         {
             new AddDroneWindow(theBL).Show();
         }
+
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

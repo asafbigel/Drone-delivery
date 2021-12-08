@@ -46,5 +46,10 @@ namespace PL
             bl.Add_drone(drone, baseStation);
             this.Close();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -44,5 +44,15 @@ namespace PL
             this.DroneListView.ItemsSource = bl.GetAllDrones(item => item.MaxWeight == weight);
             //this.StatusSelector.Text = "choose status:";
         }
+
+        private void AddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            new AddDroneWindow(bl).Show();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

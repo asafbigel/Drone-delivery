@@ -30,6 +30,7 @@
             <ComboBox x:Name="Weight" Grid.Column="1" Grid.Row="3" SelectedItem="{Binding Weight}" Margin="0,0,50,0"/>
             <TextBox x:Name="Station" Grid.Column="1" Grid.Row="4" Text ="{Binding station}" Margin="0,0,50,0"/>
             <Button  Content="Add" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" Height="33" Width="74" Click="Button_Click"/>
+            <Button  Content="Exit" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" Height="33" Width="74" Margin="200,0,0,0" Click="Button_Click_1"/>
         </Grid>
     </Grid>
 </Window>
