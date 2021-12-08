@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using IBL.BO;
 
 namespace IBL
-{
+{ 
     public partial class BL : IBL
     {
         static IDAL.IDal mydal;
