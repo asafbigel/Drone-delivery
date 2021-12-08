@@ -9,9 +9,14 @@ using IDAL.DO;
 
 namespace DalObject
 {
+   
     public class DalObject : IDal
     {
         #region Get a object, and add to the lists (public)
+        /// <summary>
+        /// Add base station
+        /// </summary>
+        /// <param name="baseStation">the base station to  add </param>
         public void Add_base_station(BaseStation baseStation)
         {
             if (DataSource.BaseStations.Any(bs => bs.Id == baseStation.Id))
@@ -20,24 +25,40 @@ namespace DalObject
             }
             DataSource.BaseStations.Add(baseStation);
         }
+        /// <summary>
+        /// Add new base drone
+        /// </summary>
+        /// <param name="drone"> the drone to  add</param>
         public void Add_drone(Drone drone)
         {
             if (DataSource.Drones.Any(dr => dr.Id == drone.Id))
                 throw new DroneExeption("id allready exist");
             DataSource.Drones.Add(drone);
         }
+        /// <summary>
+        /// Add new customer
+        /// </summary>
+        /// <param name="customer">the customer to  add</param>
         public void Add_customer(Customer customer)
         {
             if (DataSource.Customers.Any(cs => cs.Id == customer.Id))
                 throw new CustomerExeption("id allready exist");
             DataSource.Customers.Add(customer);
         }
+        /// <summary>
+        /// Add new parcel
+        /// </summary>
+        /// <param name="parcel">the parcel to  add</param>
         public void Add_parcel(Parcel parcel)
         {
             if (DataSource.Parcels.Any(pr => pr.Id == parcel.Id))
                 throw new DroneChargeExeption("id allready exist");
             DataSource.Parcels.Add(parcel);
         }
+        /// <summary>
+        /// Add new parcel Drone Charge
+        /// </summary>
+        /// <param name="droneCharge"> the Drone Charge to  add</param>
         public void Add_DroneCharge(DroneCharge droneCharge)
         {
             if (DataSource.DroneCharges.Any(dr => dr.DroneId == droneCharge.DroneId))
@@ -47,26 +68,48 @@ namespace DalObject
         #endregion
 
         #region Get an object, and update the lists (public)
+        /// <summary>
+        /// Update Base Station
+        /// </summary>
+        /// <param name="baseStation"> the Drone Charge to update</param>
         public void UpdateBaseStation(BaseStation baseStation)
         {
             int i = find_index_baseStation(baseStation.Id);
             DataSource.BaseStations[i] = baseStation;
         }
+        /// <summary>
+        /// Update Drone
+        /// </summary>
+        /// <param name="drone"> the Drone to update</param>
         public void UpdateDrone(Drone drone)
         {
             int i = find_index_drone(drone.Id);
             DataSource.Drones[i] = drone;
         }
+        /// <summary>
+        /// Update Parcel
+        /// </summary>
+        /// <param name="parcel"> the Parcel to update </param>
         public void UpdateParcel(Parcel parcel)
         {
             int i = find_index_parcel(parcel.Id);
             DataSource.Parcels[i] = parcel;
         }
+        /// <summary>
+        /// Update Customer
+        /// </summary>
+        /// <param name="customer"> the Customer to update</param>
         public void UpdateCustomer(Customer customer)
         {
             int i = find_index_customer(customer.Id);
             DataSource.Customers[i] = customer;
+            
         }
+        /// <summary>
+        /// Update Drone Charge
+        /// </summary>
+        /// <param name="droneCharge">the drone Charge to update</param>
+        /// <param name="DroneId"> the id of the drone</param>
         public void UpdateDroneCharge(DroneCharge droneCharge, int DroneId)
         {
             int i = find_index_droneCharge_by_drone(DroneId);
@@ -75,6 +118,11 @@ namespace DalObject
         #endregion
 
         #region Get id of object, and find his index at the array (private)
+        /// <summary>
+        /// find index parcel in list
+        /// </summary>
+        /// <param name="my_id">id of parcel</param>
+        /// <returns>index</returns>
         private int find_index_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Parcels.Count; i++)
@@ -84,6 +132,11 @@ namespace DalObject
             }
             return -1;
         }
+        /// <summary>
+        ///  find index baseStation
+        /// </summary>
+        /// <param name="my_id">id of baseStation< /param>
+        /// <returns>index </returns>
         private int find_index_baseStation(int my_id)
         {
             for (int i = 0; i < DataSource.BaseStations.Count; i++)
@@ -93,6 +146,11 @@ namespace DalObject
             }
             return -1;
         }
+        /// <summary>
+        ///  find index customer
+        /// </summary>
+        /// <param name="my_id">id of customer< /param>
+        /// <returns>index </returns>
         private int find_index_customer(int my_id)
         {
             for (int i = 0; i < DataSource.Customers.Count; i++)
@@ -102,6 +160,11 @@ namespace DalObject
             }
             return -1;
         }
+        /// <summary>
+        ///  find index drone
+        /// </summary>
+        /// <param name="my_id">id of drone < /param>
+        /// <returns>index </returns>
         private int find_index_drone(int my_id)
         {
             for (int i = 0; i < DataSource.Drones.Count; i++)
@@ -111,6 +174,11 @@ namespace DalObject
             }
             return -1;
         }
+        /// <summary>
+        ///  find index droneCharge
+        /// </summary>
+        /// <param name="my_id">id of drone < /param>
+        /// <returns>index </returns>
         private int find_index_droneCharge_by_drone(int my_drone_id)
         {
             for (int i = 0; i < DataSource.DroneCharges.Count; i++)
@@ -123,6 +191,7 @@ namespace DalObject
         #endregion
 
         #region Get an id of object, and return the object (public)
+        
         public Parcel Find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Parcels.Count(); i++)
