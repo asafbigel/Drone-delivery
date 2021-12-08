@@ -7,6 +7,9 @@ namespace ConsuleUI_BL
 {
     public partial class ConsuleUI_BL
     {
+        /// <summary>
+        /// A function that  creates a baseStation object by inpot and sends it an add function that add it
+        /// </summary>
         private static void add_baseStation()
         {
             Console.Write("Enter station num: ");
@@ -25,6 +28,9 @@ namespace ConsuleUI_BL
             };
             mybi.Add_base_station(baseStation);
         }
+        /// <summary>
+        /// A function that  creates parcel object by inpot and sends it an add function that add it
+        /// </summary>
         private static void Add_parcel()
         {
             Console.Write("Enter sender id: ");
@@ -93,26 +99,6 @@ namespace ConsuleUI_BL
                 longitude = my_longitude
             };
             return space;
-        }
-    }
-
-    [Serializable]
-    internal class IntReadException : Exception
-    {
-        public IntReadException()
-        {
-        }
-
-        public IntReadException(string message) : base(message)
-        {
-        }
-
-        public IntReadException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected IntReadException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
         }
     }
 }

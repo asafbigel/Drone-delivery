@@ -12,6 +12,11 @@ namespace IBL
         // convertor is between IDAL.DO object and IBL.BO object
         // covnertor1 is between IBL.BO object and IBL.BO object
 
+        /// <summary>
+        /// convert from IDAL.DO.DroneCharge object to IBL.BO.DroneInCharging object
+        /// </summary>
+        /// <param name="droneCharge">the drone charge   </param>
+        /// <returns> DroneInCharging object  </returns>
         private DroneInCharging convertor(IDAL.DO.DroneCharge droneCharge)
         {
             DroneInCharging new_drone = new DroneInCharging();
@@ -22,6 +27,11 @@ namespace IBL
             new_drone.Id = droneCharge.DroneId;
             return new_drone;
         }
+        /// <summary>
+        /// convert from IDAL.DO.BaseStation object to IBL.BO.BaseStation object
+        /// </summary>
+        /// <param name="idalBaseStation"></param>
+        /// <returns>IBL.BO.BaseStation object </returns>
         private BaseStation convertor(IDAL.DO.BaseStation idalBaseStation)
         {
 
@@ -50,6 +60,11 @@ namespace IBL
             baseStation.BaseStationLocation = location;
             return baseStation;
         }
+        /// <summary>
+        /// convert from IBL.BO.BaseStation object to  IDAL.DO.BaseStation object
+        /// </summary>
+        /// <param name="baseStation"> IBL.BO.BaseStation object </param>
+        /// <returns> IDAL.DO.BaseStation object </returns>
         private IDAL.DO.BaseStation convertor(BaseStation baseStation)
         {
             IDAL.DO.BaseStation idalBaseStation = new IDAL.DO.BaseStation()
@@ -62,6 +77,11 @@ namespace IBL
             };
             return idalBaseStation;
         }
+        /// <summary>
+        /// convert from IBL.BO.parcel object to  IDAL.DO.parcel object
+        /// </summary>
+        /// <param name="parcel">IBL.BO.parcel object </param>
+        /// <returns>IDAL.DO.parcel object </returns>
         private IDAL.DO.Parcel convertor(Parcel parcel)
         {
             int drone_id =0 ;
@@ -88,6 +108,11 @@ namespace IBL
             };
             return idalParcel;
         }
+        /// <summary>
+        /// convert from IDAL.DO.parcel object to IBL.BO.parcel object   
+        /// </summary>
+        /// <param name="idalParcel"> IDAL.DO.parcel object</param>
+        /// <returns>IBL.BO.parcel object   </returns>
         private Parcel convertor(IDAL.DO.Parcel idalParcel)
         {
             IDAL.DO.Customer idalGetter = mydal.Find_customer(idalParcel.TargetId);
@@ -120,6 +145,11 @@ namespace IBL
             };
 
         }
+        /// <summary>
+        /// convert from Parcel object to ParcelAtTransfer object
+        /// </summary>
+        /// <param name="parcel">Parcel</param>
+        /// <returns>ParcelAtTransfer</returns>
         private ParcelAtTransfer convertor1(Parcel parcel)
         {
             Location senderLlocation = new Location();
@@ -143,6 +173,11 @@ namespace IBL
                 LocationOfTarget = getter_location
             };
         }
+        /// <summary>
+        /// convert from IDAL.DO.parcel object to IBL.BO.parcel object  
+        /// </summary>
+        /// <param name="drone">DroneToList object</param>
+        /// <returns>DroneAtParcel object</returns>
         private DroneAtParcel convertor1(DroneToList drone)
         {
             if (drone == null)
@@ -154,6 +189,11 @@ namespace IBL
                 DroneLocation = drone.DroneLocation
             };
         }
+        /// <summary>
+        /// convert from IBL.BO.Customer object  to  IDAL.DO.Customer object 
+        /// </summary>
+        /// <param name="customer"> IBL.BO.Customer object</param>
+        /// <returns>IDAL.DO.Customer object </returns>
         private IDAL.DO.Customer convertor(Customer customer)
         {
             IDAL.DO.Customer idalCustomer = new IDAL.DO.Customer()
@@ -166,6 +206,12 @@ namespace IBL
             };
             return idalCustomer;
         }
+
+        /// <summary>
+        /// convert from  IDAL.DO.Customer object  to IBL.BO.Customer object  
+        /// </summary>
+        /// <param name="drone">IDAL.DO.Customer object</param>
+        /// <returns>IBL.BO.Customer object</returns>
         private IDAL.DO.Drone convertor(Drone drone)
         {
             IDAL.DO.Drone idalDrone = new IDAL.DO.Drone()
@@ -176,7 +222,12 @@ namespace IBL
             };
             return idalDrone;
         }
-        private DroneToList convertor1(Drone drone)
+        /// <summary>
+        /// convert from Drone object  to DroneToList object  
+        /// </summary>
+        /// <param name="drone">Drone object </param>
+        /// <returns>DroneToList object </returns>
+        private DroneToList convertor3(Drone drone)
         {
             DroneToList droneToList = new DroneToList()
             {
@@ -190,15 +241,25 @@ namespace IBL
             };
             return droneToList;
         }
+        /// <summary>
+        /// convert from IEnumerable<IDAL.DO.BaseStation>  to List<BaseStationToList>
+        /// </summary>
+        /// <param name="enumerable">the IEnumerable<IDAL.DO.BaseStation> </param>
+        /// <returns> List<BaseStationToList> after convert </returns>
         private List<BaseStationToList> convertor1(IEnumerable<IDAL.DO.BaseStation> enumerable)
         {
             List<BaseStationToList> baseStations = new List<BaseStationToList>();
             foreach (var item in enumerable)
             {
-                baseStations.Add(convertor1(item));
+                baseStations.Add(convertor4(item));
             }
             return baseStations;
         }
+        /// <summary>
+        /// convert from IEnumerable<IDAL.DO.BaseStation>  to List<BaseStation>
+        /// </summary>
+        /// <param name="enumerable">the IEnumerable<IDAL.DO.BaseStation></param>
+        /// <returns>List<BaseStation> after convert</returns>
         private List<BaseStation> convertor(IEnumerable<IDAL.DO.BaseStation> enumerable)
         {
             List<BaseStation> baseStations = new List<BaseStation>();
@@ -208,7 +269,12 @@ namespace IBL
             }
             return baseStations;
         }
-        private BaseStationToList convertor1(IDAL.DO.BaseStation item)
+        /// <summary>
+        /// convert from IDAL.DO.BaseStation object  to  IBL.BO.BaseStationToList object  
+        /// </summary>
+        /// <param name="item"> IDAL.DO.BaseStation object </param>
+        /// <returns>IBL.BO.BaseStationToList object after convert </returns>
+        private BaseStationToList convertor4(IDAL.DO.BaseStation item)
         {
             List<DroneInCharging> droneCharge = convertor(mydal.Get_all_DroneCharge().ToList().FindAll(charge => charge.StationId == item.Id));
             return new BaseStationToList()
@@ -219,6 +285,11 @@ namespace IBL
                 NumOfFreeSlots = item.ChargeSlots
             };
         }
+        /// <summary>
+        /// convert  from List<IDAL.DO.DroneCharge>  to  List<DroneInCharging>  
+        /// </summary>
+        /// <param name="idal_droneCharges">List<IDAL.DO.DroneCharge></param>
+        /// <returns> List<DroneInCharging> after convert </returns>
         private List<DroneInCharging> convertor(List<IDAL.DO.DroneCharge> idal_droneCharges)
         {
             List<DroneInCharging> droneInChargings = new List<DroneInCharging>();
@@ -228,25 +299,40 @@ namespace IBL
             }
             return droneInChargings;
         }
-        private List<ParcelToList> convertor1(IEnumerable<IDAL.DO.Parcel> enumerable)
+        /// <summary>
+        /// convert  from IEnumerable<IDAL.DO.Parcel>  to  List<ParcelToList>  
+        /// </summary>
+        /// <param name="enumerable">IEnumerable<IDAL.DO.Parcel></param>
+        /// <returns> List<ParcelToList> after convert  </returns>
+        private List<ParcelToList> convertor4(IEnumerable<IDAL.DO.Parcel> enumerable)
         {
             List<ParcelToList> parcels = new List<ParcelToList>();
             foreach (var item in enumerable)
             {
-                parcels.Add(convertor1(item));
+                parcels.Add(convertor4(item));
             }
             return parcels;
         }
+        /// <summary>
+        /// convert  from IEnumerable<IDAL.DO.Parcel>  to List<ParcelToList>  
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
         private List<ParcelToList> convertor(IEnumerable<IDAL.DO.Parcel> enumerable)
         {
             List<ParcelToList> parcels = new List<ParcelToList>();
             foreach (var item in enumerable)
             {
-                parcels.Add(convertor1(item));
+                parcels.Add(convertor4(item));
             }
             return parcels;
         }
-        private ParcelToList convertor1(IDAL.DO.Parcel item)
+        /// <summary>
+        /// convert from IDAL.DO.Parcel object  to  IBL.BO.ParcelToList object
+        /// </summary>
+        /// <param name="item">IDAL.DO.Parcel object</param>
+        /// <returns> IBL.BO.ParcelToList object after convert</returns>
+        private ParcelToList convertor4(IDAL.DO.Parcel item)
         {
             ParcelStatuses parcelStatuses;
             if (item.Delivered != DateTime.MinValue)
@@ -276,15 +362,25 @@ namespace IBL
                 Weight = (IBL.BO.WeightCategories)item.Weight
             };
         }
+        /// <summary>
+        /// convert  from IEnumerable<IDAL.DO.Customer>  to List<CustomerToList>> 
+        /// </summary>
+        /// <param name="enumerable">IEnumerable<IDAL.DO.Customer></param>
+        /// <returns>List<CustomerToList> after convert</returns>
         private List<CustomerToList> convertor(IEnumerable<IDAL.DO.Customer> enumerable)
         {
             List<CustomerToList> customers = new List<CustomerToList>();
             foreach (var item in enumerable)
             {
-                customers.Add(convertor1(item));
+                customers.Add(convertor4(item));
             }
             return customers;
         }
+        /// <summary>
+        ///  convert  from IEnumerable<IDAL.DO.Customer>  to List<Customer>
+        /// </summary>
+        /// <param name="enumerable"> IEnumerable<IDAL.DO.Customer> </param>
+        /// <returns> List<Customer> after convert </returns>
         private List<Customer> convertor1(IEnumerable<IDAL.DO.Customer> enumerable)
         {
             List<Customer> customers = new List<Customer>();
@@ -294,7 +390,12 @@ namespace IBL
             }
             return customers;
         }
-        private CustomerToList convertor1(IDAL.DO.Customer item)
+        /// <summary>
+        /// convert  from IDAL.DO.Customer object  to IBL.BO.CustomerToList object
+        /// </summary>
+        /// <param name="item">IDAL.DO.Customer object</param>
+        /// <returns>IBL.BO.CustomerToList object</returns>
+        private CustomerToList convertor4(IDAL.DO.Customer item)
         {
             List<IDAL.DO.Parcel> parcels_got = mydal.Get_all_parcels().ToList().FindAll                 (parcel => parcel.TargetId == item.Id && parcel.Delivered != DateTime.MinValue);
             List<IDAL.DO.Parcel> parcels_to_get = mydal.Get_all_parcels().ToList().FindAll              (parcel => parcel.TargetId == item.Id && parcel.Delivered == DateTime.MinValue);
@@ -311,16 +412,26 @@ namespace IBL
                 numOfParcelsToGet = parcels_to_get.Count()
             };
         }
+        /// <summary>
+        /// convert  from  IEnumerable<IDAL.DO.Drone>  to  List<DroneToList>
+        /// </summary>
+        /// <param name="enumerable"> IEnumerable<IDAL.DO.Drone> </param>
+        /// <returns>  List<DroneToList> after convert </returns>
         private List<DroneToList> convertor(IEnumerable<IDAL.DO.Drone> enumerable)
         {
             List<DroneToList> drones = new List<DroneToList>();
             foreach (var item in enumerable)
             {
-                drones.Add(convertor1(item));
+                drones.Add(convertor4(item));
             }
             return drones;
         }
-        private DroneToList convertor1(IDAL.DO.Drone item)
+        /// <summary>
+        /// convert  from IDAL.DO.Drone item object  to IBL.BO.DroneToList object
+        /// </summary>
+        /// <param name="item"> IDAL.DO.Drone item object</param>
+        /// <returns> IBL.BO.DroneToList object after convert</returns>
+        private DroneToList convertor4(IDAL.DO.Drone item)
         {
             Drone drone = convertor(item);
             List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList().FindAll(parcel => parcel.DroneId == item.Id);
@@ -335,6 +446,11 @@ namespace IBL
                 NumOfParcel = parcels.Count()
             };
         }
+        /// <summary>
+        /// convert  from  List<IDAL.DO.Parcel>  to List<Parcel>
+        /// </summary>
+        /// <param name="idalparcels">  List<IDAL.DO.Parcel> </param>
+        /// <returns> List<Parcel> after convert </returns>
         private List<Parcel> convertor(List<IDAL.DO.Parcel> idalparcels)
         {
             List<Parcel> parcels = new List<Parcel>();
@@ -344,6 +460,11 @@ namespace IBL
             }
             return parcels;
         }
+        /// <summary>
+        ///  convert  from List<Parcel>  to List<ParcelAtTransfer>
+        /// </summary>
+        /// <param name="parcelsHighPriority"> List<Parcel> list </param>
+        /// <returns>List<ParcelAtTransfer> after convert </returns>
         private List<ParcelAtTransfer> convertor1(List<Parcel> parcelsHighPriority)
         {
             List<ParcelAtTransfer> new_list = new List<ParcelAtTransfer>();
@@ -353,6 +474,11 @@ namespace IBL
             }
             return new_list;
         }
+        /// <summary>
+        /// convert  from IDAL.DO.Drone object  to IBL.BO.Drone object
+        /// </summary>
+        /// <param name="idalDrone">IDAL.DO.Drone object</param>
+        /// <returns>IBL.BO.Drone object after convert </returns>
         private Drone convertor(IDAL.DO.Drone idalDrone)
         {
             DroneToList droneToList = my_drones.Find(item => item.Id == idalDrone.Id);
@@ -368,6 +494,11 @@ namespace IBL
                 Status = droneToList.Status
             };
         }
+        /// <summary>
+        /// convert  from IDAL.DO.Customer object  to IBL.BO.Customer object
+        /// </summary>
+        /// <param name="idal_customer"></param>
+        /// <returns></returns>
         private Customer convertor(IDAL.DO.Customer idal_customer)
         {
             Location location = new Location();
@@ -408,6 +539,12 @@ namespace IBL
                 Id = customer.Id
             };
         }
+
+        /// <summary>
+        /// convert  from ParcelAtCustomer object  to IBL.BO.Customer object
+        /// </summary>
+        /// <param name="parcel">ParcelAtCustomer object </param>
+        /// <returns>IBL.BO.Customer object</returns>
         private ParcelAtCustomer convertor2(IDAL.DO.Parcel parcel)
         {
             ParcelStatuses status = ParcelStatuses.Defined;
@@ -428,6 +565,12 @@ namespace IBL
                 Weight = (WeightCategories)parcel.Weight
             };
         }
+
+        /// <summary>
+        /// convert  from Customer object  to CustomerAtParcel object
+        /// </summary>
+        /// <param name="customer"> Customer object</param>
+        /// <returns>CustomerAtParcel object after convert </returns>
         private CustomerAtParcel convertor1(Customer customer)
         {
             return new CustomerAtParcel()
