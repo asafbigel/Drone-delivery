@@ -135,8 +135,9 @@ namespace IBL
                 Delivered = idalParcel.Delivered,
                 Id = idalParcel.Id,
                 PickedUp = idalParcel.PickedUp,
-                Priority = (IBL.BO.Priorities)idalParcel.Priority,
-                Weight = (IBL.BO.WeightCategories)idalParcel.Weight,
+                
+                Priority = (Priorities)idalParcel.Priority,
+                Weight = (WeightCategories)idalParcel.Weight,
                 Requested = idalParcel.Requested,
                 Scheduled = idalParcel.Scheduled,
                 Getter = getter,
@@ -357,9 +358,9 @@ namespace IBL
                 GetterName = target_name,
                 SenderName = sender_name,
                 Id = item.Id,
-                Priority = (IBL.BO.Priorities)item.Priority,
+                Priority = (Priorities)item.Priority,
                 Status = parcelStatuses,
-                Weight = (IBL.BO.WeightCategories)item.Weight
+                Weight = (WeightCategories)item.Weight
             };
         }
         /// <summary>

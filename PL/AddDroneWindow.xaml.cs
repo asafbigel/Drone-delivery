@@ -21,16 +21,30 @@ namespace PL
     public partial class AddDroneWindow : Window
     {
         DroneToList newDrone;
-        //IBL.IBL bl; 
-        IBL.BL bl;
-        //public AddDroneWindow(IBL.IBL bl)
-        public AddDroneWindow(IBL.BL theBL)
+        IBL.IBL bl; 
+        public AddDroneWindow(IBL.IBL theBL)
         {
             InitializeComponent();
             bl = theBL;
             newDrone = new DroneToList();
             this.DataContext = newDrone;
             this.Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(this.Id.Text);
+            string model = this.Model.Text;
+            WeightCategories weight = (WeightCategories)this.Weight.SelectedItem;
+            int baseStation = int.Parse(this.Station.Text);
+            Drone drone = new Drone()
+            {
+                Id = id,
+                MaxWeight = weight,
+                Model = model
+            };
+            bl.Add_drone(drone, baseStation);
+            this.Close();
         }
     }
 }

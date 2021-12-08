@@ -8,7 +8,7 @@ using IBL.BO;
 
 namespace IBL
 {
-    public partial class BL
+    public partial class BL : IBL
     {
         static IDAL.IDal mydal;
         List<DroneToList> my_drones;
@@ -17,7 +17,7 @@ namespace IBL
         double Electricity_medium;
         double Electricity_heavy;
         double Charge_at_hour;
-        public BL() 
+        public BL()
         {
             my_drones = new List<DroneToList>();
             mydal = new DalObject.DalObject();
@@ -31,7 +31,7 @@ namespace IBL
 
 
             #region List of drone from the data layer
-             //my_drones = convertor(mydal.Get_all_drones());
+            //my_drones = convertor(mydal.Get_all_drones());
             List<IDAL.DO.Drone> idalDrones = mydal.Get_all_drones().ToList();
             foreach (var item in idalDrones)
             {
@@ -44,7 +44,7 @@ namespace IBL
                     Status = (DroneStatuses)random.Next(0, 2)
                 });
             }
-            
+
             #endregion
 
             #region List of the parcels
@@ -106,71 +106,71 @@ namespace IBL
                     drone.Status = DroneStatuses.sending;
 
                 // choose location and random the battery ofeach drone
-                if(parcel_of_this_drone.Count()>0)
-                foreach (var parcel in parcel_of_this_drone)
-                {
-                    // case the parcel has not delivere
-                    if (parcel.Delivered == DateTime.MinValue)
+                if (parcel_of_this_drone.Count() > 0)
+                    foreach (var parcel in parcel_of_this_drone)
                     {
-                        Customer sender = find_customer(customers, parcel.SenderId);
-                        Customer getter = find_customer(customers, parcel.TargetId);
-                        BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.CustomerLocation);
-                        if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
+                        // case the parcel has not delivere
+                        if (parcel.Delivered == DateTime.MinValue)
                         {
-                            BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.CustomerLocation);
-                            drone.DroneLocation = baseStation_neer_sender.BaseStationLocation;
+                            Customer sender = find_customer(customers, parcel.SenderId);
+                            Customer getter = find_customer(customers, parcel.TargetId);
+                            BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.CustomerLocation);
+                            if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
+                            {
+                                BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.CustomerLocation);
+                                drone.DroneLocation = baseStation_neer_sender.BaseStationLocation;
 
-                            double distance1 = distance_between_2_points(baseStation_neer_sender.BaseStationLocation, sender.CustomerLocation);
-                            double distance2 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
-                            double distance3 = distance_between_2_points(baseStation_neer_geeter.BaseStationLocation, getter.CustomerLocation);
-                            double min_battery = (distance1 + distance3) * Electricity_free;
-                            switch (parcel.Weight)
-                            {
-                                case IDAL.DO.WeightCategories.light:
-                                    min_battery += distance2 * Electricity_light;
-                                    break;
-                                case IDAL.DO.WeightCategories.medium:
-                                    min_battery += distance2 * Electricity_medium;
-                                    break;
-                                case IDAL.DO.WeightCategories.heavy:
-                                    min_battery += distance2 * Electricity_heavy;
-                                    break;
-                                default:
-                                    break;
+                                double distance1 = distance_between_2_points(baseStation_neer_sender.BaseStationLocation, sender.CustomerLocation);
+                                double distance2 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
+                                double distance3 = distance_between_2_points(baseStation_neer_geeter.BaseStationLocation, getter.CustomerLocation);
+                                double min_battery = (distance1 + distance3) * Electricity_free;
+                                switch (parcel.Weight)
+                                {
+                                    case IDAL.DO.WeightCategories.light:
+                                        min_battery += distance2 * Electricity_light;
+                                        break;
+                                    case IDAL.DO.WeightCategories.medium:
+                                        min_battery += distance2 * Electricity_medium;
+                                        break;
+                                    case IDAL.DO.WeightCategories.heavy:
+                                        min_battery += distance2 * Electricity_heavy;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                drone.Battery = random.Next((int)min_battery + 1, 101);
                             }
-                            drone.Battery = random.Next((int)min_battery + 1, 101);
-                        }
-                        if (parcel.PickedUp != DateTime.MinValue)
-                        {
-                            drone.DroneLocation = sender.CustomerLocation;
-                            double distance1 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
-                            double distance2 = distance_between_2_points(getter.CustomerLocation, baseStation_neer_geeter.BaseStationLocation);
-                            double min_battery = distance2 * Electricity_free;
-                            switch (parcel.Weight)
+                            if (parcel.PickedUp != DateTime.MinValue)
                             {
-                                case IDAL.DO.WeightCategories.light:
-                                    min_battery += distance1 * Electricity_light;
-                                    break;
-                                case IDAL.DO.WeightCategories.medium:
-                                    min_battery += distance1 * Electricity_medium;
-                                    break;
-                                case IDAL.DO.WeightCategories.heavy:
-                                    min_battery += distance1 * Electricity_heavy;
-                                    break;
-                                default:
-                                    break;
+                                drone.DroneLocation = sender.CustomerLocation;
+                                double distance1 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
+                                double distance2 = distance_between_2_points(getter.CustomerLocation, baseStation_neer_geeter.BaseStationLocation);
+                                double min_battery = distance2 * Electricity_free;
+                                switch (parcel.Weight)
+                                {
+                                    case IDAL.DO.WeightCategories.light:
+                                        min_battery += distance1 * Electricity_light;
+                                        break;
+                                    case IDAL.DO.WeightCategories.medium:
+                                        min_battery += distance1 * Electricity_medium;
+                                        break;
+                                    case IDAL.DO.WeightCategories.heavy:
+                                        min_battery += distance1 * Electricity_heavy;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                drone.Battery = random.Next((int)min_battery + 1, 101);
                             }
-                            drone.Battery = random.Next((int)min_battery + 1, 101);
                         }
+
                     }
-
-                }
                 // cases all of this drine have dlivere
                 // case status is maintenance
                 if (drone.Status == DroneStatuses.maintenance)
                 {
                     int i = random.Next(0, baseStations.Count);
-                   // send_drone_to_charge(baseStations[i].Id);
+                    // send_drone_to_charge(baseStations[i].Id);
                     drone.DroneLocation = baseStations[i].BaseStationLocation;
                     drone.Battery = random.Next(0, 21);
                     IDAL.DO.DroneCharge charge = new IDAL.DO.DroneCharge();

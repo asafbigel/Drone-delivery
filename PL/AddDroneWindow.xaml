@@ -7,43 +7,29 @@
         mc:Ignorable="d"
         Title="AddDroneWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="droneToListDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="664,37,30,333" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="idColumn" Width="SizeToHeader" Header="Id" Binding="{Binding Id}"/>
-                <DataGridTemplateColumn x:Name="maxWeightColumn" Width="SizeToHeader" Header="Max Weight">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox>
-                                <ComboBoxItem Content="{Binding MaxWeight}"/>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn x:Name="modelColumn" Width="SizeToHeader" Header="Model" Binding="{Binding Model}"/>
-            </DataGrid.Columns>
-        </DataGrid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label x:Name="Add_drone"  Grid.Column="1" Content="Add drone" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontWeight="Bold"/>
+            <Label x:Name="Add_drone"  Grid.Column="1" Content="Add drone" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontWeight="Bold" Margin="0,20,0,20"/>
             <Label Grid.Row="1" Content="Id"  HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
-            <Label Grid.Row="2" Content="Name"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="20,10,20,10" />
+            <Label Grid.Row="2" Content="Model"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="20,10,20,10" />
             <Label Grid.Row="3" Content="Weight"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="20,10,20,10" />
             <Label Grid.Row="4" Content="Station" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="20,10,20,10"/>
-            <TextBox x:Name="Id" Grid.Column="1" Grid.Row="1" Text="{Binding Id}"/>
-            <TextBox x:Name="Name" Grid.Column="1" Grid.Row="2" Text="{Binding Name}"/>
-            <ComboBox x:Name="Weight" Grid.Column="1" Grid.Row="3" SelectedItem="{Binding Weight}"/>
-            <TextBox x:Name="Station" Grid.Column="1" Grid.Row="4" Text ="{Binding station}"/>
+            <TextBox x:Name="Id" Grid.Column="1" Grid.Row="1" Text="{Binding Id}" Margin="0,0,50,0"/>
+            <TextBox x:Name="Model" Grid.Column="1" Grid.Row="2" Text="{Binding Name}" Margin="0,0,50,0"/>
+            <ComboBox x:Name="Weight" Grid.Column="1" Grid.Row="3" SelectedItem="{Binding Weight}" Margin="0,0,50,0"/>
+            <TextBox x:Name="Station" Grid.Column="1" Grid.Row="4" Text ="{Binding station}" Margin="0,0,50,0"/>
+            <Button  Content="Add" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" Height="33" Width="74" Click="Button_Click"/>
         </Grid>
     </Grid>
 </Window>
