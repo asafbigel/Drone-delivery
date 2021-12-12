@@ -23,13 +23,13 @@ namespace IDAL
         void UpdateCustomer(Customer customer);
         #endregion
         #region Get all
-        IEnumerable<BaseStation> Get_all_base_stations();
+        IEnumerable<BaseStation> Get_all_base_stations(Predicate<BaseStation> match);
         IEnumerable<Customer> Get_all_customers();
         IEnumerable<DroneCharge> Get_all_DroneCharge();
         IEnumerable<Drone> Get_all_drones();
-        IEnumerable<Parcel> Get_all_parcels();
-        IEnumerable<Parcel> Get_all_parcels_that_have_not_yet_been_connect_to_drone();
-        IEnumerable<BaseStation> Get_all_base_stations_with_free_charge_slot();
+        IEnumerable<Parcel> Get_all_parcels(Predicate<Parcel> match);
+        //IEnumerable<Parcel> Get_all_parcels_that_have_not_yet_been_connect_to_drone();
+        //IEnumerable<BaseStation> Get_all_base_stations_with_free_charge_slot();
         #endregion
         #region Update
         void UpdateBaseStation(BaseStation baseStation);

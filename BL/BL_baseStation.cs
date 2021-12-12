@@ -73,7 +73,7 @@ namespace IBL
         /// <returns> the string of ToString of all the baseStations </returns>
         public string string_all_baseStations()
         {
-            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations());
+            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => true));
             string result = "";
             foreach (var item in baseStations)
             {
@@ -88,7 +88,7 @@ namespace IBL
         /// <returns>the string of ToString of all the baseStations with free slots</returns>
         public string string_all_baseStations_with_free_slots()
         {
-            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations_with_free_charge_slot());
+            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => x.ChargeSlots>0));
             string result = "";
             foreach (var item in baseStations)
             {

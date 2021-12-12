@@ -54,7 +54,7 @@ namespace IBL
                 throw new DroneException("Id not faund");
             if (drone.Status != DroneStatuses.vacant)
                 throw new DroneException("Drone not vacant");
-            List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations_with_free_charge_slot());
+            List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations(x => x.ChargeSlots>0));
             BaseStation baseStation = BaseStation_close_to_location(baseStations, drone.DroneLocation);
             double needen_fual = distance_between_2_points(baseStation.BaseStationLocation, drone.DroneLocation) * Electricity_free;
             if (needen_fual > drone.Battery)

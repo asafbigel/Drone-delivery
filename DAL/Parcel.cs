@@ -19,13 +19,13 @@ namespace IDAL
             public int DroneId { get; set; }
             
             // Time of created the request
-            public DateTime Requested { get; set; }
+            public DateTime? Requested { get; set; }
             // Time of connected between the parcel and a drone
-            public DateTime Scheduled { get; set; }
+            public DateTime? Scheduled { get; set; }
             // Time of taked the parcel from the sender
-            public DateTime PickedUp { get; set; }
+            public DateTime? PickedUp { get; set; }
             // Time of getted the parcel to the sender
-            public DateTime Delivered { get; set; }
+            public DateTime? Delivered { get; set; }
             public override string ToString()
             {
                 string result = "";

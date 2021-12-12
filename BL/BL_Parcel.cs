@@ -17,9 +17,9 @@ namespace IBL
         /// <param name="getter_id"></param>
         public void Add_parcel(Parcel parcel, int sender_id, int getter_id)
         {
-            parcel.Delivered = DateTime.MinValue;
-            parcel.PickedUp = DateTime.MinValue;
-            parcel.Scheduled = DateTime.MinValue;
+            parcel.Delivered = null;
+            parcel.PickedUp = null;
+            parcel.Scheduled = null;
             parcel.Requested = DateTime.Now;
             parcel.Id = mydal.GetAndUpdateRunNumber();
             parcel.TheDrone = null;
@@ -38,7 +38,7 @@ namespace IBL
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             if (drone.Status != DroneStatuses.vacant)
                 throw new DroneException("The drone isn't vacant");
-            List<IDAL.DO.Parcel> idalparcels = mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone().ToList().FindAll(item => (int)item.Weight <= (int)drone.MaxWeight);
+            List<IDAL.DO.Parcel> idalparcels = mydal.Get_all_parcels(x => x.DroneId == 0).ToList().FindAll(item => (int)item.Weight <= (int)drone.MaxWeight);
             if (idalparcels.Count == 0)
                 throw new ParcelException("No parcel exist");
             List<Parcel> parcels = convertor(idalparcels);
@@ -69,7 +69,7 @@ namespace IBL
                     min_distance = this_distance;
                 }
             }
-            BaseStation baseStation = BaseStation_close_to_location(convertor(mydal.Get_all_base_stations()), parcelAtTransfer.LocationOfTarget);
+            BaseStation baseStation = BaseStation_close_to_location(convertor(mydal.Get_all_base_stations(x => true)), parcelAtTransfer.LocationOfTarget);
             double battery_needed = 0;
             battery_needed += distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
             if (parcelAtTransfer.Weight == WeightCategories.heavy)
@@ -97,13 +97,13 @@ namespace IBL
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             if (drone.Status != DroneStatuses.sending)
                 throw new DroneException("The drone isn't at transfer");
-            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
+            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
             List<IDAL.DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
             //if (parcelsOfThisDrone.Count > 1)
             //    throw new DroneException("There are more than 1 parcels scheduled with this drone");
             if (parcelsOfThisDrone.Count == 0)
                 throw new DroneException("There aren't parcel ");
-            List<IDAL.DO.Parcel> parcelsNotPickedUp = parcelsOfThisDrone.FindAll(item =>item.PickedUp == DateTime.MinValue);
+            List<IDAL.DO.Parcel> parcelsNotPickedUp = parcelsOfThisDrone.FindAll(item =>item.PickedUp == null);
             if (parcelsNotPickedUp.Count == 0)
                 throw new DroneException("Don't has parcel that don't picked up");
             IDAL.DO.Parcel parcel = parcelsNotPickedUp[0];
@@ -123,9 +123,9 @@ namespace IBL
         public void delivered_parcel_by_drone(int drone_id)
         {
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
-            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
+            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
             List<IDAL.DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
-            List<IDAL.DO.Parcel> parcelsNotDelivered = parcelsOfThisDrone.FindAll(item => item.Delivered == DateTime.MinValue);
+            List<IDAL.DO.Parcel> parcelsNotDelivered = parcelsOfThisDrone.FindAll(item => item.Delivered == null);
             if (parcelsNotDelivered.Count == 0)
                 throw new DroneException("Don't has parcel that picked up and not delivered");
             IDAL.DO.Parcel parcel = parcelsNotDelivered[0];
@@ -170,7 +170,7 @@ namespace IBL
         public string StringAllParcels()
         {
             string result = "";
-            List<ParcelToList> parcels = convertor4(mydal.Get_all_parcels().ToList());
+            List<ParcelToList> parcels = convertor4(mydal.Get_all_parcels(x => true).ToList());
             foreach (var item in parcels)
             {
                 result += item.ToString();
@@ -185,7 +185,7 @@ namespace IBL
         public string StringAllParcelsWithout_drone()
         {
             string result = "";
-            List<ParcelToList> parcels = convertor4(mydal.Get_all_parcels_that_have_not_yet_been_connect_to_drone().ToList());
+            List<ParcelToList> parcels = convertor4(mydal.Get_all_parcels(x => x.DroneId == 0).ToList());
             foreach (var item in parcels)
             {
                 result += item.ToString();

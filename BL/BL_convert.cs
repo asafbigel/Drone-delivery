@@ -169,7 +169,7 @@ namespace IBL
                 Sender = parcel.Sender,
                 Getter = parcel.Getter,
                 LocationOfPickUp = senderLlocation,
-                SateOfParcel = (parcel.PickedUp != DateTime.MinValue),
+                SateOfParcel = (parcel.PickedUp != null),
                 DistanceOfDelivery = distance_between_2_points(getter_location, senderLlocation),
                 LocationOfTarget = getter_location
             };
@@ -336,15 +336,15 @@ namespace IBL
         private ParcelToList convertor4(IDAL.DO.Parcel item)
         {
             ParcelStatuses parcelStatuses;
-            if (item.Delivered != DateTime.MinValue)
+            if (item.Delivered != null)
                 parcelStatuses = ParcelStatuses.delivered;
             else
             {
-                if (item.PickedUp != DateTime.MinValue)
+                if (item.PickedUp != null)
                     parcelStatuses = ParcelStatuses.picked_up;
                 else
                 {
-                    if (item.Scheduled != DateTime.MinValue)
+                    if (item.Scheduled != null)
                         parcelStatuses = ParcelStatuses.Belongs;
                     else
                         parcelStatuses = ParcelStatuses.Defined;
@@ -398,10 +398,10 @@ namespace IBL
         /// <returns>IBL.BO.CustomerToList object</returns>
         private CustomerToList convertor4(IDAL.DO.Customer item)
         {
-            List<IDAL.DO.Parcel> parcels_got = mydal.Get_all_parcels().ToList().FindAll                 (parcel => parcel.TargetId == item.Id && parcel.Delivered != DateTime.MinValue);
-            List<IDAL.DO.Parcel> parcels_to_get = mydal.Get_all_parcels().ToList().FindAll              (parcel => parcel.TargetId == item.Id && parcel.Delivered == DateTime.MinValue);
-            List<IDAL.DO.Parcel> parcels_sent_and_arrived = mydal.Get_all_parcels().ToList().FindAll    (parcel => parcel.SenderId == item.Id && parcel.Delivered != DateTime.MinValue);
-            List<IDAL.DO.Parcel> parcels_sent_and_not_arrived = mydal.Get_all_parcels().ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered == DateTime.MinValue);
+            List<IDAL.DO.Parcel> parcels_got = mydal.Get_all_parcels(x => true).ToList().FindAll                 (parcel => parcel.TargetId == item.Id && parcel.Delivered != null);
+            List<IDAL.DO.Parcel> parcels_to_get = mydal.Get_all_parcels(x => true).ToList().FindAll              (parcel => parcel.TargetId == item.Id && parcel.Delivered == null);
+            List<IDAL.DO.Parcel> parcels_sent_and_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll    (parcel => parcel.SenderId == item.Id && parcel.Delivered != null);
+            List<IDAL.DO.Parcel> parcels_sent_and_not_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered == null);
             return new CustomerToList()
             {
                 Id = item.Id,
@@ -435,7 +435,7 @@ namespace IBL
         private DroneToList convertor4(IDAL.DO.Drone item)
         {
             Drone drone = convertor(item);
-            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList().FindAll(parcel => parcel.DroneId == item.Id);
+            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.DroneId == item.Id);
             return new DroneToList()
             {
                 Battery = drone.Battery,
@@ -514,7 +514,7 @@ namespace IBL
             };
             customer.parcelsAtCustomerFor = new List<ParcelAtCustomer>();
             customer.ParcelsAtCustomerFrom = new List<ParcelAtCustomer>();
-            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels().ToList();
+            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
             foreach (var parcel in parcels)
             {
                 ParcelAtCustomer parcelAtCustomer = convertor2(parcel);
@@ -549,11 +549,11 @@ namespace IBL
         private ParcelAtCustomer convertor2(IDAL.DO.Parcel parcel)
         {
             ParcelStatuses status = ParcelStatuses.Defined;
-            if (parcel.Requested != DateTime.MinValue)
+            if (parcel.Requested != null)
                 status = ParcelStatuses.Belongs;
-            if (parcel.PickedUp != DateTime.MinValue)
+            if (parcel.PickedUp != null)
                 status = ParcelStatuses.picked_up;
-            if (parcel.Delivered != DateTime.MinValue)
+            if (parcel.Delivered != null)
                 status = ParcelStatuses.delivered;
             //CustomerAtParcel other;
             //if ()

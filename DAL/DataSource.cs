@@ -23,7 +23,7 @@ namespace DalObject
 
         #endregion
 
-        // internal data (the first free index at the arrays, and the run number of the parcels)
+        // Electricity information, and the run number of the parcels
         internal class Config
         {
             internal static int runNumOfParcel;

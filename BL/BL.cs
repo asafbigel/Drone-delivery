@@ -48,7 +48,7 @@ namespace IBL
             #endregion
 
             #region List of the parcels
-            List<IDAL.DO.Parcel> idalParcel = mydal.Get_all_parcels().ToList();
+            List<IDAL.DO.Parcel> idalParcel = mydal.Get_all_parcels(x => true).ToList();
             #endregion
 
             #region List of customer from the data layer
@@ -75,7 +75,7 @@ namespace IBL
             #endregion
 
             #region List of base station from the data layer
-            List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations());
+            List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations(x => true));
             /*
             List<IDAL.DO.BaseStation> idalBaseStation = mydal.Get_all_base_stations().ToList();
             List<BaseStation> baseStations1 = new List<BaseStation>();
@@ -100,7 +100,7 @@ namespace IBL
             foreach (var drone in my_drones)
             {
                 List<IDAL.DO.Parcel> parcel_of_this_drone = idalParcel.FindAll(x => x.DroneId == drone.Id);
-                List<IDAL.DO.Parcel> parcel_of_this_drone_Delivered = parcel_of_this_drone.FindAll(x => x.Delivered != DateTime.MinValue);
+                List<IDAL.DO.Parcel> parcel_of_this_drone_Delivered = parcel_of_this_drone.FindAll(x => x.Delivered != null);
                 drone.NumOfParcel = parcel_of_this_drone.Count();
                 if (parcel_of_this_drone.Count() - parcel_of_this_drone_Delivered.Count() != 0)
                     drone.Status = DroneStatuses.sending;
@@ -110,12 +110,12 @@ namespace IBL
                     foreach (var parcel in parcel_of_this_drone)
                     {
                         // case the parcel has not delivere
-                        if (parcel.Delivered == DateTime.MinValue)
+                        if (parcel.Delivered == null)
                         {
                             Customer sender = find_customer(customers, parcel.SenderId);
                             Customer getter = find_customer(customers, parcel.TargetId);
                             BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.CustomerLocation);
-                            if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
+                            if (parcel.Scheduled != null && parcel.PickedUp == null)
                             {
                                 BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.CustomerLocation);
                                 drone.DroneLocation = baseStation_neer_sender.BaseStationLocation;
@@ -140,7 +140,7 @@ namespace IBL
                                 }
                                 drone.Battery = random.Next((int)min_battery + 1, 101);
                             }
-                            if (parcel.PickedUp != DateTime.MinValue)
+                            if (parcel.PickedUp != null)
                             {
                                 drone.DroneLocation = sender.CustomerLocation;
                                 double distance1 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
