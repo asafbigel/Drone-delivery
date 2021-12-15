@@ -191,7 +191,11 @@ namespace DalObject
         #endregion
 
         #region Get an id of object, and return the object (public)
-        
+        /// <summary>
+        /// Find parcel
+        /// </summary>
+        /// <param name="my_id">id of parcel </param>
+        /// <returns></returns>
         public Parcel Find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Parcels.Count(); i++)
