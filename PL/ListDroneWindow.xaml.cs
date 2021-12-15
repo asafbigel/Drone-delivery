@@ -22,7 +22,9 @@ namespace PL
     public partial class ListDroneWindow : Window
     {
         IBL.IBL bl;
-        //List<DroneToList> drones;
+        DroneStatuses? status;
+        WeightCategories? weight;
+        private ObservableCollection<DroneToList> list;
         public ListDroneWindow(IBL.IBL theBL)
         {
             bl = theBL;
@@ -30,16 +32,17 @@ namespace PL
             //drones = new List<DroneToList>();
             //DroneListView.ItemsSource = drones;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));          
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
+            DroneListView.ItemsSource = list;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (StatusSelector.SelectedItem != null)
             {
-                DroneStatuses status = (DroneStatuses)StatusSelector.SelectedItem;
-                DroneListView.ItemsSource = bl.GetAllDrones(item => item.Status == status);
-                this.WeightSelector.Text = "choose weight:";
+                status = (DroneStatuses)StatusSelector.SelectedItem;
+                list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
             }
         }
 
@@ -47,20 +50,20 @@ namespace PL
         {
             if (WeightSelector.SelectedItem != null)
             {
-                WeightCategories weight = (WeightCategories)WeightSelector.SelectedItem;
-                this.DroneListView.ItemsSource = bl.GetAllDrones(item => item.MaxWeight == weight);
-                this.StatusSelector.Text = "choose status:";
+                weight = (WeightCategories)WeightSelector.SelectedItem;
+                DroneListView.ItemsSource = bl.GetAllDrones(item => item.MaxWeight == weight && (status == null || item.Status== status));
             }
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             new AddDroneWindow(bl).Show();
+            //Hide();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -68,6 +71,15 @@ namespace PL
             if (DroneListView.SelectedItem != null)
                 new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
             DroneListView.UnselectAll();
+        }
+
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            DroneListView.ItemsSource = bl.GetAllDrones(item => true);
+            WeightSelector.Text = "choose weight:";
+            StatusSelector.Text = "choose status:";
+            status = null;
+            weight = null;
         }
     }
 }
