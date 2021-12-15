@@ -38,7 +38,7 @@ VerticalAlignment="Stretch" Width="auto">
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       FontSize="20" FontWeight="Bold" Width="174" SelectionChanged="WeightSelector_SelectionChanged"/>
         </Grid>
-        <ListView x:Name="DroneListView" Grid.Row="1">
+        <ListView x:Name="DroneListView" Grid.Row="1" SelectionChanged="DroneListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

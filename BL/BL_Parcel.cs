@@ -193,5 +193,14 @@ namespace IBL
             }
             return result;
         }
+        /// <summary>
+        /// Get a parcel which this drone is sending it now
+        /// </summary>
+        /// <param name="id">Drone's id</param>
+        /// <returns>The parcel</returns>
+        public Parcel GetCurrectParcelOfDrone(int id)
+        {
+            return convertor(mydal.Find_parcel(item => item.DroneId == id && item.Delivered == null));            
+        }
     }
 }

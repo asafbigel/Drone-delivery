@@ -21,33 +21,47 @@ namespace PL
     public partial class AddDroneWindow : Window
     {
         DroneToList newDrone;
-        IBL.IBL bl; 
+        IBL.IBL bl;
         public AddDroneWindow(IBL.IBL theBL)
         {
             InitializeComponent();
+            //droneList = droneListView;
             bl = theBL;
             newDrone = new DroneToList();
             this.DataContext = newDrone;
             this.Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            int id = int.Parse(this.Id.Text);
-            string model = this.Model.Text;
-            WeightCategories weight = (WeightCategories)this.Weight.SelectedItem;
-            int baseStation = int.Parse(this.Station.Text);
-            Drone drone = new Drone()
+            try
             {
-                Id = id,
-                MaxWeight = weight,
-                Model = model
-            };
-            bl.Add_drone(drone, baseStation);
-            this.Close();
+                int id = int.Parse(this.Id.Text);
+                string model = this.Model.Text;
+                WeightCategories weight = (WeightCategories)this.Weight.SelectedItem;
+                int baseStation = int.Parse(this.Station.Text);
+                Drone drone = new Drone()
+                {
+                    Id = id,
+                    MaxWeight = weight,
+                    Model = model
+                };
+                bl.Add_drone(drone, baseStation);
+                MessageBox.Show("succsses");
+                Close();
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Wrong input: " + ex.Message, "Wrong input", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

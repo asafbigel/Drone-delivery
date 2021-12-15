@@ -249,6 +249,13 @@ namespace DalObject
         }
         #endregion
 
+        #region Get a predicate and return a item
+        public Parcel Find_parcel(Predicate<Parcel> match)
+        {
+            return DataSource.Parcels.Find(match);
+        }
+        #endregion
+
         // ctor
         public DalObject()
         {
