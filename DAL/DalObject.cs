@@ -253,6 +253,13 @@ namespace DalObject
         }
         #endregion
 
+        #region Get a predicate and return a item
+        public Parcel Find_parcel(Predicate<Parcel> match)
+        {
+            return DataSource.Parcels.Find(match);
+        }
+        #endregion
+
         // ctor
         public DalObject()
         {
@@ -260,9 +267,9 @@ namespace DalObject
         }
 
         #region Return array of all of the objects (public)
-        public IEnumerable<BaseStation> Get_all_base_stations()
+        public IEnumerable<BaseStation> Get_all_base_stations(Predicate<BaseStation> match) 
         {
-            return DataSource.BaseStations;
+            return DataSource.BaseStations.FindAll(match);
         }
         public IEnumerable<DroneCharge> Get_all_DroneCharge()
         {
@@ -272,15 +279,15 @@ namespace DalObject
         {
             return DataSource.Drones;
         }
-
         public IEnumerable<Customer> Get_all_customers()
         {
             return DataSource.Customers;
         }
-        public IEnumerable<Parcel> Get_all_parcels()
+        public IEnumerable<Parcel> Get_all_parcels(Predicate<Parcel> match)
         {
-            return DataSource.Parcels;
+            return DataSource.Parcels.FindAll(match);
         }
+        /*
         public IEnumerable<Parcel> Get_all_parcels_that_have_not_yet_been_connect_to_drone()
         {
             List<Parcel> all_parcels = DataSource.Parcels;
@@ -303,6 +310,7 @@ namespace DalObject
             }
             return returned_all_BaseStation;
         }
+        */
         #endregion
 
         #region Return and update the run number of the parcels

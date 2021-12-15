@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,28 +22,52 @@ namespace PL
     public partial class ListDroneWindow : Window
     {
         IBL.IBL bl;
+        //List<DroneToList> drones;
         public ListDroneWindow(IBL.IBL theBL)
         {
-            this.bl = theBL;
+            bl = theBL;
             InitializeComponent();
-            this.StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            this.WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            //drones = new List<DroneToList>();
+            //DroneListView.ItemsSource = drones;
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));          
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DroneStatuses status = (DroneStatuses)StatusSelector.SelectedItem;
-            //this.DroneStatus.Text = status.ToString();
-            this.DroneListView.ItemsSource = bl.GetAllDrones(item => item.Status == status);
-            //this.WeightSelector.Text = "choose weight:";
+            if (StatusSelector.SelectedItem != null)
+            {
+                DroneStatuses status = (DroneStatuses)StatusSelector.SelectedItem;
+                DroneListView.ItemsSource = bl.GetAllDrones(item => item.Status == status);
+                this.WeightSelector.Text = "choose weight:";
+            }
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WeightCategories weight = (WeightCategories)WeightSelector.SelectedItem;
-            //this.MaxWeight.Text = weight.ToString();
-            this.DroneListView.ItemsSource = bl.GetAllDrones(item => item.MaxWeight == weight);
-            //this.StatusSelector.Text = "choose status:";
+            if (WeightSelector.SelectedItem != null)
+            {
+                WeightCategories weight = (WeightCategories)WeightSelector.SelectedItem;
+                this.DroneListView.ItemsSource = bl.GetAllDrones(item => item.MaxWeight == weight);
+                this.StatusSelector.Text = "choose status:";
+            }
+        }
+
+        private void AddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            new AddDroneWindow(bl).Show();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DroneListView.SelectedItem != null)
+                new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
+            DroneListView.UnselectAll();
         }
     }
 }
