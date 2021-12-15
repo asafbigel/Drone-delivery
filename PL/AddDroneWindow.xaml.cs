@@ -22,6 +22,7 @@ namespace PL
     {
         DroneToList newDrone;
         IBL.IBL bl;
+        Window ListDroneWindow;
         public AddDroneWindow(IBL.IBL theBL)
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace PL
                     Model = model
                 };
                 bl.Add_drone(drone, baseStation);
-                MessageBox.Show("succsses");
+                MessageBox.Show("Succsess", "Succsess");
                 Close();
             }
             catch (FormatException ex)
@@ -56,14 +57,15 @@ namespace PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
+            //ListDroneWindow.
         }
     }
 }

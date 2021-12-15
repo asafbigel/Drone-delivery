@@ -16,24 +16,26 @@
               Height="auto" Grid.Row="0"
 VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions >
-            <Label Content="Drone status:" Grid.Column="0" 
+            <TextBlock Text="Drone status:" Grid.Column="0" 
                      HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
                      Foreground="#FFC71E1E" FontWeight="Bold" />
             <ComboBox Name="StatusSelector" Text="choose status:"
-                      Grid.Column="1" IsEditable="True" IsReadOnly="True"
-                      Grid.ColumnSpan="2" Margin="6,-13,194,13" 
-                      HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                      FontSize="20" FontWeight="Bold" Width="auto" SelectionChanged="StatusSelector_SelectionChanged"/>
-            <Label Content="Max weight:" Grid.Column="2" 
+                      Grid.Column="1" IsEditable="True"
+                      Grid.ColumnSpan="1" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      FontSize="20" FontWeight="Bold" Width="auto" SelectionChanged="StatusSelector_SelectionChanged" IsReadOnly="True"/>
+            <Button x:Name="Reset" Grid.Column="2" Content="Reset " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Click="Reset_Click"/>
+            <TextBlock Text="Max weight:" Grid.Column="3" 
                      HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
                      Foreground="#FFC71E1E" FontWeight="Bold" />
             <ComboBox Name="WeightSelector" Text="choose weight:"
-                      Grid.Column="3" IsEditable="True" IsReadOnly="True"
+                      Grid.Column="4" IsEditable="True" IsReadOnly="True"
                       Grid.ColumnSpan="2" 
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       FontSize="20" FontWeight="Bold" Width="174" SelectionChanged="WeightSelector_SelectionChanged"/>
@@ -45,17 +47,9 @@ VerticalAlignment="Stretch" Width="auto">
                 </GridView>
             </ListView.View>
         </ListView>
-        <Grid x:Name="downGrid" HorizontalAlignment="Stretch"
-              Height="auto" Grid.Row="2"
-VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-            <Button x:Name="AddDrone" Grid.Column="1" Content="Add drone" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click"/>
-            <Button x:Name="Close" Grid.Column="2" Content="close" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Click="Close_Click"/>
-        </Grid>
+        <StackPanel Orientation="Horizontal" x:Name="options" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button x:Name="AddDrone" Content="Add drone" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click"/>
+            <Button x:Name="Close" Content="close" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Click="Close_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

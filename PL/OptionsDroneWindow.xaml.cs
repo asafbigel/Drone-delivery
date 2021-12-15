@@ -54,7 +54,6 @@ namespace PL
                     PickUp.Visibility = Visibility.Collapsed;
             }
             #endregion
-
             updateDroneDetails(drone);
         }
         // set the details of this drone
@@ -80,12 +79,13 @@ namespace PL
             {
                 string newModel = Model.Text;
                 bl.update_model_drone(drone.Id, newModel);
-                MessageBox.Show("succsses");
+                drone = bl.GetAllDrones(item => true).Find(item => item.Id == drone.Id);
+                MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error" , MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -95,7 +95,7 @@ namespace PL
             try
             {
                 bl.send_drone_to_charge(drone.Id);
-                MessageBox.Show("succsses");
+                MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
             }
             catch (Exception ex)
@@ -110,7 +110,7 @@ namespace PL
             {
                 double hours = double.Parse(Interaction.InputBox("Hpw many hours at charge?"));
                 bl.drone_from_charge(drone.Id, hours);
-                MessageBox.Show("succsses");
+MessageBox.Show("Succsess","Succsess");
                 updateDroneDetails(drone);
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace PL
             try
             {
                 bl.connect_parcel_to_drone(drone.Id);
-                MessageBox.Show("succsses");
+MessageBox.Show("Succsess","Succsess");
                 updateDroneDetails(drone);
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace PL
             try
             {
                 bl.pickedUp_parcel_by_drone(drone.Id);
-                MessageBox.Show("succsses");
+MessageBox.Show("Succsess","Succsess");
                 updateDroneDetails(drone);
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@ namespace PL
             try
             {
                 bl.delivered_parcel_by_drone(drone.Id);
-                MessageBox.Show("succsses");
+MessageBox.Show("Succsess","Succsess");
                 updateDroneDetails(drone);
             }
             catch (Exception ex)
