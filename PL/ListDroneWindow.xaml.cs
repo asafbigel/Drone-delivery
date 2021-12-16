@@ -33,8 +33,9 @@ namespace PL
             //DroneListView.ItemsSource = drones;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
-            DroneListView.ItemsSource = list;
+            //list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
+            //DroneListView.ItemsSource = list;
+            DroneListView.ItemsSource = bl.GetAllDrones(item => true);
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -42,7 +43,9 @@ namespace PL
             if (StatusSelector.SelectedItem != null)
             {
                 status = (DroneStatuses)StatusSelector.SelectedItem;
-                list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
+                //list.Clear();
+                //list.Intersect(bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
+                DroneListView.ItemsSource = (bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
             }
         }
 
