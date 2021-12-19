@@ -4,20 +4,28 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 { 
     public partial class BL : IBL
     {
         static DalApi.IDal mydal;
-        List<DroneToList> my_drones;
-        double Electricity_free;
-        double Electricity_light;
-        double Electricity_medium;
-        double Electricity_heavy;
-        double Charge_at_hour;
-        public BL()
+        static List<DroneToList> my_drones;
+        static double Electricity_free;
+        static double Electricity_light;
+        static double Electricity_medium;
+        static double Electricity_heavy;
+        static double Charge_at_hour;
+
+
+        static readonly BL instance = new BL();
+        // The public Instance property to use 
+        public static BL Instance { get { return instance; } }
+
+        // Explicit static constructor to ensure instance initialization
+        // is done just before first usage
+        static BL() 
         {
             my_drones = new List<DroneToList>();
             mydal = DalObject.DalFactory.GetDal("DalObject");
@@ -204,13 +212,16 @@ namespace IBL
             }
         }
 
+
+        BL() { } // default => private
+
         /// <summary>
         /// A function that searches for the nearest baseStation from the list to a specific location
         /// </summary>
         /// <param name="baseStations"> list of baseStations  </param>
         /// <param name="myLocation"> the location that  The location for which we are looking for a base station close to it </param>
         /// <returns> the nearest baseStation from the list to the location</returns>
-        private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location myLocation)
+        private static BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location myLocation)
         {
             if (baseStations.Count == 0)
                 throw new BaseStationExeption("The list is empty");
@@ -235,7 +246,7 @@ namespace IBL
         /// <param name="location1"> the first location </param>
         /// <param name="location2">the second location</param>
         /// <returns></returns>
-        private double distance_between_2_points(Location location1, Location location2)
+        private static double distance_between_2_points(Location location1, Location location2)
         {
             double latitude = (location1.latitude - location2.latitude) * (location1.latitude - location2.latitude);
             double longitude = (location1.longitude - location2.longitude) * (location1.longitude - location2.longitude);
@@ -247,7 +258,7 @@ namespace IBL
         /// <param name="customers"> list of customers </param>
         /// <param name="customerId">the id of the customer that we searches </param>
         /// <returns></returns>
-        private Customer find_customer(List<Customer> customers, int customerId)
+        private static Customer find_customer(List<Customer> customers, int customerId)
         {
             foreach (var item in customers)
             {

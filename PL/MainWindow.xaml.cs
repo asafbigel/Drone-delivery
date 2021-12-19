@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL;
 
 namespace PL
 {
@@ -20,10 +19,10 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBL.IBL theBL;
+         BlApi.IBL theBL;
         public MainWindow()
         {
-            theBL = new IBL.BL();
+            theBL = BlApi.DalFactory.GetBL();
         }
 
         private void btnListDrone_Click(object sender, RoutedEventArgs e)

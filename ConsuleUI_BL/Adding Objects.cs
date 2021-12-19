@@ -1,5 +1,5 @@
 ﻿using System;
-using IBL.BO;
+using BO;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 

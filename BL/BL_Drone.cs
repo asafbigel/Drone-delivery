@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL
     {
-        Random rand = new Random();
+        static Random rand = new Random();
         /// <summary>
         ///  A function that add a new drone
         /// </summary>

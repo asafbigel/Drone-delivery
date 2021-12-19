@@ -25,18 +25,6 @@ namespace DalObject
 
         DalObject() { } // default => private
 
-        // Implementation specific data members and methods
-        //...
-
-        /*
-        /// <summary>
-        /// ctor
-        /// </summary>
-        public DalObject()
-        {
-            DataSource.Initialize();
-        }
-        */
         #region Get a object, and add to the lists (public)
         /// <summary>
         /// Add base station

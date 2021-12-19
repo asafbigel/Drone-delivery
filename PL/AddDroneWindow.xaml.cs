@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
+using BO;
 
 namespace PL
 {
@@ -21,9 +21,9 @@ namespace PL
     public partial class AddDroneWindow : Window
     {
         DroneToList newDrone;
-        IBL.IBL bl;
+        BlApi.IBL bl;
         Window ListDroneWindow;
-        public AddDroneWindow(IBL.IBL theBL)
+        public AddDroneWindow(BlApi.IBL theBL)
         {
             InitializeComponent();
             //droneList = droneListView;

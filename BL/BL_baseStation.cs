@@ -1,9 +1,9 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL
     {

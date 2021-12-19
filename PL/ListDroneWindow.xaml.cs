@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
+using BO;
 
 namespace PL
 {
@@ -21,11 +21,11 @@ namespace PL
     /// </summary>
     public partial class ListDroneWindow : Window
     {
-        IBL.IBL bl;
+        BlApi.IBL bl;
         DroneStatuses? status;
         WeightCategories? weight;
         private ObservableCollection<DroneToList> list;
-        public ListDroneWindow(IBL.IBL theBL)
+        public ListDroneWindow( BlApi.IBL theBL)
         {
             bl = theBL;
             InitializeComponent();
