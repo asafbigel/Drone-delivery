@@ -32,7 +32,11 @@ namespace PL
             //drones = new List<DroneToList>();
             //DroneListView.ItemsSource = drones;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            //ComboBoxItem allCombo = new ComboBoxItem();
+            //allCombo.Content = "";
+            //StatusSelector.Items.Add(allCombo);
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            //WeightSelector.Items.Add("");
             //list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
             //DroneListView.ItemsSource = list;
             DroneListView.ItemsSource = bl.GetAllDrones(item => true);
@@ -40,13 +44,8 @@ namespace PL
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (StatusSelector.SelectedItem != null)
-            {
-                status = (DroneStatuses)StatusSelector.SelectedItem;
-                //list.Clear();
-                //list.Intersect(bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
-                DroneListView.ItemsSource = (bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
-            }
+                    status = (DroneStatuses)StatusSelector.SelectedItem;
+                    DroneListView.ItemsSource = (bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

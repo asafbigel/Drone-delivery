@@ -38,7 +38,7 @@ namespace IBL
         /// </returns>
         private BaseStation find_baseStation(int id)
         {
-            IDAL.DO.BaseStation idalBaseStation = mydal.Find_baseStation(id);
+            DO.BaseStation idalBaseStation = mydal.Find_baseStation(id);
             BaseStation baseStation = convertor(idalBaseStation);
             return baseStation;
         }
@@ -51,7 +51,7 @@ namespace IBL
         public void Add_base_station(BaseStation baseStation)
         {
             baseStation.DroneInChargings = new List<DroneInCharging>();
-            IDAL.DO.BaseStation idalBaseStation = convertor(baseStation);
+            DO.BaseStation idalBaseStation = convertor(baseStation);
             mydal.Add_base_station(idalBaseStation);
         }
         /// <summary>

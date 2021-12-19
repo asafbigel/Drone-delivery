@@ -19,14 +19,14 @@ namespace IBL
         {
             drone.Battery = rand.Next(20, 41);
             drone.Status = DroneStatuses.maintenance;
-            IDAL.DO.BaseStation baseStation = mydal.Find_baseStation(baseStation_num);
+            DO.BaseStation baseStation = mydal.Find_baseStation(baseStation_num);
             drone.DroneLocation = new Location();
             drone.DroneLocation.longitude = baseStation.Longitude;
             drone.DroneLocation.latitude = baseStation.Lattitude;
             my_drones.Add(convertor3(drone));
-            IDAL.DO.Drone idalDrone = convertor(drone);
+            DO.Drone idalDrone = convertor(drone);
             mydal.Add_drone(idalDrone);
-            IDAL.DO.DroneCharge droneCharge = new IDAL.DO.DroneCharge();
+            DO.DroneCharge droneCharge = new DO.DroneCharge();
             droneCharge.DroneId = drone.Id;
             droneCharge.StationId = baseStation.Id;
             mydal.Add_DroneCharge(droneCharge);
@@ -38,7 +38,7 @@ namespace IBL
         /// <param name="model"> the new model of the drone </param>
         public void update_model_drone(int drone_id, string model)
         {
-            IDAL.DO.Drone my_drone = mydal.Find_drone(drone_id);
+            DO.Drone my_drone = mydal.Find_drone(drone_id);
             my_drone.Model = model;
             mydal.UpdateDrone(my_drone);
             my_drones.Find(item => item.Id == drone_id).Model = model;
@@ -62,7 +62,7 @@ namespace IBL
             drone.Battery -= needen_fual;
             drone.DroneLocation = baseStation.BaseStationLocation;
             drone.Status = DroneStatuses.maintenance;
-            IDAL.DO.DroneCharge charge = new IDAL.DO.DroneCharge();
+            DO.DroneCharge charge = new DO.DroneCharge();
             charge.DroneId = drone.Id;
             charge.StationId = baseStation.Id;
             mydal.send_drone_to_charge(charge);

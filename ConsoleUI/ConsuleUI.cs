@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DalObject;
-using IDAL.DO;
+using DO;
 namespace ConsoleUI
 {
     public enum Options
@@ -19,7 +19,7 @@ namespace ConsoleUI
     class ConsuleUI
     {
         //static DalObject.DalObject mydal = new DalObject.DalObject();
-        static IDAL.IDal mydal = new DalObject.DalObject();
+        static DalApi.IDal mydal = new DalObject.DalObject();
         static void Main(string[] args)
         {
 
