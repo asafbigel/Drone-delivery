@@ -20,7 +20,7 @@ namespace IBL
         public BL()
         {
             my_drones = new List<DroneToList>();
-            mydal = new DalObject.DalObject();
+            mydal = DalObject.DalFactory.GetDal("DalObject");
             double[] Electricity = mydal.ElectricityUse();
             Electricity_free = Electricity[0];
             Electricity_light = Electricity[1];

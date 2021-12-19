@@ -10,8 +10,33 @@ using DO;
 namespace DalObject
 {
    
-    public class DalObject : IDal
+    class DalObject : IDal
     {
+        static readonly DalObject instance = new DalObject();
+        // The public Instance property to use 
+        public static DalObject Instance { get { return instance; } }
+
+        // Explicit static constructor to ensure instance initialization
+        // is done just before first usage
+        static DalObject()
+        {
+            DataSource.Initialize();
+        }
+
+        DalObject() { } // default => private
+
+        // Implementation specific data members and methods
+        //...
+
+        /*
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public DalObject()
+        {
+            DataSource.Initialize();
+        }
+        */
         #region Get a object, and add to the lists (public)
         /// <summary>
         /// Add base station
@@ -256,11 +281,7 @@ namespace DalObject
         }
         #endregion
 
-        // ctor
-        public DalObject()
-        {
-            DataSource.Initialize();
-        }
+
 
         #region Return array of all of the objects (public)
         public IEnumerable<BaseStation> Get_all_base_stations(Predicate<BaseStation> match) 
