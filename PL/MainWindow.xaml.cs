@@ -39,5 +39,10 @@ namespace PL
         {
             Close();
         }
+
+        private void btnUserView_Click(object sender, RoutedEventArgs e)
+        {
+            new UserWindow(theBL).Show();
+        }
     }
 }

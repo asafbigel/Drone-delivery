@@ -22,6 +22,7 @@ namespace BlApi
         string StringAllParcelsWithout_drone();
         string StringCustomer(int customer_id);
         string StringDrone(int drone_id);
+        IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match);
         string StringParcel(int parcel_id);
         string string_all_baseStations();
         string string_all_baseStations_with_free_slots();

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BO;
 
 namespace PL
@@ -23,11 +24,14 @@ namespace PL
         DroneToList newDrone;
         BlApi.IBL bl;
         Window ListDroneWindow;
+        ObservableCollection<DroneToList> drones;
+        //public AddDroneWindow(BlApi.IBL theBL, ObservableCollection<DroneToList> myDrones)
         public AddDroneWindow(BlApi.IBL theBL)
         {
             InitializeComponent();
             //droneList = droneListView;
             bl = theBL;
+           // drones = myDrones;
             newDrone = new DroneToList();
             this.DataContext = newDrone;
             this.Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
@@ -48,6 +52,7 @@ namespace PL
                     Model = model
                 };
                 bl.Add_drone(drone, baseStation);
+
                 MessageBox.Show("Succsess", "Succsess");
                 Close();
             }

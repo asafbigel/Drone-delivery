@@ -97,5 +97,11 @@ namespace BlApi
             }
             return result;
         }
+
+        public IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match)
+        {
+            IEnumerable<DO.BaseStation> list = mydal.Get_all_base_stations(item => true);
+            return convertor1(list).FindAll(match);
+        }
     }
 }
