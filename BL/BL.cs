@@ -4,23 +4,31 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 { 
     public partial class BL : IBL
     {
-        static IDAL.IDal mydal;
-        List<DroneToList> my_drones;
-        double Electricity_free;
-        double Electricity_light;
-        double Electricity_medium;
-        double Electricity_heavy;
-        double Charge_at_hour;
-        public BL()
+        static DalApi.IDal mydal;
+        static List<DroneToList> my_drones;
+        static double Electricity_free;
+        static double Electricity_light;
+        static double Electricity_medium;
+        static double Electricity_heavy;
+        static double Charge_at_hour;
+
+
+        static readonly BL instance = new BL();
+        // The public Instance property to use 
+        public static BL Instance { get { return instance; } }
+
+        // Explicit static constructor to ensure instance initialization
+        // is done just before first usage
+        static BL() 
         {
             my_drones = new List<DroneToList>();
-            mydal = new DalObject.DalObject();
+            mydal = DalObject.DalFactory.GetDal("DalObject");
             double[] Electricity = mydal.ElectricityUse();
             Electricity_free = Electricity[0];
             Electricity_light = Electricity[1];
@@ -32,7 +40,7 @@ namespace IBL
 
             #region List of drone from the data layer
             //my_drones = convertor(mydal.Get_all_drones());
-            List<IDAL.DO.Drone> idalDrones = mydal.Get_all_drones().ToList();
+            List<DO.Drone> idalDrones = mydal.Get_all_drones().ToList();
             foreach (var item in idalDrones)
             {
                 my_drones.Add(new DroneToList
@@ -48,13 +56,13 @@ namespace IBL
             #endregion
 
             #region List of the parcels
-            List<IDAL.DO.Parcel> idalParcel = mydal.Get_all_parcels(x => true).ToList();
+            List<DO.Parcel> idalParcel = mydal.Get_all_parcels(x => true).ToList();
             #endregion
 
             #region List of customer from the data layer
             List<Customer> customers = convertor1(mydal.Get_all_customers());
             /*
-            List<IDAL.DO.Customer> idalCustomer = mydal.Get_all_customers().ToList();
+            List<DO.Customer> idalCustomer = mydal.Get_all_customers().ToList();
             List<Customer> customers = new List<Customer>();
             foreach (var item in idalCustomer)
             {
@@ -77,7 +85,7 @@ namespace IBL
             #region List of base station from the data layer
             List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations(x => true));
             /*
-            List<IDAL.DO.BaseStation> idalBaseStation = mydal.Get_all_base_stations().ToList();
+            List<DO.BaseStation> idalBaseStation = mydal.Get_all_base_stations().ToList();
             List<BaseStation> baseStations1 = new List<BaseStation>();
             foreach (var item in idalBaseStation)
             {
@@ -99,8 +107,8 @@ namespace IBL
 
             foreach (var drone in my_drones)
             {
-                List<IDAL.DO.Parcel> parcel_of_this_drone = idalParcel.FindAll(x => x.DroneId == drone.Id);
-                List<IDAL.DO.Parcel> parcel_of_this_drone_Delivered = parcel_of_this_drone.FindAll(x => x.Delivered != null);
+                List<DO.Parcel> parcel_of_this_drone = idalParcel.FindAll(x => x.DroneId == drone.Id);
+                List<DO.Parcel> parcel_of_this_drone_Delivered = parcel_of_this_drone.FindAll(x => x.Delivered != null);
                 drone.NumOfParcel = parcel_of_this_drone.Count();
                 if (parcel_of_this_drone.Count() - parcel_of_this_drone_Delivered.Count() != 0)
                     drone.Status = DroneStatuses.sending;
@@ -126,13 +134,13 @@ namespace IBL
                                 double min_battery = (distance1 + distance3) * Electricity_free;
                                 switch (parcel.Weight)
                                 {
-                                    case IDAL.DO.WeightCategories.light:
+                                    case DO.WeightCategories.light:
                                         min_battery += distance2 * Electricity_light;
                                         break;
-                                    case IDAL.DO.WeightCategories.medium:
+                                    case DO.WeightCategories.medium:
                                         min_battery += distance2 * Electricity_medium;
                                         break;
-                                    case IDAL.DO.WeightCategories.heavy:
+                                    case DO.WeightCategories.heavy:
                                         min_battery += distance2 * Electricity_heavy;
                                         break;
                                     default:
@@ -148,13 +156,13 @@ namespace IBL
                                 double min_battery = distance2 * Electricity_free;
                                 switch (parcel.Weight)
                                 {
-                                    case IDAL.DO.WeightCategories.light:
+                                    case DO.WeightCategories.light:
                                         min_battery += distance1 * Electricity_light;
                                         break;
-                                    case IDAL.DO.WeightCategories.medium:
+                                    case DO.WeightCategories.medium:
                                         min_battery += distance1 * Electricity_medium;
                                         break;
-                                    case IDAL.DO.WeightCategories.heavy:
+                                    case DO.WeightCategories.heavy:
                                         min_battery += distance1 * Electricity_heavy;
                                         break;
                                     default:
@@ -173,7 +181,7 @@ namespace IBL
                     // send_drone_to_charge(baseStations[i].Id);
                     drone.DroneLocation = baseStations[i].BaseStationLocation;
                     drone.Battery = random.Next(0, 21);
-                    IDAL.DO.DroneCharge charge = new IDAL.DO.DroneCharge();
+                    DO.DroneCharge charge = new DO.DroneCharge();
                     charge.DroneId = drone.Id;
                     charge.StationId = baseStations[i].Id;
                     mydal.send_drone_to_charge(charge);
@@ -204,13 +212,16 @@ namespace IBL
             }
         }
 
+
+        BL() { } // default => private
+
         /// <summary>
         /// A function that searches for the nearest baseStation from the list to a specific location
         /// </summary>
         /// <param name="baseStations"> list of baseStations  </param>
         /// <param name="myLocation"> the location that  The location for which we are looking for a base station close to it </param>
         /// <returns> the nearest baseStation from the list to the location</returns>
-        private BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location myLocation)
+        private static BaseStation BaseStation_close_to_location(List<BaseStation> baseStations, Location myLocation)
         {
             if (baseStations.Count == 0)
                 throw new BaseStationExeption("The list is empty");
@@ -235,7 +246,7 @@ namespace IBL
         /// <param name="location1"> the first location </param>
         /// <param name="location2">the second location</param>
         /// <returns></returns>
-        private double distance_between_2_points(Location location1, Location location2)
+        private static double distance_between_2_points(Location location1, Location location2)
         {
             double latitude = (location1.latitude - location2.latitude) * (location1.latitude - location2.latitude);
             double longitude = (location1.longitude - location2.longitude) * (location1.longitude - location2.longitude);
@@ -247,7 +258,7 @@ namespace IBL
         /// <param name="customers"> list of customers </param>
         /// <param name="customerId">the id of the customer that we searches </param>
         /// <returns></returns>
-        private Customer find_customer(List<Customer> customers, int customerId)
+        private static Customer find_customer(List<Customer> customers, int customerId)
         {
             foreach (var item in customers)
             {

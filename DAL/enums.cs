@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAL
+
+namespace DO
 {
-    namespace DO
+    public enum WeightCategories
     {
-        public enum WeightCategories
-        {
-            light, medium, heavy
-        }
-        public enum Priorities
-        {
-            regular, fast, emergency 
-        }
+        light, medium, heavy
+    }
+    public enum Priorities
+    {
+        regular, fast, emergency
     }
 }
+

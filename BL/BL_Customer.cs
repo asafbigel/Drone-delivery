@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL
     {
@@ -15,7 +15,7 @@ namespace IBL
         /// <param name="customer"> the name of the new customer to add </param>
         public void Add_customer(Customer customer)
         {
-            IDAL.DO.Customer idalCustomer = convertor(customer);
+            DO.Customer idalCustomer = convertor(customer);
             mydal.Add_customer(idalCustomer);
         }
         /// <summary>
@@ -26,7 +26,7 @@ namespace IBL
         /// <param name="new_phone">the phone after the update </param>
         public void update_customer(int id, string new_name, string new_phone)
         {
-            IDAL.DO.Customer customer = mydal.Find_customer(id);
+            DO.Customer customer = mydal.Find_customer(id);
             if (new_name != "_")
                 customer.Name = new_name;
             if (new_phone != "_")

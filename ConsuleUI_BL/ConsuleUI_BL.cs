@@ -1,5 +1,5 @@
 ﻿using System;
-using IBL.BO;
+using BO;
 using System.Collections.Generic;
 namespace ConsuleUI_BL
 
@@ -37,7 +37,7 @@ namespace ConsuleUI_BL
     public partial class ConsuleUI_BL
     {
         // need change to the interface MISHNANE
-        static IBL.BL mybi = new IBL.BL();
+        static BlApi.BL mybi = new  BlApi.BL();
         static void Main(string[] args)
         {
             Random ran = new Random();

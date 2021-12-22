@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL
     {
@@ -23,7 +23,7 @@ namespace IBL
             parcel.Requested = DateTime.Now;
             parcel.Id = mydal.GetAndUpdateRunNumber();
             parcel.TheDrone = null;
-            IDAL.DO.Parcel idalParcel = convertor(parcel);
+            DO.Parcel idalParcel = convertor(parcel);
             idalParcel.SenderId = sender_id;
             idalParcel.TargetId = getter_id;
             mydal.Add_parcel(idalParcel);
@@ -34,11 +34,11 @@ namespace IBL
         /// <param name="drone_id"> the id of the drone </param>
         public void connect_parcel_to_drone(int drone_id)
         {
-            IDAL.DO.Drone idalDrone = mydal.Find_drone(drone_id);
+            DO.Drone idalDrone = mydal.Find_drone(drone_id);
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             if (drone.Status != DroneStatuses.vacant)
                 throw new DroneException("The drone isn't vacant");
-            List<IDAL.DO.Parcel> idalparcels = mydal.Get_all_parcels(x => x.DroneId == 0).ToList().FindAll(item => (int)item.Weight <= (int)drone.MaxWeight);
+            List<DO.Parcel> idalparcels = mydal.Get_all_parcels(x => x.DroneId == 0).ToList().FindAll(item => (int)item.Weight <= (int)drone.MaxWeight);
             if (idalparcels.Count == 0)
                 throw new ParcelException("No parcel exist");
             List<Parcel> parcels = convertor(idalparcels);
@@ -83,7 +83,7 @@ namespace IBL
             if (battery_needed > drone.Battery)
                 throw new DroneException("No enaugh battery");
             drone.Status = DroneStatuses.sending;
-            IDAL.DO.Parcel parcel = mydal.Find_parcel(parcelAtTransfer.Id);
+            DO.Parcel parcel = mydal.Find_parcel(parcelAtTransfer.Id);
             parcel.DroneId = drone.Id;
             parcel.Scheduled = DateTime.Now;
             mydal.UpdateParcel(parcel);
@@ -97,16 +97,16 @@ namespace IBL
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             if (drone.Status != DroneStatuses.sending)
                 throw new DroneException("The drone isn't at transfer");
-            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
-            List<IDAL.DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
+            List<DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
+            List<DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
             //if (parcelsOfThisDrone.Count > 1)
             //    throw new DroneException("There are more than 1 parcels scheduled with this drone");
             if (parcelsOfThisDrone.Count == 0)
                 throw new DroneException("There aren't parcel ");
-            List<IDAL.DO.Parcel> parcelsNotPickedUp = parcelsOfThisDrone.FindAll(item =>item.PickedUp == null);
+            List<DO.Parcel> parcelsNotPickedUp = parcelsOfThisDrone.FindAll(item =>item.PickedUp == null);
             if (parcelsNotPickedUp.Count == 0)
                 throw new DroneException("Don't has parcel that don't picked up");
-            IDAL.DO.Parcel parcel = parcelsNotPickedUp[0];
+            DO.Parcel parcel = parcelsNotPickedUp[0];
             ParcelAtTransfer parcelAtTransfer = convertor1(convertor(parcel));
             double min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfPickUp) * Electricity_free;
             if (drone.Battery < min_battery)
@@ -123,23 +123,23 @@ namespace IBL
         public void delivered_parcel_by_drone(int drone_id)
         {
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
-            List<IDAL.DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
-            List<IDAL.DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
-            List<IDAL.DO.Parcel> parcelsNotDelivered = parcelsOfThisDrone.FindAll(item => item.Delivered == null);
+            List<DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
+            List<DO.Parcel> parcelsOfThisDrone = parcels.FindAll(item => item.DroneId == drone.Id);
+            List<DO.Parcel> parcelsNotDelivered = parcelsOfThisDrone.FindAll(item => item.Delivered == null);
             if (parcelsNotDelivered.Count == 0)
                 throw new DroneException("Don't has parcel that picked up and not delivered");
-            IDAL.DO.Parcel parcel = parcelsNotDelivered[0];
+            DO.Parcel parcel = parcelsNotDelivered[0];
             ParcelAtTransfer parcelAtTransfer = convertor1(convertor(parcel));
             double min_battery;
             switch (parcel.Weight)
             {
-                case IDAL.DO.WeightCategories.light:
+                case DO.WeightCategories.light:
                     min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfTarget)* Electricity_light;
                     break;
-                case IDAL.DO.WeightCategories.medium:
+                case DO.WeightCategories.medium:
                     min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfTarget) * Electricity_medium;
                     break;
-                case IDAL.DO.WeightCategories.heavy:
+                case DO.WeightCategories.heavy:
                     min_battery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfTarget) * Electricity_heavy;
                     break;
                 default:

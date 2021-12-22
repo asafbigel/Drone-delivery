@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
+using BO;
 
 namespace PL
 {
@@ -21,29 +21,31 @@ namespace PL
     /// </summary>
     public partial class ListDroneWindow : Window
     {
-        IBL.IBL bl;
+        BlApi.IBL bl;
         DroneStatuses? status;
         WeightCategories? weight;
         private ObservableCollection<DroneToList> list;
-        public ListDroneWindow(IBL.IBL theBL)
+        public ListDroneWindow( BlApi.IBL theBL)
         {
             bl = theBL;
             InitializeComponent();
             //drones = new List<DroneToList>();
             //DroneListView.ItemsSource = drones;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            //ComboBoxItem allCombo = new ComboBoxItem();
+            //allCombo.Content = "";
+            //StatusSelector.Items.Add(allCombo);
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
-            DroneListView.ItemsSource = list;
+            //WeightSelector.Items.Add("");
+            //list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
+            //DroneListView.ItemsSource = list;
+            DroneListView.ItemsSource = bl.GetAllDrones(item => true);
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (StatusSelector.SelectedItem != null)
-            {
-                status = (DroneStatuses)StatusSelector.SelectedItem;
-                list = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
-            }
+                    status = (DroneStatuses)StatusSelector.SelectedItem;
+                    DroneListView.ItemsSource = (bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
