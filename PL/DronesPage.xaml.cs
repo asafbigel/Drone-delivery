@@ -25,15 +25,13 @@ namespace PL
         BlApi.IBL bl;
         DroneStatuses? status;
         WeightCategories? weight;
-        private ObservableCollection<DroneToList> drones;
+        internal ObservableCollection<DroneToList> drones;
         public DronesPage(BlApi.IBL theBL)
         {
-            bl = theBL;
             InitializeComponent();
+            bl = theBL;
             drones = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
             DataContext = drones;
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -67,23 +65,56 @@ namespace PL
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             //new AddDroneWindow(bl, drones).Show();
-            new AddDroneWindow(bl).Show();
+            new AddDroneWindow(bl,this).Show();
         }
 
         private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DroneListView.SelectedItem != null)
-                new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
+            {
+                if (DroneSelection.IsChecked == true)              
+                    new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
+                DroneToList d = (DroneToList)DroneListView.SelectedItem;
+                
+                // if (ParcelSelection.IsChecked == true)
+                //    new ParcelViewWindow(????, bl).Show();
+
+
+            }
             DroneListView.UnselectAll();
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            DroneListView.ItemsSource = bl.GetAllDrones(item => true);
+            //DroneListView.ItemsSource = bl.GetAllDrones(item => true);
+            drones = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
+            DataContext = drones;
             WeightSelector.Text = "choose weight:";
             StatusSelector.Text = "choose status:";
             status = null;
             weight = null;
+        }
+
+        private void Grouping_Click(object sender, RoutedEventArgs e)
+        {
+            var x = from drone in drones
+                    group drone by drone.Status into g
+                    select g;
+            drones = new ObservableCollection<DroneToList>();
+            foreach (var item in x)
+            {
+                foreach (var drone in item)
+                {
+                    drones.Add(drone);
+                }
+                drones.Add(null);
+            }
+            DataContext = drones;
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

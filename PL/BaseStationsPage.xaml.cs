@@ -25,12 +25,22 @@ namespace PL
     {
         BlApi.IBL bl;
         private ObservableCollection<BaseStationToList> baseStations;
+        //private IEnumerable<BaseStationToList> baseStation;
         public BaseStationsPage(BlApi.IBL theBL)
         {
             bl = theBL;
             InitializeComponent();
             baseStations = new ObservableCollection<BaseStationToList>(bl.GetAllBaseStations(item => true));
             DataContext = baseStations;
+        }
+
+        private void Grouping_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Grouping.IsChecked == true)
+                DataContext = from baseStation in baseStations
+                              group baseStation by baseStation.NumOfFreeSlots into g
+                              select new { FreeSlots = g.Key, baseStations = g };
+                              
         }
     }
 }

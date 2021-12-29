@@ -32,7 +32,7 @@ namespace PL
 
         private void btnAddDrone_Click(object sender, RoutedEventArgs e)
         {
-            new AddDroneWindow(theBL).Show();
+     //       new AddDroneWindow(theBL).Show();
         }
 
         private void exit_Click(object sender, RoutedEventArgs e)
@@ -42,7 +42,7 @@ namespace PL
 
         private void btnUserView_Click(object sender, RoutedEventArgs e)
         {
-            new UserWindow(theBL).Show();
+           // new UserWindow(theBL).Show();
         }
     }
 }

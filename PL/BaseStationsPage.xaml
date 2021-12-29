@@ -9,18 +9,22 @@
       Title="BaseStationsPage">
 
     <Grid>
-        <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" Grid.Row="0" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
                     <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Num of free slots" Width="auto" DisplayMemberBinding="{Binding NumOfFreeSlots}" />
                     <GridViewColumn Header="Num of busy slots" Width="auto" DisplayMemberBinding="{Binding NumOfBusySlots}" />
-
-
-
                 </GridView>
             </ListView.View>
         </ListView>
+        <CheckBox x:Name="Grouping" Content="Grouping by free charge slots"
+                  IsChecked="False" Grid.Row="1" VerticalAlignment="Center"
+                  HorizontalAlignment="Center" Checked="Grouping_Checked"/>
     </Grid>
 </Page>

@@ -20,10 +20,10 @@ namespace PL
     public partial class UserWindow : Window
     {
         BlApi.IBL bl;
-        public UserWindow(BlApi.IBL theBL)
+        public UserWindow()
         {
             InitializeComponent();
-            bl = theBL; 
+            bl = BlApi.DalFactory.GetBL(); 
         }
 
         private void Drones_Click(object sender, RoutedEventArgs e)
@@ -49,6 +49,32 @@ namespace PL
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        private void UserWindow_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Pages.SelectedItem == null)
+                return;
+            string option = ((TextBlock)Pages.SelectedItem).Text;
+            switch (option)
+            {
+                case "Drones":
+                    View.Content = new DronesPage(bl);
+                    break;
+                case "Base stations":
+                    View.Content = new BaseStationsPage(bl);
+                    break;
+                case "Customers":
+                    View.Content = new CustomersPage(bl);
+                    break;
+                case "Parcels":
+                    View.Content = new ParcelsPage(bl);
+                    break;
+                case "Exit":
+                    Close();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

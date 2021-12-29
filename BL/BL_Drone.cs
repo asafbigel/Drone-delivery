@@ -65,21 +65,22 @@ namespace BlApi
             DO.DroneCharge charge = new DO.DroneCharge();
             charge.DroneId = drone.Id;
             charge.StationId = baseStation.Id;
+            charge.EnterToCharge = DateTime.Now;
             mydal.send_drone_to_charge(charge);
         }
         /// <summary>
         /// A function that remove drone to charge
         /// </summary>
         /// <param name="drone_id"> the id of the drone </param>
-        /// <param name="time"> the time that the drone was in charge</param>
-        public void drone_from_charge(int drone_id, double time)
+        public void drone_from_charge(int drone_id)
         {
             DroneToList drone = my_drones.Find(item => item.Id == drone_id);
             if (drone == null)
                 throw new DroneException("Id not found");
             if (drone.Status != DroneStatuses.maintenance)
                 throw new DroneException("The drone isn't maintenance");
-            drone.Battery += time * Charge_at_hour;
+            DroneInCharging droneCharge = convertor2(drone);
+            drone.Battery += (DateTime.Now- droneCharge.EnterToCharge).TotalHours * Charge_at_hour;
             if (drone.Battery > 100)
                 drone.Battery = 100;
                 drone.Status = DroneStatuses.vacant;
@@ -113,6 +114,10 @@ namespace BlApi
         public List<DroneToList> GetAllDrones(Predicate<DroneToList> match)
         {
             return convertor(mydal.Get_all_drones()).FindAll(match);
+        }
+        public Drone GetDrone(DroneToList drone)
+        {
+            return convertor3(drone);
         }
     }
 }

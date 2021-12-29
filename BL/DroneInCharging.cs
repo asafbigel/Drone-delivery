@@ -12,11 +12,15 @@ namespace BO
      
         public double Battery { get; set; }
 
+        public DateTime EnterToCharge{ get; set; }
+
         public override string ToString()
         {
             string result = "";
             result += "ID: " + Id +",";
-            result += " Battery: " + Battery;
+            result += " Battery: " + Battery + ",";
+            result += " Enter to charging: " + EnterToCharge + ",";
+            result += " Time in charging: " + (DateTime.Now-EnterToCharge);
             result += '\n';
             return result;
         }

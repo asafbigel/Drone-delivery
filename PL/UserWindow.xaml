@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UserWindow" Height="450" Width="1035">
+        Title="UserWindow" Height="550" Width="1135">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="309*"/>
             <ColumnDefinition Width="91*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="auto" >
-            <Button x:Name="Drones" Content="Drones" Margin="15,15,15,15" FontSize="24" Click="Drones_Click"  />
-            <Button x:Name="BaseStations" Content="Base stations" Margin="15,15,15,15" FontSize="24" Click="BaseStations_Click" />
-            <Button x:Name="Customers" Content="Customers" Margin="15,15,15,15" FontSize="24" Click="Customers_Click" />
-            <Button x:Name="Parcels" Content="Parcels" Margin="15,15,15,15" FontSize="24" Click="Parcels_Click" />
-            <Button x:Name="Exit" Content="Exit" Margin="15,15,15,15" FontSize="24" Click="Exit_Click" />
-        </StackPanel>
-        <Frame x:Name="View" Grid.Column="0" />
+        <ListBox x:Name="Pages" Grid.Column="1" IsEnabled="{Binding IsChecked, ElementName=EnableListBox}"
+                 Margin="50,50,20,50" SelectionChanged ="UserWindow_SelectionChanged" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="60" BorderBrush="White">
+            <TextBlock Text="Drones" Margin="0,0,0,25"  />
+            <TextBlock Text="Base stations" Margin="0,0,0,25" />
+            <TextBlock Text="Customers" Margin="0,0,0,25" />
+            <TextBlock Text="Parcels" Margin="0,0,0,25" />
+            <TextBlock Text="Exit" />
+        </ListBox>
+        <Frame x:Name="View" Grid.Column="0" NavigationUIVisibility="Hidden" Margin="50,50,0,50"/>
     </Grid>
 </Window>
