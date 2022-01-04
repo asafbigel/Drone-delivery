@@ -59,7 +59,7 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            new AddDroneWindow(bl).Show();
+  //          new AddDroneWindow(bl).Show();
             //Hide();
         }
 

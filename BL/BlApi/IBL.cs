@@ -12,7 +12,7 @@ namespace BlApi
         void Add_parcel(Parcel parcel, int sender_id, int getter_id);
         void connect_parcel_to_drone(int drone_id);
         void delivered_parcel_by_drone(int drone_id);
-        void drone_from_charge(int drone_id, double time);
+        void drone_from_charge(int drone_id);
         List<DroneToList> GetAllDrones(Predicate<DroneToList> match);
         void pickedUp_parcel_by_drone(int drone_id);
         void send_drone_to_charge(int id);
@@ -22,13 +22,16 @@ namespace BlApi
         string StringAllParcelsWithout_drone();
         string StringCustomer(int customer_id);
         string StringDrone(int drone_id);
+        IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match);
         string StringParcel(int parcel_id);
         string string_all_baseStations();
         string string_all_baseStations_with_free_slots();
+        Drone GetDrone(DroneToList drone);
         string string_baseStation(int baseStation_id);
         void update_baseStation(int id, string new_name, string new_slot);
         void update_customer(int id, string new_name, string new_phone);
         void update_model_drone(int drone_id, string model);
+        ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id);
         Parcel GetCurrectParcelOfDrone(int id);
     }
 }

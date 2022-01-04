@@ -6,6 +6,65 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ListDroneWindow" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="DroneTemplate" DataType="local:MyDrone">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                   Text="Id: " />
+                <TextBlock Grid.Column="1"
+                   Text="{Binding Path=Id}" />
+                <TextBlock Grid.Column="2"
+                   Text="Model: " />
+                <TextBlock Grid.Column="3"
+                   Text="{Binding Path=Model}" />
+                <TextBlock Grid.Column="4"
+                   Text="Max weight: " />
+                <TextBlock Grid.Column="5"
+                   Text="{Binding Path=MaxWeight}" />
+                <TextBlock Grid.Column="6"
+                   Text="Battery: " />
+                <TextBlock Grid.Column="7"
+                   Text="{Binding Path=Battery}" />
+                <TextBlock Grid.Column="8"
+                   Text="Status: " />
+                <TextBlock Grid.Column="9"
+                   Text="{Binding Path=Status}" />
+                <TextBlock Grid.Column="10"
+                   Text="Longitude: " />
+                <TextBlock Grid.Column="11"
+                   Text="{Binding Path=Longitude}" />
+                <TextBlock Grid.Column="12"
+                   Text="Lattitude: " />
+                <TextBlock Grid.Column="13"
+                   Text="{Binding Path=Lattitude}" />
+                <TextBlock Grid.Column="14"
+                   Text="Number of parcels: " />
+                <TextBlock Grid.Column="15"
+                   Text="{Binding Path=NumberOfParcel}" />
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>

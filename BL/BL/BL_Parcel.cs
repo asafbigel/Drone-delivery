@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 
-namespace BlApi
+namespace BL
 {
     public partial class BL
     {
@@ -200,7 +200,11 @@ namespace BlApi
         /// <returns>The parcel</returns>
         public Parcel GetCurrectParcelOfDrone(int id)
         {
-            return convertor(mydal.Find_parcel(item => item.DroneId == id && item.Delivered == null));            
+            return convertor(mydal.Find_parcel(item => item.DroneId == id && item.Delivered == null));
+        }
+        public ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id)
+        {
+            return convertor1(convertor(mydal.Find_parcel(item => item.DroneId == id && item.Delivered == null)));
         }
     }
 }

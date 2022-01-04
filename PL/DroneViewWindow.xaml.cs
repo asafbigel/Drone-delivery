@@ -21,12 +21,16 @@ namespace PL
     public partial class DroneViewWindow : Window
     {
         BlApi.IBL theBL;
-        DroneToList drone;
+        Drone drone;
+        DroneToList droneToList;
         public DroneViewWindow(Object ob, BlApi.IBL bl)
         {
             theBL = bl;
             InitializeComponent();
-            drone = (DroneToList)ob;
+            droneToList = (DroneToList)ob;
+            drone = bl.GetDrone(droneToList);
+            DataContext = drone;
+           /*
             Id.Content = drone.Id;
             Model.Content = drone.Model;
             Weight.Content = drone.MaxWeight;
@@ -34,6 +38,8 @@ namespace PL
             Status.Content = drone.Status;
             Longitude.Content = "Longitude: " + drone.DroneLocation.longitude;
             Latitude.Content = "Latitude: " + drone.DroneLocation.latitude;
+            ParcelId.Content = drone.Parcel.Id;
+           */
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -43,12 +49,12 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-           new AddDroneWindow(theBL).Show();
+    //       new AddDroneWindow(theBL).Show();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-            new OptionsDroneWindow(theBL, drone).Show();
+            new OptionsDroneWindow(theBL, droneToList).Show();
         }
     }
 }

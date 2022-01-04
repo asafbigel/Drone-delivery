@@ -9,7 +9,7 @@
     <Grid>
         <Grid x:Name="Main">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="6*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" >
@@ -26,6 +26,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
                     <Label Content="Model:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
@@ -33,14 +34,16 @@
                     <Label Content="Battery:" Grid.Column="0" Grid.Row="3" FontSize="24"/>
                     <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="24"/>
                     <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="24"/>
+                    <Label Content="Parcel id:" Grid.Column="0" Grid.Row="7" FontSize="24"/>
 
-                    <Label x:Name="Id" Content="Id:" Grid.Column="1" Grid.Row="0" FontSize="24"/>
-                    <Label x:Name="Model" Content="Model:" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
-                    <Label x:Name="Weight" Content="MaxWeight:" Grid.Column="1" Grid.Row="2" FontSize="24"/>
-                    <Label x:Name="Battery" Content="Battery:" Grid.Column="1" Grid.Row="3" FontSize="24"/>
-                    <Label x:Name="Status" Content="Status:" Grid.Column="1" Grid.Row="4" FontSize="24"/>
-                    <Label x:Name="Longitude" Content="Longitude:" Grid.Column="1" Grid.Row="5" FontSize="24"/>
-                    <Label x:Name="Latitude" Content="Latitude:" Grid.Column="1" Grid.Row="6" FontSize="24"/>
+                    <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="24"/>
+                    <TextBlock x:Name="Model" Text="{Binding Model}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="Weight" Text="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="24"/>
+                    <TextBlock x:Name="Battery" Text="{Binding Battery}" Grid.Column="1" Grid.Row="3" FontSize="24"/>
+                    <TextBlock x:Name="Status" Text="{Binding Status}" Grid.Column="1" Grid.Row="4" FontSize="24"/>
+                    <TextBlock x:Name="Longitude" Text="{Binding DroneLocation.longitude}" Grid.Column="1" Grid.Row="5" FontSize="24"/>
+                    <TextBlock x:Name="Latitude" Text="{Binding DroneLocation.latitude}" Grid.Column="1" Grid.Row="6" FontSize="24"/>
+                    <TextBlock x:Name="ParcelId" Text="{Binding Parcel.Id}" Grid.Column="1" Grid.Row="7" FontSize="24"/>
                 </Grid>
             </StackPanel>
             <StatusBar Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" Margin="50,0,0,0">

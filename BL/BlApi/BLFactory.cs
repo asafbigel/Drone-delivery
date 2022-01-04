@@ -7,15 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-
 namespace BlApi
 {
-    static public class DalFactory
+    public static class BlFactory
     {
-        static public IBL GetBL()
-        {
-            return BL.Instance;
-        }
+        public static IBL GetBl() => BL.BL.Instance;
     }
 }
 

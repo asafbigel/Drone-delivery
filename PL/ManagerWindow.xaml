@@ -1,0 +1,24 @@
+﻿<Window x:Class="PL.ManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="ManagerWindow" Height="550" Width="1135">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="309*"/>
+            <ColumnDefinition Width="91*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="Pages" Grid.Column="1" IsEnabled="{Binding IsChecked, ElementName=EnableListBox}"
+                 Margin="50,50,20,50" SelectionChanged ="ManagerWindow_SelectionChanged" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="60" BorderBrush="White">
+            <TextBlock Text="Drones" Margin="0,0,0,25"  />
+            <TextBlock Text="Base stations" Margin="0,0,0,25" />
+            <TextBlock Text="Customers" Margin="0,0,0,25" />
+            <TextBlock Text="Parcels" Margin="0,0,0,25" />
+            <TextBlock Text="Exit" />
+        </ListBox>
+        <Frame x:Name="View" Grid.Column="0" NavigationUIVisibility="Hidden" Margin="50,50,0,50"/>
+    </Grid>
+</Window>

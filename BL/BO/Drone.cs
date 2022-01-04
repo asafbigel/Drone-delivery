@@ -14,6 +14,7 @@ namespace BO
         public double Battery { get; set; }
         public DroneStatuses Status { get; set; }
         public Location DroneLocation { get; set; }
+        public ParcelAtTransfer Parcel { get; set; }
         public override string ToString()
         {
             string result = "";
@@ -23,6 +24,8 @@ namespace BO
             result += " Battery: " + Battery + ",";
             result += " Status: " + Status + ",";
             result += " Location: " + DroneLocation;
+            if (Parcel !=null)
+                result += "\n\tParcel:\n\t" +Parcel;
             //result += '\n';
             return result;
         }

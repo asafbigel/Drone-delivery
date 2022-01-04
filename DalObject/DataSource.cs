@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
-using System.Collections.Generic;
 
-namespace DalObject
+namespace Dal
 {
     class DataSource
     {
         #region The array and lists of the data
-        internal static List<Drone>Drones = new List<Drone>();
+        internal static List<Drone> Drones = new List<Drone>();
         internal static List<BaseStation> BaseStations = new List<BaseStation>();
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<Parcel> Parcels = new List<Parcel>();
@@ -66,11 +65,11 @@ namespace DalObject
             // Battery is between 5-100
             int batt = rand.Next(5, 101);
             int D_id = rand.Next(0, 9000);
-            Drones.Add(new Drone() { Id = (D_id) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1945"});
-            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989"});
-            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989"});
-            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2010"});
-            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2017"});
+            Drones.Add(new Drone() { Id = (D_id) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1945" });
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989" });
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "1989" });
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2010" });
+            Drones.Add(new Drone() { Id = ((++D_id) % 9000) + 1000, MaxWeight = (WeightCategories)rand.Next(0, 3), Model = "2017" });
             #endregion
 
             #region Adding customers
@@ -93,16 +92,16 @@ namespace DalObject
             #region Adding parcels
             // drone Id == 0    means that the parcel didn't connected to a drone
             Config.runNumOfParcel = 10000;
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });                       
-            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++) , Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now , DroneId=0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
+            Parcels.Add(new Parcel() { Id = (Config.runNumOfParcel++), Weight = (WeightCategories)rand.Next(0, 3), TargetId = ((++id) % 399000000) + 1000000, SenderId = ((++id) % 399000000) + 1000000, Priority = (Priorities)rand.Next(0, 3), Requested = DateTime.Now, DroneId = 0 });
             #endregion
 
             #region temp items
@@ -246,7 +245,7 @@ namespace DalObject
                 Id = 2,
                 MaxWeight = WeightCategories.medium,
                 Model = "B"
-            }); 
+            });
             Drones.Add(new Drone()
             {
                 Id = 3,

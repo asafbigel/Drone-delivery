@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BlApi
+namespace BL
 {
     public partial class BL
     {
@@ -96,6 +96,12 @@ namespace BlApi
                 result += "\n";
             }
             return result;
+        }
+
+        public IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match)
+        {
+            IEnumerable<DO.BaseStation> list = mydal.Get_all_base_stations(item => true);
+            return convertor1(list).FindAll(match);
         }
     }
 }

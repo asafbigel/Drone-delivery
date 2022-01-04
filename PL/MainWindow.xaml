@@ -9,6 +9,7 @@
     <StackPanel>
         <Button x:Name="btnAddDrone" Content="add drone" Margin="5" Click="btnAddDrone_Click"/>
         <Button x:Name="btnListDrone" Content="list of drones" Margin="5,20,5,5" Click="btnListDrone_Click"/>
+        <Button x:Name="btnUserView" Content="User view" Margin="5,20,5,5" Click="btnUserView_Click" />
         <Button x:Name="exit" Content="Exit" Margin="5,20,5,5" Click="exit_Click" />
     </StackPanel>
 </Window>
