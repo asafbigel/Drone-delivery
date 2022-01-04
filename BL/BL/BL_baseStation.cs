@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BlApi
+namespace BL
 {
     public partial class BL
     {

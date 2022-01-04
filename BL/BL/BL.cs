@@ -4,11 +4,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using BlApi;
 using BO;
 
-namespace BlApi
-{ 
-    public partial class BL : IBL
+namespace BL
+{
+    sealed partial class BL : IBL
     {
         static DalApi.IDal mydal;
         static List<DroneToList> my_drones;
@@ -28,7 +29,7 @@ namespace BlApi
         static BL() 
         {
             my_drones = new List<DroneToList>();
-            mydal = DalObject.DalFactory.GetDal("DalObject");
+            mydal = DalApi.DalFactory.GetDal();
             double[] Electricity = mydal.ElectricityUse();
             Electricity_free = Electricity[0];
             Electricity_light = Electricity[1];

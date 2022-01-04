@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 
-namespace BlApi
+namespace BL
 {
     public partial class BL
     {

@@ -31,6 +31,7 @@ namespace BlApi
         void update_baseStation(int id, string new_name, string new_slot);
         void update_customer(int id, string new_name, string new_phone);
         void update_model_drone(int drone_id, string model);
+        ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id);
         Parcel GetCurrectParcelOfDrone(int id);
     }
 }

@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for UserWindow.xaml
+    /// Interaction logic for ManagerWindow.xaml
     /// </summary>
-    public partial class UserWindow : Window
+    public partial class ManagerWindow : Window
     {
         BlApi.IBL bl;
-        public UserWindow()
+        public ManagerWindow()
         {
             InitializeComponent();
-            bl = BlApi.DalFactory.GetBL(); 
+            bl = BlApi.BlFactory.GetBl();
         }
 
         private void Drones_Click(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace PL
         {
             Close();
         }
-        private void UserWindow_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ManagerWindow_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Pages.SelectedItem == null)
                 return;

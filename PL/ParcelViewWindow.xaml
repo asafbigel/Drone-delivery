@@ -1,0 +1,64 @@
+﻿<Window x:Class="PL.ParcelViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BO;assembly=BL"
+        mc:Ignorable="d"
+        Title="ParcelViewWindow" Height="500" Width="800">
+    <Grid>
+        <Grid x:Name="Main">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" >
+                <Grid x:Name="StackPanelGrid" Margin="0,30,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
+                    <Label Content="Sate of parcel:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
+                    <Label Content="Priority:" Grid.Column="0" Grid.Row="2" FontSize="24"/>
+                    <Label Content="Weight:" Grid.Column="0" Grid.Row="3" FontSize="24"/>
+                    <Label Content="Sender:" Grid.Column="0" Grid.Row="4" FontSize="24"/>
+                    <Label Content="Getter:" Grid.Column="0" Grid.Row="5" FontSize="24"/>
+                    <Label Content="Location of pick up:" Grid.Column="0" Grid.Row="6" FontSize="24"/>
+                    <Label Content="Location of target:" Grid.Column="0" Grid.Row="7" FontSize="24"/>
+                    <Label Content="Distance of delivery:" Grid.Column="0" Grid.Row="8" FontSize="24"/>
+
+                    <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="24"/>
+                    <TextBlock x:Name="SateOfParcel" Text="{Binding SateOfParcel}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="Priority" Text="{Binding Priority}" Grid.Column="1" Grid.Row="2" FontSize="24"/>
+                    <TextBlock x:Name="Weight" Text="{Binding Weight}" Grid.Column="1" Grid.Row="3" FontSize="24"/>
+                    <TextBlock x:Name="Sender" Text="{Binding Sender}" Grid.Column="1" Grid.Row="4" FontSize="24"/>
+                    <TextBlock x:Name="Getter" Text="{Binding Getter}" Grid.Column="1" Grid.Row="5" FontSize="24"/>
+                    <TextBlock x:Name="LocationOfPickUp" Text="{Binding LocationOfPickUp}" Grid.Column="1" Grid.Row="6" FontSize="24"/>
+                    <TextBlock x:Name="LocationOfTarget" Text="{Binding LocationOfTarget}" Grid.Column="1" Grid.Row="7" FontSize="24"/>
+                    <TextBlock x:Name="DistanceOfDelivery" Text="{Binding DistanceOfDelivery}" Grid.Column="1" Grid.Row="8" FontSize="24"/>
+                </Grid>
+            </StackPanel>
+            <StatusBar Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" Margin="50,0,0,0">
+                <Button x:Name="Close" Content="Close" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,10,0" FontSize="36" Click="Close_Click"/>
+            </StatusBar>
+        </Grid>
+    </Grid>
+</Window>
+
+
+
+
+
+

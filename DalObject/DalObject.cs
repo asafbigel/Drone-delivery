@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 using DalApi;
 using DO;
 
-
-namespace DalObject
+namespace Dal
 {
-   
-    class DalObject : IDal
+
+    sealed class DalObject : IDal
     {
         static readonly DalObject instance = new DalObject();
         // The public Instance property to use 
-        public static DalObject Instance { get { return instance; } }
+        public static DalObject Instance { get => instance;  }
 
         // Explicit static constructor to ensure instance initialization
         // is done just before first usage
@@ -116,7 +115,7 @@ namespace DalObject
         {
             int i = find_index_customer(customer.Id);
             DataSource.Customers[i] = customer;
-            
+
         }
         /// <summary>
         /// Update Drone Charge
@@ -204,7 +203,7 @@ namespace DalObject
         #endregion
 
         #region Get an id of object, and return the object (public)
-        
+
         public Parcel Find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Parcels.Count(); i++)
@@ -272,7 +271,7 @@ namespace DalObject
 
 
         #region Return array of all of the objects (public)
-        public IEnumerable<BaseStation> Get_all_base_stations(Predicate<BaseStation> match) 
+        public IEnumerable<BaseStation> Get_all_base_stations(Predicate<BaseStation> match)
         {
             return DataSource.BaseStations.FindAll(match);
         }
@@ -336,7 +335,7 @@ namespace DalObject
                 DataSource.Config.Charge_at_hour
             };
             return arr;
-    }
+        }
 
         public void send_drone_to_charge(DroneCharge droneCharge)
         {

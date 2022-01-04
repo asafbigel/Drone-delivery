@@ -75,11 +75,9 @@ namespace PL
                 if (DroneSelection.IsChecked == true)              
                     new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
                 DroneToList d = (DroneToList)DroneListView.SelectedItem;
-                
-                // if (ParcelSelection.IsChecked == true)
-                //    new ParcelViewWindow(????, bl).Show();
-
-
+                ParcelAtTransfer parcel = bl.GetCurrectParcelAtTransferOfDrone(d.Id);
+                 if (ParcelSelection.IsChecked == true && parcel.Id != 0)
+                    new ParcelViewWindow(parcel, bl).Show();
             }
             DroneListView.UnselectAll();
         }
@@ -112,9 +110,5 @@ namespace PL
             DataContext = drones;
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

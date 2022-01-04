@@ -22,7 +22,7 @@ namespace PL
          BlApi.IBL theBL;
         public MainWindow()
         {
-            theBL = BlApi.DalFactory.GetBL();
+            theBL = BlApi.BlFactory.GetBl();
         }
 
         private void btnListDrone_Click(object sender, RoutedEventArgs e)
@@ -42,7 +42,7 @@ namespace PL
 
         private void btnUserView_Click(object sender, RoutedEventArgs e)
         {
-           // new UserWindow(theBL).Show();
+           // new ManagerWindow(theBL).Show();
         }
     }
 }

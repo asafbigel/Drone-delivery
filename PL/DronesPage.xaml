@@ -83,7 +83,7 @@ VerticalAlignment="Stretch" Width="auto">
             <TextBlock Text="seletion:" VerticalAlignment="Center" FontSize="22"/>
             <StackPanel>
                 <RadioButton x:Name="DroneSelection" IsChecked="True"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18">Drone view</RadioButton>
-                <RadioButton x:Name="ParcelSelection" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Checked="RadioButton_Checked">Parcel view</RadioButton>
+                <RadioButton x:Name="ParcelSelection" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18">Parcel view</RadioButton>
             </StackPanel>
         </StackPanel>
     </Grid>
