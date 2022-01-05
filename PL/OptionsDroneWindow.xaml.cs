@@ -79,7 +79,7 @@ namespace PL
             {
                 string newModel = Model.Text;
                 bl.update_model_drone(drone.Id, newModel);
-                drone = bl.GetAllDrones(item => true).Find(item => item.Id == drone.Id);
+                drone = bl.GetAllDrones(item => true).ToList().Find(item => item.Id == drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
             }

@@ -57,5 +57,10 @@ namespace BL
             }
             return result;
         }
+
+        public IEnumerable<CustomerToList> GetAllCustomers(Predicate<CustomerToList> match)
+        {
+            return convertor(mydal.Get_all_customers()).FindAll(match);
+        }
     }
 }

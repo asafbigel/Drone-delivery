@@ -96,6 +96,7 @@ namespace PL
         private void Grouping_Click(object sender, RoutedEventArgs e)
         {
             var x = from drone in drones
+                    where drone != null
                     group drone by drone.Status into g
                     select g;
             drones = new ObservableCollection<DroneToList>();

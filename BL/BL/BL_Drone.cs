@@ -111,7 +111,7 @@ namespace BL
             return result;
         }
 
-        public List<DroneToList> GetAllDrones(Predicate<DroneToList> match)
+        public IEnumerable<DroneToList> GetAllDrones(Predicate<DroneToList> match)
         {
             return convertor(mydal.Get_all_drones()).FindAll(match);
         }

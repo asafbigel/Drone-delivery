@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace BlApi
 {
@@ -13,7 +14,6 @@ namespace BlApi
         void connect_parcel_to_drone(int drone_id);
         void delivered_parcel_by_drone(int drone_id);
         void drone_from_charge(int drone_id);
-        List<DroneToList> GetAllDrones(Predicate<DroneToList> match);
         void pickedUp_parcel_by_drone(int drone_id);
         void send_drone_to_charge(int id);
         string StringAllCustomers();
@@ -23,6 +23,8 @@ namespace BlApi
         string StringCustomer(int customer_id);
         string StringDrone(int drone_id);
         IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match);
+        IEnumerable<DroneToList> GetAllDrones(Predicate<DroneToList> match);
+        IEnumerable<CustomerToList> GetAllCustomers(Predicate<CustomerToList> match);
         string StringParcel(int parcel_id);
         string string_all_baseStations();
         string string_all_baseStations_with_free_slots();

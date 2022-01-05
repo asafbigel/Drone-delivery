@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,14 @@ namespace PL
     /// </summary>
     public partial class CustomersPage : Page
     {
-        public CustomersPage(BlApi.IBL bl)
+        internal ObservableCollection<CustomerToList> customers;
+        BlApi.IBL bl;
+        public CustomersPage(BlApi.IBL theBL)
         {
             InitializeComponent();
-        }
+            bl = theBL;
+            customers = new ObservableCollection<CustomerToList>(bl.GetAllCustomers(item => true));
+
     }
+}
 }
