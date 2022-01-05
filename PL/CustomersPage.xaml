@@ -7,8 +7,24 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CustomersPage">
-
+   
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="CustomersListView" ItemsSource="{Binding}" Grid.Row="0" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Phone" Width="auto" DisplayMemberBinding="{Binding Phone}" />
+                    <GridViewColumn Header="Num Of Parcels Sent And Arrived" Width="auto" DisplayMemberBinding="{Binding NumOfParcelsSentAndArrived}" />
+                    <GridViewColumn Header="Num Of Parcels Sent And Not Arrived" Width="auto" DisplayMemberBinding="{Binding NumOfParcelsSentAndNotArrived}" />
+                    <GridViewColumn Header="Num Parcels Got" Width="auto" DisplayMemberBinding="{Binding NumOfParcelsGot}" />
+                    <GridViewColumn Header="Num  Parcels To Get" Width="auto" DisplayMemberBinding="{Binding numOfParcelsToGet}" />
+                </GridView>
+            </ListView.View>
+        </ListView>      
     </Grid>
 </Page>
