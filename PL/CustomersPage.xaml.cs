@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace PL
 {
@@ -22,14 +23,20 @@ namespace PL
     /// </summary>
     public partial class CustomersPage : Page
     {
-        internal ObservableCollection<CustomerToList> customers;
         BlApi.IBL bl;
+        internal ObservableCollection<CustomerToList> customers;
+
         public CustomersPage(BlApi.IBL theBL)
         {
-            InitializeComponent();
             bl = theBL;
+            InitializeComponent();
             customers = new ObservableCollection<CustomerToList>(bl.GetAllCustomers(item => true));
+            DataContext = customers;
+        }
 
+        private void AddCustumer_Click(object sender, RoutedEventArgs e)
+        {
+            new AddCustomerWindow(bl, this).Show();
+        }
     }
-}
 }

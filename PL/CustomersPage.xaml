@@ -7,8 +7,35 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CustomersPage">
-
+   
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="450*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="CustomersListView" ItemsSource="{Binding}" Grid.Row="1" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Phone" Width="auto" DisplayMemberBinding="{Binding Phone}" />
+                    <GridViewColumn Header="Num Of Parcels Sent And Arrived" Width="auto" DisplayMemberBinding="{Binding NumOfParcelsSentAndArrived}" />
+                    <GridViewColumn Header="Num Of Parcels Sent And Not Arrived" Width="auto" DisplayMemberBinding="{Binding NumOfParcelsSentAndNotArrived}" />
+                    <GridViewColumn Header="Num Parcels Got" Width="auto" DisplayMemberBinding="{Binding NumOfParcelsGot}" />
+                    <GridViewColumn Header="Num  Parcels To Get" Width="auto" DisplayMemberBinding="{Binding numOfParcelsToGet}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" x:Name="options" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button x:Name="AddCustumer" Content="Add custumer" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddCustumer_Click"  />
+            <Button x:Name="Grouping" Content="Grouping by status" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  Grid.Row="1"/>
+            <TextBlock Text="seletion:" VerticalAlignment="Center" FontSize="22"/>
+            <StackPanel>
+                <RadioButton x:Name="DroneSelection" IsChecked="True"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18">Drone view</RadioButton>
+                <RadioButton x:Name="ParcelSelection" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18">Parcel view</RadioButton>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>
