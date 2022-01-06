@@ -53,6 +53,8 @@ namespace PL
                 bl.Add_drone(drone, baseStation);
                 MessageBox.Show("Succsess", "Succsess");
                 Close();
+                theDronesPage.Refresh();
+                /*
                 theDronesPage.drones.Add(new DroneToList()
                 {
                     Id = drone.Id,
@@ -63,6 +65,7 @@ namespace PL
                     Status = drone.Status,
                     NumOfParcel = 0
                 });
+                */
             }
             catch (FormatException ex)
             {

@@ -111,5 +111,21 @@ namespace PL
             DataContext = drones;
         }
 
+        internal void Refresh()
+        {
+            weight = null;
+            status = null;
+            if (WeightSelector.SelectedItem != null)
+                weight = (WeightCategories)WeightSelector.SelectedItem;
+            if (StatusSelector.SelectedItem != null)
+                status = (DroneStatuses)StatusSelector.SelectedItem;
+            var x = bl.GetAllDrones(item => (weight == null || item.MaxWeight == weight) && (status == null || item.Status == status));
+            drones.Clear();
+            foreach (var item in x)
+            {
+                drones.Add(item);
+            }
+        }
+
     }
 }
