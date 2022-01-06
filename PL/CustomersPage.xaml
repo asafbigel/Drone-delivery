@@ -10,10 +10,11 @@
    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="450*"/>
+            <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="CustomersListView" ItemsSource="{Binding}" Grid.Row="0" >
+        <ListView x:Name="CustomersListView" ItemsSource="{Binding}" Grid.Row="1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
@@ -25,6 +26,16 @@
                     <GridViewColumn Header="Num  Parcels To Get" Width="auto" DisplayMemberBinding="{Binding numOfParcelsToGet}" />
                 </GridView>
             </ListView.View>
-        </ListView>      
+        </ListView>
+        <StackPanel Orientation="Horizontal" x:Name="options" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button x:Name="AddCustumer" Content="Add custumer" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddCustumer_Click"  />
+            <Button x:Name="Grouping" Content="Grouping by status" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  Grid.Row="1"/>
+            <TextBlock Text="seletion:" VerticalAlignment="Center" FontSize="22"/>
+            <StackPanel>
+                <RadioButton x:Name="DroneSelection" IsChecked="True"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18">Drone view</RadioButton>
+                <RadioButton x:Name="ParcelSelection" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18">Parcel view</RadioButton>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

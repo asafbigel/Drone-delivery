@@ -26,6 +26,7 @@ namespace PL
         DroneStatuses? status;
         WeightCategories? weight;
         internal ObservableCollection<DroneToList> drones;
+       
         public DronesPage(BlApi.IBL theBL)
         {
             InitializeComponent();
