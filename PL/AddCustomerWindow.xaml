@@ -26,11 +26,11 @@
                     
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="AddCustomer"  Grid.Column="1" Content="Add customer" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontWeight="Bold" Margin="0,20,0,20"/>
-                <Label Grid.Row="1" Content="Id"  HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
-                <Label Grid.Row="2" Content="Name"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="20,10,20,10" />
-                <Label Grid.Row="3" Content="Phone"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="20,10,20,10" />
-                <Label Grid.Row="4" Content="Location" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  FontWeight="Bold" Margin="20,10,20,10"/>
+                <Label x:Name="AddCustomer"  Grid.Column="1" Content="Add customer" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42" FontWeight="Bold" Margin="0,20,0,20"/>
+                <Label Grid.Row="1" Content="Id"  HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Label Grid.Row="2" Content="Name"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="20,10,20,10" />
+                <Label Grid.Row="3" Content="Phone"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="20,10,20,10" />
+                <Label Grid.Row="4" Content="Location" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="20,10,20,10"/>
 
                 
                 <TextBox x:Name="Id" Grid.Column="1" Grid.Row="1" Text="{Binding Id}" Margin="0,0,50,0"/>
@@ -46,10 +46,10 @@
                         <ColumnDefinition Width="524*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Content="longitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  FontWeight="Bold" Margin="15,10,20,10"/>
-                    <Label Grid.Row="1" Content="latitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  FontWeight="Bold" Margin="15,10,20,10"/>
-                    <TextBox x:Name="longitude" Grid.Column="1" Grid.Row="0" Text="{Binding Location.longitude}" Margin="0,0,50,0"/>
-                    <TextBox x:Name="latitude" Grid.Column="1" Grid.Row="1" Text="{Binding Location.latitude}" Margin="0,0,50,0"/>
+                    <Label Grid.Row="0" Content="longitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="15,10,20,10"/>
+                    <Label Grid.Row="1" Content="latitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="15,10,20,10"/>
+                    <TextBox x:Name="longitude" Grid.Column="1" Grid.Row="0"  Text="{Binding Location.longitude}" Margin="0,4,50,3"/>
+                    <TextBox x:Name="latitude" Grid.Column="1" Grid.Row="1" Text="{Binding Location.latitude}" Margin="0,0,50,7"/>
                 </Grid>
             </Grid>
             <Grid x:Name="down"  Grid.Row="1">
