@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ArrayOfBaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BaseStation>
+    <Id>1</Id>
+    <Name>Maale</Name>
+    <Longitude>36</Longitude>
+    <Lattitude>37</Lattitude>
+    <ChargeSlots>2</ChargeSlots>
+  </BaseStation>
+</ArrayOfBaseStation>

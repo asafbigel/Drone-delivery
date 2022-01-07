@@ -200,11 +200,11 @@ namespace BL
         /// <returns>The parcel</returns>
         public Parcel GetCurrectParcelOfDrone(int id)
         {
-            return convertor(mydal.Find_parcel(item => item.DroneId == id && item.Delivered == null));
+            return convertor(mydal.Get_all_parcels(item => item.DroneId == id && item.Delivered == null).First());
         }
         public ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id)
         {
-            return convertor1(convertor(mydal.Find_parcel(item => item.DroneId == id && item.Delivered == null)));
+            return convertor1(convertor(mydal.Get_all_parcels(item => item.DroneId == id && item.Delivered == null).FirstOrDefault()));
         }
     }
 }

@@ -571,7 +571,7 @@ namespace BL
         }
         private DroneInCharging convertor2(DroneToList drone)
         {
-            DO.DroneCharge doDrone = mydal.Find_droneCharge_by_drone(drone.Id);
+            DO.DroneCharge doDrone = mydal.FindDroneCharge(drone.Id);
             return new DroneInCharging()
             {
                 Battery = drone.Battery,

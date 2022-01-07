@@ -58,7 +58,7 @@ namespace BL
             BaseStation baseStation = BaseStation_close_to_location(baseStations, drone.DroneLocation);
             double needen_fual = distance_between_2_points(baseStation.BaseStationLocation, drone.DroneLocation) * Electricity_free;
             if (needen_fual > drone.Battery)
-                throw new DroneException("Not enaugh foul");
+                throw new DroneException("Not enaugh battery");
             drone.Battery -= needen_fual;
             drone.DroneLocation = baseStation.BaseStationLocation;
             drone.Status = DroneStatuses.maintenance;

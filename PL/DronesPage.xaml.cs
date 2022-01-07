@@ -65,7 +65,6 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            //new AddDroneWindow(bl, drones).Show();
             new AddDroneWindow(bl,this).Show();
         }
 
@@ -85,7 +84,6 @@ namespace PL
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            //DroneListView.ItemsSource = bl.GetAllDrones(item => true);
             drones = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
             DataContext = drones;
             WeightSelector.Text = "choose weight:";
