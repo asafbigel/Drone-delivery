@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Customers>
+<?xml version="1.0"?>
+<ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Customer>
 		<Id>3571</Id>
 		<Name>Asaf</Name>
@@ -14,4 +14,4 @@
 		<Longitude>36.1473</Longitude>
 		<Lattitude>32.002910196824424</Lattitude>
 	</Customer>
-</Customers>
+</ArrayOfCustomer>

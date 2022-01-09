@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using DalApi;
 using DL;
 using DO;
@@ -26,6 +27,126 @@ namespace Dal
         string parcelsPath = @"ParcelsXml.xml"; //XMLSerializer
         string droneChargesPath = @"DroneChargesXml.xml"; //XMLSerializer
         #endregion
+
+
+
+        #region customer
+        public Customer Find_customer(int id)
+        {
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
+
+            Customer? c = (from cus in customersRootElem.Elements()
+                        where int.Parse(cus.Element("Id").Value) == id
+                        select new Customer()
+                        {
+                            Id = Int32.Parse(cus.Element("Id").Value),
+                            Lattitude = double.Parse(cus.Element("Lattitude").Value),
+                            Longitude = double.Parse(cus.Element("Longitude").Value),
+                            Phone = cus.Element("Phone").Value,
+                            Name = cus.Element("Name").Value
+                        }
+                        ).FirstOrDefault();
+
+            if (c == null)
+                throw new BadCustomerIdException(id, $"bad customer id: {id}");
+
+            return (Customer)c;
+        }
+        public IEnumerable<Customer> Get_all_customers()
+        {
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
+
+            return (from cus in customersRootElem.Elements()
+                    select new Customer()
+                    {
+                        Id = Int32.Parse(cus.Element("Id").Value),
+                        Lattitude = double.Parse(cus.Element("Lattitude").Value),
+                        Longitude = double.Parse(cus.Element("Longitude").Value),
+                        Phone = cus.Element("Phone").Value,
+                        Name = cus.Element("Name").Value
+                    }
+                   );
+        }
+        public IEnumerable<Customer> GetAllCustomersBy(Predicate<Customer> predicate)
+        {
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
+
+            return from cus in customersRootElem.Elements()
+                   let customer = new Customer()
+                   {
+                       Id = Int32.Parse(cus.Element("ID").Value),
+                       Lattitude = double.Parse(cus.Element("Lattitude").Value),
+                       Longitude = double.Parse(cus.Element("Longitude").Value),
+                       Phone = cus.Element("Phone").Value,
+                       Name = cus.Element("Name").Value
+                   }
+                   where predicate(customer)
+                   select customer;
+        }
+        public void Add_customer(Customer customer)
+        {
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
+
+            XElement per1 = (from p in customersRootElem.Elements()
+                             where int.Parse(p.Element("ID").Value) == customer.Id
+                             select p).FirstOrDefault();
+
+            if (per1 != null)
+                throw new BadCustomerIdException(customer.Id, "Duplicate customer ID");
+
+            XElement customerElem = new XElement("Customer", new XElement("ID", customer.Id),
+                                  new XElement("Name", customer.Name),
+                                  new XElement("Longitude", customer.Longitude),
+                                  new XElement("Lattitude", customer.Lattitude),
+                                  new XElement("Phone", customer.Phone));
+
+            customersRootElem.Add(customerElem);
+
+            XMLTools.SaveListToXMLElement(customersRootElem, customersPath);
+        }
+
+        public void DeleteCustomer(int id)
+        {
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
+
+            XElement per = (from p in customersRootElem.Elements()
+                            where int.Parse(p.Element("ID").Value) == id
+                            select p).FirstOrDefault();
+
+            if (per != null)
+            {
+                per.Remove(); //<==>   Remove per from customersRootElem
+
+                XMLTools.SaveListToXMLElement(customersRootElem, customersPath);
+            }
+            else
+                throw new DO.BadCustomerIdException(id, $"bad customer id: {id}");
+        }
+
+        public void UpdateCustomer(DO.Customer customer)
+        {
+            XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
+
+            XElement cus = (from c in customersRootElem.Elements()
+                            where int.Parse(c.Element("ID").Value) == customer.Id
+                            select c).FirstOrDefault();
+
+            if (cus != null)
+            {
+                cus.Element("ID").Value = customer.Id.ToString();
+                cus.Element("Name").Value = customer.Name;
+                cus.Element("Phone").Value = customer.Phone;
+                cus.Element("Longitude").Value = customer.Longitude.ToString();
+                cus.Element("Lattitude").Value = customer.Lattitude.ToString();
+
+                XMLTools.SaveListToXMLElement(customersRootElem, customersPath);
+            }
+            else
+                throw new DO.BadCustomerIdException(customer.Id, $"bad customer id: {customer.Id}");
+        }
+
+        #endregion Customer
+
 
 
         #region drone
@@ -256,6 +377,8 @@ namespace Dal
         }
         #endregion
 
+
+        /*
         #region customer
         public Customer Find_customer(int id)
         {
@@ -317,7 +440,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListCustomers, customersPath);
         }
         #endregion
-
+        */
         #region drone charge
 
         public DroneCharge FindDroneCharge(int id)
