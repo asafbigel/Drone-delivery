@@ -360,10 +360,16 @@ namespace Dal
             BaseStation baseStation = Find_baseStation(my_baseStation_id);
             baseStation.ChargeSlots++;
             UpdateBaseStation(baseStation);
-            DataSource.DroneCharges.Remove(droneCharge);
+            DeleteDroneCharge(droneCharge.DroneId);
             //int DroneId = droneCharge.DroneId;
             //Drone drone = Find_drone(my_drone_id);
             //UpdateDroneCharge(droneCharge, DroneId);
+        }
+
+        public void DeleteDroneCharge(int my_drone_id)
+        {
+            DroneCharge droneCharge = FindDroneCharge(my_drone_id);
+            DataSource.DroneCharges.Remove(droneCharge);
         }
     }
 

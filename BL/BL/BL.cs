@@ -38,9 +38,7 @@ namespace BL
             Charge_at_hour = Electricity[4];
             Random random = new Random();
 
-
             #region List of drone from the data layer
-            //my_drones = convertor(mydal.Get_all_drones());
             List<DO.Drone> idalDrones = mydal.Get_all_drones().ToList();
             foreach (var item in idalDrones)
             {
@@ -50,7 +48,8 @@ namespace BL
                     Model = item.Model,
                     MaxWeight = (WeightCategories)item.MaxWeight,
                     NumOfParcel = 0,
-                    Status = (DroneStatuses)random.Next(0, 2)
+                   // Status = (DroneStatuses)random.Next(0, 2)
+                    Status = DroneStatuses.vacant
                 });
             }
 
@@ -61,48 +60,25 @@ namespace BL
             #endregion
 
             #region List of customer from the data layer
-            List<Customer> customers = convertor1(mydal.Get_all_customers());
-            /*
-            List<DO.Customer> idalCustomer = mydal.Get_all_customers().ToList();
-            List<Customer> customers = new List<Customer>();
-            foreach (var item in idalCustomer)
-            {
-                Location location = new Location();
-                location.latitude = item.Lattitude;
-                location.longitude = item.Longitude;
-                customers.Add(new Customer
-                {
-                    id = item.Id,
-                    name = item.Name,
-                    TheLocation = location,
-                    phone = item.Phone,
-                    parcels_at_customer_for = new List<BO.Parcel>(),
-                    parcels_at_customer_from = new List<BO.Parcel>()
-                });
-            }
-            */
+            List<Customer> customers = convertor1(mydal.Get_all_customers()).ToList();
             #endregion
 
             #region List of base station from the data layer
             List<BaseStation> baseStations = convertor(mydal.Get_all_base_stations(x => true));
-            /*
-            List<DO.BaseStation> idalBaseStation = mydal.Get_all_base_stations().ToList();
-            List<BaseStation> baseStations1 = new List<BaseStation>();
-            foreach (var item in idalBaseStation)
+            #endregion
+
+            #region List of drone charge from the data layer
+            List<DO.DroneCharge> droneCharges = mydal.Get_all_DroneCharge().ToList();
+            #endregion
+
+            #region update status of the drone at charging
+            foreach (var item in droneCharges)
             {
-                Location location = new Location();
-                location.latitude = item.Lattitude;
-                location.longitude = item.Longitude;
-                baseStations.Add(new BaseStation()
-                {
-                    id = item.Id,
-                    name = item.Name,
-                    Num_Free_slots_charge = item.ChargeSlots,
-                    space = location,
-                    DroneInChargings = new List<DroneInCharging>()
-                });
+                DroneToList drone = my_drones.Find(drone => item.DroneId == drone.Id);
+                drone.Status = DroneStatuses.maintenance;
+                drone.DroneLocation = baseStations.Find(bs => item.StationId == bs.Id).BaseStationLocation;
+                drone.Battery = random.Next(0, 21);
             }
-            */
             #endregion
 
 
@@ -111,82 +87,69 @@ namespace BL
                 List<DO.Parcel> parcel_of_this_drone = idalParcel.FindAll(x => x.DroneId == drone.Id);
                 List<DO.Parcel> parcel_of_this_drone_Delivered = parcel_of_this_drone.FindAll(x => x.Delivered != null);
                 drone.NumOfParcel = parcel_of_this_drone.Count();
+
+                #region check if the drone is sending
                 if (parcel_of_this_drone.Count() - parcel_of_this_drone_Delivered.Count() != 0)
                     drone.Status = DroneStatuses.sending;
-
-                // choose location and random the battery ofeach drone
-                if (parcel_of_this_drone.Count() > 0)
-                    foreach (var parcel in parcel_of_this_drone)
-                    {
-                        // case the parcel has not delivere
-                        if (parcel.Delivered == null)
-                        {
-                            Customer sender = find_customer(customers, parcel.SenderId);
-                            Customer getter = find_customer(customers, parcel.TargetId);
-                            BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.CustomerLocation);
-                            if (parcel.Scheduled != null && parcel.PickedUp == null)
-                            {
-                                BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.CustomerLocation);
-                                drone.DroneLocation = baseStation_neer_sender.BaseStationLocation;
-
-                                double distance1 = distance_between_2_points(baseStation_neer_sender.BaseStationLocation, sender.CustomerLocation);
-                                double distance2 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
-                                double distance3 = distance_between_2_points(baseStation_neer_geeter.BaseStationLocation, getter.CustomerLocation);
-                                double min_battery = (distance1 + distance3) * Electricity_free;
-                                switch (parcel.Weight)
-                                {
-                                    case DO.WeightCategories.light:
-                                        min_battery += distance2 * Electricity_light;
-                                        break;
-                                    case DO.WeightCategories.medium:
-                                        min_battery += distance2 * Electricity_medium;
-                                        break;
-                                    case DO.WeightCategories.heavy:
-                                        min_battery += distance2 * Electricity_heavy;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                drone.Battery = random.Next((int)min_battery + 1, 101);
-                            }
-                            if (parcel.PickedUp != null)
-                            {
-                                drone.DroneLocation = sender.CustomerLocation;
-                                double distance1 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
-                                double distance2 = distance_between_2_points(getter.CustomerLocation, baseStation_neer_geeter.BaseStationLocation);
-                                double min_battery = distance2 * Electricity_free;
-                                switch (parcel.Weight)
-                                {
-                                    case DO.WeightCategories.light:
-                                        min_battery += distance1 * Electricity_light;
-                                        break;
-                                    case DO.WeightCategories.medium:
-                                        min_battery += distance1 * Electricity_medium;
-                                        break;
-                                    case DO.WeightCategories.heavy:
-                                        min_battery += distance1 * Electricity_heavy;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                drone.Battery = random.Next((int)min_battery + 1, 101);
-                            }
-                        }
-
-                    }
-                // cases all of this drine have dlivere
-                // case status is maintenance
-                if (drone.Status == DroneStatuses.maintenance)
+                #endregion
+                // choose location and random the battery of each drone
+                DO.Parcel parcel = parcel_of_this_drone.Find(x => x.Delivered == null);
+                if (parcel.Id != default(int))
                 {
-                    int i = random.Next(0, baseStations.Count);
-                    // send_drone_to_charge(baseStations[i].Id);
-                    drone.DroneLocation = baseStations[i].BaseStationLocation;
-                    drone.Battery = random.Next(0, 21);
-                    DO.DroneCharge charge = new DO.DroneCharge();
-                    charge.DroneId = drone.Id;
-                    charge.StationId = baseStations[i].Id;
-                    mydal.send_drone_to_charge(charge);
+                    {
+                        Customer sender = find_customer(customers, parcel.SenderId);
+                        Customer getter = find_customer(customers, parcel.TargetId);
+                        BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, getter.CustomerLocation);
+                        if (parcel.Scheduled != null && parcel.PickedUp == null)
+                        {
+                            BaseStation baseStation_neer_sender = BaseStation_close_to_location(baseStations, sender.CustomerLocation);
+                            drone.DroneLocation = baseStation_neer_sender.BaseStationLocation;
+
+                            double distance1 = distance_between_2_points(baseStation_neer_sender.BaseStationLocation, sender.CustomerLocation);
+                            double distance2 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
+                            double distance3 = distance_between_2_points(baseStation_neer_geeter.BaseStationLocation, getter.CustomerLocation);
+                            double min_battery = (distance1 + distance3) * Electricity_free;
+                            switch (parcel.Weight)
+                            {
+                                case DO.WeightCategories.light:
+                                    min_battery += distance2 * Electricity_light;
+                                    break;
+                                case DO.WeightCategories.medium:
+                                    min_battery += distance2 * Electricity_medium;
+                                    break;
+                                case DO.WeightCategories.heavy:
+                                    min_battery += distance2 * Electricity_heavy;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            drone.Battery = random.Next((int)min_battery + 1, 101);
+                        }
+                        if (parcel.PickedUp != null)
+                        {
+                            drone.DroneLocation = sender.CustomerLocation;
+                            double distance1 = distance_between_2_points(sender.CustomerLocation, getter.CustomerLocation);
+                            double distance2 = distance_between_2_points(getter.CustomerLocation, baseStation_neer_geeter.BaseStationLocation);
+                            double min_battery = distance2 * Electricity_free;
+                            switch (parcel.Weight)
+                            {
+                                case DO.WeightCategories.light:
+                                    min_battery += distance1 * Electricity_light;
+                                    break;
+                                case DO.WeightCategories.medium:
+                                    min_battery += distance1 * Electricity_medium;
+                                    break;
+                                case DO.WeightCategories.heavy:
+                                    min_battery += distance1 * Electricity_heavy;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            drone.Battery = random.Next((int)min_battery + 1, 101);
+                        }
+                    }
                 }
+                // cases all of this drone have dlivered
                 // case status is vacant
                 if (drone.Status == DroneStatuses.vacant)
                 {
@@ -208,7 +171,8 @@ namespace BL
                     BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, location);
                     double distance = distance_between_2_points(location, baseStation_neer_geeter.BaseStationLocation);
                     double min_battery = distance * Electricity_free;
-                    drone.Battery = random.Next((int)distance + 1, 101);
+                    drone.Battery = random.Next((int)min_battery + 1, 101);
+                    drone.Battery = drone.Battery;
                 }
             }
         }
@@ -268,7 +232,5 @@ namespace BL
             }
             throw new CustomerExeption("id not found");
         }
-
-
     }
 }

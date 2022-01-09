@@ -110,7 +110,7 @@ namespace PL
             {
                 //double hours = double.Parse(Interaction.InputBox("Hpw many hours at charge?"));
                 bl.drone_from_charge(drone.Id);
-                MessageBox.Show("Succsess","Succsess");
+                MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
             }
             catch (Exception ex)

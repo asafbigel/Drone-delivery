@@ -36,6 +36,9 @@ namespace DalApi
         //void UpdateDroneCharge(DroneCharge droneCharge, int DroneId);
         void UpdateParcel(Parcel parcel);
         #endregion
+        #region delete
+        public void DeleteDroneCharge(int id);
+        #endregion
         int GetAndUpdateRunNumber();
          double[] ElectricityUse();
         void send_drone_to_charge(DroneCharge droneCharge);

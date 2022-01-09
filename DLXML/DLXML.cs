@@ -18,7 +18,8 @@ namespace Dal
         #endregion
 
         #region DS XML Files
-        string customersPath = @"xml/CustomersXml.xml"; //XElement
+  //      string customersPath = @"xml/CustomersXml.xml"; //XElement
+        string customersPath = @"CustomersXml.xml"; //XMLSerializer
 
         string dronesPath = @"DronesXml.xml"; //XMLSerializer
         string baseStationsPath = @"BaseStationsXml.xml"; //XMLSerializer
@@ -261,7 +262,7 @@ namespace Dal
             List<Customer> ListCustomers = XMLTools.LoadListFromXMLSerializer<Customer>(customersPath);
 
             Customer cus = ListCustomers.FirstOrDefault(c => c.Id == id);
-            if (cus.Id == default(int))
+            if (cus.Id != default(int))
                 return cus; //no need to Clone()
             else
                 throw new BadCustomerIdException(id, $"bad customer id: {id}");
@@ -324,7 +325,7 @@ namespace Dal
             List<DroneCharge> ListDroneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargesPath);
 
             DroneCharge dch = ListDroneCharges.FirstOrDefault(dc => dc.DroneId == id);
-            if (dch.DroneId == default(int))
+            if (dch.DroneId != default(int))
                 return dch; //no need to Clone()
             else
                 throw new BadDroneChargeIdException(id, $"bad drone id: {id}");
@@ -333,7 +334,7 @@ namespace Dal
         {
             List<DroneCharge> ListDroneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargesPath);
             DroneCharge dch = ListDroneCharges.Find(d => d.DroneId == droneCharge.DroneId);
-            if (dch.DroneId == default(int))
+            if (dch.DroneId != default(int))
                 throw new BadDroneChargeIdException(droneCharge.DroneId, "This drone is yet in charge");
 
             ListDroneCharges.Add(droneCharge); //no need to Clone()
@@ -412,7 +413,7 @@ namespace Dal
 
         public double[] ElectricityUse()
         {
-            double[] a = { 50, 60, 70, 80, 30 };
+            double[] a = { 5, 10, 15, 20, 30 };
             return a;
         }
 

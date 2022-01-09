@@ -198,13 +198,20 @@ namespace BL
         /// </summary>
         /// <param name="id">Drone's id</param>
         /// <returns>The parcel</returns>
+        public static Parcel GetCurrectParcelOfDroneStatic(int id)
+        {
+            return convertor(mydal.Get_all_parcels(item => item.DroneId == id && item.Delivered == null).FirstOrDefault());
+        }
         public Parcel GetCurrectParcelOfDrone(int id)
         {
-            return convertor(mydal.Get_all_parcels(item => item.DroneId == id && item.Delivered == null).First());
+            return GetCurrectParcelOfDroneStatic(id);
         }
         public ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id)
         {
-            return convertor1(convertor(mydal.Get_all_parcels(item => item.DroneId == id && item.Delivered == null).FirstOrDefault()));
+            Parcel p = GetCurrectParcelOfDrone(id);
+            if (p == null)
+                return null;
+            return convertor1(p);
         }
     }
 }
