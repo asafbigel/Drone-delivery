@@ -82,6 +82,7 @@ namespace PL
                 drone = bl.GetAllDrones(item => true).ToList().Find(item => item.Id == drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
+                dronePage.
             }
             catch (Exception ex)
             {

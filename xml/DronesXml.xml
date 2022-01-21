@@ -11,13 +11,13 @@
     <MaxWeight>medium</MaxWeight>
   </Drone>
   <Drone>
-    <Id>999</Id>
-    <Model>a</Model>
-    <MaxWeight>light</MaxWeight>
-  </Drone>
-  <Drone>
     <Id>2</Id>
     <Model>Asaf</Model>
     <MaxWeight>heavy</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>999</Id>
+    <Model>aa</Model>
+    <MaxWeight>light</MaxWeight>
   </Drone>
 </ArrayOfDrone>

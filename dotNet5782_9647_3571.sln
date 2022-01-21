@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{A8ECB107-297
 		xml\BaseStationsXml.xml = xml\BaseStationsXml.xml
 		xml\CustomersXml.xml = xml\CustomersXml.xml
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\DataXml.xml = xml\DataXml.xml
 		xml\DroneChargesXml.xml = xml\DroneChargesXml.xml
 		xml\DronesXml.xml = xml\DronesXml.xml
 		xml\ParcelsXml.xml = xml\ParcelsXml.xml

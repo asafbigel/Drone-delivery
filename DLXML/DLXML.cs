@@ -19,8 +19,8 @@ namespace Dal
         #endregion
 
         #region DS XML Files
-  //      string customersPath = @"xml/CustomersXml.xml"; //XElement
-        string customersPath = @"CustomersXml.xml"; //XMLSerializer
+        string customersPath = @"CustomersXml.xml"; //XElement
+        string detailsPath = @"DataXml.xml"; //XElement
 
         string dronesPath = @"DronesXml.xml"; //XMLSerializer
         string baseStationsPath = @"BaseStationsXml.xml"; //XMLSerializer
@@ -56,7 +56,7 @@ namespace Dal
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
-            return (from cus in customersRootElem.Elements()
+            return from cus in customersRootElem.Elements()
                     select new Customer()
                     {
                         Id = Int32.Parse(cus.Element("Id").Value),
@@ -64,8 +64,7 @@ namespace Dal
                         Longitude = double.Parse(cus.Element("Longitude").Value),
                         Phone = cus.Element("Phone").Value,
                         Name = cus.Element("Name").Value
-                    }
-                   );
+                    };
         }
         public IEnumerable<Customer> GetAllCustomersBy(Predicate<Customer> predicate)
         {
@@ -74,7 +73,7 @@ namespace Dal
             return from cus in customersRootElem.Elements()
                    let customer = new Customer()
                    {
-                       Id = Int32.Parse(cus.Element("ID").Value),
+                       Id = Int32.Parse(cus.Element("Id").Value),
                        Lattitude = double.Parse(cus.Element("Lattitude").Value),
                        Longitude = double.Parse(cus.Element("Longitude").Value),
                        Phone = cus.Element("Phone").Value,
@@ -88,13 +87,13 @@ namespace Dal
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
             XElement per1 = (from p in customersRootElem.Elements()
-                             where int.Parse(p.Element("ID").Value) == customer.Id
+                             where int.Parse(p.Element("Id").Value) == customer.Id
                              select p).FirstOrDefault();
 
             if (per1 != null)
                 throw new BadCustomerIdException(customer.Id, "Duplicate customer ID");
 
-            XElement customerElem = new XElement("Customer", new XElement("ID", customer.Id),
+            XElement customerElem = new XElement("Customer", new XElement("Id", customer.Id),
                                   new XElement("Name", customer.Name),
                                   new XElement("Longitude", customer.Longitude),
                                   new XElement("Lattitude", customer.Lattitude),
@@ -110,7 +109,7 @@ namespace Dal
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
             XElement per = (from p in customersRootElem.Elements()
-                            where int.Parse(p.Element("ID").Value) == id
+                            where int.Parse(p.Element("Id").Value) == id
                             select p).FirstOrDefault();
 
             if (per != null)
@@ -128,12 +127,12 @@ namespace Dal
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
             XElement cus = (from c in customersRootElem.Elements()
-                            where int.Parse(c.Element("ID").Value) == customer.Id
+                            where int.Parse(c.Element("Id").Value) == customer.Id
                             select c).FirstOrDefault();
 
             if (cus != null)
             {
-                cus.Element("ID").Value = customer.Id.ToString();
+                cus.Element("Id").Value = customer.Id.ToString();
                 cus.Element("Name").Value = customer.Name;
                 cus.Element("Phone").Value = customer.Phone;
                 cus.Element("Longitude").Value = customer.Longitude.ToString();
@@ -321,8 +320,8 @@ namespace Dal
         public void Add_parcel(Parcel parcel)
         {
             List<Parcel> ListParcels = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
-            Parcel? par = ListParcels.Find(p => p.Id == parcel.Id);
-            if (par != null)
+            Parcel par = ListParcels.Find(p => p.Id == parcel.Id);
+            if (par.Id != default(int))
                 throw new BadParcelIdException(parcel.Id, "Duplicate parcel ID");
 
             ListParcels.Add(parcel); //no need to Clone()
@@ -526,18 +525,23 @@ namespace Dal
         }
 
 
-        #region need to do
+        #region data
 
         public int GetAndUpdateRunNumber()
         {
-            Random rand = new Random();
-            return rand.Next(10000, 99999);
+            XElement details = XMLTools.LoadListFromXMLElement(detailsPath);
+            int x = int.Parse(details.Element("RowNumbers").Element("NewParcelId").Value);
+            details.Element("RowNumbers").Element("NewParcelId").Value = (x + 1).ToString();
+            XMLTools.SaveListToXMLElement(details, detailsPath);
+            return x;
         }
 
         public double[] ElectricityUse()
         {
-            double[] a = { 5, 10, 15, 20, 30 };
-            return a;
+                XElement details = XMLTools.LoadListFromXMLElement(detailsPath);
+                var x = from data in details.Element("BatteryUsages").Elements()
+                        select double.Parse(data.Value);
+                return x.ToArray();
         }
 
         #endregion
