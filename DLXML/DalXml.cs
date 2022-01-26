@@ -15,6 +15,10 @@ namespace Dal
         {
             throw new NotImplementedException();
         }
+        public void DeleteParcel(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Add_customer(Customer customer)
         {

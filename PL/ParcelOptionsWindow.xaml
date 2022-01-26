@@ -1,0 +1,119 @@
+﻿<Window x:Class="PL.ParcelOptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BO;assembly=BL"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="ParcelOptionsWindow" Height="500" Width="1300">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromPriority" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:Priorities"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="dataFromWeight" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:WeightCategories"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="Parcel" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" >
+            <Grid x:Name="StackPanelGrid" Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
+                <Label Content="Sender Id:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
+                <Label Content="Sender Name:" Grid.Column="0" Grid.Row="2" FontSize="24"/>
+                <Label Content="Getter Id:" Grid.Column="0" Grid.Row="3" FontSize="24"/>
+                <Label Content="Getter Name:" Grid.Column="0" Grid.Row="4" FontSize="24"/>
+                <Label Content="Weight:" Grid.Column="0" Grid.Row="5" FontSize="24"/>
+                <Label Content="Priority:" Grid.Column="0" Grid.Row="6" FontSize="24"/>
+                <Label Content="TheDrone:" Grid.Column="0" Grid.Row="7" FontSize="24"/>
+
+                <Label x:Name="Id" Content="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="24"/>
+                <TextBox x:Name="SenderId" Text="{Binding Sender.Id}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <Label x:Name="SenderName" Content ="{Binding Sender.CustomerName}" Grid.Column="1" Grid.Row="2" FontSize="24"/>
+                <TextBox x:Name="GetterId" Text="{Binding Getter.Id}" Grid.Column="1" Grid.Row="3" FontSize="24"/>
+                <Label x:Name="GetterName" Content="{Binding Getter.CustomerName}" Grid.Column="1" Grid.Row="4" FontSize="24"/>
+                <ComboBox Name="WeightSelector" Text="{Binding Weight}"
+                     Grid.Row="5" Grid.Column="1" IsEditable="True" IsReadOnly="True" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      FontSize="20" FontWeight="Bold" Width="174" Margin="7,0,0,0"
+                      ItemsSource="{Binding Source={StaticResource dataFromWeight}}"/>
+                <ComboBox Name="PrioritySelector" Text="{Binding Priority}"
+                     Grid.Row="6" Grid.Column="1" IsEditable="True" IsReadOnly="True" 
+                       VerticalAlignment="Center"
+                      FontSize="20" FontWeight="Bold" Width="174" Margin="7,0,0,0"
+                      ItemsSource="{Binding Source={StaticResource dataFromPriority}}" 
+                />
+
+                <Label x:Name="TheDrone" Content="{Binding TheDrone.Id}" Grid.Column="1" Grid.Row="7" FontSize="24"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="Parcel2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" >
+            <Grid x:Name="StackPanelGrid2" Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Label Content="Requested Time:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
+                <Label Content="Scheduled Time:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
+                <Label Content="PickedUp Time: " Grid.Column="0" Grid.Row="2" FontSize="24"/>
+                <Label Content="Delivered Time:" Grid.Column="0" Grid.Row="3" FontSize="24"/>
+
+
+
+                <Label x:Name="Requested" Content="{Binding Requested}" Grid.Column="1" Grid.Row="0" FontSize="24"/>
+                <Label x:Name="Scheduled" Content="{Binding Scheduled}" Grid.Column="1" Grid.Row="1" FontSize="24"/>
+                <Label x:Name="PickedUp" Content="{Binding PickedUp}" Grid.Column="1" Grid.Row="2" FontSize="24"/>
+                <Label x:Name="Delivered" Content="{Binding Delivered}" Grid.Column="1" Grid.Row="3" FontSize="24"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="Options" Grid.Column="2" VerticalAlignment="Center">
+            <Button x:Name="Close"  Content="Close" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Close_Click" />
+            <Button x:Name="Add"  Content="Add Parcel" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Add_Click" />
+            <Button x:Name="Update"  Content="Update" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,10,0,10" Click="Update_Click"/>
+            <Button x:Name="Delete"  Content="Delete Parcel" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10"   Click="Delete_Click"/>
+            <Button x:Name="OpenSender"  Content="Open Sender" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="OpenSender_Click"/>
+            <Button x:Name="OpenGetter"  Content="Open Getter" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="OpenGetter_Click"/>
+            <Button x:Name="OpenDrone"  Content="Open Drone" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10"   Click="OpenDrone_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

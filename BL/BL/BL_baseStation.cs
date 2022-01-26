@@ -6,13 +6,12 @@ using System.Linq;
 namespace BL
 {
     public partial class BL
-    {
-        /// <summary>
-        /// fanction that update baseStation
-        /// </summary>
-        /// <param name="id">id of  baseStation </param>
-        /// <param name="new_name"> the new name of the update baseStation   </param>
-        /// <param name="new_slot">the new number of free slot charge of  the update baseStation</param>
+    {/// <summary>
+     /// fanction that update baseStation
+     /// </summary>
+     /// <param name="id">id of  baseStation </param>
+     /// <param name="new_name"> the new name of the update baseStation   </param>
+     /// <param name="new_slot">the new number of free slot charge of  the update baseStation</param>
         public void update_baseStation(int id, string new_name, string new_slot)
         {
             BaseStation baseStation = find_baseStation(id);
@@ -26,6 +25,17 @@ namespace BL
                 else
                     throw new slotException("There more drone at charge now");
             }
+            mydal.UpdateBaseStation(convertor(baseStation));
+        }
+        /// <summary>
+        ///  fanction that update baseStation
+        /// </summary>
+        /// <param name="baseStation"> the baseStation to update </param>
+        public void UpdateBaseStation(BaseStation baseStation)
+        { 
+            if(baseStation.Num_Free_slots_charge < 0)
+                throw new slotException("Free slots charge can't be less than 0");
+            BaseStation OldbaseStation = find_baseStation(baseStation.Id);
             mydal.UpdateBaseStation(convertor(baseStation));
         }
 
@@ -50,6 +60,13 @@ namespace BL
         /// </param>
         public void Add_base_station(BaseStation baseStation)
         {
+            if (baseStation.Id == 0)
+                throw new BaseStationExeption("Invalid Id");
+            if (baseStation.Name == "")
+                throw new BaseStationExeption("Enter Name");
+            if (baseStation.Name == null)
+                throw new BaseStationExeption("Invalid Name");
+
             baseStation.DroneInChargings = new List<DroneInCharging>();
             DO.BaseStation idalBaseStation = convertor(baseStation);
             mydal.Add_base_station(idalBaseStation);
@@ -88,7 +105,7 @@ namespace BL
         /// <returns>the string of ToString of all the baseStations with free slots</returns>
         public string string_all_baseStations_with_free_slots()
         {
-            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => x.ChargeSlots>0));
+            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => x.ChargeSlots > 0));
             string result = "";
             foreach (var item in baseStations)
             {
@@ -97,6 +114,14 @@ namespace BL
             }
             return result;
         }
+        public BaseStation GetBaseStation(int id)
+        {
+            var baseStation = mydal.Find_baseStation(id);
+            if (baseStation.Id == 0)
+                throw new BaseStationExeption("baseStation not found");
+            return convertor(baseStation);
+
+        }
 
         public IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match)
         {
@@ -104,4 +129,6 @@ namespace BL
             return convertor1(list).FindAll(match);
         }
     }
+
+
 }

@@ -40,7 +40,7 @@ namespace BL
                 Id = idalBaseStation.Id,
                 Name = idalBaseStation.Name,
                 Num_Free_slots_charge = idalBaseStation.ChargeSlots,
-                DroneInChargings = new List<DroneInCharging>() 
+                DroneInChargings = new List<DroneInCharging>()
             };
             IEnumerable<DO.DroneCharge> droneCharges = mydal.Get_all_DroneCharge();
             foreach (var item in droneCharges)
@@ -67,15 +67,20 @@ namespace BL
         /// <returns> DO.BaseStation object </returns>
         static private DO.BaseStation convertor(BaseStation baseStation)
         {
-            DO.BaseStation idalBaseStation = new DO.BaseStation()
-            {
-                ChargeSlots = baseStation.Num_Free_slots_charge,
-                Id = baseStation.Id,
-                Lattitude = baseStation.BaseStationLocation.latitude,
-                Longitude = baseStation.BaseStationLocation.longitude,
-                Name = baseStation.Name
-            };
-            return idalBaseStation;
+            
+                DO.BaseStation idalBaseStation = new DO.BaseStation()
+                {
+                    ChargeSlots = baseStation.Num_Free_slots_charge,
+                    Id = baseStation.Id,
+                    Lattitude = baseStation.BaseStationLocation.latitude,
+                    Longitude = baseStation.BaseStationLocation.longitude,
+                    Name = baseStation.Name
+                };
+                return idalBaseStation;
+            
+                
+
+                       
         }
         /// <summary>
         /// convert from BO.parcel object to  DO.parcel object
@@ -84,7 +89,7 @@ namespace BL
         /// <returns>DO.parcel object </returns>
         static private DO.Parcel convertor(Parcel parcel)
         {
-            int drone_id =0 ;
+            int drone_id = 0;
             int senderId = 0;
             int TargetId = 0;
             if (parcel.TheDrone != null)
@@ -135,7 +140,7 @@ namespace BL
                 Delivered = idalParcel.Delivered,
                 Id = idalParcel.Id,
                 PickedUp = idalParcel.PickedUp,
-                
+
                 Priority = (Priorities)idalParcel.Priority,
                 Weight = (WeightCategories)idalParcel.Weight,
                 Requested = idalParcel.Requested,
@@ -380,9 +385,9 @@ namespace BL
         /// <returns>BO.CustomerToList object</returns>
         static private CustomerToList convertor4(DO.Customer item)
         {
-            List<DO.Parcel> parcels_got = mydal.Get_all_parcels(x => true).ToList().FindAll                 (parcel => parcel.TargetId == item.Id && parcel.Delivered != null);
-            List<DO.Parcel> parcels_to_get = mydal.Get_all_parcels(x => true).ToList().FindAll              (parcel => parcel.TargetId == item.Id && parcel.Delivered == null);
-            List<DO.Parcel> parcels_sent_and_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll    (parcel => parcel.SenderId == item.Id && parcel.Delivered != null);
+            List<DO.Parcel> parcels_got = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.TargetId == item.Id && parcel.Delivered != null);
+            List<DO.Parcel> parcels_to_get = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.TargetId == item.Id && parcel.Delivered == null);
+            List<DO.Parcel> parcels_sent_and_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered != null);
             List<DO.Parcel> parcels_sent_and_not_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered == null);
             return new CustomerToList()
             {
@@ -509,7 +514,7 @@ namespace BL
                 ParcelAtCustomer parcelAtCustomer = convertor2(parcel);
                 if (parcel.SenderId == idal_customer.Id)
                 {
-                    
+
                     parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.TargetId));
                     customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
                 }
@@ -614,5 +619,53 @@ namespace BL
                 Parcel = convertor1(parcel)
             };
         }
+            ///////////////////////////////////////////////////////////////////////////
+        static private Customer convertor3(CustomerToList customerToList)
+        {
+                DO.Customer customer = new DO.Customer();
+                customer = mydal.Find_customer(customerToList.Id);
+                Location myCustomerLocation = new Location();
+                myCustomerLocation.latitude = customer.Lattitude;
+                myCustomerLocation.longitude = customer.Longitude;
+
+
+
+                Customer myCustomer = new Customer()
+                {
+
+                    Id = customerToList.Id,
+                    Name = customerToList.Name,
+                    Phone = customerToList.Phone,
+                    CustomerLocation = myCustomerLocation,
+                    ParcelsAtCustomerFrom = new List<ParcelAtCustomer>(),
+                    parcelsAtCustomerFor = new List<ParcelAtCustomer>()
+                };
+
+
+                IEnumerable<DO.Parcel> Parcels = mydal.Get_all_parcels(item => true);
+                foreach (var item in Parcels)
+                {
+                    if (item.SenderId == customerToList.Id)
+                    {
+                        ParcelAtCustomer parcel = convertor2(item);
+                        myCustomer.ParcelsAtCustomerFrom.Add(parcel);
+                    }
+                    if (item.TargetId == customerToList.Id)
+                    {
+                        ParcelAtCustomer parcel = convertor2(item);
+                        myCustomer.parcelsAtCustomerFor.Add(parcel);
+                    }
+                }
+            return myCustomer;
+        }
+        
     }
 }
+
+        
+            
+             
+
+        
+
+    

@@ -3,12 +3,136 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:PL"
+       xmlns:local="clr-namespace:BO;assembly=BL"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ParcelsPage">
 
-    <Grid>
-        
+    <Page.Resources>
+        <ObjectDataProvider x:Key="dataFromStatus" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:ParcelStatuses"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="dataFromWeight" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:WeightCategories"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Page.Resources>
+
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="400*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="upGrid" HorizontalAlignment="Stretch"
+              Height="auto" Grid.Row="0"
+                 VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions >
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Parcel status:" Grid.Column="0" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
+                     Foreground="#FFC71E1E" FontWeight="Bold" />
+            <Grid x:Name="DateStart" HorizontalAlignment="Stretch"
+              Height="auto" Grid.Row="1" Grid.Column="1"
+                 VerticalAlignment="Stretch" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="14"/>
+                    <ColumnDefinition Width="70*"/>
+
+
+                </Grid.ColumnDefinitions >
+                <TextBox x:Name="dayFrom" Text="" Grid.Column="0" FontSize="18" Margin="0,5,0,0" />
+                <Label Content="/" Grid.Column="1"  FontSize="18"/>
+                <TextBox x:Name="monthFrom" Text="" Grid.Column="2" FontSize="18" Margin="0,5,0,0"/>
+                <Label Content="/" Grid.Column="2"  FontSize="18" Grid.ColumnSpan="3" Margin="0,0,76,0" HorizontalAlignment="Right" Width="31"/>
+                <TextBox x:Name="yearFrom" Text="" Grid.Column="4" FontSize="18" Margin="5,5,37,0" />
+
+            </Grid>
+            <ComboBox Name="StatusSelector" Text="choose status:"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150"
+                      Grid.Column="1" IsEditable="True"
+                      FontSize="20" FontWeight="Bold" Width="auto" 
+                      SelectionChanged="StatusSelector_SelectionChanged" IsReadOnly="True"
+                        ItemsSource="{Binding Source={StaticResource dataFromStatus}}"/>
+
+            <Button x:Name="Reset" Grid.Column="2" Content="Reset " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Click="Reset_Click"/>
+            <TextBlock Text="weight:" Grid.Column="3" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
+                     Foreground="#FFC71E1E" FontWeight="Bold" />
+            <ComboBox Name="WeightSelector" Text="choose weight:"
+                      Grid.Column="4" IsEditable="True" IsReadOnly="True"
+                      Grid.ColumnSpan="2" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      FontSize="20" FontWeight="Bold" Width="174"
+                      ItemsSource="{Binding Source={StaticResource dataFromWeight}}"
+                      SelectionChanged="WeightSelector_SelectionChanged"/>
+            <TextBlock Text="Date:  From:" Grid.Column="0" Grid.Row="1" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
+                     Foreground="#FFC71E1E" FontWeight="Bold" />
+            <TextBlock Text="Until:" Grid.Column="2" Grid.Row="1" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
+                     Foreground="#FFC71E1E" FontWeight="Bold" />
+
+            <Grid x:Name="DateEnd" HorizontalAlignment="Stretch"
+              Height="auto" Grid.Row="1" Grid.Column="3"
+                 VerticalAlignment="Stretch" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="14"/>
+                    <ColumnDefinition Width="70*"/>
+
+                </Grid.ColumnDefinitions >
+                <TextBox x:Name="dayEnd" Text="" Grid.Column="0" FontSize="18" Margin="0,5,0,0" />
+                <Label Content="/" Grid.Column="1"  FontSize="18"/>
+                <TextBox x:Name="monthEnd" Text="" Grid.Column="2" FontSize="18" Margin="0,5,0,0"/>
+                <Label Content="/" Grid.Column="2"  FontSize="18" Grid.ColumnSpan="3" Margin="0,0,76,0" HorizontalAlignment="Right" Width="31"/>
+                <TextBox x:Name="yearEnd" Text="" Grid.Column="4" FontSize="18" Margin="5,5,37,0" />
+
+            </Grid>
+
+            <Button x:Name="Filter" Grid.Column="4"  Grid.Row="1" Content="Filter by date " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Click="Filter_Click" Width="307"  />
+        </Grid>
+        <ListView  x:Name="ParcelListView" Grid.Row="1" ItemsSource="{Binding}" SelectionChanged="ParcelListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Weight" Width="auto" DisplayMemberBinding="{Binding Weight}" />
+                    <GridViewColumn Header="Priority" Width="auto" DisplayMemberBinding="{Binding Priority}" />
+                    <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Sender Name" Width="auto" DisplayMemberBinding="{Binding SenderName}" />
+                    <GridViewColumn Header="Getter Name" Width="auto" DisplayMemberBinding="{Binding GetterName}" />
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" x:Name="options" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button x:Name="AddParcel" Content="Add parcel" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddParcel_Click"/>
+            <Button x:Name="GroupingByGetter" Content="Grouping By Getter" FontSize="24" Click="GroupingByGetter_Click" />
+            <Button x:Name="GroupingBySender" Content="Grouping By Sender" FontSize="24" Click="GroupingBySender_Click" />
+
+
+        </StackPanel>
     </Grid>
+
 </Page>

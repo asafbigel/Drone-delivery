@@ -15,7 +15,7 @@ namespace BL
         /// <param name="parcel">new parcel to add</param>
         /// <param name="sender_id">  the id of the sender of the new parcel </param>
         /// <param name="getter_id"></param>
-        public void Add_parcel(Parcel parcel, int sender_id, int getter_id)
+        public int Add_parcel(Parcel parcel, int sender_id, int getter_id)
         {
             parcel.Delivered = null;
             parcel.PickedUp = null;
@@ -27,6 +27,12 @@ namespace BL
             idalParcel.SenderId = sender_id;
             idalParcel.TargetId = getter_id;
             mydal.Add_parcel(idalParcel);
+            return parcel.Id;
+
+        }
+        public void updateParcel(Parcel parcel)/////////////////////////////////
+        {
+              mydal.UpdateParcel(convertor(parcel));
         }
         /// <summary>
         /// fanction that connect parcel to specific drone
@@ -193,6 +199,20 @@ namespace BL
             }
             return result;
         }
+
+        public void DelsteParcel(int id)
+        {
+            var parcel = mydal.Find_parcel(id);
+            if (parcel.Id == 0)
+                throw new ParcelException("parcel not found");
+            
+            if(parcel.Scheduled !=null)
+                throw new ParcelException("It is not possible to delete a parcel Scheduled to drone");
+            mydal.DeleteParcel(id);
+
+        }        
+           
+
         /// <summary>
         /// Get a parcel which this drone is sending it now
         /// </summary>
@@ -206,5 +226,30 @@ namespace BL
         {
             return convertor1(convertor(mydal.Find_parcel(item => item.DroneId == id && item.Delivered == null)));
         }
+        public Parcel GetParcel(ParcelAtCustomer parcel)
+        {
+            return convertor(mydal.Find_parcel(parcel.Id));
+        }
+        public Parcel GetParcel(ParcelToList parcel)
+        {
+            return convertor(mydal.Find_parcel(parcel.Id));
+        }
+        public Parcel GetParcel(int id)
+        {
+            return convertor(mydal.Find_parcel(id));
+        }
+
+        public IEnumerable<ParcelToList> GetAllParcels(Predicate<ParcelToList> match)
+        {
+            return convertor(mydal.Get_all_parcels(item=>true)).FindAll(match);
+        }
+        public bool CheckDate(DateTime from, DateTime until)
+        {
+            if (until < from)
+                throw new DateException("Until date must not be smaller then From date ");
+            return true;
+
+        }
     }
+
 }

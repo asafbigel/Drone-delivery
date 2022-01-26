@@ -115,6 +115,13 @@ namespace BL
         {
             return convertor(mydal.Get_all_drones()).FindAll(match);
         }
+        public DroneToList GetDroneToList(int id)
+        {
+            var myDrone = mydal.Find_drone(id);
+            Drone drone = convertor(myDrone);
+            return convertor3(drone);
+        }
+   
         public Drone GetDrone(DroneToList drone)
         {
             return convertor3(drone);
