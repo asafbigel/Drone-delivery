@@ -117,6 +117,7 @@ namespace Dal
             DataSource.Customers[i] = customer;
 
         }
+        /*
         /// <summary>
         /// Update Drone Charge
         /// </summary>
@@ -127,6 +128,7 @@ namespace Dal
             int i = find_index_droneCharge_by_drone(DroneId);
             DataSource.DroneCharges[i] = droneCharge;
         }
+        */
         #endregion
 
         #region Get an object, and delete it (public)
@@ -226,15 +228,6 @@ namespace Dal
             }
             return new Parcel();
         }
-        public DroneCharge Find_drone_charge(int my_drone_id)
-        {
-            for (int i = 0; i < DataSource.DroneCharges.Count; i++)
-            {
-                if (DataSource.DroneCharges[i].DroneId == my_drone_id)
-                    return DataSource.DroneCharges[i];
-            }
-            return new DroneCharge();
-        }
         public BaseStation Find_baseStation(int my_id)
         {
             for (int i = 0; i < DataSource.BaseStations.Count; i++)
@@ -272,12 +265,21 @@ namespace Dal
 
             return new DroneCharge();
         }
+        public DroneCharge FindDroneCharge(int my_drone_id)
+        {
+            for (int i = 0; i < DataSource.DroneCharges.Count; i++)
+            {
+                if (DataSource.DroneCharges[i].DroneId == my_drone_id)
+                    return DataSource.DroneCharges[i];
+            }
+            return new DroneCharge();
+        }
         #endregion
 
         #region Get a predicate and return a item
-        public Parcel Find_parcel(Predicate<Parcel> match)
+        public List<Parcel> FindParcelBy(Predicate<Parcel> match)
         {
-            return DataSource.Parcels.Find(match);
+            return DataSource.Parcels.FindAll(match);
         }
         #endregion
 
@@ -362,15 +364,21 @@ namespace Dal
 
         public void put_out_drone_from_charge(int my_drone_id)
         {
-            DroneCharge droneCharge = Find_drone_charge(my_drone_id);
+            DroneCharge droneCharge = FindDroneCharge(my_drone_id);
             int my_baseStation_id = droneCharge.StationId;
             BaseStation baseStation = Find_baseStation(my_baseStation_id);
             baseStation.ChargeSlots++;
             UpdateBaseStation(baseStation);
-            DataSource.DroneCharges.Remove(droneCharge);
+            DeleteDroneCharge(droneCharge.DroneId);
             //int DroneId = droneCharge.DroneId;
             //Drone drone = Find_drone(my_drone_id);
             //UpdateDroneCharge(droneCharge, DroneId);
+        }
+
+        public void DeleteDroneCharge(int my_drone_id)
+        {
+            DroneCharge droneCharge = FindDroneCharge(my_drone_id);
+            DataSource.DroneCharges.Remove(droneCharge);
         }
     }
 

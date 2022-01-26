@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Customers>
+  <Customer>
+    <Id>3571</Id>
+    <Name>Asaf</Name>
+    <Phone>052-6677223</Phone>
+    <Longitude>35.16877451602778</Longitude>
+    <Lattitude>31.732910196824424</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>9647</Id>
+    <Name>Menachem</Name>
+    <Phone>05...</Phone>
+    <Longitude>36.1473</Longitude>
+    <Lattitude>32.002910196824424</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>3</Id>
+    <Name>ABC</Name>
+    <Longitude>35.1234</Longitude>
+    <Lattitude>34.8765</Lattitude>
+    <Phone>05012345</Phone>
+  </Customer>
+  <Customer>
+    <Id>4</Id>
+    <Name>abc</Name>
+    <Longitude>35.9988776</Longitude>
+    <Lattitude>34.12345</Lattitude>
+    <Phone>0505050</Phone>
+  </Customer>
+</Customers>

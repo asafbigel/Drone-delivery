@@ -82,7 +82,7 @@ namespace PL
                     new DroneViewWindow(DroneListView.SelectedItem, bl, this).Show();
                 DroneToList d = (DroneToList)DroneListView.SelectedItem;
                 ParcelAtTransfer parcel = bl.GetCurrectParcelAtTransferOfDrone(d.Id);
-                if (ParcelSelection.IsChecked == true && parcel.Id != 0)
+                 if (ParcelSelection.IsChecked == true && parcel != null && parcel.Id != 0)
                     new ParcelViewWindow(parcel, bl).Show();
             }
             DroneListView.UnselectAll();

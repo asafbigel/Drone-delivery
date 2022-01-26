@@ -120,6 +120,8 @@ namespace BL
         /// <returns>BO.parcel object   </returns>
         static private Parcel convertor(DO.Parcel idalParcel)
         {
+            if (idalParcel.Id == default(int))
+                return null;
             DO.Customer idalGetter = mydal.Find_customer(idalParcel.TargetId);
             DO.Customer idalSender = mydal.Find_customer(idalParcel.SenderId);
             CustomerAtParcel getter = new CustomerAtParcel()
@@ -158,6 +160,8 @@ namespace BL
         /// <returns>ParcelAtTransfer</returns>
         static private ParcelAtTransfer convertor1(Parcel parcel)
         {
+            if (parcel == null)
+                return null;
             Location senderLlocation = new Location();
             Location getter_location = new Location();
             DO.Customer sender = mydal.Find_customer(parcel.Sender.Id);
@@ -369,7 +373,7 @@ namespace BL
         /// </summary>
         /// <param name="enumerable"> IEnumerable<DO.Customer> </param>
         /// <returns> List<Customer> after convert </returns>
-        static private List<Customer> convertor1(IEnumerable<DO.Customer> enumerable)
+        static private IEnumerable<Customer> convertor1(IEnumerable<DO.Customer> enumerable)
         {
             List<Customer> customers = new List<Customer>();
             foreach (var item in enumerable)
@@ -576,7 +580,7 @@ namespace BL
         }
         private DroneInCharging convertor2(DroneToList drone)
         {
-            DO.DroneCharge doDrone = mydal.Find_droneCharge_by_drone(drone.Id);
+            DO.DroneCharge doDrone = mydal.FindDroneCharge(drone.Id);
             return new DroneInCharging()
             {
                 Battery = drone.Battery,
@@ -608,6 +612,17 @@ namespace BL
             DO.Parcel parcel = new DO.Parcel();
             if (droneToList.Status == DroneStatuses.sending)
                 parcel = mydal.Get_all_parcels(item => item.DroneId == droneToList.Id && item.Delivered == null).First();
+            if (parcel.Id != default(int))
+                return new Drone()
+                {
+                    Battery = droneToList.Battery,
+                    Id = droneToList.Id,
+                    MaxWeight = droneToList.MaxWeight,
+                    Model = droneToList.Model,
+                    DroneLocation = droneToList.DroneLocation,
+                    Status = droneToList.Status,
+                    Parcel = convertor1(parcel)
+                };
             return new Drone()
             {
                 Battery = droneToList.Battery,
@@ -616,7 +631,7 @@ namespace BL
                 Model = droneToList.Model,
                 DroneLocation = droneToList.DroneLocation,
                 Status = droneToList.Status,
-                Parcel = convertor1(parcel)
+                Parcel = null
             };
         }
             ///////////////////////////////////////////////////////////////////////////
