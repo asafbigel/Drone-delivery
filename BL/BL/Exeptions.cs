@@ -99,21 +99,21 @@ namespace BL
         }
     }
     [Serializable]
-    internal class DroneException : Exception
+    internal class DroneBatteryException : Exception
     {
-        public DroneException()
+        public DroneBatteryException()
         {
         }
 
-        public DroneException(string message) : base(message)
+        public DroneBatteryException(string message) : base(message)
         {
         }
 
-        public DroneException(string message, Exception innerException) : base(message, innerException)
+        public DroneBatteryException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
-        protected DroneException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DroneBatteryException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

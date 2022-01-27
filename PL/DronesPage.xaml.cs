@@ -73,7 +73,7 @@ namespace PL
             if (DroneListView.SelectedItem != null)
             {
                 if (DroneSelection.IsChecked == true)              
-                    new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
+                    new DroneViewWindow(DroneListView.SelectedItem, bl, Refresh).Show();
                 DroneToList d = (DroneToList)DroneListView.SelectedItem;
                 ParcelAtTransfer parcel = bl.GetCurrectParcelAtTransferOfDrone(d.Id);
                  if (ParcelSelection.IsChecked == true && parcel != null && parcel.Id != 0)
@@ -114,8 +114,15 @@ namespace PL
         {
             weight = null;
             status = null;
-            if (WeightSelector.SelectedItem != null)
-                weight = (WeightCategories)WeightSelector.SelectedItem;
+            try
+            {
+                if (WeightSelector.SelectedItem != null)
+                    weight = (WeightCategories)WeightSelector.SelectedItem;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             if (StatusSelector.SelectedItem != null)
                 status = (DroneStatuses)StatusSelector.SelectedItem;
             var x = bl.GetAllDrones(item => (weight == null || item.MaxWeight == weight) && (status == null || item.Status == status));

@@ -1,9 +1,7 @@
-﻿using System;
+﻿using BO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BO;
+
 
 namespace BL
 {
@@ -34,31 +32,34 @@ namespace BL
         /// <returns>BO.BaseStation object </returns>
         static private BaseStation convertor(DO.BaseStation idalBaseStation)
         {
-
-            BaseStation baseStation = new BaseStation
+            lock (mydal)
             {
-                Id = idalBaseStation.Id,
-                Name = idalBaseStation.Name,
-                Num_Free_slots_charge = idalBaseStation.ChargeSlots,
-                DroneInChargings = new List<DroneInCharging>() 
-            };
-            IEnumerable<DO.DroneCharge> droneCharges = mydal.Get_all_DroneCharge();
-            foreach (var item in droneCharges)
-            {
-                if (item.StationId == baseStation.Id)
+                BaseStation baseStation = new BaseStation
                 {
-                    DroneInCharging drone = convertor(item);
-                    baseStation.DroneInChargings.Add(drone);
+                    Id = idalBaseStation.Id,
+                    Name = idalBaseStation.Name,
+                    Num_Free_slots_charge = idalBaseStation.ChargeSlots,
+                    DroneInChargings = new List<DroneInCharging>()
+                };
+                IEnumerable<DO.DroneCharge> droneCharges = mydal.Get_all_DroneCharge();
+                foreach (var item in droneCharges)
+                {
+                    if (item.StationId == baseStation.Id)
+                    {
+                        DroneInCharging drone = convertor(item);
+                        baseStation.DroneInChargings.Add(drone);
+                    }
                 }
+
+                //baseStation.Num_Free_slots_charge -= baseStation.DroneInChargings.Count();
+                //if (baseStation.Num_Free_slots_charge < 0)
+                //    throw new DroneChargeException("There more drone from slots");
+                Location location = new Location();
+                location.latitude = idalBaseStation.Lattitude;
+                location.longitude = idalBaseStation.Longitude;
+                baseStation.BaseStationLocation = location;
+                return baseStation;
             }
-            //baseStation.Num_Free_slots_charge -= baseStation.DroneInChargings.Count();
-            //if (baseStation.Num_Free_slots_charge < 0)
-            //    throw new DroneChargeException("There more drone from slots");
-            Location location = new Location();
-            location.latitude = idalBaseStation.Lattitude;
-            location.longitude = idalBaseStation.Longitude;
-            baseStation.BaseStationLocation = location;
-            return baseStation;
         }
         /// <summary>
         /// convert from BO.BaseStation object to  DO.BaseStation object
@@ -115,38 +116,40 @@ namespace BL
         /// <returns>BO.parcel object   </returns>
         static private Parcel convertor(DO.Parcel idalParcel)
         {
-            if (idalParcel.Id == default(int))
-                return null;
-            DO.Customer idalGetter = mydal.Find_customer(idalParcel.TargetId);
-            DO.Customer idalSender = mydal.Find_customer(idalParcel.SenderId);
-            CustomerAtParcel getter = new CustomerAtParcel()
+            lock (mydal)
             {
-                CustomerName = idalGetter.Name,
-                Id = idalGetter.Id
-            };
-            CustomerAtParcel sender = new CustomerAtParcel()
-            {
-                CustomerName = idalSender.Name,
-                Id = idalSender.Id
-            };
-            DroneToList drone = my_drones.Find(item => item.Id == idalParcel.DroneId);
-            if (drone == null)
-                drone = new DroneToList();
-            return new Parcel()
-            {
-                Delivered = idalParcel.Delivered,
-                Id = idalParcel.Id,
-                PickedUp = idalParcel.PickedUp,
-                
-                Priority = (Priorities)idalParcel.Priority,
-                Weight = (WeightCategories)idalParcel.Weight,
-                Requested = idalParcel.Requested,
-                Scheduled = idalParcel.Scheduled,
-                Getter = getter,
-                Sender = sender,
-                TheDrone = convertor1(drone)
-            };
+                if (idalParcel.Id == default(int))
+                    return null;
+                DO.Customer idalGetter = mydal.Find_customer(idalParcel.TargetId);
+                DO.Customer idalSender = mydal.Find_customer(idalParcel.SenderId);
+                CustomerAtParcel getter = new CustomerAtParcel()
+                {
+                    CustomerName = idalGetter.Name,
+                    Id = idalGetter.Id
+                };
+                CustomerAtParcel sender = new CustomerAtParcel()
+                {
+                    CustomerName = idalSender.Name,
+                    Id = idalSender.Id
+                };
+                DroneToList drone = my_drones.Find(item => item.Id == idalParcel.DroneId);
+                if (drone == null)
+                    drone = new DroneToList();
+                return new Parcel()
+                {
+                    Delivered = idalParcel.Delivered,
+                    Id = idalParcel.Id,
+                    PickedUp = idalParcel.PickedUp,
 
+                    Priority = (Priorities)idalParcel.Priority,
+                    Weight = (WeightCategories)idalParcel.Weight,
+                    Requested = idalParcel.Requested,
+                    Scheduled = idalParcel.Scheduled,
+                    Getter = getter,
+                    Sender = sender,
+                    TheDrone = convertor1(drone)
+                };
+            }
         }
         /// <summary>
         /// convert from Parcel object to ParcelAtTransfer object
@@ -155,28 +158,37 @@ namespace BL
         /// <returns>ParcelAtTransfer</returns>
         static private ParcelAtTransfer convertor1(Parcel parcel)
         {
-            if (parcel == null)
-                return null;
-            Location senderLlocation = new Location();
-            Location getter_location = new Location();
-            DO.Customer sender = mydal.Find_customer(parcel.Sender.Id);
-            DO.Customer getter = mydal.Find_customer(parcel.Getter.Id);
-            senderLlocation.longitude = sender.Longitude;
-            senderLlocation.latitude = sender.Lattitude;
-            getter_location.longitude = getter.Longitude;
-            getter_location.latitude = getter.Lattitude;
-            return new ParcelAtTransfer()
+            lock (mydal)
             {
-                Id = parcel.Id,
-                Priority = parcel.Priority,
-                Weight = parcel.Weight,
-                Sender = parcel.Sender,
-                Getter = parcel.Getter,
-                LocationOfPickUp = senderLlocation,
-                SateOfParcel = (parcel.PickedUp != null),
-                DistanceOfDelivery = distance_between_2_points(getter_location, senderLlocation),
-                LocationOfTarget = getter_location
-            };
+                if (parcel == null)
+                    return null;
+                Location senderLlocation = new Location();
+                Location getter_location = new Location();
+                DO.Customer sender = mydal.Find_customer(parcel.Sender.Id);
+                DO.Customer getter = mydal.Find_customer(parcel.Getter.Id);
+                senderLlocation.longitude = sender.Longitude;
+                senderLlocation.latitude = sender.Lattitude;
+                getter_location.longitude = getter.Longitude;
+                getter_location.latitude = getter.Lattitude;
+                bool pickedUp = parcel.PickedUp != null;
+                double disstance;
+                if(pickedUp || parcel.TheDrone.Id==0)
+                   disstance = distance_between_2_points(getter_location, senderLlocation);
+                else
+                    disstance = distance_between_2_points(my_drones.Find(d => d.Id == parcel.TheDrone.Id).DroneLocation, getter_location);
+                return new ParcelAtTransfer()
+                {
+                    Id = parcel.Id,
+                    Priority = parcel.Priority,
+                    Weight = parcel.Weight,
+                    Sender = parcel.Sender,
+                    Getter = parcel.Getter,
+                    LocationOfPickUp = senderLlocation,
+                    SateOfParcel = pickedUp,
+                    DistanceOfDelivery = disstance,
+                    LocationOfTarget = getter_location
+                };
+            }
         }
         /// <summary>
         /// convert from DO.parcel object to BO.parcel object  
@@ -263,14 +275,17 @@ namespace BL
         /// <returns>BO.BaseStationToList object after convert </returns>
         static private BaseStationToList convertor4(DO.BaseStation item)
         {
-            List<DroneInCharging> droneCharge = convertor(mydal.Get_all_DroneCharge().ToList().FindAll(charge => charge.StationId == item.Id));
-            return new BaseStationToList()
+            lock (mydal)
             {
-                Id = item.Id,
-                Name = item.Name,
-                NumOfBusySlots = droneCharge.Count(),
-                NumOfFreeSlots = item.ChargeSlots
-            };
+                List<DroneInCharging> droneCharge = convertor(mydal.Get_all_DroneCharge().ToList().FindAll(charge => charge.StationId == item.Id));
+                return new BaseStationToList()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    NumOfBusySlots = droneCharge.Count(),
+                    NumOfFreeSlots = item.ChargeSlots
+                };
+            }
         }
         /// <summary>
         /// convert  from List<DO.DroneCharge>  to  List<DroneInCharging>  
@@ -321,33 +336,36 @@ namespace BL
         /// <returns> BO.ParcelToList object after convert</returns>
         static private ParcelToList convertor4(DO.Parcel item)
         {
-            ParcelStatuses parcelStatuses;
-            if (item.Delivered != null)
-                parcelStatuses = ParcelStatuses.delivered;
-            else
+            lock (mydal)
             {
-                if (item.PickedUp != null)
-                    parcelStatuses = ParcelStatuses.picked_up;
+                ParcelStatuses parcelStatuses;
+                if (item.Delivered != null)
+                    parcelStatuses = ParcelStatuses.delivered;
                 else
                 {
-                    if (item.Scheduled != null)
-                        parcelStatuses = ParcelStatuses.Belongs;
+                    if (item.PickedUp != null)
+                        parcelStatuses = ParcelStatuses.picked_up;
                     else
-                        parcelStatuses = ParcelStatuses.Defined;
+                    {
+                        if (item.Scheduled != null)
+                            parcelStatuses = ParcelStatuses.Belongs;
+                        else
+                            parcelStatuses = ParcelStatuses.Defined;
 
+                    }
                 }
+                string target_name = mydal.Find_customer(item.TargetId).Name;
+                string sender_name = mydal.Find_customer(item.SenderId).Name;
+                return new ParcelToList()
+                {
+                    GetterName = target_name,
+                    SenderName = sender_name,
+                    Id = item.Id,
+                    Priority = (Priorities)item.Priority,
+                    Status = parcelStatuses,
+                    Weight = (WeightCategories)item.Weight
+                };
             }
-            string target_name = mydal.Find_customer(item.TargetId).Name;
-            string sender_name = mydal.Find_customer(item.SenderId).Name;
-            return new ParcelToList()
-            {
-                GetterName = target_name,
-                SenderName = sender_name,
-                Id = item.Id,
-                Priority = (Priorities)item.Priority,
-                Status = parcelStatuses,
-                Weight = (WeightCategories)item.Weight
-            };
         }
         /// <summary>
         /// convert  from IEnumerable<DO.Customer>  to List<CustomerToList>> 
@@ -384,20 +402,23 @@ namespace BL
         /// <returns>BO.CustomerToList object</returns>
         static private CustomerToList convertor4(DO.Customer item)
         {
-            List<DO.Parcel> parcels_got = mydal.Get_all_parcels(x => true).ToList().FindAll                 (parcel => parcel.TargetId == item.Id && parcel.Delivered != null);
-            List<DO.Parcel> parcels_to_get = mydal.Get_all_parcels(x => true).ToList().FindAll              (parcel => parcel.TargetId == item.Id && parcel.Delivered == null);
-            List<DO.Parcel> parcels_sent_and_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll    (parcel => parcel.SenderId == item.Id && parcel.Delivered != null);
-            List<DO.Parcel> parcels_sent_and_not_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered == null);
-            return new CustomerToList()
+            lock (mydal)
             {
-                Id = item.Id,
-                Name = item.Name,
-                Phone = item.Phone,
-                NumOfParcelsGot = parcels_got.Count(),
-                NumOfParcelsSentAndArrived = parcels_sent_and_arrived.Count(),
-                NumOfParcelsSentAndNotArrived = parcels_sent_and_not_arrived.Count(),
-                numOfParcelsToGet = parcels_to_get.Count()
-            };
+                List<DO.Parcel> parcels_got = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.TargetId == item.Id && parcel.Delivered != null);
+                List<DO.Parcel> parcels_to_get = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.TargetId == item.Id && parcel.Delivered == null);
+                List<DO.Parcel> parcels_sent_and_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered != null);
+                List<DO.Parcel> parcels_sent_and_not_arrived = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.SenderId == item.Id && parcel.Delivered == null);
+                return new CustomerToList()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Phone = item.Phone,
+                    NumOfParcelsGot = parcels_got.Count(),
+                    NumOfParcelsSentAndArrived = parcels_sent_and_arrived.Count(),
+                    NumOfParcelsSentAndNotArrived = parcels_sent_and_not_arrived.Count(),
+                    numOfParcelsToGet = parcels_to_get.Count()
+                };
+            }
         }
         /// <summary>
         /// convert  from  IEnumerable<DO.Drone>  to  List<DroneToList>
@@ -420,18 +441,21 @@ namespace BL
         /// <returns> BO.DroneToList object after convert</returns>
         static private DroneToList convertor4(DO.Drone item)
         {
-            Drone drone = convertor(item);
-            List<DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.DroneId == item.Id);
-            return new DroneToList()
+            lock (mydal)
             {
-                Battery = drone.Battery,
-                Id = drone.Id,
-                DroneLocation = drone.DroneLocation,
-                MaxWeight = drone.MaxWeight,
-                Model = drone.Model,
-                Status = drone.Status,
-                NumOfParcel = parcels.Count()
-            };
+                Drone drone = convertor(item);
+                List<DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList().FindAll(parcel => parcel.DroneId == item.Id);
+                return new DroneToList()
+                {
+                    Battery = drone.Battery,
+                    Id = drone.Id,
+                    DroneLocation = drone.DroneLocation,
+                    MaxWeight = drone.MaxWeight,
+                    Model = drone.Model,
+                    Status = drone.Status,
+                    NumOfParcel = parcels.Count()
+                };
+            }
         }
         /// <summary>
         /// convert  from  List<DO.Parcel>  to List<Parcel>
@@ -473,20 +497,23 @@ namespace BL
         }
         private static ParcelAtTransfer convertor1(DO.Parcel parcel)
         {
-            Customer target = convertor(mydal.Find_customer(parcel.TargetId));
-            Customer sender = convertor(mydal.Find_customer(parcel.SenderId));
-            return new ParcelAtTransfer()
+            lock (mydal)
             {
-                Id = parcel.Id,
-                Getter = convertor1(target),
-                Sender = convertor1(sender),
-                Priority = (Priorities)parcel.Priority,
-                Weight = (WeightCategories)parcel.Weight,
-                LocationOfTarget = target.CustomerLocation,
-                LocationOfPickUp = sender.CustomerLocation,
-                DistanceOfDelivery = distance_between_2_points(target.CustomerLocation, sender.CustomerLocation),
-                SateOfParcel = parcel.PickedUp != null
-            };
+                Customer target = convertor(mydal.Find_customer(parcel.TargetId));
+                Customer sender = convertor(mydal.Find_customer(parcel.SenderId));
+                return new ParcelAtTransfer()
+                {
+                    Id = parcel.Id,
+                    Getter = convertor1(target),
+                    Sender = convertor1(sender),
+                    Priority = (Priorities)parcel.Priority,
+                    Weight = (WeightCategories)parcel.Weight,
+                    LocationOfTarget = target.CustomerLocation,
+                    LocationOfPickUp = sender.CustomerLocation,
+                    DistanceOfDelivery = distance_between_2_points(target.CustomerLocation, sender.CustomerLocation),
+                    SateOfParcel = parcel.PickedUp != null
+                };
+            }
         }
         /// <summary>
         /// convert  from DO.Customer object  to BO.Customer object
@@ -495,35 +522,38 @@ namespace BL
         /// <returns></returns>
         static private Customer convertor(DO.Customer idal_customer)
         {
-            Location location = new Location();
-            location.latitude = idal_customer.Lattitude;
-            location.longitude = idal_customer.Longitude;
-            Customer customer = new Customer()
+            lock (mydal)
             {
-                Id = idal_customer.Id,
-                Name = idal_customer.Name,
-                Phone = idal_customer.Phone,
-                CustomerLocation = location
-            };
-            customer.parcelsAtCustomerFor = new List<ParcelAtCustomer>();
-            customer.ParcelsAtCustomerFrom = new List<ParcelAtCustomer>();
-            List<DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
-            foreach (var parcel in parcels)
-            {
-                ParcelAtCustomer parcelAtCustomer = convertor2(parcel);
-                if (parcel.SenderId == idal_customer.Id)
+                Location location = new Location();
+                location.latitude = idal_customer.Lattitude;
+                location.longitude = idal_customer.Longitude;
+                Customer customer = new Customer()
                 {
-                    
-                    parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.TargetId));
-                    customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
-                }
-                if (parcel.TargetId == idal_customer.Id)
+                    Id = idal_customer.Id,
+                    Name = idal_customer.Name,
+                    Phone = idal_customer.Phone,
+                    CustomerLocation = location
+                };
+                customer.parcelsAtCustomerFor = new List<ParcelAtCustomer>();
+                customer.ParcelsAtCustomerFrom = new List<ParcelAtCustomer>();
+                List<DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
+                foreach (var parcel in parcels)
                 {
-                    parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.SenderId));
-                    customer.parcelsAtCustomerFor.Add(parcelAtCustomer);
+                    ParcelAtCustomer parcelAtCustomer = convertor2(parcel);
+                    if (parcel.SenderId == idal_customer.Id)
+                    {
+
+                        parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.TargetId));
+                        customer.ParcelsAtCustomerFrom.Add(parcelAtCustomer);
+                    }
+                    if (parcel.TargetId == idal_customer.Id)
+                    {
+                        parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.SenderId));
+                        customer.parcelsAtCustomerFor.Add(parcelAtCustomer);
+                    }
                 }
+                return customer;
             }
-            return customer;
         }
         static private CustomerAtParcel convertor2(DO.Customer customer)
         {
@@ -541,23 +571,26 @@ namespace BL
         /// <returns>BO.Customer object</returns>
         static private ParcelAtCustomer convertor2(DO.Parcel parcel)
         {
-            ParcelStatuses status = ParcelStatuses.Defined;
-            if (parcel.Requested != null)
-                status = ParcelStatuses.Belongs;
-            if (parcel.PickedUp != null)
-                status = ParcelStatuses.picked_up;
-            if (parcel.Delivered != null)
-                status = ParcelStatuses.delivered;
-            //CustomerAtParcel other;
-            //if ()
-            //other = convertor1(convertor(mydal.Find_customer(parcel.SenderId)));
-            return new ParcelAtCustomer()
+            lock (mydal)
             {
-                Id = parcel.Id,
-                Priority = (Priorities)parcel.Priority,
-                Status = status,
-                Weight = (WeightCategories)parcel.Weight
-            };
+                ParcelStatuses status = ParcelStatuses.Defined;
+                if (parcel.Requested != null)
+                    status = ParcelStatuses.Belongs;
+                if (parcel.PickedUp != null)
+                    status = ParcelStatuses.picked_up;
+                if (parcel.Delivered != null)
+                    status = ParcelStatuses.delivered;
+                //CustomerAtParcel other;
+                //if ()
+                //other = convertor1(convertor(mydal.Find_customer(parcel.SenderId)));
+                return new ParcelAtCustomer()
+                {
+                    Id = parcel.Id,
+                    Priority = (Priorities)parcel.Priority,
+                    Status = status,
+                    Weight = (WeightCategories)parcel.Weight
+                };
+            }
         }
 
         /// <summary>
@@ -575,13 +608,16 @@ namespace BL
         }
         private DroneInCharging convertor2(DroneToList drone)
         {
-            DO.DroneCharge doDrone = mydal.FindDroneCharge(drone.Id);
-            return new DroneInCharging()
+            lock (mydal)
             {
-                Battery = drone.Battery,
-                Id = drone.Id,
-                EnterToCharge = doDrone.EnterToCharge
-            };
+                DO.DroneCharge doDrone = mydal.FindDroneCharge(drone.Id);
+                return new DroneInCharging()
+                {
+                    Battery = drone.Battery,
+                    Id = drone.Id,
+                    EnterToCharge = doDrone.EnterToCharge
+                };
+            }
         }
         /// <summary>
         /// convert from Drone object  to DroneToList object  
@@ -604,10 +640,22 @@ namespace BL
         }
         static private Drone convertor3(DroneToList droneToList)
         {
-            DO.Parcel parcel = new DO.Parcel();
-            if (droneToList.Status == DroneStatuses.sending)
-                parcel = mydal.Get_all_parcels(item => item.DroneId == droneToList.Id && item.Delivered == null).First();
-            if (parcel.Id != default(int))
+            lock (mydal)
+            {
+                DO.Parcel parcel = new DO.Parcel();
+                if (droneToList.Status == DroneStatuses.sending)
+                    parcel = mydal.Get_all_parcels(item => item.DroneId == droneToList.Id && item.Delivered == null).First();
+                if (parcel.Id != default(int))
+                    return new Drone()
+                    {
+                        Battery = droneToList.Battery,
+                        Id = droneToList.Id,
+                        MaxWeight = droneToList.MaxWeight,
+                        Model = droneToList.Model,
+                        DroneLocation = droneToList.DroneLocation,
+                        Status = droneToList.Status,
+                        Parcel = convertor1(parcel)
+                    };
                 return new Drone()
                 {
                     Battery = droneToList.Battery,
@@ -616,18 +664,9 @@ namespace BL
                     Model = droneToList.Model,
                     DroneLocation = droneToList.DroneLocation,
                     Status = droneToList.Status,
-                    Parcel = convertor1(parcel)
+                    Parcel = null
                 };
-            return new Drone()
-            {
-                Battery = droneToList.Battery,
-                Id = droneToList.Id,
-                MaxWeight = droneToList.MaxWeight,
-                Model = droneToList.Model,
-                DroneLocation = droneToList.DroneLocation,
-                Status = droneToList.Status,
-                Parcel = null
-            };
+            }
         }
     }
 }

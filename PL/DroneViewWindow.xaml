@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneViewWindow" Height="450" Width="800">
+        Title="DroneViewWindow" Height="300" Width="200">
     <Grid>
         <Grid x:Name="Main">
             <Grid.RowDefinitions>
@@ -28,28 +28,28 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
-                    <Label Content="Model:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
-                    <Label Content="MaxWeight:" Grid.Column="0" Grid.Row="2" FontSize="24"/>
-                    <Label Content="Battery:" Grid.Column="0" Grid.Row="3" FontSize="24"/>
-                    <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="24"/>
-                    <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="24"/>
-                    <Label Content="Parcel id:" Grid.Column="0" Grid.Row="7" FontSize="24"/>
+                    <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="13"/>
+                    <Label Content="Model:" Grid.Column="0" Grid.Row="1" FontSize="13"/>
+                    <Label Content="MaxWeight:" Grid.Column="0" Grid.Row="2" FontSize="13"/>
+                    <Label Content="Battery:" Grid.Column="0" Grid.Row="3" FontSize="13"/>
+                    <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="13"/>
+                    <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="13"/>
+                    <Label Content="Parcel id:" Grid.Column="0" Grid.Row="7" FontSize="13"/>
 
-                    <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="24"/>
-                    <TextBlock x:Name="Model" Text="{Binding Model}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="Weight" Text="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="24"/>
-                    <TextBlock x:Name="Battery" Text="{Binding Battery}" Grid.Column="1" Grid.Row="3" FontSize="24"/>
-                    <TextBlock x:Name="Status" Text="{Binding Status}" Grid.Column="1" Grid.Row="4" FontSize="24"/>
-                    <TextBlock x:Name="Longitude" Text="{Binding DroneLocation.longitude}" Grid.Column="1" Grid.Row="5" FontSize="24"/>
-                    <TextBlock x:Name="Latitude" Text="{Binding DroneLocation.latitude}" Grid.Column="1" Grid.Row="6" FontSize="24"/>
-                    <TextBlock x:Name="ParcelId" Text="{Binding Parcel.Id}" Grid.Column="1" Grid.Row="7" FontSize="24"/>
+                    <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="13"/>
+                    <TextBlock x:Name="Model" Text="{Binding Model}" Grid.Column="1" Grid.Row="1" FontSize="13" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="Weight" Text="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="13"/>
+                    <TextBlock x:Name="Battery" Text="{Binding Battery}" Grid.Column="1" Grid.Row="3" FontSize="13"/>
+                    <TextBlock x:Name="Status" Text="{Binding Status}" Grid.Column="1" Grid.Row="4" FontSize="13"/>
+                    <TextBlock x:Name="Longitude" Text="{Binding DroneLocation.longitude}" Grid.Column="1" Grid.Row="5" FontSize="13"/>
+                    <TextBlock x:Name="Latitude" Text="{Binding DroneLocation.latitude}" Grid.Column="1" Grid.Row="6" FontSize="13"/>
+                    <TextBlock x:Name="ParcelId" Text="{Binding Parcel.Id}" Grid.Column="1" Grid.Row="7" FontSize="13"/>
                 </Grid>
             </StackPanel>
-            <StatusBar Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" Margin="50,0,0,0">
-                <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Exit_Click" Margin="0,0,10,0" FontSize="36"/>
-                <Button x:Name="AddDrone" Content="Add drone" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,0" FontSize="36" Click="AddDrone_Click"/>
-                <Button x:Name="Options" Content="Options" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,0" FontSize="36" Click="Options_Click"/>
+            <StatusBar Grid.Row="1"   HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}">
+                <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Exit_Click" FontSize="12"/>
+                <Button x:Name="AddDrone" Content="Add drone" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="12" Click="AddDrone_Click"/>
+                <Button x:Name="Options" Content="Options" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="12" Click="Options_Click"/>
             </StatusBar>
         </Grid>
     </Grid>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+//using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +25,35 @@ namespace PL
     {
          BlApi.IBL bl;
         DroneToList drone;
-        public OptionsDroneWindow( BlApi.IBL theBL, DroneToList theDrone)
+        Action refresh;
+        int i = 1;
+        BackgroundWorker worker;
+        //BackgroundWorker worker;
+        public OptionsDroneWindow( BlApi.IBL theBL, DroneToList theDrone, Action _refresh)
         {
             InitializeComponent();
             bl = theBL;
             drone = theDrone;
+            refresh = _refresh;
+            hideButtoms();
             #region Hide the unneeded buttoms
+            
+            #endregion
+            updateDroneDetails(drone);
+        }
+
+        private void hideButtoms()
+        {
+            Close.Visibility = Visibility.Visible;
+            Update.Visibility = Visibility.Visible;
+            Charge.Visibility = Visibility.Visible;
+            FromCharge.Visibility = Visibility.Visible;
+            Send.Visibility = Visibility.Visible;
+            PickUp.Visibility = Visibility.Visible;
+            Delivered.Visibility = Visibility.Visible;
+            Automatic.Visibility = Visibility.Visible;
+            Manual.Visibility = Visibility.Collapsed;
+
             if (drone.Status == DroneStatuses.vacant)
             {
                 FromCharge.Visibility = Visibility.Collapsed;
@@ -53,9 +78,8 @@ namespace PL
                 else
                     PickUp.Visibility = Visibility.Collapsed;
             }
-            #endregion
-            updateDroneDetails(drone);
         }
+
         // set the details of this drone
         private void updateDroneDetails(DroneToList drone)
         {
@@ -66,6 +90,7 @@ namespace PL
             Status.Content = drone.Status;
             Longitude.Content = drone.DroneLocation.longitude;
             Latitude.Content = drone.DroneLocation.latitude;
+            refresh();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -82,7 +107,7 @@ namespace PL
                 drone = bl.GetAllDrones(item => true).ToList().Find(item => item.Id == drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
-                dronePage.
+                refresh();
             }
             catch (Exception ex)
             {
@@ -98,6 +123,7 @@ namespace PL
                 bl.send_drone_to_charge(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
+                refresh();
             }
             catch (Exception ex)
             {
@@ -113,6 +139,7 @@ namespace PL
                 bl.drone_from_charge(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
+                refresh();
             }
             catch (Exception ex)
             {
@@ -125,8 +152,9 @@ namespace PL
             try
             {
                 bl.connect_parcel_to_drone(drone.Id);
-MessageBox.Show("Succsess","Succsess");
+                MessageBox.Show("Succsess","Succsess");
                 updateDroneDetails(drone);
+                refresh();
             }
             catch (Exception ex)
             {
@@ -139,8 +167,9 @@ MessageBox.Show("Succsess","Succsess");
             try
             {
                 bl.pickedUp_parcel_by_drone(drone.Id);
-MessageBox.Show("Succsess","Succsess");
+                MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
+                refresh();
             }
             catch (Exception ex)
             {
@@ -153,13 +182,123 @@ MessageBox.Show("Succsess","Succsess");
             try
             {
                 bl.delivered_parcel_by_drone(drone.Id);
-MessageBox.Show("Succsess","Succsess");
+                MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
+                refresh();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void Automatic_Click(object sender, RoutedEventArgs e)
+        {
+            Close.Visibility = Visibility.Collapsed;
+            Update.Visibility = Visibility.Collapsed;
+            Charge.Visibility = Visibility.Collapsed;
+            FromCharge.Visibility = Visibility.Collapsed;
+            Send.Visibility = Visibility.Collapsed;
+            PickUp.Visibility = Visibility.Collapsed;
+            Delivered.Visibility = Visibility.Collapsed;
+            Automatic.Visibility = Visibility.Collapsed;
+            Manual.Visibility = Visibility.Visible;
+
+            try
+            {
+                worker = new BackgroundWorker();
+                worker.DoWork += Worker_DoWork;
+                worker.ProgressChanged += Worker_ProgressChanged;
+                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                worker.WorkerReportsProgress = true;
+                worker.WorkerSupportsCancellation = true;
+
+                worker.RunWorkerAsync();
+              //  worker.RunWorkerAsync(12);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Close();   
+        }
+
+        public void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            refresh();
+        }
+
+        public void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                bl.auto(drone.Id, update, stop);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public bool stop()
+        {
+           // MessageBox.Show(i++.ToString(), "ok");
+
+            return worker.CancellationPending;
+        }
+
+        internal void update()
+        {
+            worker.ReportProgress(0);
+        }
+
+        private bool foo()
+        {
+            i++;
+            //  MessageBox.Show("continue Y/N", "choose", MessageBoxButton.YesNo, MessageBoxImage.None, MessageBoxResult.Yes);
+            MessageBox.Show(i.ToString(), "ok");
+            return Manual.Visibility == Visibility.Visible;
+            /*
+            MessageBoxResult mbResult = MessageBox.Show("continue Y/N", "choose", MessageBoxButton.YesNo, MessageBoxImage.None, MessageBoxResult.Yes);
+            switch (mbResult)
+            {
+                case MessageBoxResult.Yes:
+                    return true;
+                case MessageBoxResult.No:
+                    return false;
+                default:
+                    return true;
+            }
+            */
+        }
+
+        private void Manual_Click(object sender, RoutedEventArgs e)
+        {
+            worker.CancelAsync();
+           // hideButtoms();
+        }
+
+
+        /*
+
+        private void Automatic_Click(object sender, RoutedEventArgs e)
+        {
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.ProgressChanged += Worker_ProgressChanged;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        */
     }
 }

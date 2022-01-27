@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
+
 
 namespace Dal
 {
@@ -29,6 +31,7 @@ namespace Dal
         /// Add base station
         /// </summary>
         /// <param name="baseStation">the base station to  add </param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_base_station(BaseStation baseStation)
         {
             if (DataSource.BaseStations.Any(bs => bs.Id == baseStation.Id))
@@ -41,6 +44,7 @@ namespace Dal
         /// Add new base drone
         /// </summary>
         /// <param name="drone"> the drone to  add</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_drone(Drone drone)
         {
             if (DataSource.Drones.Any(dr => dr.Id == drone.Id))
@@ -51,6 +55,7 @@ namespace Dal
         /// Add new customer
         /// </summary>
         /// <param name="customer">the customer to  add</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_customer(Customer customer)
         {
             if (DataSource.Customers.Any(cs => cs.Id == customer.Id))
@@ -61,6 +66,7 @@ namespace Dal
         /// Add new parcel
         /// </summary>
         /// <param name="parcel">the parcel to  add</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_parcel(Parcel parcel)
         {
             if (DataSource.Parcels.Any(pr => pr.Id == parcel.Id))
@@ -71,6 +77,7 @@ namespace Dal
         /// Add new parcel Drone Charge
         /// </summary>
         /// <param name="droneCharge"> the Drone Charge to  add</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_DroneCharge(DroneCharge droneCharge)
         {
             if (DataSource.DroneCharges.Any(dr => dr.DroneId == droneCharge.DroneId))
@@ -84,6 +91,7 @@ namespace Dal
         /// Update Base Station
         /// </summary>
         /// <param name="baseStation"> the Drone Charge to update</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateBaseStation(BaseStation baseStation)
         {
             int i = find_index_baseStation(baseStation.Id);
@@ -93,6 +101,7 @@ namespace Dal
         /// Update Drone
         /// </summary>
         /// <param name="drone"> the Drone to update</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone drone)
         {
             int i = find_index_drone(drone.Id);
@@ -102,6 +111,7 @@ namespace Dal
         /// Update Parcel
         /// </summary>
         /// <param name="parcel"> the Parcel to update </param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel parcel)
         {
             int i = find_index_parcel(parcel.Id);
@@ -111,6 +121,7 @@ namespace Dal
         /// Update Customer
         /// </summary>
         /// <param name="customer"> the Customer to update</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             int i = find_index_customer(customer.Id);
@@ -210,6 +221,7 @@ namespace Dal
         /// </summary>
         /// <param name="my_id">id of parcel </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel Find_parcel(int my_id)
         {
             for (int i = 0; i < DataSource.Parcels.Count(); i++)
@@ -219,6 +231,7 @@ namespace Dal
             }
             return new Parcel();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation Find_baseStation(int my_id)
         {
             for (int i = 0; i < DataSource.BaseStations.Count; i++)
@@ -228,6 +241,7 @@ namespace Dal
             }
             throw new BaseStationExeption("id not found");
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer Find_customer(int my_id)
         {
             for (int i = 0; i < DataSource.Customers.Count; i++)
@@ -237,6 +251,7 @@ namespace Dal
             }
             return new Customer();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone Find_drone(int my_id)
         {
             for (int i = 0; i < DataSource.Drones.Count; i++)
@@ -246,6 +261,7 @@ namespace Dal
             }
             return new Drone();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge Find_droneCharge_by_drone(int my_drone_id)
         {
             for (int i = 0; i < DataSource.DroneCharges.Count; i++)
@@ -256,6 +272,7 @@ namespace Dal
 
             return new DroneCharge();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge FindDroneCharge(int my_drone_id)
         {
             for (int i = 0; i < DataSource.DroneCharges.Count; i++)
@@ -268,6 +285,7 @@ namespace Dal
         #endregion
 
         #region Get a predicate and return a item
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<Parcel> FindParcelBy(Predicate<Parcel> match)
         {
             return DataSource.Parcels.FindAll(match);
@@ -277,22 +295,27 @@ namespace Dal
 
 
         #region Return array of all of the objects (public)
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> Get_all_base_stations(Predicate<BaseStation> match)
         {
             return DataSource.BaseStations.FindAll(match);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> Get_all_DroneCharge()
         {
             return DataSource.DroneCharges;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> Get_all_drones()
         {
             return DataSource.Drones;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> Get_all_customers()
         {
             return DataSource.Customers;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> Get_all_parcels(Predicate<Parcel> match)
         {
             return DataSource.Parcels.FindAll(match);
@@ -324,12 +347,14 @@ namespace Dal
         #endregion
 
         #region Return and update the run number of the parcels
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetAndUpdateRunNumber()
         {
             return DataSource.Config.runNumOfParcel++;
         }
         #endregion
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricityUse()
         {
             double[] arr = new double[]
@@ -343,6 +368,7 @@ namespace Dal
             return arr;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void send_drone_to_charge(DroneCharge droneCharge)
         {
             BaseStation baseStation = Find_baseStation(droneCharge.StationId);
@@ -353,6 +379,7 @@ namespace Dal
             UpdateDrone(drone);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void put_out_drone_from_charge(int my_drone_id)
         {
             DroneCharge droneCharge = FindDroneCharge(my_drone_id);
@@ -366,6 +393,7 @@ namespace Dal
             //UpdateDroneCharge(droneCharge, DroneId);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDroneCharge(int my_drone_id)
         {
             DroneCharge droneCharge = FindDroneCharge(my_drone_id);

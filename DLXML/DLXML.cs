@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using DalApi;
 using DL;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -31,6 +32,7 @@ namespace Dal
 
 
         #region customer
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer Find_customer(int id)
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
@@ -52,6 +54,7 @@ namespace Dal
 
             return (Customer)c;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> Get_all_customers()
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
@@ -66,6 +69,7 @@ namespace Dal
                         Name = cus.Element("Name").Value
                     };
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetAllCustomersBy(Predicate<Customer> predicate)
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
@@ -82,6 +86,7 @@ namespace Dal
                    where predicate(customer)
                    select customer;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_customer(Customer customer)
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
@@ -103,7 +108,7 @@ namespace Dal
 
             XMLTools.SaveListToXMLElement(customersRootElem, customersPath);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteCustomer(int id)
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
@@ -121,7 +126,7 @@ namespace Dal
             else
                 throw new DO.BadCustomerIdException(id, $"bad customer id: {id}");
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(DO.Customer customer)
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
@@ -143,12 +148,12 @@ namespace Dal
             else
                 throw new DO.BadCustomerIdException(customer.Id, $"bad customer id: {customer.Id}");
         }
-
         #endregion Customer
 
 
 
         #region drone
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone Find_drone(int id)
         {
            return XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath).Find(d => d.Id == id);
@@ -162,6 +167,7 @@ namespace Dal
                 throw new BadDroneIdException(id, $"bad drone id: {id}");
             */
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_drone(Drone drone)
         {
             List<Drone> Listdrones = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
@@ -174,6 +180,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(Listdrones, dronesPath);
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> Get_all_drones()
         {
             List<Drone> Listdrones = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
@@ -181,6 +188,7 @@ namespace Dal
             return from drone in Listdrones
                    select drone; //no need to Clone()
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone drone)
         {
             List<Drone> Listdrones = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
@@ -196,6 +204,7 @@ namespace Dal
 
             XMLTools.SaveListToXMLSerializer(Listdrones, dronesPath);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int id)
         {
             List<Drone> Listdrones = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
@@ -237,6 +246,7 @@ namespace Dal
         #endregion drone
 
         #region base station
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation Find_baseStation(int id)
         {
             List<BaseStation> ListBaseStations = XMLTools.LoadListFromXMLSerializer<BaseStation>(baseStationsPath);
@@ -247,6 +257,7 @@ namespace Dal
             else
                 throw new BadBaseStationIdException(id, $"bad baseStation id: {id}");
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_base_station(BaseStation baseStation)
         {
             List<BaseStation> ListBaseStations = XMLTools.LoadListFromXMLSerializer<BaseStation>(baseStationsPath);
@@ -259,6 +270,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListBaseStations, baseStationsPath);
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> Get_all_baseStations()
         {
             List<BaseStation> ListBaseStations = XMLTools.LoadListFromXMLSerializer<BaseStation>(baseStationsPath);
@@ -266,6 +278,7 @@ namespace Dal
             return from baseStation in ListBaseStations
                    select baseStation; //no need to Clone()
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> Get_all_base_stations(Predicate<BaseStation> match)
         {
             List<BaseStation> ListBaseStations = XMLTools.LoadListFromXMLSerializer<BaseStation>(baseStationsPath);
@@ -274,6 +287,7 @@ namespace Dal
                    where match(baseStation)
                    select baseStation; //no need to Clone()
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateBaseStation(BaseStation baseStation)
         {
             List<BaseStation> ListBaseStation = XMLTools.LoadListFromXMLSerializer<BaseStation>(baseStationsPath);
@@ -289,6 +303,7 @@ namespace Dal
 
             XMLTools.SaveListToXMLSerializer(ListBaseStation, baseStationsPath);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int id)
         {
             List<BaseStation> ListBaseStations = XMLTools.LoadListFromXMLSerializer<BaseStation>(baseStationsPath);
@@ -307,16 +322,18 @@ namespace Dal
         #endregion
 
         #region parcel
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel Find_parcel(int id)
         {
             List<Parcel> ListParcels = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
 
             Parcel par = ListParcels.FirstOrDefault(p => p.Id == id);
-            if (par.Id == default(int))
+            if (par.Id != default(int))
                 return par; //no need to Clone()
             else
                 throw new BadParcelIdException(id, $"bad parcel id: {id}");
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_parcel(Parcel parcel)
         {
             List<Parcel> ListParcels = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
@@ -329,6 +346,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListParcels, parcelsPath);
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> Get_all_parcels()
         {
             List<Parcel> ListParcels = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
@@ -336,6 +354,7 @@ namespace Dal
             return from parcel in ListParcels
                    select parcel; //no need to Clone()
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> Get_all_parcels(Predicate<Parcel> match)
         {
             List<Parcel> ListParcels = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
@@ -344,6 +363,7 @@ namespace Dal
                    where match(parcel)
                    select parcel; //no need to Clone()
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel parcel)
         {
             List<Parcel> ListParcels = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
@@ -359,6 +379,7 @@ namespace Dal
 
             XMLTools.SaveListToXMLSerializer(ListParcels, parcelsPath);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteParcel(int id)
         {
             List<Parcel> ListParcels = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
@@ -441,7 +462,7 @@ namespace Dal
         #endregion
         */
         #region drone charge
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge FindDroneCharge(int id)
         {
             List<DroneCharge> ListDroneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargesPath);
@@ -452,6 +473,7 @@ namespace Dal
             else
                 throw new BadDroneChargeIdException(id, $"bad drone id: {id}");
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_DroneCharge(DroneCharge droneCharge)
         {
             List<DroneCharge> ListDroneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargesPath);
@@ -464,6 +486,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(ListDroneCharges, droneChargesPath);
 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> Get_all_DroneCharge()
         {
             List<DroneCharge> ListDroneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargesPath);
@@ -471,6 +494,7 @@ namespace Dal
             return from droneCharge in ListDroneCharges
                    select droneCharge; //no need to Clone()
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDroneCharge(DroneCharge droneCharge)
         {
             List<DroneCharge> ListDroneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargesPath);
@@ -486,6 +510,7 @@ namespace Dal
 
             XMLTools.SaveListToXMLSerializer(ListDroneCharges, droneChargesPath);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDroneCharge(int id)
         {
             List<DroneCharge> ListDroneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargesPath);
@@ -501,9 +526,9 @@ namespace Dal
 
             XMLTools.SaveListToXMLSerializer(ListDroneCharges, droneChargesPath);
         }
-
         #endregion
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void send_drone_to_charge(DroneCharge droneCharge)
         {
             BaseStation baseStation = Find_baseStation(droneCharge.StationId);
@@ -514,6 +539,7 @@ namespace Dal
             UpdateDrone(drone);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void put_out_drone_from_charge(int my_drone_id)
         {
             DroneCharge droneCharge = FindDroneCharge(my_drone_id);
@@ -526,7 +552,7 @@ namespace Dal
 
 
         #region data
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetAndUpdateRunNumber()
         {
             XElement details = XMLTools.LoadListFromXMLElement(detailsPath);
@@ -536,6 +562,7 @@ namespace Dal
             return x;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricityUse()
         {
                 XElement details = XMLTools.LoadListFromXMLElement(detailsPath);
@@ -543,7 +570,6 @@ namespace Dal
                         select double.Parse(data.Value);
                 return x.ToArray();
         }
-
         #endregion
     }
 }

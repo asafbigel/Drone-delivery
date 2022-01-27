@@ -68,6 +68,6 @@
     <Name>Campus Lev</Name>
     <Longitude>35.189938</Longitude>
     <Lattitude>31.785664</Lattitude>
-    <ChargeSlots>1</ChargeSlots>
+    <ChargeSlots>0</ChargeSlots>
   </BaseStation>
 </ArrayOfBaseStation>

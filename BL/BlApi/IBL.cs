@@ -35,5 +35,6 @@ namespace BlApi
         void update_model_drone(int drone_id, string model);
         ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id);
         Parcel GetCurrectParcelOfDrone(int id);
+        void auto(int id, Action c, Func<bool> f);
     }
 }
