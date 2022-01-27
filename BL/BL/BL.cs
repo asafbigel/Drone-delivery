@@ -9,7 +9,6 @@ using BO;
 using System.Runtime.CompilerServices;
 
 
-
 namespace BL
 {
     sealed partial class BL : IBL
