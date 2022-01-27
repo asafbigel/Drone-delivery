@@ -3,6 +3,9 @@
     public class ParcelAtTransfer
     {
         public int Id { get; set; }
+        /// <summary>
+        /// if picked up
+        /// </summary>
         public bool SateOfParcel { get; set; }
         public Priorities Priority { get; set; }
         public WeightCategories Weight { get; set; }

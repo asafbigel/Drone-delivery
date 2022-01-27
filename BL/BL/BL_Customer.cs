@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
+
 
 namespace BL
 {
@@ -13,12 +15,16 @@ namespace BL
         /// A function that add a new customer
         /// </summary>
         /// <param name="customer"> the name of the new customer to add </param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_customer(Customer customer)
         {
             if (customer.Id == 0) throw new CustomerExeption("Invalid Id");
-            if(customer.Name==""|| customer.Name ==null) throw new CustomerExeption("Enter Name");
-            DO.Customer idalCustomer = convertor(customer);
-            mydal.Add_customer(idalCustomer);
+            if (customer.Name == "" || customer.Name == null) throw new CustomerExeption("Enter Name");
+            lock (mydal)
+            {
+                DO.Customer idalCustomer = convertor(customer);
+                mydal.Add_customer(idalCustomer);
+            }
         }
         /// <summary>
         /// A function that update customer
@@ -26,14 +32,18 @@ namespace BL
         /// <param name="id">id of the customer </param>
         /// <param name="new_name"> the name after the update </param>
         /// <param name="new_phone">the phone after the update </param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void update_customer(int id, string new_name, string new_phone)
         {
-            DO.Customer customer = mydal.Find_customer(id);
-            if (new_name != "_")
-                customer.Name = new_name;
-            if (new_phone != "_")
-                customer.Phone = new_phone;
-            mydal.UpdateCustomer(customer);
+            lock (mydal)
+            {
+                DO.Customer customer = mydal.Find_customer(id);
+                if (new_name != "_")
+                    customer.Name = new_name;
+                if (new_phone != "_")
+                    customer.Phone = new_phone;
+                mydal.UpdateCustomer(customer);
+            }
         }
         public void updateCustomer(Customer myCustomer)
         {
@@ -44,29 +54,37 @@ namespace BL
         /// </summary>
         /// <param name="customer_id">id of the customer </param>
         /// <returns>ToString of the customer </returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string StringCustomer(int customer_id)
         {
-            return convertor(mydal.Find_customer(customer_id)).ToString();
+            lock (mydal)
+                return convertor(mydal.Find_customer(customer_id)).ToString();
         }
         /// <summary>
         /// A function that returns the ToString of the list of all the customers
         /// </summary>
         /// <returns> the ToString of the list of all the customers </returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string StringAllCustomers()
         {
-            string result = "";
-            List<CustomerToList> customers = convertor(mydal.Get_all_customers());
-            foreach (var item in customers)
+            lock (mydal)
             {
-                result += item.ToString();
-                result += "\n";
+                string result = "";
+                List<CustomerToList> customers = convertor(mydal.Get_all_customers());
+                foreach (var item in customers)
+                {
+                    result += item.ToString();
+                    result += "\n";
+                }
+                return result;
             }
-            return result;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerToList> GetAllCustomers(Predicate<CustomerToList> match)
         {
-            return convertor(mydal.Get_all_customers()).FindAll(match);
+            lock (mydal)
+                return convertor(mydal.Get_all_customers()).FindAll(match);
         }
         public CustomerAtParcel GetCustomerAtParcel(int id)
         {
@@ -86,7 +104,7 @@ namespace BL
         }
         public Customer GetCustomer(CustomerToList customer)
         {
-            return convertor3(customer);
+            return GetCustomer(customer.Id);
         }
 
 

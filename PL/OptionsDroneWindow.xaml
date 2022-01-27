@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OptionsDroneWindow" Height="450" Width="800">
+        Title="OptionsDroneWindow" Height="220" Width="270">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="Drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" >
-            <Grid x:Name="StackPanelGrid" Margin="0,30,0,0">
+        <StackPanel x:Name="Drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"  >
+            <Grid x:Name="StackPanelGrid" Margin="0,5,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -26,30 +26,32 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
-                <Label Content="Model:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
-                <Label Content="MaxWeight:" Grid.Column="0" Grid.Row="2" FontSize="24"/>
-                <Label Content="Battery:" Grid.Column="0" Grid.Row="3" FontSize="24"/>
-                <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="24"/>
-                <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="24"/>
+                <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="13"/>
+                <Label Content="Model:" Grid.Column="0" Grid.Row="1" FontSize="13"/>
+                <Label Content="MaxWeight:" Grid.Column="0" Grid.Row="2" FontSize="13"/>
+                <Label Content="Battery:" Grid.Column="0" Grid.Row="3" FontSize="13"/>
+                <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="13"/>
+                <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="13"/>
 
-                <Label x:Name="Id" Content="Id:" Grid.Column="1" Grid.Row="0" FontSize="24"/>
-                <TextBox x:Name="Model" Text="Model:" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
-                <Label x:Name="Weight" Content="MaxWeight:" Grid.Column="1" Grid.Row="2" FontSize="24"/>
-                <Label x:Name="Battery" Content="Battery:" Grid.Column="1" Grid.Row="3" FontSize="24"/>
-                <Label x:Name="Status" Content="Status:" Grid.Column="1" Grid.Row="4" FontSize="24"/>
-                <Label x:Name="Longitude" Content="Longitude:" Grid.Column="1" Grid.Row="5" FontSize="24"/>
-                <Label x:Name="Latitude" Content="Latitude:" Grid.Column="1" Grid.Row="6" FontSize="24"/>
+                <Label x:Name="Id" Content="Id:" Grid.Column="1" Grid.Row="0" FontSize="13"/>
+                <TextBox x:Name="Model" Text="Model:" Grid.Column="1" Grid.Row="1" FontSize="13" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <Label x:Name="Weight" Content="MaxWeight:" Grid.Column="1" Grid.Row="2" FontSize="13"/>
+                <Label x:Name="Battery" Content="Battery:" Grid.Column="1" Grid.Row="3" FontSize="13"/>
+                <Label x:Name="Status" Content="Status:" Grid.Column="1" Grid.Row="4" FontSize="13"/>
+                <Label x:Name="Longitude" Content="Longitude:" Grid.Column="1" Grid.Row="5" FontSize="13"/>
+                <Label x:Name="Latitude" Content="Latitude:" Grid.Column="1" Grid.Row="6" FontSize="13"/>
             </Grid>
         </StackPanel>
-        <StackPanel x:Name="Options" Grid.Column="1" VerticalAlignment="Center">
-            <Button x:Name="Close"  Content="Close" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Close_Click" />
-            <Button x:Name="Update"  Content="Update" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,10,0,10" Click="Update_Click"/>
-            <Button x:Name="Charge"  Content="Charge" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Charge_Click"/>
-            <Button x:Name="FromCharge"  Content="Out from charge" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="FromCharge_Click"/>
-            <Button x:Name="Send"  Content="Send" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Send_Click"/>
-            <Button x:Name="PickUp"  Content="PickUp" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="PickUp_Click"/>
-            <Button x:Name="Delivered"  Content="Delivered" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Delivered_Click"/>
+        <StackPanel x:Name="Options" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="{x:Null}">
+            <Button x:Name="Close"  Content="Close" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"  Click="Close_Click" />
+            <Button x:Name="Update"  Content="Update" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Update_Click"/>
+            <Button x:Name="Charge"  Content="Charge" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Charge_Click"/>
+            <Button x:Name="FromCharge"  Content="Out from charge" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="FromCharge_Click"/>
+            <Button x:Name="Send"  Content="Send" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Send_Click"/>
+            <Button x:Name="PickUp"  Content="PickUp" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="PickUp_Click"/>
+            <Button x:Name="Delivered"  Content="Delivered" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Delivered_Click"/>
+            <Button x:Name="Automatic"  Content="Automatic" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Automatic_Click"/>
+            <Button x:Name="Manual"  Content="Manual" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Click="Manual_Click" />
         </StackPanel>
     </Grid>
 </Window>

@@ -45,6 +45,7 @@ namespace BlApi
         void DelsteParcel(int id);
         ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id);
         Parcel GetCurrectParcelOfDrone(int id);
+        void auto(int id, Action c, Func<bool> f);
         Parcel GetParcel(ParcelAtCustomer parcel);
         Parcel GetParcel(ParcelToList parcel);
         Parcel GetParcel(int id);

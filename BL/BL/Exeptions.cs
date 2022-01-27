@@ -118,21 +118,21 @@ namespace BL
         }
     }
     [Serializable]
-    internal class DroneException : Exception
+    internal class DroneBatteryException : Exception
     {
-        public DroneException()
+        public DroneBatteryException()
         {
         }
 
-        public DroneException(string message) : base(message)
+        public DroneBatteryException(string message) : base(message)
         {
         }
 
-        public DroneException(string message, Exception innerException) : base(message, innerException)
+        public DroneBatteryException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
-        protected DroneException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DroneBatteryException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }
@@ -152,6 +152,25 @@ namespace BL
         }
 
         protected BaseStationExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
+    [Serializable]
+    internal class NotNeedToArrivedException : Exception
+    {
+        public NotNeedToArrivedException()
+        {
+        }
+
+        public NotNeedToArrivedException(string message) : base(message)
+        {
+        }
+
+        public NotNeedToArrivedException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected NotNeedToArrivedException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

@@ -1,13 +1,68 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DroneCharge>
-    <DroneId>999</DroneId>
-    <StationId>1</StationId>
-    <EnterToCharge>2022-01-09T10:47:33.6696198+02:00</EnterToCharge>
+    <DroneId>1310</DroneId>
+    <StationId>9001</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2291869+02:00</EnterToCharge>
   </DroneCharge>
   <DroneCharge>
-    <DroneId>2</DroneId>
-    <StationId>1</StationId>
-    <EnterToCharge>2022-01-09T10:48:20.0998485+02:00</EnterToCharge>
+    <DroneId>1377</DroneId>
+    <StationId>9001</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2292037+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>1498</DroneId>
+    <StationId>9001</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2292181+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>1606</DroneId>
+    <StationId>9001</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2292304+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>1703</DroneId>
+    <StationId>9001</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2292362+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>1821</DroneId>
+    <StationId>9001</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2292427+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2219</DroneId>
+    <StationId>9001</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2292849+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2248</DroneId>
+    <StationId>9002</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2292908+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2402</DroneId>
+    <StationId>9002</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2293017+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2534</DroneId>
+    <StationId>9002</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2293181+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2651</DroneId>
+    <StationId>9002</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2293292+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2954</DroneId>
+    <StationId>9002</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2293525+02:00</EnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>3034</DroneId>
+    <StationId>9002</StationId>
+    <EnterToCharge>2022-01-03T23:57:57.2293583+02:00</EnterToCharge>
   </DroneCharge>
 </ArrayOfDroneCharge>

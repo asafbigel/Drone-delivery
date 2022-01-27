@@ -71,8 +71,8 @@ namespace PL
 
         private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DroneListView.SelectedItem != null)
-              //  new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
+          //  if (DroneListView.SelectedItem != null)
+          //      new DroneViewWindow(DroneListView.SelectedItem, bl).Show();
             DroneListView.UnselectAll();
         }
 

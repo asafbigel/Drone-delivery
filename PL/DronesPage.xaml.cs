@@ -78,8 +78,8 @@ namespace PL
         {
             if (DroneListView.SelectedItem != null)
             {
-                if (DroneSelection.IsChecked == true)
-                    new DroneViewWindow(DroneListView.SelectedItem, bl, this).Show();
+                if (DroneSelection.IsChecked == true)              
+                    new DroneViewWindow(DroneListView.SelectedItem, bl, refresh).Show();
                 DroneToList d = (DroneToList)DroneListView.SelectedItem;
                 ParcelAtTransfer parcel = bl.GetCurrectParcelAtTransferOfDrone(d.Id);
                  if (ParcelSelection.IsChecked == true && parcel != null && parcel.Id != 0)
@@ -105,7 +105,45 @@ namespace PL
         {
             grouping = true;
             refresh();
+            /*
+            var x = from drone in drones
+                    where drone != null
+                    group drone by drone.Status into g
+                    select g;
+            drones = new ObservableCollection<DroneToList>();
+            foreach (var item in x)
+            {
+                foreach (var drone in item)
+                {
+                    drones.Add(drone);
+                }
+                drones.Add(null);
+            }
+            DataContext = drones;
+            */
         }
+        /*
+        internal void Refresh()
+        {
+            weight = null;
+            status = null;
+            try
+            {
+                if (WeightSelector.SelectedItem != null)
+                    weight = (WeightCategories)WeightSelector.SelectedItem;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            if (StatusSelector.SelectedItem != null)
+                status = (DroneStatuses)StatusSelector.SelectedItem;
+            var x = bl.GetAllDrones(item => (weight == null || item.MaxWeight == weight) && (status == null || item.Status == status));
+            drones.Clear();
+            foreach (var item in x)
+                drones.Add(item);
+        }
+        */
         internal void refresh()
         {
             try
@@ -115,11 +153,11 @@ namespace PL
                 var y = (bl.GetAllDrones(item => (status == null || item.Status == status) && (weight == null || item.MaxWeight == weight)));
 
                 drones.Clear();
-
-                foreach (var item in y)
-                {
-                    drones.Add(item);
-                }
+                if (!grouping)
+                    foreach (var item in y)
+                    {
+                        drones.Add(item);
+                    }
 
 
                 var x = from drone in drones
@@ -130,7 +168,7 @@ namespace PL
 
                 if (grouping)
                 {
-                    drones = new ObservableCollection<DroneToList>();
+                    //drones = new ObservableCollection<DroneToList>();
                     foreach (var item in x)
                     {
                         foreach (var drone in item)

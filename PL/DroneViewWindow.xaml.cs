@@ -23,18 +23,16 @@ namespace PL
         BlApi.IBL theBL;
         Drone drone;
         DroneToList droneToList;
+        Action refresh;
         DronesPage dp;
-       public DroneViewWindow(Object ob, BlApi.IBL bl, DronesPage dronesPage)
+        public DroneViewWindow(Object ob, BlApi.IBL bl, Action Refresh)
         {
             theBL = bl;
-            dp = dronesPage;
-                
-            
-            
             InitializeComponent();
             droneToList = (DroneToList)ob;
             drone = bl.GetDrone(droneToList);
             DataContext = drone;
+            this.refresh = Refresh;
            /*
             Id.Content = drone.Id;
             Model.Content = drone.Model;
@@ -59,7 +57,7 @@ namespace PL
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-            new OptionsDroneWindow(theBL, droneToList, dp).Show();
+            new OptionsDroneWindow(theBL, droneToList, refresh).Show();
         }
     }
 }

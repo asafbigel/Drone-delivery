@@ -2,16 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
 
 namespace BL
 {
     public partial class BL
-    {/// <summary>
-     /// fanction that update baseStation
-     /// </summary>
-     /// <param name="id">id of  baseStation </param>
-     /// <param name="new_name"> the new name of the update baseStation   </param>
-     /// <param name="new_slot">the new number of free slot charge of  the update baseStation</param>
+    {
+        /// <summary>
+        /// fanction that update baseStation
+        /// </summary>
+        /// <param name="id">id of  baseStation </param>
+        /// <param name="new_name"> the new name of the update baseStation   </param>
+        /// <param name="new_slot">the new number of free slot charge of  the update baseStation</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void update_baseStation(int id, string new_name, string new_slot)
         {
             BaseStation baseStation = find_baseStation(id);
@@ -25,7 +29,8 @@ namespace BL
                 else
                     throw new slotException("There more drone at charge now");
             }
-            mydal.UpdateBaseStation(convertor(baseStation));
+            lock (mydal)
+                mydal.UpdateBaseStation(convertor(baseStation));
         }
         /// <summary>
         ///  fanction that update baseStation
@@ -48,9 +53,12 @@ namespace BL
         /// </returns>
         private BaseStation find_baseStation(int id)
         {
-            DO.BaseStation idalBaseStation = mydal.Find_baseStation(id);
-            BaseStation baseStation = convertor(idalBaseStation);
-            return baseStation;
+            lock (mydal)
+            {
+                DO.BaseStation idalBaseStation = mydal.Find_baseStation(id);
+                BaseStation baseStation = convertor(idalBaseStation);
+                return baseStation;
+            }
         }
         /// <summary>
         /// Add base station to the list
@@ -58,6 +66,7 @@ namespace BL
         /// <param name="baseStation">
         /// The base station
         /// </param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_base_station(BaseStation baseStation)
         {
             if (baseStation.Id == 0)
@@ -66,10 +75,12 @@ namespace BL
                 throw new BaseStationExeption("Enter Name");
             if (baseStation.Name == null)
                 throw new BaseStationExeption("Invalid Name");
-
-            baseStation.DroneInChargings = new List<DroneInCharging>();
-            DO.BaseStation idalBaseStation = convertor(baseStation);
-            mydal.Add_base_station(idalBaseStation);
+            lock (mydal)
+            {
+                baseStation.DroneInChargings = new List<DroneInCharging>();
+                DO.BaseStation idalBaseStation = convertor(baseStation);
+                mydal.Add_base_station(idalBaseStation);
+            }
         }
         /// <summary>
         /// return string of details of this base station
@@ -80,6 +91,7 @@ namespace BL
         /// <returns>
         /// string of details of this base station
         /// </returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string string_baseStation(int baseStation_id)
         {
             return convertor(mydal.Find_baseStation(baseStation_id)).ToString();
@@ -88,31 +100,39 @@ namespace BL
         /// ToString of all the baseStations
         /// </summary>
         /// <returns> the string of ToString of all the baseStations </returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string string_all_baseStations()
         {
-            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => true));
-            string result = "";
-            foreach (var item in baseStations)
+            lock (mydal)
             {
-                result += item.ToString();
-                result += "\n";
+                List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => true));
+                string result = "";
+                foreach (var item in baseStations)
+                {
+                    result += item.ToString();
+                    result += "\n";
+                }
+                return result;
             }
-            return result;
         }
         /// <summary>
         /// ToString of all the baseStations with free slots
         /// </summary>
         /// <returns>the string of ToString of all the baseStations with free slots</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string string_all_baseStations_with_free_slots()
         {
-            List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => x.ChargeSlots > 0));
-            string result = "";
-            foreach (var item in baseStations)
+            lock (mydal)
             {
-                result += item.ToString();
-                result += "\n";
+                List<BaseStationToList> baseStations = convertor1(mydal.Get_all_base_stations(x => x.ChargeSlots > 0));
+                string result = "";
+                foreach (var item in baseStations)
+                {
+                    result += item.ToString();
+                    result += "\n";
+                }
+                return result;
             }
-            return result;
         }
         public BaseStation GetBaseStation(int id)
         {
@@ -123,12 +143,14 @@ namespace BL
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match)
         {
-            IEnumerable<DO.BaseStation> list = mydal.Get_all_base_stations(item => true);
-            return convertor1(list).FindAll(match);
+            lock (mydal)
+            {
+                IEnumerable<DO.BaseStation> list = mydal.Get_all_base_stations(item => true);
+                return convertor1(list).FindAll(match);
+            }
         }
     }
-
-
 }
