@@ -37,15 +37,15 @@ namespace Dal
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
-            Customer? c = (from cus in customersRootElem.Elements()
-                        where int.Parse(cus.Element("Id").Value) == id
+            Customer? c = (from customer in customersRootElem.Elements()
+                        where int.Parse(customer.Element("Id").Value) == id
                         select new Customer()
                         {
-                            Id = Int32.Parse(cus.Element("Id").Value),
-                            Lattitude = double.Parse(cus.Element("Lattitude").Value),
-                            Longitude = double.Parse(cus.Element("Longitude").Value),
-                            Phone = cus.Element("Phone").Value,
-                            Name = cus.Element("Name").Value
+                            Id = int.Parse(customer.Element("Id").Value),
+                            Lattitude = double.Parse(customer.Element("Lattitude").Value),
+                            Longitude = double.Parse(customer.Element("Longitude").Value),
+                            Phone = customer.Element("Phone").Value,
+                            Name = customer.Element("Name").Value
                         }
                         ).FirstOrDefault();
 
@@ -59,14 +59,14 @@ namespace Dal
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
-            return from cus in customersRootElem.Elements()
+            return from customer in customersRootElem.Elements()
                     select new Customer()
                     {
-                        Id = Int32.Parse(cus.Element("Id").Value),
-                        Lattitude = double.Parse(cus.Element("Lattitude").Value),
-                        Longitude = double.Parse(cus.Element("Longitude").Value),
-                        Phone = cus.Element("Phone").Value,
-                        Name = cus.Element("Name").Value
+                        Id = int.Parse(customer.Element("Id").Value),
+                        Lattitude = double.Parse(customer.Element("Lattitude").Value),
+                        Longitude = double.Parse(customer.Element("Longitude").Value),
+                        Phone = customer.Element("Phone").Value,
+                        Name = customer.Element("Name").Value
                     };
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -77,7 +77,7 @@ namespace Dal
             return from cus in customersRootElem.Elements()
                    let customer = new Customer()
                    {
-                       Id = Int32.Parse(cus.Element("Id").Value),
+                       Id = int.Parse(cus.Element("Id").Value),
                        Lattitude = double.Parse(cus.Element("Lattitude").Value),
                        Longitude = double.Parse(cus.Element("Longitude").Value),
                        Phone = cus.Element("Phone").Value,
@@ -91,18 +91,19 @@ namespace Dal
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
-            XElement per1 = (from p in customersRootElem.Elements()
-                             where int.Parse(p.Element("Id").Value) == customer.Id
-                             select p).FirstOrDefault();
+            XElement customer1 = (from c in customersRootElem.Elements()
+                             where int.Parse(c.Element("Id").Value) == customer.Id
+                             select c).FirstOrDefault();
 
-            if (per1 != null)
+            if (customer1 != null)
                 throw new BadCustomerIdException(customer.Id, "Duplicate customer ID");
 
-            XElement customerElem = new XElement("Customer", new XElement("Id", customer.Id),
-                                  new XElement("Name", customer.Name),
-                                  new XElement("Longitude", customer.Longitude),
-                                  new XElement("Lattitude", customer.Lattitude),
-                                  new XElement("Phone", customer.Phone));
+            XElement customerElem = new XElement("Customer",
+                                    new XElement("Id", customer.Id),
+                                    new XElement("Phone", customer.Phone),
+                                    new XElement("Name", customer.Name),
+                                    new XElement("Longitude", customer.Longitude),
+                                    new XElement("Lattitude", customer.Lattitude));
 
             customersRootElem.Add(customerElem);
 
@@ -113,13 +114,13 @@ namespace Dal
         {
             XElement customersRootElem = XMLTools.LoadListFromXMLElement(customersPath);
 
-            XElement per = (from p in customersRootElem.Elements()
+            XElement cus = (from p in customersRootElem.Elements()
                             where int.Parse(p.Element("Id").Value) == id
                             select p).FirstOrDefault();
 
-            if (per != null)
+            if (cus != null)
             {
-                per.Remove(); //<==>   Remove per from customersRootElem
+                cus.Remove(); //<==>   Remove per from customersRootElem
 
                 XMLTools.SaveListToXMLElement(customersRootElem, customersPath);
             }
@@ -156,16 +157,8 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone Find_drone(int id)
         {
-           return XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath).Find(d => d.Id == id);
-            /*
-            List<Drone> Listdrones = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
-
-            Drone dro = Listdrones.FirstOrDefault(d => d.Id == id);
-            if (dro.Id == default(int))
-                return dro; //no need to Clone()
-            else
-                throw new BadDroneIdException(id, $"bad drone id: {id}");
-            */
+           return Get_all_drones().ToList().Find(d => d.Id == id);
+          // return XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath).Find(d => d.Id == id);
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_drone(Drone drone)
@@ -178,7 +171,6 @@ namespace Dal
             Listdrones.Add(drone); //no need to Clone()
 
             XMLTools.SaveListToXMLSerializer(Listdrones, dronesPath);
-
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> Get_all_drones()
@@ -189,18 +181,18 @@ namespace Dal
                    select drone; //no need to Clone()
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateDrone(Drone drone)
+        public void UpdateDrone(Drone newDrone)
         {
             List<Drone> Listdrones = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
 
-            Drone? dro = Listdrones.Find(d => d.Id == drone.Id);
-            if (dro != null)
+            Drone oldDrone = Listdrones.Find(d => d.Id == newDrone.Id);
+            if (oldDrone.Id != default(int))
             {
-                Listdrones.Remove((Drone)dro);
-                Listdrones.Add(drone); //no nee to Clone()
+                Listdrones.Remove(oldDrone);
+                Listdrones.Add(newDrone); //no nee to Clone()
             }
             else
-                throw new BadDroneIdException(drone.Id, $"bad drone id: {drone.Id}");
+                throw new BadDroneIdException(newDrone.Id, $"bad drone id: {newDrone.Id}");
 
             XMLTools.SaveListToXMLSerializer(Listdrones, dronesPath);
         }
@@ -209,11 +201,11 @@ namespace Dal
         {
             List<Drone> Listdrones = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
 
-            Drone? dro = Listdrones.Find(p => p.Id == id);
+            Drone drone = Listdrones.Find(p => p.Id == id);
 
-            if (dro != null)
+            if (drone.Id != default(int))
             {
-                Listdrones.Remove((Drone)dro);
+                Listdrones.Remove(drone);
             }
             else
                 throw new BadDroneIdException(id, $"bad drone id: {id}");
@@ -261,8 +253,8 @@ namespace Dal
         public void Add_base_station(BaseStation baseStation)
         {
             List<BaseStation> ListBaseStations = XMLTools.LoadListFromXMLSerializer<BaseStation>(baseStationsPath);
-            BaseStation? bs = ListBaseStations.Find(b => b.Id == baseStation.Id);
-            if (bs != null)
+            BaseStation bs = ListBaseStations.Find(b => b.Id == baseStation.Id);
+            if (bs.Id != default(int))
                 throw new BadBaseStationIdException(baseStation.Id, "Duplicate baseStation ID");
 
             ListBaseStations.Add(baseStation); //no need to Clone()
@@ -556,8 +548,8 @@ namespace Dal
         public int GetAndUpdateRunNumber()
         {
             XElement details = XMLTools.LoadListFromXMLElement(detailsPath);
-            int x = int.Parse(details.Element("RowNumbers").Element("NewParcelId").Value);
-            details.Element("RowNumbers").Element("NewParcelId").Value = (x + 1).ToString();
+            int x = int.Parse(details.Element("RunNumber").Element("NewParcelId").Value);
+            details.Element("RunNumber").Element("NewParcelId").Value = (x + 1).ToString();
             XMLTools.SaveListToXMLElement(details, detailsPath);
             return x;
         }
