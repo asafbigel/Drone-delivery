@@ -24,6 +24,7 @@ namespace PL
         Drone drone;
         DroneToList droneToList;
         Action refresh;
+        DronesPage dp;
         public DroneViewWindow(Object ob, BlApi.IBL bl, Action Refresh)
         {
             theBL = bl;

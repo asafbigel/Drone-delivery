@@ -18,7 +18,7 @@ namespace BL
         /// <param name="sender_id">  the id of the sender of the new parcel </param>
         /// <param name="getter_id"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void Add_parcel(Parcel parcel, int sender_id, int getter_id)
+        public int Add_parcel(Parcel parcel, int sender_id, int getter_id)
         {
             lock (mydal)
             {
@@ -32,6 +32,7 @@ namespace BL
                 idalParcel.SenderId = sender_id;
                 idalParcel.TargetId = getter_id;
                 mydal.Add_parcel(idalParcel);
+                return parcel.Id;
             }
         }
         public void updateParcel(Parcel parcel)/////////////////////////////////
@@ -237,7 +238,7 @@ namespace BL
                     result += "\n";
                 }
                 return result;
-            return result;
+            }
         }
         /// <summary>
         /// Get a parcel which this drone is sending it now

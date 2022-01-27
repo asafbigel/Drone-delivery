@@ -104,7 +104,7 @@ namespace BL
         }
         public Customer GetCustomer(CustomerToList customer)
         {
-            return convertor3(customer);
+            return GetCustomer(customer.Id);
         }
 
 

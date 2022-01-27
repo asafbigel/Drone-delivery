@@ -155,4 +155,23 @@ namespace BL
         {
         }
     }
+    [Serializable]
+    internal class NotNeedToArrivedException : Exception
+    {
+        public NotNeedToArrivedException()
+        {
+        }
+
+        public NotNeedToArrivedException(string message) : base(message)
+        {
+        }
+
+        public NotNeedToArrivedException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected NotNeedToArrivedException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }

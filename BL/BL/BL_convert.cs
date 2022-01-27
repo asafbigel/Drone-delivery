@@ -673,5 +673,9 @@ namespace BL
                 };
             }
         }
+        private Customer convertor3(CustomerToList customer)
+        {
+            throw new NotNeedToArrivedException("you shouldn't arrived here");
+        }
     }
 }
