@@ -51,7 +51,7 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-    //       new AddDroneWindow(theBL).Show();
+           new AddDroneWindow(theBL, dp).Show();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)

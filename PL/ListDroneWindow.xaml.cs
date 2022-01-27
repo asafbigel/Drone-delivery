@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace PL
         DroneStatuses? status;
         WeightCategories? weight;
         private ObservableCollection<DroneToList> list;
-        public ListDroneWindow( BlApi.IBL theBL)
+        public ListDroneWindow(BlApi.IBL theBL)
         {
             bl = theBL;
             InitializeComponent();

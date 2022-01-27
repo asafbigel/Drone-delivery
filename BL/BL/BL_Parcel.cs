@@ -34,6 +34,11 @@ namespace BL
                 mydal.Add_parcel(idalParcel);
             }
         }
+        public void updateParcel(Parcel parcel)/////////////////////////////////
+        {
+            lock(mydal)
+                mydal.UpdateParcel(convertor(parcel));
+        }
         /// <summary>
         /// fanction that connect parcel to specific drone
         /// </summary>
@@ -203,6 +208,18 @@ namespace BL
                 return result;
             }
         }
+        public void DelsteParcel(int id)
+        {
+            var parcel = mydal.Find_parcel(id);
+            if (parcel.Id == 0)
+                throw new ParcelException("parcel not found");
+
+            if (parcel.Scheduled != null)
+                throw new ParcelException("It is not possible to delete a parcel Scheduled to drone");
+            lock (mydal)
+                mydal.DeleteParcel(id);
+
+        }
         /// <summary>
         /// A function that returns the ToString of the list of all the Parcels that dons't connected to drone
         /// </summary>
@@ -220,7 +237,7 @@ namespace BL
                     result += "\n";
                 }
                 return result;
-            }
+            return result;
         }
         /// <summary>
         /// Get a parcel which this drone is sending it now
@@ -246,5 +263,30 @@ namespace BL
                 return null;
             return convertor1(p);
         }
+        public Parcel GetParcel(ParcelAtCustomer parcel)
+        {
+            return convertor(mydal.Find_parcel(parcel.Id));
+        }
+        public Parcel GetParcel(ParcelToList parcel)
+        {
+            return convertor(mydal.Find_parcel(parcel.Id));
+        }
+        public Parcel GetParcel(int id)
+        {
+            return convertor(mydal.Find_parcel(id));
+        }
+
+        public IEnumerable<ParcelToList> GetAllParcels(Predicate<ParcelToList> match)
+        {
+            return convertor(mydal.Get_all_parcels(item=>true)).FindAll(match);
+        }
+        public bool CheckDate(DateTime from, DateTime until)
+        {
+            if (until < from)
+                throw new DateException("Until date must not be smaller then From date ");
+            return true;
+
+        }
     }
+
 }

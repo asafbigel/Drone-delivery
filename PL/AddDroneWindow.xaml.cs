@@ -51,21 +51,24 @@ namespace PL
                     Model = model
                 };
                 bl.Add_drone(drone, baseStation);
+                if (theDronesPage != null)
+                    theDronesPage.refresh();
                 MessageBox.Show("Succsess", "Succsess");
                 Close();
-                theDronesPage.Refresh();
                 /*
-                theDronesPage.drones.Add(new DroneToList()
-                {
-                    Id = drone.Id,
-                    MaxWeight = drone.MaxWeight,
-                    Model = drone.Model,
-                    Battery = drone.Battery,
-                    DroneLocation = drone.DroneLocation,
-                    Status = drone.Status,
-                    NumOfParcel = 0
-                });
-                */
+                if(theDronesPage != null)
+                    theDronesPage.drones.Add(new DroneToList()
+                    {
+                        Id = drone.Id,
+                        MaxWeight = drone.MaxWeight,
+                        Model = drone.Model,
+                        Battery = drone.Battery,
+                        DroneLocation = drone.DroneLocation,
+                        Status = drone.Status,
+                        NumOfParcel = 0
+                    });*/
+                
+
             }
             catch (FormatException ex)
             {

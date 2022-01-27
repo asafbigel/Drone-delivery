@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BL\" />
+    <Compile Remove="BL\BL_baseStations.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="BlApi\" />
   </ItemGroup>
 

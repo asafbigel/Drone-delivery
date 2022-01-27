@@ -14,7 +14,9 @@ namespace BO
         public List<DroneInCharging> DroneInChargings { get; set; }
 
         public override string ToString()
+
         {
+           
             string result = "";
             result += "ID: " + Id +",";
             result += " Name: " + Name + ",";

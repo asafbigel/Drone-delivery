@@ -12,9 +12,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            
+            <RowDefinition Height="auto"/>
+
         </Grid.RowDefinitions>
-        <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" Grid.Row="0" >
+        <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" Grid.Row="0"  SelectionChanged="BaseStationsListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
@@ -24,8 +25,17 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <CheckBox x:Name="Grouping" Content="Grouping by free charge slots"
-                  IsChecked="False" Grid.Row="1" VerticalAlignment="Center"
-                  HorizontalAlignment="Center" Checked="Grouping_Checked"/>
+        <Grid x:Name="down"  Grid.Row="1"  >
+            
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="Grouping" Content="Grouping by free charge slots"
+                  IsChecked="False" Grid.Column="1" VerticalAlignment="Center"
+                  HorizontalAlignment="Center" Checked="Grouping_Checked" Unchecked="Grouping_Checked"/>
+            <Button x:Name="Add"  Content="Add BaseStation" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Add_Click" />
+        </Grid>
     </Grid>
 </Page>

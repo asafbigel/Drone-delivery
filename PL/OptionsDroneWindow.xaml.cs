@@ -105,6 +105,11 @@ namespace PL
                 string newModel = Model.Text;
                 bl.update_model_drone(drone.Id, newModel);
                 drone = bl.GetAllDrones(item => true).ToList().Find(item => item.Id == drone.Id);
+                /*
+                updateDroneDetails(drone);
+                if (theDronesPage != null)
+                    theDronesPage.refresh();
+                */
                 MessageBox.Show("Succsess", "Succsess");
                 updateDroneDetails(drone);
                 refresh();

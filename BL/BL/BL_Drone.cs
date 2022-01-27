@@ -141,6 +141,13 @@ namespace BL
             lock (mydal)
                 return convertor(mydal.Get_all_drones()).FindAll(match);
         }
+        public DroneToList GetDroneToList(int id)
+        {
+            var myDrone = mydal.Find_drone(id);
+            Drone drone = convertor(myDrone);
+            return convertor3(drone);
+        }
+   
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(DroneToList drone)
         {

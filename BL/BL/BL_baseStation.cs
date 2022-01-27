@@ -32,6 +32,17 @@ namespace BL
             lock (mydal)
                 mydal.UpdateBaseStation(convertor(baseStation));
         }
+        /// <summary>
+        ///  fanction that update baseStation
+        /// </summary>
+        /// <param name="baseStation"> the baseStation to update </param>
+        public void UpdateBaseStation(BaseStation baseStation)
+        { 
+            if(baseStation.Num_Free_slots_charge < 0)
+                throw new slotException("Free slots charge can't be less than 0");
+            BaseStation OldbaseStation = find_baseStation(baseStation.Id);
+            mydal.UpdateBaseStation(convertor(baseStation));
+        }
 
         /// <summary>
         /// get BL base station
@@ -58,6 +69,12 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_base_station(BaseStation baseStation)
         {
+            if (baseStation.Id == 0)
+                throw new BaseStationExeption("Invalid Id");
+            if (baseStation.Name == "")
+                throw new BaseStationExeption("Enter Name");
+            if (baseStation.Name == null)
+                throw new BaseStationExeption("Invalid Name");
             lock (mydal)
             {
                 baseStation.DroneInChargings = new List<DroneInCharging>();
@@ -116,6 +133,14 @@ namespace BL
                 }
                 return result;
             }
+        }
+        public BaseStation GetBaseStation(int id)
+        {
+            var baseStation = mydal.Find_baseStation(id);
+            if (baseStation.Id == 0)
+                throw new BaseStationExeption("baseStation not found");
+            return convertor(baseStation);
+
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

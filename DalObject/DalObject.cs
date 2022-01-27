@@ -142,6 +142,15 @@ namespace Dal
         */
         #endregion
 
+        #region Get an object, and delete it (public)
+        public void DeleteParcel(int id)
+        {
+           DataSource.Parcels.Remove(Find_parcel(id));
+
+        }
+
+        #endregion
+
         #region Get id of object, and find his index at the array (private)
         /// <summary>
         /// find index parcel in list

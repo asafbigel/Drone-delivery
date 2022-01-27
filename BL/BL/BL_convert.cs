@@ -68,15 +68,20 @@ namespace BL
         /// <returns> DO.BaseStation object </returns>
         static private DO.BaseStation convertor(BaseStation baseStation)
         {
-            DO.BaseStation idalBaseStation = new DO.BaseStation()
-            {
-                ChargeSlots = baseStation.Num_Free_slots_charge,
-                Id = baseStation.Id,
-                Lattitude = baseStation.BaseStationLocation.latitude,
-                Longitude = baseStation.BaseStationLocation.longitude,
-                Name = baseStation.Name
-            };
-            return idalBaseStation;
+            
+                DO.BaseStation idalBaseStation = new DO.BaseStation()
+                {
+                    ChargeSlots = baseStation.Num_Free_slots_charge,
+                    Id = baseStation.Id,
+                    Lattitude = baseStation.BaseStationLocation.latitude,
+                    Longitude = baseStation.BaseStationLocation.longitude,
+                    Name = baseStation.Name
+                };
+                return idalBaseStation;
+            
+                
+
+                       
         }
         /// <summary>
         /// convert from BO.parcel object to  DO.parcel object
@@ -85,7 +90,7 @@ namespace BL
         /// <returns>DO.parcel object </returns>
         static private DO.Parcel convertor(Parcel parcel)
         {
-            int drone_id =0 ;
+            int drone_id = 0;
             int senderId = 0;
             int TargetId = 0;
             if (parcel.TheDrone != null)

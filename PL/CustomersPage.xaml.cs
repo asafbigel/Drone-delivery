@@ -38,5 +38,23 @@ namespace PL
         {
             new AddCustomerWindow(bl, this).Show();
         }
+        internal void refresh()
+        {
+            customers = new ObservableCollection<CustomerToList>(bl.GetAllCustomers(item => true));
+            DataContext = customers;
+        }
+
+        private void CustomersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if (CustomersListView.SelectedItem != null)
+            {
+                Customer customer =bl.GetCustomer((CustomerToList) CustomersListView.SelectedItem);
+                new CustomerViewWindow(customer, bl ,this).Show();
+              
+            }
+            CustomersListView.UnselectAll();
+            
+        }
     }
 }

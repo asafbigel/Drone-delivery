@@ -13,6 +13,9 @@ namespace DalApi
         void Add_DroneCharge(DroneCharge droneCharge);
         void Add_parcel(Parcel parcel);
         #endregion
+        #region Delete
+        void DeleteParcel(int id);
+        #endregion
         #region Find
         BaseStation Find_baseStation(int my_id);
         Customer Find_customer(int my_id);
