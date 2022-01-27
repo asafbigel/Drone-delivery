@@ -20,6 +20,8 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_drone(Drone drone, int baseStation_num)
         {
+            if (drone.Id <= 0)
+                throw new DroneIdException("invalid id");
             lock (mydal)
             {
                 drone.Battery = rand.Next(20, 41);
@@ -45,6 +47,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void update_model_drone(int drone_id, string model)
         {
+            
             lock (mydal)
             {
                 DO.Drone my_drone = mydal.Find_drone(drone_id);

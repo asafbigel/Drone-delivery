@@ -71,7 +71,7 @@
                       HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150"
                       Grid.Column="1" IsEditable="True"
                       FontSize="20" FontWeight="Bold" Width="auto" 
-                      SelectionChanged="StatusSelector_SelectionChanged" IsReadOnly="True"
+                      SelectionChanged="refresh" IsReadOnly="True"
                         ItemsSource="{Binding Source={StaticResource dataFromStatus}}"/>
 
             <Button x:Name="Reset" Grid.Column="2" Content="Reset " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Click="Reset_Click"/>
@@ -84,7 +84,7 @@
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       FontSize="20" FontWeight="Bold" Width="174"
                       ItemsSource="{Binding Source={StaticResource dataFromWeight}}"
-                      SelectionChanged="WeightSelector_SelectionChanged"/>
+                      SelectionChanged="refresh"/>
             <TextBlock Text="Date:  From:" Grid.Column="0" Grid.Row="1" 
                      HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" ToolTip=""
                      Foreground="#FFC71E1E" FontWeight="Bold" />

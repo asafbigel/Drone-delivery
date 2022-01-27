@@ -39,7 +39,7 @@
                 <Label x:Name="Battery" Content="Battery:" Grid.Column="1" Grid.Row="3" FontSize="13"/>
                 <Label x:Name="Status" Content="Status:" Grid.Column="1" Grid.Row="4" FontSize="13"/>
                 <Label x:Name="Longitude" Content="Longitude:" Grid.Column="1" Grid.Row="5" FontSize="13"/>
-                <Label x:Name="Latitude" Content="Latitude:" Grid.Column="1" Grid.Row="6" FontSize="13"/>
+                <Label x:Name="Latitude" Content="Latitude:" Grid.Row="6" FontSize="13" Grid.ColumnSpan="2"/>
             </Grid>
         </StackPanel>
         <StackPanel x:Name="Options" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="{x:Null}">

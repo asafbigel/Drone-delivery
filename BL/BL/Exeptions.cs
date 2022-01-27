@@ -174,4 +174,23 @@ namespace BL
         {
         }
     }
+    [Serializable]
+    internal class DroneIdException : Exception
+    {
+        public DroneIdException()
+        {
+        }
+
+        public DroneIdException(string message) : base(message)
+        {
+        }
+
+        public DroneIdException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected DroneIdException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }

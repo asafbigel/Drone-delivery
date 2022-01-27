@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerViewWindow" Height="450" Width="800">
+        Title="CustomerViewWindow" Height="500" Width="950">
     <Grid>
         <Grid x:Name="Main">
             <Grid.RowDefinitions>
@@ -24,6 +24,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
 
 
                     </Grid.RowDefinitions>
@@ -31,7 +32,7 @@
                     <Label Content="Name:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
                     <Label Content="Phone:" Grid.Column="0" Grid.Row="2" FontSize="24"/>
                     <Label Content="Location:" Grid.Column="0" Grid.Row="3" FontSize="24" Margin="0,25,0,0"/>
-
+                    <Label  Content="{Binding BaseStationLocation}" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" FontSize="24"   Width="340" />
 
                     <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="18"/>
                     <TextBox x:Name="Name" Text="{Binding Name}" Grid.Column="1" Grid.Row="1" FontSize="18" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>

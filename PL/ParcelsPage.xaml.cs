@@ -49,26 +49,11 @@ namespace PL
             DataContext = parcels;
            
         }
-
-        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            /* if (StatusSelector.SelectedItem != null)
-             {
-                 status = (ParcelStatuses)StatusSelector.SelectedItem;
-                 var x = (bl.GetAllParcels(item => item.Status == status && (weight == null || item.Weight == weight)));
-                 parcels.Clear();
-                 foreach (var item in x)
-                 {
-                     parcels.Add(item);
-                 }
-             }*/
-            refresh();
-          
-
-        }
+        
+        
         
 
-        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void refresh(object sender, SelectionChangedEventArgs e)
         {/*
             if (WeightSelector.SelectedItem != null)
             {

@@ -58,7 +58,7 @@
                 <Label Content="TheDrone:" Grid.Column="0" Grid.Row="7" FontSize="24"/>
 
                 <Label x:Name="Id" Content="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="24"/>
-                <TextBox x:Name="SenderId" Text="{Binding Sender.Id}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <Label x:Name="SenderId" Content="{Binding Sender.Id}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
                 <Label x:Name="SenderName" Content ="{Binding Sender.CustomerName}" Grid.Column="1" Grid.Row="2" FontSize="24"/>
                 <TextBox x:Name="GetterId" Text="{Binding Getter.Id}" Grid.Column="1" Grid.Row="3" FontSize="24"/>
                 <Label x:Name="GetterName" Content="{Binding Getter.CustomerName}" Grid.Column="1" Grid.Row="4" FontSize="24"/>

@@ -200,4 +200,14 @@
     <Model>MTR6</Model>
     <MaxWeight>heavy</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>-8</Id>
+    <Model>yu</Model>
+    <MaxWeight>medium</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>9</Id>
+    <Model>nb</Model>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
 </ArrayOfDrone>
