@@ -17,7 +17,7 @@ namespace DL
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
         }
-        #region SaveLoadWithXElement
+        #region Save Load With XElement
         public static void SaveListToXMLElement(XElement rootElem, string filePath)
         {
             try
@@ -34,17 +34,13 @@ namespace DL
         {
             try
             {
-                if (File.Exists(dir + filePath))
-                {
                     return XElement.Load(dir + filePath);
-                }
-                else
-                {
+            }
+                    /*
                     XElement rootElem = new XElement("Customers");
                     rootElem.Save(dir + filePath);
                     return rootElem;
-                }
-            }
+                    */
             catch (Exception ex)
             {
                 throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
@@ -52,7 +48,7 @@ namespace DL
         }
         #endregion
 
-        #region SaveLoadWithXMLSerializer
+        #region Save Load With XML Serializer
         public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
         {
             try

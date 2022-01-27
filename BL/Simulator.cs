@@ -8,7 +8,7 @@ namespace BL
 {
     internal class Simulator
     {
-        int droneSpeed =50;
+       // int droneSpeed =50;
         int DELAY = 500;
         internal Simulator(BL bl, int id, Action refresh, Func<bool> f)
         {
@@ -65,10 +65,6 @@ namespace BL
                             break;
                         default:
                             break;
-                    }
-                    lock (bl)
-                    {
-
                     }
 
                     refresh();
