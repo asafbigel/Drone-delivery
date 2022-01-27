@@ -6,11 +6,6 @@
     <MaxWeight>heavy</MaxWeight>
   </Drone>
   <Drone>
-    <Id>1074</Id>
-    <Model>MTR6</Model>
-    <MaxWeight>heavy</MaxWeight>
-  </Drone>
-  <Drone>
     <Id>1125</Id>
     <Model>MTR6</Model>
     <MaxWeight>medium</MaxWeight>
@@ -198,6 +193,11 @@
   <Drone>
     <Id>1369</Id>
     <Model>MTR2</Model>
+    <MaxWeight>heavy</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>1074</Id>
+    <Model>MTR6</Model>
     <MaxWeight>heavy</MaxWeight>
   </Drone>
 </ArrayOfDrone>
