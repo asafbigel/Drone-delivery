@@ -371,4 +371,11 @@
     <Lattitude>0</Lattitude>
     <Phone>3</Phone>
   </Customer>
+  <Customer>
+    <Id>-8</Id>
+    <Phone>8754</Phone>
+    <Name>nm</Name>
+    <Longitude>0</Longitude>
+    <Lattitude>0</Lattitude>
+  </Customer>
 </Customers>

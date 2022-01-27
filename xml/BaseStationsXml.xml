@@ -70,4 +70,18 @@
     <Lattitude>31.766043</Lattitude>
     <ChargeSlots>4</ChargeSlots>
   </BaseStation>
+  <BaseStation>
+    <Id>85</Id>
+    <Name>ftgvh</Name>
+    <Longitude>0</Longitude>
+    <Lattitude>0</Lattitude>
+    <ChargeSlots>0</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>-8</Id>
+    <Name>v bn</Name>
+    <Longitude>0</Longitude>
+    <Lattitude>0</Lattitude>
+    <ChargeSlots>0</ChargeSlots>
+  </BaseStation>
 </ArrayOfBaseStation>
