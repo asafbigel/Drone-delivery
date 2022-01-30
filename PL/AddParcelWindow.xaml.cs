@@ -71,7 +71,7 @@ namespace PL
                  Close();
                  parcel = bl.GetParcel(myId);*/
                 if (id != null)
-                    myParcel.Id = (int)id;
+                    myParcel.Sender.Id= (int)id;
                 int parcelId = bl.AddParcel(myParcel);
                 MessageBox.Show("Succsess, the id of the new id is "+ parcelId, "Succsess");
                 Close();
