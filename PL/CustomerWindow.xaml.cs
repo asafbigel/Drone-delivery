@@ -17,48 +17,39 @@ using BL;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for CustomerViewWindow.xaml
+    /// Interaction logic for CustomeWindow.xaml
     /// </summary>
-    public partial class CustomerViewWindow : Window
+    public partial class CustomerWindow : Window
     {
         BlApi.IBL theBL;
         Customer customer;
-        Action refresh;
-        bool managerFlag;
-        public CustomerViewWindow(Object ob, BlApi.IBL bl, Action refreshing, bool manager)
+        
+
+        public CustomerWindow(Customer theCustomer, BlApi.IBL bl)
         {
             theBL = bl;
-            refresh = refreshing;
-            managerFlag = manager;
+            customer = theCustomer;
             InitializeComponent();
-            customer = (Customer)ob;
-            DataContext = customer;
-            if (!manager)
-            {
-                Password.Visibility = Visibility.Collapsed;
-               
-            }
-            
+             DataContext = customer;
+           
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            Close();           
+            new EnterWindow().Show();
+            Close();
         }
 
 
 
-        private void AddCustomer_Click(object sender, RoutedEventArgs e)
-        {
-            new AddCustomerWindow(theBL, refresh).Show();
-        }
+       
         private void ParcelsForCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
             if (ParcelsForCustomer.SelectedItem != null)
             {
                 Parcel parcel = theBL.GetParcel(ParcelsForCustomer.SelectedItem as ParcelAtCustomer);
-                new ParcelOptionsWindow(parcel as object, theBL, null, managerFlag).Show();
+                new ParcelOptionsWindow(parcel as object, theBL, null, false).Show();
 
             }
             ParcelsForCustomer.UnselectAll();
@@ -76,31 +67,29 @@ namespace PL
             ParcelsFromCustomer.UnselectAll();
 
         }
+        internal void refresh()
+        {
+            
+        }
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                theBL.updateCustomer(customer);               
-                if (refresh != null)
-                    refresh();
-                TheCustomerLocation.Text = customer.CustomerLocation.ToString();
-                MessageBox.Show("Succsess", "Succsess");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
 
+           new CustomerViewWindow(customer, theBL, refresh, false).Show();
 
         }
 
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
-            new AddParcelWindow(theBL, refresh, customer.Id);
+            new AddParcelWindow(theBL, refresh, customer.Id).Show();
+        }
+
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            new ChangePasswordWindow(theBL, customer.Id).Show();
         }
     }
 }
 
 
 
-       
+

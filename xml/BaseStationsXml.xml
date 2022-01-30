@@ -77,11 +77,4 @@
     <Lattitude>0</Lattitude>
     <ChargeSlots>0</ChargeSlots>
   </BaseStation>
-  <BaseStation>
-    <Id>-8</Id>
-    <Name>v bn</Name>
-    <Longitude>0</Longitude>
-    <Lattitude>0</Lattitude>
-    <ChargeSlots>0</ChargeSlots>
-  </BaseStation>
-</ArrayOfBaseStation>
+  </ArrayOfBaseStation>

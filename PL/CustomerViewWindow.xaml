@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerViewWindow" Height="500" Width="950">
+        Title="CustomerViewWindow" Height="600" Width="950">
     <Grid>
         <Grid x:Name="Main">
             <Grid.RowDefinitions>
@@ -25,21 +25,24 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
 
 
                     </Grid.RowDefinitions>
                     <Label Content="Id:" Grid.Column="0" Grid.Row="0" FontSize="24"/>
                     <Label Content="Name:" Grid.Column="0" Grid.Row="1" FontSize="24"/>
                     <Label Content="Phone:" Grid.Column="0" Grid.Row="2" FontSize="24"/>
-                    <Label Content="Location:" Grid.Column="0" Grid.Row="3" FontSize="24" Margin="0,25,0,0"/>
-                    <Label  Content="{Binding BaseStationLocation}" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" FontSize="24"   Width="340" />
+                    <Label x:Name="PasswordLable" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}"  Content="Password:" Grid.Column="0" Grid.Row="3" FontSize="24" />
+                    <Label Content="Location:" Grid.Column="0" Grid.Row="4" FontSize="24" Margin="0,25,0,0"/>
+                    <TextBlock x:Name="TheCustomerLocation" Text="{Binding CustomerLocation}" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" FontSize="22"   Width="340" Height="34" />
 
                     <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="18"/>
                     <TextBox x:Name="Name" Text="{Binding Name}" Grid.Column="1" Grid.Row="1" FontSize="18" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
                     <TextBox x:Name="Phone" Text="{Binding Phone}" Grid.Column="1" Grid.Row="2" FontSize="18"/>
-                    
+                    <TextBox x:Name="Password"  Text="{Binding Password}" Grid.Column="1" Grid.Row="3" FontSize="18"/>
 
-                    <Grid x:Name="Location"  Grid.Row="3"  Grid.Column="1">
+
+                    <Grid x:Name="Location"  Grid.Row="4"  Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -53,8 +56,8 @@
                         <Label Grid.Row="1" Content="latitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="15,10,20,10"/>
                         <TextBox x:Name="longitude" Grid.Column="1" Grid.Row="0"  Text="{Binding CustomerLocation.longitude}" Margin="0,4,50,3"/>
                         <TextBox x:Name="latitude" Grid.Column="1" Grid.Row="1" Text="{Binding CustomerLocation.latitude}" Margin="0,0,50,7"/>
-                        
-                 
+
+
                     </Grid>
 
                 </Grid>
@@ -68,23 +71,23 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ForCustomer" Text="Parcels for the Customer" Grid.Column="0" Grid.Row="0" FontSize="18" Margin="120,0,0,0" />
-                <TextBlock x:Name="FromCustomer" Text="Parcels from the Customer" Grid.Column="1" Grid.Row="0" FontSize="18" Margin="30,0,00,0" />
-                <ListView  x:Name="ParcelsForCustomer" Grid.Row="1"  Grid.Column="0"  Margin="80,0,5,0" ItemsSource="{Binding ParcelsAtCustomerFor}" SelectionChanged="ParcelsForCustomer_SelectionChanged"  >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="Weight" Width="auto" DisplayMemberBinding="{Binding Weight}" />
-                        <GridViewColumn Header="Priority" Width="auto" DisplayMemberBinding="{Binding Priority}" />
-                        <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Status}" />
-                        <GridViewColumn Header="Sender Id" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.Id}" />
-                        <GridViewColumn Header="Sender name" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.CustomerName}" />
+                <TextBlock x:Name="ForCustomer" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" Text="Parcels for the Customer" Grid.Column="0" Grid.Row="0" FontSize="18" Margin="120,0,0,0" />
+                <TextBlock x:Name="FromCustomer" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" Text="Parcels from the Customer" Grid.Column="1" Grid.Row="0" FontSize="18" Margin="40,0,0,0" />
+                <ListView  x:Name="ParcelsForCustomer" Grid.Row="1"  Grid.Column="0"  Margin="70,0,5,0" ItemsSource="{Binding ParcelsAtCustomerFor}" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" SelectionChanged="ParcelsForCustomer_SelectionChanged"  >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="Weight" Width="auto" DisplayMemberBinding="{Binding Weight}" />
+                            <GridViewColumn Header="Priority" Width="auto" DisplayMemberBinding="{Binding Priority}" />
+                            <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Status}" />
+                            <GridViewColumn Header="Sender Id" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.Id}" />
+                            <GridViewColumn Header="Sender name" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.CustomerName}" />
 
-                    </GridView>
-                </ListView.View>
-                                        
-            </ListView>
-                <ListView  x:Name="ParcelsFromCustomer" Grid.Row="1" Grid.Column="1"  Margin="5,0,80,0" ItemsSource="{Binding ParcelsAtCustomerFrom }" SelectionChanged="ParcelsFromCustomer_SelectionChanged" >
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+                <ListView  x:Name="ParcelsFromCustomer" Grid.Row="1" Grid.Column="1"  Margin="5,0,80,0" ItemsSource="{Binding ParcelsAtCustomerFrom }" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" SelectionChanged="ParcelsFromCustomer_SelectionChanged" >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
@@ -99,10 +102,11 @@
                 </ListView>
             </Grid>
             <StatusBar Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" Margin="50,0,0,0">
-                <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Exit_Click" Margin="0,0,10,0" FontSize="36"/>
-                <Button x:Name="Update" Content="Update" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,0" FontSize="36" Click="Update_Click"/>
-                <Button x:Name="AddCustomer" Content="Add customer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,0" FontSize="36" Click="AddCustomer_Click"/>
-                
+                <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Exit_Click" Margin="0,0,10,0" FontSize="30"/>
+                <Button x:Name="Update" Content="Update Details" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,0" FontSize="30" Click="Update_Click"/>
+                <Button x:Name="AddCustomer" Content="Add customer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,0" FontSize="30" Click="AddCustomer_Click"/>
+                <Button x:Name="AddParcel" Content="Add parcel to this customer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" Margin="10,0,0,0" FontSize="30" Click="AddParcel_Click"/>
+
             </StatusBar>
         </Grid>
     </Grid>

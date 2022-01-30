@@ -23,13 +23,13 @@ namespace PL
     {
         BlApi.IBL theBL;
         Parcel parcel;
-        ParcelsPage theParcelsPage;
-        public ParcelOptionsWindow(object ob, BlApi.IBL bl, ParcelsPage parcelsPage)
+        Action refresh;
+        bool managerFlag;
+        public ParcelOptionsWindow(object ob, BlApi.IBL bl, Action refreshing, bool manager)
         {
             theBL = bl;
-            theParcelsPage = parcelsPage;
-            
-
+            refresh = refreshing;
+            managerFlag = manager;
 
 
             InitializeComponent();
@@ -38,7 +38,18 @@ namespace PL
             if (parcel.Scheduled == null)
                 OpenDrone.Visibility = Visibility.Collapsed;
             if (parcel.Scheduled != null)
+            {
                 Delete.Visibility = Visibility.Collapsed;
+                Update.Visibility = Visibility.Collapsed;                
+                PrioritySelector.IsEnabled = false;
+                WeightSelector.IsEnabled = false;
+                GetterId.IsEnabled = false;
+            }
+            if(!manager)
+            {
+                OpenDrone.Visibility = Visibility.Collapsed;
+                OpenSender.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -48,7 +59,7 @@ namespace PL
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            new AddParcelWindow(theBL, theParcelsPage).Show();
+            new AddParcelWindow(theBL, refresh, null).Show();
 
         }
 
@@ -57,8 +68,8 @@ namespace PL
             try 
             {
                 theBL.DelsteParcel(parcel.Id);
-                if (theParcelsPage != null)
-                    theParcelsPage.refresh();
+                if (refresh != null)
+                    refresh();
                 MessageBox.Show("Succsess", "Succsess");
                 Close();
             }
@@ -74,7 +85,7 @@ namespace PL
             try
             {
                 Customer customer = theBL.GetCustomer(parcel.Sender.Id);
-                new CustomerViewWindow(customer, theBL, null).Show();
+                new CustomerViewWindow(customer, theBL, null, managerFlag).Show();
             }
             catch (Exception ex)
             {
@@ -87,7 +98,7 @@ namespace PL
             try
             {
                 Customer customer = theBL.GetCustomer(parcel.Getter.Id);
-                new CustomerViewWindow(customer, theBL, null).Show();
+                new CustomerViewWindow(customer, theBL, null, managerFlag).Show();
             }
             catch (Exception ex)
             {
@@ -124,8 +135,8 @@ namespace PL
                 
                 SenderName.Content = parcel.Sender.CustomerName;
                 GetterName.Content = parcel.Getter.CustomerName;
-                if (theParcelsPage != null)
-                    theParcelsPage.refresh();
+                if (refresh != null)
+                    refresh();
                 MessageBox.Show("Succsess", "Succsess");
 
             }

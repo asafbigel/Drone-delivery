@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
+
 
 namespace PL
 {
@@ -34,9 +34,9 @@ namespace PL
             DataContext = customers;
         }
 
-        private void AddCustumer_Click(object sender, RoutedEventArgs e)
+        private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            new AddCustomerWindow(bl, this).Show();
+            new AddCustomerWindow(bl, refresh).Show();
         }
         internal void refresh()
         {
@@ -50,7 +50,7 @@ namespace PL
             if (CustomersListView.SelectedItem != null)
             {
                 Customer customer =bl.GetCustomer((CustomerToList) CustomersListView.SelectedItem);
-                new CustomerViewWindow(customer, bl ,this).Show();
+                new CustomerViewWindow(customer, bl , refresh, true).Show();
               
             }
             CustomersListView.UnselectAll();

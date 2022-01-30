@@ -29,13 +29,13 @@ namespace PL
         WeightCategories? weight;
         internal ObservableCollection<ParcelToList> parcels;
         
-        int? StartDay;
+       /* int? StartDay;
         int? StartMonth;
         int? StartYear;
 
         int? EndDay;
         int? EndMonth;
-        int? EndYear;
+        int? EndYear;*/
 
 
         // DateTime? DateFrom; 
@@ -111,7 +111,7 @@ namespace PL
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
             
-            new AddParcelWindow(bl, this).Show();
+            new AddParcelWindow(bl, refresh, null).Show();
         }
 
         private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -119,7 +119,7 @@ namespace PL
             if (ParcelListView.SelectedItem != null)
             {
                 Parcel myParcel = bl.GetParcel((ParcelToList)ParcelListView.SelectedItem );
-                new ParcelOptionsWindow(myParcel, bl, this).Show();
+                new ParcelOptionsWindow(myParcel, bl, refresh, true).Show();
                 ParcelToList d = (ParcelToList)ParcelListView.SelectedItem;
             }
             ParcelListView.UnselectAll();

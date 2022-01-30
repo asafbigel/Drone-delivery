@@ -45,6 +45,7 @@ namespace Dal
                             Lattitude = double.Parse(customer.Element("Lattitude").Value),
                             Longitude = double.Parse(customer.Element("Longitude").Value),
                             Phone = customer.Element("Phone").Value,
+                            Password = customer.Element("Password").Value,
                             Name = customer.Element("Name").Value
                         }
                         ).FirstOrDefault();
@@ -66,6 +67,7 @@ namespace Dal
                         Lattitude = double.Parse(customer.Element("Lattitude").Value),
                         Longitude = double.Parse(customer.Element("Longitude").Value),
                         Phone = customer.Element("Phone").Value,
+                        Password = customer.Element("Password").Value,
                         Name = customer.Element("Name").Value
                     };
         }
@@ -81,6 +83,7 @@ namespace Dal
                        Lattitude = double.Parse(cus.Element("Lattitude").Value),
                        Longitude = double.Parse(cus.Element("Longitude").Value),
                        Phone = cus.Element("Phone").Value,
+                       Password = cus.Element("Password").Value,
                        Name = cus.Element("Name").Value
                    }
                    where predicate(customer)
@@ -101,6 +104,7 @@ namespace Dal
             XElement customerElem = new XElement("Customer",
                                     new XElement("Id", customer.Id),
                                     new XElement("Phone", customer.Phone),
+                                    new XElement("Password", customer.Password),
                                     new XElement("Name", customer.Name),
                                     new XElement("Longitude", customer.Longitude),
                                     new XElement("Lattitude", customer.Lattitude));
@@ -141,6 +145,7 @@ namespace Dal
                 cus.Element("Id").Value = customer.Id.ToString();
                 cus.Element("Name").Value = customer.Name;
                 cus.Element("Phone").Value = customer.Phone;
+                cus.Element("Password").Value = customer.Password;
                 cus.Element("Longitude").Value = customer.Longitude.ToString();
                 cus.Element("Lattitude").Value = customer.Lattitude.ToString();
 

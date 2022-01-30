@@ -77,16 +77,16 @@ namespace Dal
             // Lattitude is between 35.160443 -  35.252793
             // Longitude is between 31.727247 - 31.844377
             int id = rand.Next(1000000, 398999999);
-            Customers.Add(new Customer() { Id = ((id) % 399000000) + 1000000, Name = "Avraham", Phone = "0537829463", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Yzhak", Phone = "0552961473", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Ya'akov", Phone = "0529573594", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Moshe", Phone = "0587192456", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "David", Phone = "0575684710", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Yosef", Phone = "0504783975", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Aharon", Phone = "0558395674", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Reuven", Phone = "0529879564", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Shimon", Phone = "0589675627", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
-            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Yehuda", Phone = "0509875873", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((id) % 399000000) + 1000000, Name = "Avraham", Phone = "0537829463", Password = "1537829463", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Yzhak", Phone = "0552961473",  Password = "1552961473", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Ya'akov", Phone = "0529573594", Password = "1537829463", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Moshe", Phone = "0587192456", Password = "1587192456", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "David", Phone = "0575684710", Password = "1537829463", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Yosef", Phone = "0504783975", Password = "2504783975", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Aharon", Phone = "0558395674", Password = "2537829463", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Reuven", Phone = "0529879564", Password = "3509875873", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Shimon", Phone = "0589675627", Password = "5529879564", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
+            Customers.Add(new Customer() { Id = ((++id) % 399000000) + 1000000, Name = "Yehuda", Phone = "0509875873", Password = "9537829463", Lattitude = rand.Next(35160443, 35252793) * 0.000001, Longitude = rand.Next(31727247, 31844377) * 0.000001 });
             #endregion
 
             #region Adding parcels

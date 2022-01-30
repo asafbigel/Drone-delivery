@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BO
 {
@@ -11,9 +7,10 @@ namespace BO
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
+        public string Password { get; set; }
         public Location CustomerLocation { get; set; }
         public List<ParcelAtCustomer> ParcelsAtCustomerFrom { get; set; }
-        public List<ParcelAtCustomer> parcelsAtCustomerFor { get; set; }
+        public List<ParcelAtCustomer> ParcelsAtCustomerFor { get; set; }
 
         public override string ToString()
         {
@@ -30,7 +27,7 @@ namespace BO
                 result += "\n";
             }
             result += "\nparcels for the customer:\n";
-            foreach (var item in parcelsAtCustomerFor)
+            foreach (var item in ParcelsAtCustomerFor)
             {
                 result += "\t";
                 result += item.ToString();

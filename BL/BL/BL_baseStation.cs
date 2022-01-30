@@ -69,8 +69,8 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_base_station(BaseStation baseStation)
         {
-            if (baseStation.Id == 0)
-                throw new BaseStationExeption("Invalid Id");
+            if (baseStation.Id <= 0)
+                throw new BaseStationIdExeption("Invalid aseStation Id");
             if (baseStation.Name == "")
                 throw new BaseStationExeption("Enter Name");
             if (baseStation.Name == null)

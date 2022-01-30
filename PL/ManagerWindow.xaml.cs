@@ -21,10 +21,11 @@ namespace PL
     public partial class ManagerWindow : Window
     {
         BlApi.IBL bl;
-        public ManagerWindow()
+        public ManagerWindow(BlApi.IBL theBl)
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
+            bl = theBl;
+                 
         }
 
         private void Drones_Click(object sender, RoutedEventArgs e)
@@ -71,7 +72,10 @@ namespace PL
                     View.Content = new ParcelsPage(bl);
                     break;
                 case "Exit":
+                    new EnterWindow().Show();
                     Close();
+                    
+
                     break;
                 default:
                     break;

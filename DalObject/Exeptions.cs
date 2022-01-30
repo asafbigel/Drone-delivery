@@ -97,5 +97,8 @@ namespace Dal
         protected BaseStationExeption(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
+
+       
+       
     }
 }

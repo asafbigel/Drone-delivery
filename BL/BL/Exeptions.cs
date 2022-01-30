@@ -192,5 +192,90 @@ namespace BL
         protected DroneIdException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
+
+        
+    }
+    [Serializable]
+    internal class CustomerIdExeption : Exception
+    {
+        public CustomerIdExeption()
+        {
+        }
+
+        public CustomerIdExeption(string message) : base(message)
+        {
+        }
+
+        public CustomerIdExeption(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected CustomerIdExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+
+    }
+    [Serializable]
+    internal class BaseStationIdExeption : Exception
+    {
+        public BaseStationIdExeption()
+        {
+        }
+
+        public BaseStationIdExeption(string message) : base(message)
+        {
+        }
+
+        public BaseStationIdExeption(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected BaseStationIdExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+
+    }
+
+    [Serializable]
+    internal class CustomerAtParcelNullExeption : Exception
+    {
+        public CustomerAtParcelNullExeption()
+        {
+        }
+
+        public CustomerAtParcelNullExeption(string message) : base(message)
+        {
+        }
+
+        public CustomerAtParcelNullExeption(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected CustomerAtParcelNullExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+        
+    [Serializable]
+    internal class EnterPasswordExeption : Exception
+    {
+        public EnterPasswordExeption()
+        {
+        }
+
+        public EnterPasswordExeption(string message) : base(message)
+        {
+        }
+
+        public EnterPasswordExeption(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected EnterPasswordExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+        
+    }
     }
 }

@@ -30,7 +30,7 @@
             </ListView.View>
         </ListView>
         <StackPanel Orientation="Horizontal" x:Name="options" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Button x:Name="AddCustumer" Content="Add custumer" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddCustumer_Click"  />
+            <Button x:Name="AddCustomer" Content="Add customer" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddCustomer_Click"  />
             </StackPanel>
     </Grid>
 </Page>

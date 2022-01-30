@@ -21,7 +21,7 @@ namespace BL
         public void Add_drone(Drone drone, int baseStation_num)
         {
             if (drone.Id <= 0)
-                throw new DroneIdException("invalid id");
+                throw new DroneIdException("invalid Drone id");
             lock (mydal)
             {
                 drone.Battery = rand.Next(20, 41);

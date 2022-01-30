@@ -18,7 +18,7 @@ namespace BL
         /// <param name="sender_id">  the id of the sender of the new parcel </param>
         /// <param name="getter_id"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public int Add_parcel(Parcel parcel, int sender_id, int getter_id)
+        public int AddParcel(Parcel parcel)
         {
             lock (mydal)
             {
@@ -28,14 +28,20 @@ namespace BL
                 parcel.Requested = DateTime.Now;
                 parcel.Id = mydal.GetAndUpdateRunNumber();
                 parcel.TheDrone = null;
+                if (parcel.Sender == null)
+                    throw new CustomerAtParcelNullExeption("Sender not valid");
+                GetCustomer(parcel.Sender.Id);
+                if (parcel.Getter == null)
+                    throw new CustomerAtParcelNullExeption("Getter not valid");
+                GetCustomer(parcel.Getter.Id);
                 DO.Parcel idalParcel = convertor(parcel);
-                idalParcel.SenderId = sender_id;
-                idalParcel.TargetId = getter_id;
+                //idalParcel.SenderId = sender_id;
+               // idalParcel.TargetId = getter_id;
                 mydal.Add_parcel(idalParcel);
                 return parcel.Id;
             }
         }
-        public void updateParcel(Parcel parcel)/////////////////////////////////
+        public void updateParcel(Parcel parcel)
         {
             lock(mydal)
                 mydal.UpdateParcel(convertor(parcel));

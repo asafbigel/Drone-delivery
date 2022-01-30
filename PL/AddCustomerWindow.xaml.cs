@@ -24,15 +24,15 @@ namespace PL
 
         CustomerToList newCustomer;
         BlApi.IBL bl;
-        CustomersPage theCustomersPage;
+        Action refresh;
         ObservableCollection<CustomerToList> customers;
 
         Customer customer = new Customer();
-        public AddCustomerWindow(BlApi.IBL theBL, CustomersPage customersPage)
+        public AddCustomerWindow(BlApi.IBL theBL, Action refreshing)
         {
             InitializeComponent();
             bl = theBL;
-            theCustomersPage = customersPage;
+            refresh = refreshing;
             // newCustomer = new CustomerToList();
             //this.DataContext = newCustomer;
             customer.CustomerLocation = new Location();
@@ -68,9 +68,13 @@ namespace PL
                 int.Parse(this.Id.Text);
                 int.Parse(this.Phone.Text);
                 double.Parse(this.longitude.Text);
+                if (Password.Password.Length < 1)
+                    throw new EnterPasswotdExeption("Enter Password");
+                customer.Password = Password.Password;
                 double.Parse(this.latitude.Text);
                 bl.Add_customer(customer);
                 MessageBox.Show("Succsess", "Succsess");
+                MessageBox.Show("Succsess, the User name to cusomer login is the Id" , "Succsess");
                 Close();
 
                 /* if(theCustomersPage!=null)
@@ -85,8 +89,8 @@ namespace PL
                      numOfParcelsToGet = 0,
 
                  });*/
-                if (theCustomersPage != null)
-                    theCustomersPage.refresh();
+                if (refresh != null)
+                    refresh();
 
 
             }

@@ -26,12 +26,12 @@
 
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="110*"/>
             <RowDefinition Height="400*"/>
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="upGrid" HorizontalAlignment="Stretch"
-              Height="auto" Grid.Row="0"
+              Height="auto" Grid.Row="0" Margin="0,0,0,0"
                  VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -60,7 +60,7 @@
 
 
                 </Grid.ColumnDefinitions >
-                <TextBox x:Name="dayFrom" Text="" Grid.Column="0" FontSize="18" Margin="0,5,0,0" />
+                <TextBox x:Name="dayFrom" Text=""  Grid.Column="0" FontSize="18" Margin="0,5,0,0" />
                 <Label Content="/" Grid.Column="1"  FontSize="18"/>
                 <TextBox x:Name="monthFrom" Text="" Grid.Column="2" FontSize="18" Margin="0,5,0,0"/>
                 <Label Content="/" Grid.Column="2"  FontSize="18" Grid.ColumnSpan="3" Margin="0,0,76,0" HorizontalAlignment="Right" Width="31"/>
@@ -111,9 +111,9 @@
 
             </Grid>
 
-            <Button x:Name="Filter" Grid.Column="4"  Grid.Row="1" Content="Filter by date " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Click="Filter_Click" Width="307"  />
+            <Button x:Name="Filter" Grid.Column="4"  Margin="0,5,0,0" Grid.Row="1" Content="Filter by date " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="Filter_Click" Width="307"  />
         </Grid>
-        <ListView  x:Name="ParcelListView" Grid.Row="1" ItemsSource="{Binding}" SelectionChanged="ParcelListView_SelectionChanged">
+        <ListView  x:Name="ParcelListView" Grid.Row="1" Margin="0,10,0,0" ItemsSource="{Binding}" SelectionChanged="ParcelListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />

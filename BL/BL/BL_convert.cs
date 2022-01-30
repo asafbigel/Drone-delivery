@@ -224,15 +224,16 @@ namespace BL
                 Name = customer.Name,
                 Lattitude = customer.CustomerLocation.latitude,
                 Longitude = customer.CustomerLocation.longitude,
-                Phone = customer.Phone
+                Phone = customer.Phone,
+                Password = customer.Password
             };
             return idalCustomer;
         }
 
         /// <summary>
-        /// convert from  DO.Customer object  to BO.Customer object  
+        /// convert from  DO.Drone object  to BO.Customer object  
         /// </summary>
-        /// <param name="drone">DO.Customer object</param>
+        /// <param name="drone">DO.Drone object</param>
         /// <returns>BO.Customer object</returns>
         static private DO.Drone convertor(Drone drone)
         {
@@ -537,9 +538,10 @@ namespace BL
                     Id = idal_customer.Id,
                     Name = idal_customer.Name,
                     Phone = idal_customer.Phone,
+                    Password= idal_customer.Password,
                     CustomerLocation = location
                 };
-                customer.parcelsAtCustomerFor = new List<ParcelAtCustomer>();
+                customer.ParcelsAtCustomerFor = new List<ParcelAtCustomer>();
                 customer.ParcelsAtCustomerFrom = new List<ParcelAtCustomer>();
                 List<DO.Parcel> parcels = mydal.Get_all_parcels(x => true).ToList();
                 foreach (var parcel in parcels)
@@ -554,7 +556,7 @@ namespace BL
                     if (parcel.TargetId == idal_customer.Id)
                     {
                         parcelAtCustomer.OtherCustomer = convertor2(mydal.Find_customer(parcel.SenderId));
-                        customer.parcelsAtCustomerFor.Add(parcelAtCustomer);
+                        customer.ParcelsAtCustomerFor.Add(parcelAtCustomer);
                     }
                 }
                 return customer;
@@ -673,9 +675,10 @@ namespace BL
                 };
             }
         }
+        /*
         private Customer convertor3(CustomerToList customer)
         {
             throw new NotNeedToArrivedException("you shouldn't arrived here");
-        }
+        }*/
     }
 }
