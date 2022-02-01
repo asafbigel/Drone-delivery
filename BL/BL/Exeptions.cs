@@ -256,26 +256,46 @@ namespace BL
         protected CustomerAtParcelNullExeption(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-        
-    [Serializable]
-    internal class EnterPasswordExeption : Exception
-    {
-        public EnterPasswordExeption()
-        {
-        }
 
-        public EnterPasswordExeption(string message) : base(message)
+        [Serializable]
+        internal class EnterPasswordExeption : Exception
         {
-        }
+            public EnterPasswordExeption()
+            {
+            }
 
-        public EnterPasswordExeption(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+            public EnterPasswordExeption(string message) : base(message)
+            {
+            }
 
-        protected EnterPasswordExeption(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
+            public EnterPasswordExeption(string message, Exception innerException) : base(message, innerException)
+            {
+            }
+
+            protected EnterPasswordExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+            {
+            }
+
+
         }
-        
     }
+    [Serializable]
+    internal class SelfParcelExeption : Exception
+    {
+        public SelfParcelExeption()
+        {
+        }
+
+        public SelfParcelExeption(string message) : base(message)
+        {
+        }
+
+        public SelfParcelExeption(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected SelfParcelExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }

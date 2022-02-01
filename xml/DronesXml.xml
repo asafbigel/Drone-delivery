@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-    <Id>1072</Id>
-    <Model>MTR8</Model>
-    <MaxWeight>heavy</MaxWeight>
-  </Drone>
-  <Drone>
     <Id>1125</Id>
     <Model>MTR6</Model>
     <MaxWeight>medium</MaxWeight>
@@ -200,9 +195,14 @@
     <Model>MTR6</Model>
     <MaxWeight>heavy</MaxWeight>
   </Drone>
-    <Drone>
+  <Drone>
     <Id>9</Id>
     <Model>nb</Model>
     <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>1072</Id>
+    <Model>MTR8</Model>
+    <MaxWeight>heavy</MaxWeight>
   </Drone>
 </ArrayOfDrone>

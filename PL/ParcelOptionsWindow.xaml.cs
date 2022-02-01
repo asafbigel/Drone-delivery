@@ -67,7 +67,7 @@ namespace PL
         {
             try 
             {
-                theBL.DelsteParcel(parcel.Id);
+                theBL.DeleteParcel(parcel.Id);
                 if (refresh != null)
                     refresh();
                 MessageBox.Show("Succsess", "Succsess");

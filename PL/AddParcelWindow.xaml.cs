@@ -74,6 +74,8 @@ namespace PL
                     myParcel.Sender.Id= (int)id;
                 int parcelId = bl.AddParcel(myParcel);
                 MessageBox.Show("Succsess, the id of the new id is "+ parcelId, "Succsess");
+                if (refresh != null)
+                    refresh();
                 Close();
 
                 /*  if (theParcelsPage != null))
@@ -87,10 +89,7 @@ namespace PL
                           Status = ParcelStatuses.Defined
 
                       }) ;*/
-                if (refresh != null)
-                    refresh();
-
-
+               
 
             }
             catch (FormatException ex)
