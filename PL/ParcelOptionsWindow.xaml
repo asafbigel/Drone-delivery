@@ -103,7 +103,7 @@
                   HorizontalAlignment="Center" FontSize="15"  Margin="0,10,0,0" Visibility="Collapsed" IsChecked="{Binding CollectionConfirmation }"/>
                 <CheckBox x:Name="ReciveConfirmation" Content ="Recive Confirmation  " Visibility="Collapsed"
                    Grid.Row="5 " VerticalAlignment="Center" IsChecked="{Binding ReciveConfirmation }"
-                  HorizontalAlignment="Center" FontSize="15" />
+                  HorizontalAlignment="Center" FontSize="15" Margin="0,10,0,0" />
                 
 
 
