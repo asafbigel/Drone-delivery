@@ -40,38 +40,18 @@ namespace PL
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*if (StatusSelector.SelectedItem != null)
-            {
-                status = (DroneStatuses)StatusSelector.SelectedItem;
-                var x = (bl.GetAllDrones(item => item.Status == status && (weight == null || item.MaxWeight == weight)));
-                drones.Clear();
-                foreach (var item in x)
-                {
-                    drones.Add(item);
-                }
-            }*/
-            refresh();
+           refresh();
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /* if (WeightSelector.SelectedItem != null)
-             {
-                 weight = (WeightCategories)WeightSelector.SelectedItem;
-                 var x = bl.GetAllDrones(item => item.MaxWeight == weight && (status == null || item.Status == status));
-                 drones.Clear();
-                 foreach (var item in x)
-                 {
-                     drones.Add(item);
-                 }
-             }*/
+            
             refresh();
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            //new AddDroneWindow(bl, drones).Show();
-            new AddDroneWindow(bl, refresh).Show();
+             new AddDroneWindow(bl, refresh).Show();
         }
 
         private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -105,22 +85,7 @@ namespace PL
         {
             grouping = true;
             refresh();
-            /*
-            var x = from drone in drones
-                    where drone != null
-                    group drone by drone.Status into g
-                    select g;
-            drones = new ObservableCollection<DroneToList>();
-            foreach (var item in x)
-            {
-                foreach (var drone in item)
-                {
-                    drones.Add(drone);
-                }
-                drones.Add(null);
-            }
-            DataContext = drones;
-            */
+           
         }
         /*
         internal void Refresh()

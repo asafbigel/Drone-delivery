@@ -205,4 +205,24 @@
     <Model>MTR8</Model>
     <MaxWeight>heavy</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>12</Id>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>13</Id>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>14</Id>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>16</Id>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>17</Id>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

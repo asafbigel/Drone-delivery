@@ -193,7 +193,7 @@ namespace BL
         {
         }
 
-        
+
     }
     [Serializable]
     internal class CustomerIdExeption : Exception
@@ -298,4 +298,28 @@ namespace BL
         {
         }
     }
+   ;
+
+
+
+    [Serializable]
+    internal class NoFreeChargingException : Exception
+    {
+        public NoFreeChargingException()
+        {
+        }
+
+        public NoFreeChargingException(string message) : base(message)
+        {
+        }
+
+        public NoFreeChargingException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected NoFreeChargingException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }
+

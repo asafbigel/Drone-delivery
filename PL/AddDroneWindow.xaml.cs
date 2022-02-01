@@ -21,18 +21,19 @@ namespace PL
     /// </summary>
     public partial class AddDroneWindow : Window
     {
-        DroneToList newDrone;
+        // DroneToList newDrone;
+        Drone newDrone = new Drone();
         BlApi.IBL bl;
-        //DronesPage theDronesPage;
-        Action refresh;
+         Action refresh;
         ObservableCollection<DroneToList> drones;
         //public AddDroneWindow(BlApi.IBL theBL, ObservableCollection<DroneToList> myDrones)
-        public AddDroneWindow(BlApi.IBL theBL, Action _refresh)
+        public AddDroneWindow(BlApi.IBL theBL, Action refreshing)
         {
             InitializeComponent();
             bl = theBL;
-            refresh = _refresh;
-            newDrone = new DroneToList();
+            refresh = refreshing;
+            //newDrone = new DroneToList();
+            newDrone = new Drone();
             this.DataContext = newDrone;
             this.Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
         }
@@ -41,33 +42,23 @@ namespace PL
         {
             try
             {
+                int baseStation = int.Parse(this.Station.Text);
+                /*
                 int id = int.Parse(this.Id.Text);
                 string model = this.Model.Text;
                 WeightCategories weight = (WeightCategories)this.Weight.SelectedItem;
-                int baseStation = int.Parse(this.Station.Text);
                 Drone drone = new Drone()
                 {
                     Id = id,
                     MaxWeight = weight,
                     Model = model
-                };
-                bl.Add_drone(drone, baseStation);
+                };*/
+                bl.Add_drone(newDrone, baseStation);
                 if (refresh != null)
                     refresh();
                 MessageBox.Show("Succsess", "Succsess");
                 Close();
-                /*
-                if(theDronesPage != null)
-                    theDronesPage.drones.Add(new DroneToList()
-                    {
-                        Id = drone.Id,
-                        MaxWeight = drone.MaxWeight,
-                        Model = drone.Model,
-                        Battery = drone.Battery,
-                        DroneLocation = drone.DroneLocation,
-                        Status = drone.Status,
-                        NumOfParcel = 0
-                    });*/
+                
                 
 
             }

@@ -16,9 +16,9 @@ namespace BL
         ///  A function that add a new drone
         /// </summary>
         /// <param name="drone">  new drone to add</param>
-        /// <param name="baseStation_num"> the num of the baseStation of the new drone   </param>
+        /// <param name="baseStationNum"> the num of the baseStation of the new drone   </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void Add_drone(Drone drone, int baseStation_num)
+        public void Add_drone(Drone drone, int baseStationNum)
         {
             if (drone.Id <= 0)
                 throw new DroneIdException("invalid Drone id");
@@ -26,7 +26,10 @@ namespace BL
             {
                 drone.Battery = rand.Next(20, 41);
                 drone.Status = DroneStatuses.maintenance;
-                DO.BaseStation baseStation = mydal.Find_baseStation(baseStation_num);
+                DO.BaseStation baseStation = mydal.Find_baseStation(baseStationNum);
+                if (baseStation.ChargeSlots < 1)
+                    throw new NoFreeChargingException("There are no free charging stations at this station");
+
                 drone.DroneLocation = new Location();
                 drone.DroneLocation.longitude = baseStation.Longitude;
                 drone.DroneLocation.latitude = baseStation.Lattitude;
@@ -36,8 +39,11 @@ namespace BL
                 DO.DroneCharge droneCharge = new DO.DroneCharge();
                 droneCharge.DroneId = drone.Id;
                 droneCharge.StationId = baseStation.Id;
-                mydal.Add_DroneCharge(droneCharge);
+                droneCharge.EnterToCharge = DateTime.Now;
+
+                mydal.send_drone_to_charge(droneCharge);
             }
+               
         }
         /// <summary>
         /// A function that update model of drone
@@ -83,6 +89,7 @@ namespace BL
                 charge.StationId = baseStation.Id;
                 charge.EnterToCharge = DateTime.Now;
                 mydal.send_drone_to_charge(charge);
+                
             }
         }
         /// <summary>

@@ -385,7 +385,7 @@ namespace Dal
             baseStation.ChargeSlots--;
             Add_DroneCharge(droneCharge);
             UpdateBaseStation(baseStation);
-            UpdateDrone(drone);
+           // UpdateDrone(drone);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

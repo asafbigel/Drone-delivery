@@ -9,7 +9,7 @@ namespace BlApi
     {
         void Add_base_station(BaseStation baseStation);
         void Add_customer(Customer customer);
-        void Add_drone(Drone drone, int baseStation_num);
+        void Add_drone(Drone drone, int baseStationNum);
         //int Add_parcel(Parcel parcel, int sender_id, int getter_id);
         int AddParcel(Parcel parcel);
         void connect_parcel_to_drone(int drone_id);

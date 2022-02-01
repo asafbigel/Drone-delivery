@@ -23,6 +23,7 @@ namespace BL
                 drone = new DroneToList();
             new_drone.Battery = drone.Battery;
             new_drone.Id = droneCharge.DroneId;
+            new_drone.EnterToCharge = droneCharge.EnterToCharge;
             return new_drone;
         }
         /// <summary>

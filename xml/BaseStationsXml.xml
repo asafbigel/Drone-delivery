@@ -8,13 +8,6 @@
     <ChargeSlots>10</ChargeSlots>
   </BaseStation>
   <BaseStation>
-    <Id>9004</Id>
-    <Name>Base Station 9004</Name>
-    <Longitude>35.21640995884147</Longitude>
-    <Lattitude>31.71026333034051</Lattitude>
-    <ChargeSlots>9</ChargeSlots>
-  </BaseStation>
-  <BaseStation>
     <Id>9005</Id>
     <Name>Base Station 9005</Name>
     <Longitude>35.22859907936705</Longitude>
@@ -76,5 +69,12 @@
     <Longitude>35.189938</Longitude>
     <Lattitude>31.785664</Lattitude>
     <ChargeSlots>2</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9004</Id>
+    <Name>Base Station 9004</Name>
+    <Longitude>35.21640995884147</Longitude>
+    <Lattitude>31.71026333034051</Lattitude>
+    <ChargeSlots>8</ChargeSlots>
   </BaseStation>
 </ArrayOfBaseStation>
