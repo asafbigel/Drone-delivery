@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneViewWindow" Height="300" Width="200">
+        Title="DroneViewWindow" Height="300" Width="350">
     <Grid>
         <Grid x:Name="Main">
             <Grid.RowDefinitions>
@@ -41,8 +41,7 @@
                     <TextBlock x:Name="Weight" Text="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="13"/>
                     <TextBlock x:Name="Battery" Text="{Binding Battery}" Grid.Column="1" Grid.Row="3" FontSize="13"/>
                     <TextBlock x:Name="Status" Text="{Binding Status}" Grid.Column="1" Grid.Row="4" FontSize="13"/>
-                    <TextBlock x:Name="Longitude" Text="{Binding DroneLocation.longitude}" Grid.Column="1" Grid.Row="5" FontSize="13"/>
-                    <TextBlock x:Name="Latitude" Text="{Binding DroneLocation.latitude}" Grid.Column="1" Grid.Row="6" FontSize="13"/>
+                    <TextBlock x:Name="Location" Text="{Binding DroneLocation}" Grid.Column="1" Grid.Row="5" FontSize="13"/>
                     <TextBlock x:Name="ParcelId" Text="{Binding Parcel.Id}" Grid.Column="1" Grid.Row="7" FontSize="13"/>
                 </Grid>
             </StackPanel>

@@ -36,11 +36,8 @@ namespace PL
             bl = theBL;
             drone = theDrone;
             refresh = _refresh;
-            hideButtoms();
-            #region Hide the unneeded buttoms
-            
-            #endregion
             updateDroneDetails(drone);
+            DataContext = drone;
         }
 
         private void hideButtoms()
@@ -98,13 +95,14 @@ namespace PL
         // set the details of this drone
         private void updateDroneDetails(DroneToList drone)
         {
+            /*
             Id.Content = drone.Id;
             Model.Text = drone.Model;
             Weight.Content = drone.MaxWeight;
             Battery.Content = drone.Battery;
             Status.Content = drone.Status;
-            Longitude.Content = drone.DroneLocation.longitude;
-            Latitude.Content = drone.DroneLocation.latitude;
+            */
+            DataContext = drone;
             refresh();
             hideButtoms();
         }
