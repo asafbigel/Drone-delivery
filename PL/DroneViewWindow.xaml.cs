@@ -58,6 +58,7 @@ namespace PL
         private void Options_Click(object sender, RoutedEventArgs e)
         {
             new OptionsDroneWindow(theBL, droneToList, refresh).Show();
+            Close();
         }
     }
 }
