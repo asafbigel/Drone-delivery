@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    public struct Customer
+    /// <summary>
+    /// Customer struct to represent Customer of Parcels delivery service
+    /// </summary>
+    public struct Customer 
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -23,12 +23,12 @@ namespace PL
     {
         BlApi.IBL theBL;
         Customer customer;
-        Action myRefresh;
+        Action previousRefresh;
         bool managerFlag;
         public CustomerViewWindow(Object ob, BlApi.IBL bl, Action refreshing, bool manager)
         {
             theBL = bl;
-            myRefresh = refreshing;
+            previousRefresh = refreshing;
             managerFlag = manager;
             InitializeComponent();
             customer = (Customer)ob;
@@ -47,8 +47,8 @@ namespace PL
         }
         internal void refresh()
         {
-            if(myRefresh!=null)
-                myRefresh();
+            if(previousRefresh!=null)
+                previousRefresh();
             customer = theBL.GetCustomer(customer.Id);
             DataContext = customer;
         }

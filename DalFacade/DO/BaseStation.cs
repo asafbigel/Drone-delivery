@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// BaseStation struct to represent a drones station
+    /// </summary>
     public struct BaseStation
     {
         public int Id { get; set; }

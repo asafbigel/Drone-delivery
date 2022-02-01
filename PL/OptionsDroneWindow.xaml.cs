@@ -103,7 +103,8 @@ namespace PL
             Status.Content = drone.Status;
             */
             DataContext = drone;
-            refresh();
+            if(refresh != null)
+                refresh();
             hideButtoms();
         }
 
@@ -127,7 +128,8 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                refresh();
+                if(refresh != null)
+                    refresh();
             }
             catch (Exception ex)
             {
@@ -144,7 +146,8 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                refresh();
+                if(refresh != null)
+                    refresh();
             }
             catch (Exception ex)
             {
@@ -161,7 +164,8 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                refresh();
+                if (refresh != null)
+                    refresh();
             }
             catch (Exception ex)
             {
@@ -177,7 +181,8 @@ namespace PL
                 MessageBox.Show("Succsess","Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                refresh();
+                if (refresh != null)
+                    refresh();
             }
             catch (Exception ex)
             {
@@ -193,7 +198,8 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                refresh();
+                if (refresh != null)
+                    refresh();
             }
             catch (Exception ex)
             {
@@ -209,7 +215,8 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                refresh();
+                if (refresh != null)
+                    refresh();
             }
             catch (Exception ex)
             {

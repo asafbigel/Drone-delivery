@@ -59,7 +59,7 @@ namespace PL
 
         internal void refresh()
         {
-            if (parcel.Scheduled == null)
+            if (!managerFlag || parcel.Scheduled == null)
                 OpenDrone.Visibility = Visibility.Collapsed;
             else OpenDrone.Visibility = Visibility.Visible;
 
