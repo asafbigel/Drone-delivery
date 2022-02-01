@@ -64,7 +64,7 @@ namespace PL
             if (ParcelsForCustomer.SelectedItem != null)
             {
                 Parcel parcel = theBL.GetParcel(ParcelsForCustomer.SelectedItem as ParcelAtCustomer);
-                new ParcelOptionsWindow(parcel as object, theBL, null, managerFlag).Show();
+                new ParcelOptionsWindow(parcel as object, theBL, null, managerFlag, customer.Id).Show();
 
             }
             ParcelsForCustomer.UnselectAll();
@@ -76,7 +76,7 @@ namespace PL
             if (ParcelsFromCustomer.SelectedItem != null)
             {
                 Parcel parcel = theBL.GetParcel(ParcelsFromCustomer.SelectedItem as ParcelAtCustomer);
-                new ParcelOptionsWindow(parcel as object, theBL, null, false).Show();
+                new ParcelOptionsWindow(parcel as object, theBL, null, managerFlag, customer.Id).Show();
 
             }
             ParcelsFromCustomer.UnselectAll();

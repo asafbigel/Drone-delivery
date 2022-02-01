@@ -11,6 +11,8 @@ namespace BO
         public int Id { get; set; }
         public CustomerAtParcel Sender { get; set; }
         public CustomerAtParcel Getter { get; set; }
+        public bool CollectionConfirmation { get; set; }
+        public bool ReciveConfirmation { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public DroneAtParcel TheDrone { get; set; }

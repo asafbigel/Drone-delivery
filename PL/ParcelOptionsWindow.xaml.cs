@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
-using BL;
 
 namespace PL
 {
@@ -23,35 +22,68 @@ namespace PL
     {
         BlApi.IBL theBL;
         Parcel parcel;
-        Action refresh;
+        Action previousRefresh;
         bool managerFlag;
-        public ParcelOptionsWindow(object ob, BlApi.IBL bl, Action refreshing, bool manager)
+        int? customerId;
+        public ParcelOptionsWindow(object ob, BlApi.IBL bl, Action refreshing, bool manager, int? myCustomerId)
         {
             theBL = bl;
-            refresh = refreshing;
+            previousRefresh = refreshing;
             managerFlag = manager;
+            customerId = myCustomerId;
+
+
 
 
             InitializeComponent();
             parcel = (Parcel)ob;
             DataContext = parcel;
-            if (parcel.Scheduled == null)
-                OpenDrone.Visibility = Visibility.Collapsed;
+            
             if (parcel.Scheduled != null)
             {
                 Delete.Visibility = Visibility.Collapsed;
-                Update.Visibility = Visibility.Collapsed;                
+                //Update.Visibility = Visibility.Collapsed;                
                 PrioritySelector.IsEnabled = false;
                 WeightSelector.IsEnabled = false;
                 GetterId.IsEnabled = false;
+                
+
             }
-            if(!manager)
+            if(!managerFlag)
             {
                 OpenDrone.Visibility = Visibility.Collapsed;
                 OpenSender.Visibility = Visibility.Collapsed;
             }
+            refresh();
         }
 
+        internal void refresh()
+        {
+            if (parcel.Scheduled == null)
+                OpenDrone.Visibility = Visibility.Collapsed;
+            else OpenDrone.Visibility = Visibility.Visible;
+
+            if (parcel.PickedUp != null && (managerFlag || parcel.Sender.Id == customerId) )
+                CollectionConfirmation.Visibility = Visibility.Visible;
+            if (parcel.Delivered != null && (managerFlag || parcel.Getter.Id == customerId) )
+                ReciveConfirmation.Visibility = Visibility.Visible;
+
+            if (parcel.CollectionConfirmation)
+                CollectionConfirmation.IsEnabled = false;
+            if (parcel.ReciveConfirmation)
+                ReciveConfirmation.IsEnabled = false;
+            if (previousRefresh != null)
+                previousRefresh();
+
+            if (parcel.Scheduled != null &&
+                (CollectionConfirmation.Visibility == Visibility.Collapsed || CollectionConfirmation.IsEnabled == false)
+                && (ReciveConfirmation.Visibility == Visibility.Collapsed || ReciveConfirmation.IsEnabled == false))
+                Update.Visibility = Visibility.Collapsed;
+            
+            else Update.Visibility = Visibility.Visible;
+
+
+        }
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -68,8 +100,7 @@ namespace PL
             try 
             {
                 theBL.DeleteParcel(parcel.Id);
-                if (refresh != null)
-                    refresh();
+                refresh();
                 MessageBox.Show("Succsess", "Succsess");
                 Close();
             }
@@ -135,8 +166,8 @@ namespace PL
                 
                 SenderName.Content = parcel.Sender.CustomerName;
                 GetterName.Content = parcel.Getter.CustomerName;
-                if (refresh != null)
-                    refresh();
+               
+                refresh();
                 MessageBox.Show("Succsess", "Succsess");
 
             }

@@ -119,7 +119,7 @@ namespace PL
             if (ParcelListView.SelectedItem != null)
             {
                 Parcel myParcel = bl.GetParcel((ParcelToList)ParcelListView.SelectedItem );
-                new ParcelOptionsWindow(myParcel, bl, refresh, true).Show();
+                new ParcelOptionsWindow(myParcel, bl, refresh, true, null).Show();
                 ParcelToList d = (ParcelToList)ParcelListView.SelectedItem;
             }
             ParcelListView.UnselectAll();

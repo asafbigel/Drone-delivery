@@ -24,7 +24,7 @@ namespace PL
         public EnterWindow()
         {
             InitializeComponent();
-            bl= BlApi.BlFactory.GetBl();
+            bl = BlApi.BlFactory.GetBl();
         }
 
         private void ManagerLogin_Click(object sender, RoutedEventArgs e)

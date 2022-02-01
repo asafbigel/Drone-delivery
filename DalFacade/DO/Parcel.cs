@@ -13,7 +13,7 @@ namespace DO
         public int SenderId { get; set; }
         public int TargetId { get; set; }
         public bool CollectionConfirmation  { get; set; }        
-        public bool CollectionRecive { get; set; }
+        public bool ReciveConfirmation { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public int DroneId { get; set; }

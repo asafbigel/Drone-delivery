@@ -105,6 +105,8 @@ namespace BL
                 Requested = parcel.Requested,
                 Scheduled = parcel.Scheduled,
                 PickedUp = parcel.PickedUp,
+                CollectionConfirmation = parcel.CollectionConfirmation,
+                ReciveConfirmation = parcel.ReciveConfirmation,
                 DroneId = drone_id,
                 Priority = (DO.Priorities)parcel.Priority,
                 Weight = (DO.WeightCategories)parcel.Weight,
@@ -145,7 +147,8 @@ namespace BL
                     Delivered = idalParcel.Delivered,
                     Id = idalParcel.Id,
                     PickedUp = idalParcel.PickedUp,
-
+                    CollectionConfirmation = idalParcel.CollectionConfirmation,
+                    ReciveConfirmation = idalParcel.ReciveConfirmation,
                     Priority = (Priorities)idalParcel.Priority,
                     Weight = (WeightCategories)idalParcel.Weight,
                     Requested = idalParcel.Requested,
