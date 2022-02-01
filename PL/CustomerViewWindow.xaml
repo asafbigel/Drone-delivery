@@ -73,12 +73,12 @@
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ForCustomer" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" Text="Parcels for the Customer" Grid.Column="0" Grid.Row="0" FontSize="18" Margin="120,0,0,0" />
                 <TextBlock x:Name="FromCustomer" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" Text="Parcels from the Customer" Grid.Column="1" Grid.Row="0" FontSize="18" Margin="40,0,0,0" />
-                <ListView  x:Name="ParcelsForCustomer" Grid.Row="1"  Grid.Column="0"  Margin="70,0,5,0" ItemsSource="{Binding ParcelsAtCustomerFor}" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" SelectionChanged="ParcelsForCustomer_SelectionChanged"  >
+                <ListView  x:Name="ParcelsForCustomer" Grid.Row="1"  Grid.Column="0"  Margin="50,0,5,0" ItemsSource="{Binding ParcelsAtCustomerFor}" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" SelectionChanged="ParcelsForCustomer_SelectionChanged"  >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
-                            <GridViewColumn Header="Weight" Width="auto" DisplayMemberBinding="{Binding Weight}" />
-                            <GridViewColumn Header="Priority" Width="auto" DisplayMemberBinding="{Binding Priority}" />
+                            <GridViewColumn Header="Weight" Width="60" DisplayMemberBinding="{Binding Weight}" />
+                            <GridViewColumn Header="Priority" Width="75" DisplayMemberBinding="{Binding Priority}" />
                             <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Status}" />
                             <GridViewColumn Header="Sender Id" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.Id}" />
                             <GridViewColumn Header="Sender name" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.CustomerName}" />
@@ -87,12 +87,12 @@
                     </ListView.View>
 
                 </ListView>
-                <ListView  x:Name="ParcelsFromCustomer" Grid.Row="1" Grid.Column="1"  Margin="5,0,80,0" ItemsSource="{Binding ParcelsAtCustomerFrom }" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" SelectionChanged="ParcelsFromCustomer_SelectionChanged" >
+                <ListView  x:Name="ParcelsFromCustomer" Grid.Row="1" Grid.Column="1"  Margin="5,0,50,0" ItemsSource="{Binding ParcelsAtCustomerFrom }" Visibility="{Binding ElementName=Password, Path=Visibility, Mode=TwoWay}" SelectionChanged="ParcelsFromCustomer_SelectionChanged" >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
-                            <GridViewColumn Header="Weight" Width="auto" DisplayMemberBinding="{Binding Weight}" />
-                            <GridViewColumn Header="Priority" Width="auto" DisplayMemberBinding="{Binding Priority}" />
+                            <GridViewColumn Header="Weight" Width="60" DisplayMemberBinding="{Binding Weight}" />
+                            <GridViewColumn Header="Priority" Width="75" DisplayMemberBinding="{Binding Priority}" />
                             <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Status}" />
                             <GridViewColumn Header="target Id" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.Id}" />
                             <GridViewColumn Header="target name" Width="auto" DisplayMemberBinding="{Binding OtherCustomer.CustomerName}" />

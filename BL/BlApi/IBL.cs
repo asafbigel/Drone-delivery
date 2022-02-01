@@ -46,7 +46,7 @@ namespace BlApi
         void updateParcel(Parcel parcel);
          void UpdateBaseStation(BaseStation baseStation);
         void update_model_drone(int drone_id, string model);
-        void DelsteParcel(int id);
+        void DeleteParcel(int id);
         ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id);
         Parcel GetCurrectParcelOfDrone(int id);
         void auto(int id, Action c, Func<bool> f);

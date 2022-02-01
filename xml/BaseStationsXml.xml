@@ -57,13 +57,6 @@
     <ChargeSlots>10</ChargeSlots>
   </BaseStation>
   <BaseStation>
-    <Id>9001</Id>
-    <Name>Campus Lev</Name>
-    <Longitude>35.189938</Longitude>
-    <Lattitude>31.785664</Lattitude>
-    <ChargeSlots>0</ChargeSlots>
-  </BaseStation>
-  <BaseStation>
     <Id>9002</Id>
     <Name>Campus Tal</Name>
     <Longitude>35.191523</Longitude>
@@ -77,4 +70,11 @@
     <Lattitude>0</Lattitude>
     <ChargeSlots>0</ChargeSlots>
   </BaseStation>
-  </ArrayOfBaseStation>
+  <BaseStation>
+    <Id>9001</Id>
+    <Name>Campus Lev</Name>
+    <Longitude>35.189938</Longitude>
+    <Lattitude>31.785664</Lattitude>
+    <ChargeSlots>2</ChargeSlots>
+  </BaseStation>
+</ArrayOfBaseStation>

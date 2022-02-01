@@ -33,6 +33,8 @@ namespace BL
                 GetCustomer(parcel.Sender.Id);
                 if (parcel.Getter == null)
                     throw new CustomerAtParcelNullExeption("Getter not valid");
+                if (parcel.Sender == parcel.Getter)
+                    throw new SelfParcelExeption("cusomer can't send parcel to himself");
                 GetCustomer(parcel.Getter.Id);
                 DO.Parcel idalParcel = convertor(parcel);
                 //idalParcel.SenderId = sender_id;
@@ -215,7 +217,7 @@ namespace BL
                 return result;
             }
         }
-        public void DelsteParcel(int id)
+        public void DeleteParcel(int id)
         {
             var parcel = mydal.Find_parcel(id);
             if (parcel.Id == 0)

@@ -23,12 +23,12 @@ namespace PL
     {
         BlApi.IBL theBL;
         Customer customer;
-        Action refresh;
+        Action myRefresh;
         bool managerFlag;
         public CustomerViewWindow(Object ob, BlApi.IBL bl, Action refreshing, bool manager)
         {
             theBL = bl;
-            refresh = refreshing;
+            myRefresh = refreshing;
             managerFlag = manager;
             InitializeComponent();
             customer = (Customer)ob;
@@ -45,7 +45,13 @@ namespace PL
         {
             Close();           
         }
-
+        internal void refresh()
+        {
+            if(myRefresh!=null)
+                myRefresh();
+            customer = theBL.GetCustomer(customer.Id);
+            DataContext = customer;
+        }
 
 
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
@@ -81,8 +87,7 @@ namespace PL
             try
             {
                 theBL.updateCustomer(customer);               
-                if (refresh != null)
-                    refresh();
+                refresh();
                 TheCustomerLocation.Text = customer.CustomerLocation.ToString();
                 MessageBox.Show("Succsess", "Succsess");
             }
@@ -96,7 +101,7 @@ namespace PL
 
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
-            new AddParcelWindow(theBL, refresh, customer.Id);
+            new AddParcelWindow(theBL, refresh, customer.Id).Show();
         }
     }
 }
