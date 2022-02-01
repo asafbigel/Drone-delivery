@@ -39,7 +39,7 @@ namespace PL
             if (BaseStationListView.SelectedItem != null)
             {
                 BaseStation baseStation = bl.GetBaseStation(((BaseStationToList) BaseStationListView.SelectedItem).Id);
-                new BaseStationsOptionsWindow(baseStation as object, bl, this).Show();
+                new BaseStationsOptionsWindow(baseStation as object, bl, refresh).Show();
 
             }
             BaseStationListView.UnselectAll();
@@ -88,7 +88,7 @@ namespace PL
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            new AddBaseStationWindow(bl, this).Show();
+            new AddBaseStationWindow(bl, refresh).Show();
         }
     }
 }
