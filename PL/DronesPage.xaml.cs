@@ -71,7 +71,7 @@ namespace PL
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             //new AddDroneWindow(bl, drones).Show();
-            new AddDroneWindow(bl, this).Show();
+            new AddDroneWindow(bl, refresh).Show();
         }
 
         private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

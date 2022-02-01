@@ -52,12 +52,13 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-           new AddDroneWindow(theBL, dp).Show();
+           new AddDroneWindow(theBL, refresh).Show();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
             new OptionsDroneWindow(theBL, droneToList, refresh).Show();
+            Close();
         }
     }
 }

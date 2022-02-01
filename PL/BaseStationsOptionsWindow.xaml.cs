@@ -23,11 +23,12 @@ namespace PL
     {
         BlApi.IBL theBL;
         BaseStation baseStation;
-        BaseStationsPage theBaseStationsPage;
-        public BaseStationsOptionsWindow(object ob, BlApi.IBL bl, BaseStationsPage baseStationsPage)
+        //BaseStationsPage theBaseStationsPage;
+        Action refresh;
+        public BaseStationsOptionsWindow(object ob, BlApi.IBL bl, Action _refresh)
         {
             theBL = bl;
-            theBaseStationsPage = baseStationsPage;
+            refresh = _refresh;
             
             InitializeComponent();
             baseStation = (BaseStation)ob;
@@ -42,7 +43,7 @@ namespace PL
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            new AddBaseStationWindow(theBL, theBaseStationsPage).Show();
+            new AddBaseStationWindow(theBL, refresh).Show();
 
         }
 
@@ -54,9 +55,9 @@ namespace PL
             {
 
                 theBL.UpdateBaseStation(baseStation);
-                
-                if (theBaseStationsPage != null)
-                    theBaseStationsPage.refresh();
+
+                if (refresh != null)
+                    refresh();
 
                 MessageBox.Show("Succsess", "Succsess");
             }

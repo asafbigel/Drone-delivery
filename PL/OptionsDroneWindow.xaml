@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OptionsDroneWindow" Height="220" Width="270">
+        Title="OptionsDroneWindow" Height="220" Width="350">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="Drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"  >
             <Grid x:Name="StackPanelGrid" Margin="0,5,0,0">
@@ -33,16 +33,15 @@
                 <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="13"/>
                 <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="13"/>
 
-                <Label x:Name="Id" Content="Id:" Grid.Column="1" Grid.Row="0" FontSize="13"/>
-                <TextBox x:Name="Model" Text="Model:" Grid.Column="1" Grid.Row="1" FontSize="13" Grid.RowSpan="2" VerticalAlignment="Top"/>
-                <Label x:Name="Weight" Content="MaxWeight:" Grid.Column="1" Grid.Row="2" FontSize="13"/>
-                <Label x:Name="Battery" Content="Battery:" Grid.Column="1" Grid.Row="3" FontSize="13"/>
-                <Label x:Name="Status" Content="Status:" Grid.Column="1" Grid.Row="4" FontSize="13"/>
-                <Label x:Name="Longitude" Content="Longitude:" Grid.Column="1" Grid.Row="5" FontSize="13"/>
-                <Label x:Name="Latitude" Content="Latitude:" Grid.Row="6" FontSize="13" Grid.ColumnSpan="2"/>
+                <Label x:Name="Id" Content="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="13"/>
+                <TextBox x:Name="Model" Text="{Binding Model}"  Grid.Column="1" Grid.Row="1" FontSize="13" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <Label x:Name="Weight" Content="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="13"/>
+                <Label x:Name="Battery" Content="{Binding Battery}"  Grid.Column="1" Grid.Row="3" FontSize="13"/>
+                <Label x:Name="Status" Content="{Binding Status}"  Grid.Column="1" Grid.Row="4" FontSize="13"/>
+                <Label x:Name="Location" Content="{Binding DroneLocation}"  Grid.Column="1" Grid.Row="5" FontSize="13"/>
             </Grid>
         </StackPanel>
-        <StackPanel x:Name="Options" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="{x:Null}">
+        <StackPanel x:Name="Options" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">
             <Button x:Name="Close"  Content="Close" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"  Click="Close_Click" />
             <Button x:Name="Update"  Content="Update" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Update_Click"/>
             <Button x:Name="Charge"  Content="Charge" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Charge_Click"/>

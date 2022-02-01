@@ -24,13 +24,14 @@ namespace PL
 
         BaseStationToList newBaseStation;
         BlApi.IBL bl;
-        BaseStationsPage theBaseStationsPage;
+        //BaseStationsPage theBaseStationsPage;
+        Action refresh;
         BaseStation baseStation = new BaseStation();
-        public AddBaseStationWindow(BlApi.IBL theBL, BaseStationsPage baseStationsPage)
+        public AddBaseStationWindow(BlApi.IBL theBL, Action _refresh)
         {
             InitializeComponent();
             bl = theBL;
-            theBaseStationsPage = baseStationsPage;
+            refresh = _refresh;
             baseStation.BaseStationLocation = new Location();
             DataContext = baseStation;
         }
@@ -44,8 +45,8 @@ namespace PL
                 double.Parse(this.latitude.Text);
                 bl.Add_base_station(baseStation);
 
-                if (theBaseStationsPage != null)
-                    theBaseStationsPage.refresh();
+                if (refresh != null)
+                    refresh();
 
                 MessageBox.Show("Succsess", "Succsess");
                 Close();

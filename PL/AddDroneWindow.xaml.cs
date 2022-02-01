@@ -23,14 +23,15 @@ namespace PL
     {
         DroneToList newDrone;
         BlApi.IBL bl;
-        DronesPage theDronesPage;
+        //DronesPage theDronesPage;
+        Action refresh;
         ObservableCollection<DroneToList> drones;
         //public AddDroneWindow(BlApi.IBL theBL, ObservableCollection<DroneToList> myDrones)
-        public AddDroneWindow(BlApi.IBL theBL, DronesPage dronesPage)
+        public AddDroneWindow(BlApi.IBL theBL, Action _refresh)
         {
             InitializeComponent();
             bl = theBL;
-            theDronesPage = dronesPage;
+            refresh = _refresh;
             newDrone = new DroneToList();
             this.DataContext = newDrone;
             this.Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
@@ -51,8 +52,8 @@ namespace PL
                     Model = model
                 };
                 bl.Add_drone(drone, baseStation);
-                if (theDronesPage != null)
-                    theDronesPage.refresh();
+                if (refresh != null)
+                    refresh();
                 MessageBox.Show("Succsess", "Succsess");
                 Close();
                 /*

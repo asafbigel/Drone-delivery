@@ -28,6 +28,7 @@ namespace PL
         Action refresh;
         int i = 1;
         BackgroundWorker worker;
+        bool work = false;
         //BackgroundWorker worker;
         public OptionsDroneWindow( BlApi.IBL theBL, DroneToList theDrone, Action _refresh)
         {
@@ -35,62 +36,75 @@ namespace PL
             bl = theBL;
             drone = theDrone;
             refresh = _refresh;
-            hideButtoms();
-            #region Hide the unneeded buttoms
-            
-            #endregion
             updateDroneDetails(drone);
+            DataContext = drone;
         }
 
         private void hideButtoms()
         {
-            Close.Visibility = Visibility.Visible;
-            Update.Visibility = Visibility.Visible;
-            Charge.Visibility = Visibility.Visible;
-            FromCharge.Visibility = Visibility.Visible;
-            Send.Visibility = Visibility.Visible;
-            PickUp.Visibility = Visibility.Visible;
-            Delivered.Visibility = Visibility.Visible;
-            Automatic.Visibility = Visibility.Visible;
-            Manual.Visibility = Visibility.Collapsed;
-
-            if (drone.Status == DroneStatuses.vacant)
+            if (work)
             {
-                FromCharge.Visibility = Visibility.Collapsed;
-                PickUp.Visibility = Visibility.Collapsed;
-                Delivered.Visibility = Visibility.Collapsed;
-            }
-            if (drone.Status == DroneStatuses.maintenance)
-            {
-                Charge.Visibility = Visibility.Collapsed;
-                Send.Visibility = Visibility.Collapsed;
-                PickUp.Visibility = Visibility.Collapsed;
-                Delivered.Visibility = Visibility.Collapsed;
-            }
-            if (drone.Status == DroneStatuses.sending)
-            {
+                Close.Visibility = Visibility.Collapsed;
+                Update.Visibility = Visibility.Collapsed;
                 Charge.Visibility = Visibility.Collapsed;
                 FromCharge.Visibility = Visibility.Collapsed;
                 Send.Visibility = Visibility.Collapsed;
-                Parcel parcel = bl.GetCurrectParcelOfDrone(drone.Id);
-                if (parcel.PickedUp == null)
-                    Delivered.Visibility = Visibility.Collapsed;
-                else
+                PickUp.Visibility = Visibility.Collapsed;
+                Delivered.Visibility = Visibility.Collapsed;
+                Automatic.Visibility = Visibility.Collapsed;
+                Manual.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Close.Visibility = Visibility.Visible;
+                Update.Visibility = Visibility.Visible;
+                Charge.Visibility = Visibility.Visible;
+                FromCharge.Visibility = Visibility.Visible;
+                Send.Visibility = Visibility.Visible;
+                PickUp.Visibility = Visibility.Visible;
+                Delivered.Visibility = Visibility.Visible;
+                Automatic.Visibility = Visibility.Visible;
+                Manual.Visibility = Visibility.Collapsed;
+                if (drone.Status == DroneStatuses.vacant)
+                {
+                    FromCharge.Visibility = Visibility.Collapsed;
                     PickUp.Visibility = Visibility.Collapsed;
+                    Delivered.Visibility = Visibility.Collapsed;
+                }
+                if (drone.Status == DroneStatuses.maintenance)
+                {
+                    Charge.Visibility = Visibility.Collapsed;
+                    Send.Visibility = Visibility.Collapsed;
+                    PickUp.Visibility = Visibility.Collapsed;
+                    Delivered.Visibility = Visibility.Collapsed;
+                }
+                if (drone.Status == DroneStatuses.sending)
+                {
+                    Charge.Visibility = Visibility.Collapsed;
+                    FromCharge.Visibility = Visibility.Collapsed;
+                    Send.Visibility = Visibility.Collapsed;
+                    Parcel parcel = bl.GetCurrectParcelOfDrone(drone.Id);
+                    if (parcel.PickedUp == null)
+                        Delivered.Visibility = Visibility.Collapsed;
+                    else
+                        PickUp.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
         // set the details of this drone
         private void updateDroneDetails(DroneToList drone)
         {
+            /*
             Id.Content = drone.Id;
             Model.Text = drone.Model;
             Weight.Content = drone.MaxWeight;
             Battery.Content = drone.Battery;
             Status.Content = drone.Status;
-            Longitude.Content = drone.DroneLocation.longitude;
-            Latitude.Content = drone.DroneLocation.latitude;
+            */
+            DataContext = drone;
             refresh();
+            hideButtoms();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -111,6 +125,7 @@ namespace PL
                     theDronesPage.refresh();
                 */
                 MessageBox.Show("Succsess", "Succsess");
+                drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
                 refresh();
             }
@@ -127,6 +142,7 @@ namespace PL
             {
                 bl.send_drone_to_charge(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
+                drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
                 refresh();
             }
@@ -143,6 +159,7 @@ namespace PL
                 //double hours = double.Parse(Interaction.InputBox("Hpw many hours at charge?"));
                 bl.drone_from_charge(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
+                drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
                 refresh();
             }
@@ -158,6 +175,7 @@ namespace PL
             {
                 bl.connect_parcel_to_drone(drone.Id);
                 MessageBox.Show("Succsess","Succsess");
+                drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
                 refresh();
             }
@@ -173,6 +191,7 @@ namespace PL
             {
                 bl.pickedUp_parcel_by_drone(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
+                drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
                 refresh();
             }
@@ -188,6 +207,7 @@ namespace PL
             {
                 bl.delivered_parcel_by_drone(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
+                drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
                 refresh();
             }
@@ -199,16 +219,7 @@ namespace PL
 
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
-            Close.Visibility = Visibility.Collapsed;
-            Update.Visibility = Visibility.Collapsed;
-            Charge.Visibility = Visibility.Collapsed;
-            FromCharge.Visibility = Visibility.Collapsed;
-            Send.Visibility = Visibility.Collapsed;
-            PickUp.Visibility = Visibility.Collapsed;
-            Delivered.Visibility = Visibility.Collapsed;
-            Automatic.Visibility = Visibility.Collapsed;
-            Manual.Visibility = Visibility.Visible;
-
+            hideButtoms();
             try
             {
                 worker = new BackgroundWorker();
@@ -219,6 +230,7 @@ namespace PL
                 worker.WorkerSupportsCancellation = true;
 
                 worker.RunWorkerAsync();
+                work = true;
               //  worker.RunWorkerAsync(12);
             }
             catch (Exception ex)
@@ -234,7 +246,10 @@ namespace PL
 
         public void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            refresh();
+            // this is include at updateDroneDetails
+            // refresh();
+            drone = bl.GetDroneToList(drone.Id);
+            updateDroneDetails(drone);
         }
 
         public void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -284,6 +299,7 @@ namespace PL
         private void Manual_Click(object sender, RoutedEventArgs e)
         {
             worker.CancelAsync();
+            work = false;
            // hideButtoms();
         }
 
