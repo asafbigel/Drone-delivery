@@ -57,8 +57,14 @@ namespace PL
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-            new OptionsDroneWindow(theBL, droneToList, refresh).Show();
-            Close();
+           // if (refresh != null)
+           // {
+                new OptionsDroneWindow(theBL, droneToList, refresh).Show();
+                Close();
+          //  }
+          //  else
+          //      MessageBox.Show("Can't do it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
         }
     }
 }

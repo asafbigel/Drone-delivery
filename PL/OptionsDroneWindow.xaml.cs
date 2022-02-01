@@ -23,14 +23,14 @@ namespace PL
     /// </summary>
     public partial class OptionsDroneWindow : Window
     {
-         BlApi.IBL bl;
+        BlApi.IBL bl;
         DroneToList drone;
         Action refresh;
         int i = 1;
         BackgroundWorker worker;
         bool work = false;
         //BackgroundWorker worker;
-        public OptionsDroneWindow( BlApi.IBL theBL, DroneToList theDrone, Action _refresh)
+        public OptionsDroneWindow(BlApi.IBL theBL, DroneToList theDrone, Action _refresh)
         {
             InitializeComponent();
             bl = theBL;
@@ -103,7 +103,7 @@ namespace PL
             Status.Content = drone.Status;
             */
             DataContext = drone;
-            if(refresh != null)
+            if (refresh != null)
                 refresh();
             hideButtoms();
         }
@@ -128,12 +128,12 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if(refresh != null)
+                if (refresh != null)
                     refresh();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error" , MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -146,8 +146,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if(refresh != null)
-                    refresh();
+                if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -164,8 +163,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null)
-                    refresh();
+                if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -178,11 +176,10 @@ namespace PL
             try
             {
                 bl.connect_parcel_to_drone(drone.Id);
-                MessageBox.Show("Succsess","Succsess");
+                MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null)
-                    refresh();
+                if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -198,8 +195,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null)
-                    refresh();
+                if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -215,8 +211,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null)
-                    refresh();
+                if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -238,7 +233,7 @@ namespace PL
 
                 worker.RunWorkerAsync();
                 work = true;
-              //  worker.RunWorkerAsync(12);
+                //  worker.RunWorkerAsync(12);
             }
             catch (Exception ex)
             {
@@ -248,7 +243,7 @@ namespace PL
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Close();   
+            Close();
         }
 
         public void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -273,7 +268,7 @@ namespace PL
 
         public bool stop()
         {
-           // MessageBox.Show(i++.ToString(), "ok");
+            // MessageBox.Show(i++.ToString(), "ok");
 
             return worker.CancellationPending;
         }
@@ -307,7 +302,7 @@ namespace PL
         {
             worker.CancelAsync();
             work = false;
-           // hideButtoms();
+            // hideButtoms();
         }
 
 
