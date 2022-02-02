@@ -61,10 +61,20 @@ namespace BL
                 DroneToList drone = my_drones.Find(item => item.Id == drone_id);
                 if (drone.Status != DroneStatuses.vacant)
                     throw new DroneBatteryException("The drone isn't vacant");
+                // get all drones that have not coneccted to any parcel, and weight equal or less than this drone
                 List<DO.Parcel> idalparcels = mydal.Get_all_parcels(x => x.DroneId == 0).ToList().FindAll(item => (int)item.Weight <= (int)drone.MaxWeight);
                 if (idalparcels.Count == 0)
                     throw new ParcelException("No parcel exist");
                 List<Parcel> parcels = convertor(idalparcels);
+                var x = from item in parcels
+                        orderby item.Priority , item.Weight
+                        select item;
+
+
+                List<Parcel> parcelsHighPriority = (from item in parcels
+                                                   orderby item.Priority descending, item.Weight descending
+                                                    select item).ToList();
+                /*
                 List<Parcel> parcelsHighPriority = parcels.FindAll(item => item.Priority == Priorities.emergency);
                 if (parcelsHighPriority.Count == 0)
                 {
@@ -79,6 +89,7 @@ namespace BL
                     if (parcelsHighWeigth.Count == 0)
                         parcelsHighWeigth = parcelsHighPriority.FindAll(item => item.Weight == WeightCategories.light);
                 }
+                */
                 List<ParcelAtTransfer> parcelsAtTransfer = convertor1(parcelsHighPriority);
                 ParcelAtTransfer parcelAtTransfer = parcelsAtTransfer[0];
                 parcelAtTransfer.DistanceOfDelivery = distance_between_2_points(drone.DroneLocation, parcelAtTransfer.LocationOfPickUp);
