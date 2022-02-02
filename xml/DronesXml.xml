@@ -217,12 +217,21 @@
     <MaxWeight>light</MaxWeight>
   </Drone>
   <Drone>
+    <Id>1235</Id>
+    <Model>MTR7</Model>
+    <MaxWeight>medium</MaxWeight>
+  </Drone>
+  <Drone>
     <Id>17</Id>
     <MaxWeight>light</MaxWeight>
   </Drone>
   <Drone>
-    <Id>1235</Id>
-    <Model>MTR7</Model>
-    <MaxWeight>medium</MaxWeight>
+    <Id>9999</Id>
+    <Model>superduper</Model>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>123456789</Id>
+    <MaxWeight>light</MaxWeight>
   </Drone>
 </ArrayOfDrone>

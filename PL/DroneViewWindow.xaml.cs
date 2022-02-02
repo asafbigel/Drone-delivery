@@ -29,12 +29,13 @@ namespace PL
         public DroneViewWindow(Object ob, BlApi.IBL bl, Action Refresh)
         {
             theBL = bl;
-            InitializeComponent();
             droneToList = (DroneToList)ob;
             drone = bl.GetDrone(droneToList);
-           // DataContext = drone;
-            Battery.Text = ((int)drone.Battery).ToString();
+            DataContext = drone;
 
+            InitializeComponent();
+            Battery.Text = ((int)drone.Battery).ToString();
+            
              refresh = Refresh;
            
         }

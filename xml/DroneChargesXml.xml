@@ -86,8 +86,8 @@
     <EnterToCharge>2022-02-01T23:50:47.4506249+02:00</EnterToCharge>
   </DroneCharge>
   <DroneCharge>
-    <DroneId>17</DroneId>
-    <StationId>9004</StationId>
-    <EnterToCharge>2022-02-02T00:55:00.4007329+02:00</EnterToCharge>
+    <DroneId>123456789</DroneId>
+    <StationId>9005</StationId>
+    <EnterToCharge>2022-02-02T15:57:59.1700441+02:00</EnterToCharge>
   </DroneCharge>
 </ArrayOfDroneCharge>
