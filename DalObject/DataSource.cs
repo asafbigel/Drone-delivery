@@ -31,7 +31,8 @@ namespace Dal
             internal static double Electricity_medium;
             internal static double Electricity_heavy;
             internal static double Charge_at_hour;
-
+            internal static string MenagerName;
+            internal static string MenagerPassword;
         }
 
         //ctor
@@ -260,7 +261,10 @@ namespace Dal
             Config.Electricity_medium = 70;
             Config.Electricity_heavy = 80;
             Config.Charge_at_hour = 30;
-
+            #endregion
+            #region Menager set
+            Config.MenagerName = "admin";
+            Config.MenagerPassword = "123";
             #endregion
         }
 

@@ -408,6 +408,17 @@ namespace Dal
             DroneCharge droneCharge = FindDroneCharge(my_drone_id);
             DataSource.DroneCharges.Remove(droneCharge);
         }
+
+
+        public string[] GetMenager()
+        {
+            string[] arr = new string[]
+            {
+                DataSource.Config.MenagerName,
+                DataSource.Config.MenagerPassword
+            };
+            return arr;
+        }
     }
 
 }
