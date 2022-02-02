@@ -52,7 +52,7 @@ namespace BlApi
         /// fanction that Send Drone To Charge
         /// </summary>
         /// <param name="id">the drone id</param>
-        void SendDroneToCharge(int id);
+        void send_drone_to_charge(int id);
         /// <summary>
         /// Tostring of all the Customers 
         /// </summary>
@@ -67,12 +67,12 @@ namespace BlApi
         /// Tostring of all the Parcels
         /// </summary>
         /// <returns>the  Tostring of all the Parcels</returns>
-        string StringAllParcels();
+     //   string StringAllParcels();
         /// <summary>
         ///Tostring of all the Parcels that Without Parcels
         /// </summary>
         /// <returns>the Tostring of all the Parcels that Without Parcels</returns>
-        string StringAllParcelsWithoutDrone();
+      //  string StringAllParcelsWithoutDrone();
 
         string StringCustomer(int customer_id);
         string StringDrone(int drone_id);
@@ -91,7 +91,7 @@ namespace BlApi
         CustomerAtParcel GetCustomerAtParcel(int id);
         Customer GetCustomer(int id);
         BaseStation GetBaseStation(int id);
-        string StringBaseStation(int baseStation_id);
+        //string StringBaseStation(int baseStation_id);
         void UpdateBaseStation(int id, string new_name, string new_slot);
         void UpdateCustomer(int id, string new_name, string new_phone, String password , double lattitude, double longitude);
         void UpdateCustomer(Customer customer);

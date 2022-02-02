@@ -46,5 +46,6 @@ namespace DalApi
          double[] ElectricityUse();
         void send_drone_to_charge(DroneCharge droneCharge);
         void put_out_drone_from_charge(int my_drone_id);
+        string[] GetMenager();
     }
 }

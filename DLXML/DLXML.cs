@@ -567,6 +567,16 @@ namespace Dal
                         select double.Parse(data.Value);
                 return x.ToArray();
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public string[] GetMenager()
+        {
+            string[] menager = new string[2];
+            XElement details = XMLTools.LoadListFromXMLElement(detailsPath);
+            menager[0] = details.Element("Menager").Element("UserName").Value;
+            menager[1] = details.Element("Menager").Element("Password").Value;
+            return menager;
+        }
         #endregion
     }
 }

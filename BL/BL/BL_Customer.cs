@@ -114,8 +114,9 @@ namespace BL
 
         public bool CheckManagerLogin( string userName,  string password)
         {
-            
-            if (userName == "admin" && password == "123")
+            string[] menager = mydal.GetMenager();
+
+            if (userName == menager[0] && password == menager[1])
                 return true;
             return false;
         }
