@@ -74,6 +74,11 @@ namespace BL
                 List<Parcel> parcelsHighPriority = (from item in parcels
                                                    orderby item.Priority descending, item.Weight descending
                                                     select item).ToList();
+                Priorities p = parcelsHighPriority[0].Priority;
+                WeightCategories w = parcelsHighPriority[0].Weight;
+                parcelsHighPriority = (from item in parcels
+                                       where item.Priority==p && item.Weight == w
+                                       select item).ToList();
                 /*
                 List<Parcel> parcelsHighPriority = parcels.FindAll(item => item.Priority == Priorities.emergency);
                 if (parcelsHighPriority.Count == 0)
