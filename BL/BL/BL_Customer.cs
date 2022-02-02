@@ -16,7 +16,7 @@ namespace BL
         /// </summary>
         /// <param name="customer"> the name of the new customer to add </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void Add_customer(Customer customer)
+        public void AddCustomer(Customer customer)
         {
             if (customer.Id <= 0) throw new CustomerIdExeption("Invalid Customer Id");
             if (customer.Name == "" || customer.Name == null) throw new CustomerExeption("Enter Name");
@@ -33,7 +33,7 @@ namespace BL
         /// <param name="new_name"> the name after the update </param>
         /// <param name="new_phone">the phone after the update </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void update_customer(int id, string new_name, string new_phone,string password,double lattitude, double longitude)
+        public void UpdateCustomer(int id, string new_name, string new_phone,string password,double lattitude, double longitude)
         {
             lock (mydal)
             {
@@ -48,7 +48,7 @@ namespace BL
                 mydal.UpdateCustomer(customer);
             }
         }
-        public void updateCustomer(Customer myCustomer)
+        public void UpdateCustomer(Customer myCustomer)
         {
             DO.Customer customer = convertor(myCustomer);
             mydal.UpdateCustomer(customer);

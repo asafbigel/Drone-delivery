@@ -53,7 +53,7 @@ namespace PL
                     MaxWeight = weight,
                     Model = model
                 };*/
-                bl.Add_drone(newDrone, baseStation);
+                bl.AddDrone(newDrone, baseStation);
                 if (refresh != null)
                     refresh();
                 MessageBox.Show("Succsess", "Succsess");

@@ -18,7 +18,7 @@ namespace BL
         /// <param name="drone">  new drone to add</param>
         /// <param name="baseStationNum"> the num of the baseStation of the new drone   </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void Add_drone(Drone drone, int baseStationNum)
+        public void AddDrone(Drone drone, int baseStationNum)
         {
             if (drone.Id <= 0)
                 throw new DroneIdException("invalid Drone id");
@@ -51,7 +51,7 @@ namespace BL
         /// <param name="drone_id"> the id of the drone </param>
         /// <param name="model"> the new model of the drone </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void update_model_drone(int drone_id, string model)
+        public void UpdateModelDrone(int drone_id, string model)
         {
             
             lock (mydal)
@@ -97,7 +97,7 @@ namespace BL
         /// </summary>
         /// <param name="drone_id"> the id of the drone </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void drone_from_charge(int drone_id)
+        public void DroneFromCharge(int drone_id)
         {
             lock (mydal)
             {

@@ -72,7 +72,7 @@ namespace PL
                     throw new EnterPasswotdExeption("Enter Password");
                 customer.Password = Password.Password;
                 double.Parse(this.latitude.Text);
-                bl.Add_customer(customer);
+                bl.AddCustomer(customer);
                 MessageBox.Show("Succsess", "Succsess");
                 MessageBox.Show("Succsess, the User name to cusomer login is the Id" , "Succsess");
                 Close();

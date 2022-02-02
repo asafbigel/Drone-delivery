@@ -46,7 +46,7 @@ namespace PL
                     throw new EnterPasswotdExeption("Enter Password");
                 
                     customer.Password = NewPassword.Password;
-                    bl.updateCustomer(customer);
+                    bl.UpdateCustomer(customer);
                     MessageBox.Show("Succsess", "Succsess");
                     Close();
                 

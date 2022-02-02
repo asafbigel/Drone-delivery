@@ -16,7 +16,7 @@ namespace BL
         /// <param name="new_name"> the new name of the update baseStation   </param>
         /// <param name="new_slot">the new number of free slot charge of  the update baseStation</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void update_baseStation(int id, string new_name, string new_slot)
+        public void UpdateBaseStation(int id, string new_name, string new_slot)
         {
             BaseStation baseStation = find_baseStation(id);
             if (new_name != "_")
@@ -67,7 +67,7 @@ namespace BL
         /// The base station
         /// </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void Add_base_station(BaseStation baseStation)
+        public void AddBaseStation(BaseStation baseStation)
         {
             if (baseStation.Id <= 0)
                 throw new BaseStationIdExeption("Invalid aseStation Id");
@@ -101,7 +101,7 @@ namespace BL
         /// </summary>
         /// <returns> the string of ToString of all the baseStations </returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string string_all_baseStations()
+        public string StringAllBaseStations()
         {
             lock (mydal)
             {
@@ -120,7 +120,7 @@ namespace BL
         /// </summary>
         /// <returns>the string of ToString of all the baseStations with free slots</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string string_all_baseStations_with_free_slots()
+        public string StringAllBaseStationsWithFreeSlots()
         {
             lock (mydal)
             {

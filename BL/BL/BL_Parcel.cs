@@ -53,7 +53,7 @@ namespace BL
         /// </summary>
         /// <param name="drone_id"> the id of the drone </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void connect_parcel_to_drone(int drone_id)
+        public void ConnectParcelToDrone(int drone_id)
         {
             lock (mydal)
             {
@@ -118,7 +118,7 @@ namespace BL
         /// </summary>
         /// <param name="drone_id">  the id of the drone </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void pickedUp_parcel_by_drone(int drone_id)
+        public void PickedUpParcelByDrone(int drone_id)
         {
             lock (mydal)
             {
@@ -150,7 +150,7 @@ namespace BL
         /// </summary>
         /// <param name="drone_id"> the id of the drone </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void delivered_parcel_by_drone(int drone_id)
+        public void DeliveredParcelByDrone(int drone_id)
         {
             lock (mydal)
             {

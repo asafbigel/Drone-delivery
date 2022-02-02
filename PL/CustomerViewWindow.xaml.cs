@@ -86,7 +86,7 @@ namespace PL
         {
             try
             {
-                theBL.updateCustomer(customer);               
+                theBL.UpdateCustomer(customer);               
                 refresh();
                 TheCustomerLocation.Text = customer.CustomerLocation.ToString();
                 MessageBox.Show("Succsess", "Succsess");

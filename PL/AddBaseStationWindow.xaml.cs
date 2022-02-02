@@ -43,7 +43,7 @@ namespace PL
                 int.Parse(this.NumOfSlotsCharge.Text);
                 double.Parse(this.longitude.Text);
                 double.Parse(this.latitude.Text);
-                bl.Add_base_station(baseStation);
+                bl.AddBaseStation(baseStation);
 
                 if (refresh != null)
                     refresh();

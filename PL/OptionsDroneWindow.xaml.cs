@@ -112,7 +112,7 @@ namespace PL
             try
             {
                 string newModel = Model.Text;
-                bl.update_model_drone(drone.Id, newModel);
+                bl.UpdateModelDrone(drone.Id, newModel);
                 drone = bl.GetAllDrones(item => true).ToList().Find(item => item.Id == drone.Id);
                
                 MessageBox.Show("Succsess", "Succsess");
@@ -149,7 +149,7 @@ namespace PL
             try
             {
                 //double hours = double.Parse(Interaction.InputBox("Hpw many hours at charge?"));
-                bl.drone_from_charge(drone.Id);
+                bl.DroneFromCharge(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
@@ -165,7 +165,7 @@ namespace PL
         {
             try
             {
-                bl.connect_parcel_to_drone(drone.Id);
+                bl.ConnectParcelToDrone(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
@@ -181,7 +181,7 @@ namespace PL
         {
             try
             {
-                bl.pickedUp_parcel_by_drone(drone.Id);
+                bl.PickedUpParcelByDrone(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
@@ -197,7 +197,7 @@ namespace PL
         {
             try
             {
-                bl.delivered_parcel_by_drone(drone.Id);
+                bl.DeliveredParcelByDrone(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);

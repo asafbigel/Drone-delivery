@@ -1,27 +1,79 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace BlApi
 {
     public interface IBL
     {
-        void Add_base_station(BaseStation baseStation);
-        void Add_customer(Customer customer);
-        void Add_drone(Drone drone, int baseStationNum);
-        //int Add_parcel(Parcel parcel, int sender_id, int getter_id);
+        /// <summary>
+        /// fanction that add new baseStation
+        /// </summary>
+        /// <param name="baseStation"> the new baseStation to add </param>
+        void AddBaseStation(BaseStation baseStation);
+        /// <summary>
+        /// fanction that add new Customer
+        /// </summary>
+        /// <param name="customer">the new customer to add</param>
+        void AddCustomer(Customer customer);
+        /// <summary>
+        /// fanction that add new Drone
+        /// </summary>
+        /// <param name="drone">the new drone to add</param>
+        /// <param name="baseStationNum"> the id of the baseStationof the new drone </param>
+        void AddDrone(Drone drone, int baseStationNum);
+        /// <summary>
+        /// fanction that add new parcel
+        /// </summary>
+        /// <param name="parcel">the new parcel to add</param>
+        /// <returns></returns>
         int AddParcel(Parcel parcel);
-        void connect_parcel_to_drone(int drone_id);
-        void delivered_parcel_by_drone(int drone_id);
-        void drone_from_charge(int drone_id);
-        void pickedUp_parcel_by_drone(int drone_id);
-        void send_drone_to_charge(int id);
+        /// <summary>
+        /// fanction that find parcel and Connect the Parcel To the Drone
+        /// </summary>
+        /// <param name="droneId"> the drone id</param>
+        void ConnectParcelToDrone(int droneId);
+        /// <summary>
+        /// fanction that Delivered Parcel By Drone
+        /// </summary>
+        /// <param name="droneId">the drone id</param>
+        void DeliveredParcelByDrone(int droneId);
+        /// <summary>
+        /// fanction that remove Drone From harge
+        /// </summary>
+        /// <param name="droneId"> the drone id </param>
+        void DroneFromCharge(int droneId);
+        /// <summary>
+        /// fanction that Picked Up Parcel from the sender By Drone
+        /// </summary>
+        /// <param name="droneId">the drone id </param>
+        void PickedUpParcelByDrone(int droneId);
+        /// <summary>
+        /// fanction that Send Drone To Charge
+        /// </summary>
+        /// <param name="id">the drone id</param>
+        void SendDroneToCharge(int id);
+        /// <summary>
+        /// Tostring of all the Customers 
+        /// </summary>
+        /// <returns>the Tostring of all the Customers </returns>
         string StringAllCustomers();
+        /// <summary>
+        ///  Tostring of all the Drones
+        /// </summary>
+        /// <returns> the Tostring of all the Drones</returns>
         string StringAllDrones();
+        /// <summary>
+        /// Tostring of all the Parcels
+        /// </summary>
+        /// <returns>the  Tostring of all the Parcels</returns>
         string StringAllParcels();
-        
-        string StringAllParcelsWithout_drone();
+        /// <summary>
+        ///Tostring of all the Parcels that Without Parcels
+        /// </summary>
+        /// <returns>the Tostring of all the Parcels that Without Parcels</returns>
+        string StringAllParcelsWithoutDrone();
+
         string StringCustomer(int customer_id);
         string StringDrone(int drone_id);
         IEnumerable<BaseStationToList> GetAllBaseStations(Predicate<BaseStationToList> match);
@@ -31,21 +83,21 @@ namespace BlApi
         IEnumerable<DroneToList> GetAllDrones(Predicate<DroneToList> match);
         IEnumerable<CustomerToList> GetAllCustomers(Predicate<CustomerToList> match);
         string StringParcel(int parcel_id);
-        string string_all_baseStations();
-        string string_all_baseStations_with_free_slots();
+        string StringAllBaseStations();
+        string StringAllBaseStationsWithFreeSlots();
         Drone GetDrone(DroneToList drone);
         DroneToList GetDroneToList(int id);
         Customer GetCustomer(CustomerToList customer);
         CustomerAtParcel GetCustomerAtParcel(int id);
         Customer GetCustomer(int id);
         BaseStation GetBaseStation(int id);
-        string string_baseStation(int baseStation_id);
-        void update_baseStation(int id, string new_name, string new_slot);
-        void update_customer(int id, string new_name, string new_phone, String password , double lattitude, double longitude);
-        void updateCustomer(Customer customer);
+        string StringBaseStation(int baseStation_id);
+        void UpdateBaseStation(int id, string new_name, string new_slot);
+        void UpdateCustomer(int id, string new_name, string new_phone, String password , double lattitude, double longitude);
+        void UpdateCustomer(Customer customer);
         void updateParcel(Parcel parcel);
          void UpdateBaseStation(BaseStation baseStation);
-        void update_model_drone(int drone_id, string model);
+        void UpdateModelDrone(int drone_id, string model);
         void DeleteParcel(int id);
         ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id);
         Parcel GetCurrectParcelOfDrone(int id);

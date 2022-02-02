@@ -27,7 +27,7 @@ namespace BL
                                 try
                                 {
                                     lock(bl)
-                                        bl.connect_parcel_to_drone(id);
+                                        bl.ConnectParcelToDrone(id);
                                 }
                                 catch (DroneBatteryException)
                                 {
@@ -44,7 +44,7 @@ namespace BL
                             {
                                 lock (bl)
                                 {
-                                    bl.drone_from_charge(id);
+                                    bl.DroneFromCharge(id);
                                     if (drone.Battery < 100)
                                         bl.send_drone_to_charge(id);
                                 }
@@ -55,11 +55,11 @@ namespace BL
                                 ParcelAtTransfer parcelTran = bl.GetCurrectParcelAtTransferOfDrone(id);
                                 if (parcelTran.SateOfParcel)
                                 {
-                                    bl.delivered_parcel_by_drone(id);
+                                    bl.DeliveredParcelByDrone(id);
                                 }
                                 else
                                 {
-                                    bl.pickedUp_parcel_by_drone(id);
+                                    bl.PickedUpParcelByDrone(id);
                                 }
                             }
                             break;
