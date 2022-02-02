@@ -252,7 +252,8 @@ namespace Dal
             if (bs.Id != default(int))
                 return bs; //no need to Clone()
             else
-                throw new BadBaseStationIdException(id, $"bad baseStation id: {id}");
+                throw new BadBaseStationIdException("not found baseStation id: "+id);
+                //throw new BadBaseStationIdException(id, $"bad baseStation id: {id}");
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add_base_station(BaseStation baseStation)
