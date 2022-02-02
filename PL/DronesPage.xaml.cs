@@ -27,6 +27,9 @@ namespace PL
         WeightCategories? weight;
         internal ObservableCollection<DroneToList> drones;
         bool grouping;
+        
+        
+
 
 
         public DronesPage(BlApi.IBL theBL)
@@ -36,7 +39,9 @@ namespace PL
             drones = new ObservableCollection<DroneToList>(bl.GetAllDrones(item => true));
             DataContext = drones;
             grouping = false;
+            
         }
+       
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

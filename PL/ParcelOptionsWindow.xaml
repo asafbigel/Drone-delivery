@@ -55,7 +55,7 @@
                 <Label Content="Getter Name:" Grid.Column="0" Grid.Row="4" FontSize="24"/>
                 <Label Content="Weight:" Grid.Column="0" Grid.Row="5" FontSize="24"/>
                 <Label Content="Priority:" Grid.Column="0" Grid.Row="6" FontSize="24"/>
-                <Label Content="TheDrone:" Grid.Column="0" Grid.Row="7" FontSize="24"/>
+                <Label Content="TheDrone:"  Visibility="{Binding ElementName=TheDrone, Path=Visibility, Mode=TwoWay}" Grid.Column="0" Grid.Row="7" FontSize="24"/>
 
                 <Label x:Name="Id" Content="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="24"/>
                 <Label x:Name="SenderId" Content="{Binding Sender.Id}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>

@@ -11,11 +11,6 @@
     <MaxWeight>light</MaxWeight>
   </Drone>
   <Drone>
-    <Id>1235</Id>
-    <Model>MTR7</Model>
-    <MaxWeight>medium</MaxWeight>
-  </Drone>
-  <Drone>
     <Id>1310</Id>
     <Model>MTR9</Model>
     <MaxWeight>light</MaxWeight>
@@ -224,5 +219,10 @@
   <Drone>
     <Id>17</Id>
     <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>1235</Id>
+    <Model>MTR7</Model>
+    <MaxWeight>medium</MaxWeight>
   </Drone>
 </ArrayOfDrone>

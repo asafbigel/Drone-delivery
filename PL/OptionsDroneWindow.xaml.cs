@@ -37,7 +37,7 @@ namespace PL
             drone = theDrone;
             refresh = _refresh;
             updateDroneDetails(drone);
-            DataContext = drone;
+            //DataContext = drone;
         }
 
         private void hideButtoms()
@@ -95,7 +95,7 @@ namespace PL
         // set the details of this drone
         private void updateDroneDetails(DroneToList drone)
         {
-            
+            Battery.Content = (int)drone.Battery;
             DataContext = drone;
             if (refresh != null)
                 refresh();

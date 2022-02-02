@@ -60,8 +60,16 @@ namespace PL
         internal void refresh()
         {
             if (!managerFlag || parcel.Scheduled == null)
+            {
                 OpenDrone.Visibility = Visibility.Collapsed;
-            else OpenDrone.Visibility = Visibility.Visible;
+                TheDrone.Visibility = Visibility.Collapsed;
+            }
+
+            else
+            {
+                OpenDrone.Visibility = Visibility.Visible;
+                TheDrone.Visibility = Visibility.Visible;
+            }
 
             if (parcel.PickedUp != null && (managerFlag || parcel.Sender.Id == customerId) )
                 CollectionConfirmation.Visibility = Visibility.Visible;
@@ -82,7 +90,7 @@ namespace PL
             
             else Update.Visibility = Visibility.Visible;
 
-
+            
         }
         private void Close_Click(object sender, RoutedEventArgs e)
         {

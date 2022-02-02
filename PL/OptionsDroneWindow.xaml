@@ -36,7 +36,7 @@
                 <Label x:Name="Id" Content="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="13"/>
                 <TextBox x:Name="Model" Text="{Binding Model}"  Grid.Column="1" Grid.Row="1" FontSize="13" Grid.RowSpan="2" VerticalAlignment="Top"/>
                 <Label x:Name="Weight" Content="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="13"/>
-                <Label x:Name="Battery" Content="{Binding Battery}"  Grid.Column="1" Grid.Row="3" FontSize="13"/>
+                <Label x:Name="Battery"  Grid.Column="1" Grid.Row="3" FontSize="13"/>
                 <Label x:Name="Status" Content="{Binding Status}"  Grid.Column="1" Grid.Row="4" FontSize="13"/>
                 <Label x:Name="Location" Content="{Binding DroneLocation}"  Grid.Column="1" Grid.Row="5" FontSize="13"/>
             </Grid>

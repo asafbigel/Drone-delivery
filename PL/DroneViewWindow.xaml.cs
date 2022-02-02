@@ -24,7 +24,8 @@ namespace PL
         Drone drone;
         DroneToList droneToList;
         Action refresh;
-        DronesPage dp;
+
+       
         public DroneViewWindow(Object ob, BlApi.IBL bl, Action Refresh)
         {
             theBL = bl;
@@ -32,17 +33,10 @@ namespace PL
             droneToList = (DroneToList)ob;
             drone = bl.GetDrone(droneToList);
             DataContext = drone;
-            refresh = Refresh;
-           /*
-            Id.Content = drone.Id;
-            Model.Content = drone.Model;
-            Weight.Content = drone.MaxWeight;
-            Battery.Content = drone.Battery;
-            Status.Content = drone.Status;
-            Longitude.Content = "Longitude: " + drone.DroneLocation.longitude;
-            Latitude.Content = "Latitude: " + drone.DroneLocation.latitude;
-            ParcelId.Content = drone.Parcel.Id;
-           */
+            Battery.Text = ((int)drone.Battery).ToString();
+
+             refresh = Refresh;
+           
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
