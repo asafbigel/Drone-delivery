@@ -69,7 +69,6 @@ VerticalAlignment="Stretch" Width="auto">
                     <GridViewColumn Header="Max weight" Width="auto" DisplayMemberBinding="{Binding MaxWeight}" />
                     <GridViewColumn Header="Battery" Width="auto" DisplayMemberBinding="{Binding Battery}" />
                     <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Battery" Width="auto" DisplayMemberBinding="{Binding Battery}" />
                     <GridViewColumn Header="location" Width="auto" DisplayMemberBinding="{Binding DroneLocation}" />
                     <GridViewColumn Header="Num of Parcels" Width="auto" DisplayMemberBinding="{Binding NumOfParcel}" />
                 </GridView>

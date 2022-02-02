@@ -95,13 +95,13 @@ namespace BlApi
         void UpdateBaseStation(int id, string new_name, string new_slot);
         void UpdateCustomer(int id, string new_name, string new_phone, String password , double lattitude, double longitude);
         void UpdateCustomer(Customer customer);
-        void updateParcel(Parcel parcel);
+        void UpdateParcel(Parcel parcel);
          void UpdateBaseStation(BaseStation baseStation);
         void UpdateModelDrone(int drone_id, string model);
         void DeleteParcel(int id);
         ParcelAtTransfer GetCurrectParcelAtTransferOfDrone(int id);
         Parcel GetCurrectParcelOfDrone(int id);
-        void auto(int id, Action c, Func<bool> f);
+        void Auto(int id, Action c, Func<bool> f);
         Parcel GetParcel(ParcelAtCustomer parcel);
         Parcel GetParcel(ParcelToList parcel);
         Parcel GetParcel(int id);

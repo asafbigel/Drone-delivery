@@ -11,7 +11,7 @@ namespace BL
 {
     public partial class BL
     {
-        static Random rand = new Random();
+        static Random rand = new();
         /// <summary>
         ///  A function that add a new drone
         /// </summary>
@@ -167,7 +167,7 @@ namespace BL
         /// play the simulator
         /// </summary>
         /// <param name="id">drone's id</param>
-        public void auto(int id, Action refresh, Func<bool> f)
+        public void Auto(int id, Action refresh, Func<bool> f)
         {
             try
             { new Simulator(this, id, refresh, f); }

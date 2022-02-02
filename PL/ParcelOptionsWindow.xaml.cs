@@ -170,7 +170,7 @@ namespace PL
                 parcel.Getter.Id = myGetter.Id;
                 parcel.Getter.CustomerName = myGetter.CustomerName;
                
-                theBL.updateParcel(parcel);
+                theBL.UpdateParcel(parcel);
                 
                 SenderName.Content = parcel.Sender.CustomerName;
                 GetterName.Content = parcel.Getter.CustomerName;

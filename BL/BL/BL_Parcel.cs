@@ -43,7 +43,7 @@ namespace BL
                 return parcel.Id;
             }
         }
-        public void updateParcel(Parcel parcel)
+        public void UpdateParcel(Parcel parcel)
         {
             lock(mydal)
                 mydal.UpdateParcel(convertor(parcel));

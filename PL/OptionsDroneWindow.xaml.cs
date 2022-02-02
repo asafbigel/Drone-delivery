@@ -248,7 +248,7 @@ namespace PL
         {
             try
             {
-                bl.auto(drone.Id, update, stop);
+                bl.Auto(drone.Id, update, stop);
             }
             catch (Exception ex)
             {
