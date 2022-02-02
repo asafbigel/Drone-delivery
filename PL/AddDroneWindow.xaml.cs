@@ -53,7 +53,7 @@ namespace PL
                     MaxWeight = weight,
                     Model = model
                 };*/
-                bl.AddDrone(newDrone, baseStation);
+                    bl.AddDrone(newDrone, baseStation);
                 if (refresh != null)
                     refresh();
                 MessageBox.Show("Succsess", "Succsess");
@@ -61,6 +61,10 @@ namespace PL
                 
                 
 
+            }
+            catch (BO.BadDroneIdException ex)
+            {
+                MessageBox.Show(ex.v +": "+ ex.id, "Duplicate ID", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (FormatException ex)
             {

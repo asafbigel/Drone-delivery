@@ -34,10 +34,10 @@ namespace DO
         }
     }
     [Serializable]
-    internal class BadDroneIdException : Exception
+    public class BadDroneIdException : Exception
     {
-        private int id;
-        private string v;
+        public int id;
+        public string v;
 
         public BadDroneIdException()
         {

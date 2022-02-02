@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BL
+namespace BO
 {
     [Serializable]
     internal class CustomerExeption : Exception
@@ -318,6 +318,34 @@ namespace BL
         }
 
         protected NoFreeChargingException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
+    [Serializable]
+    public class BadDroneIdException : Exception
+    {
+        public int id;
+        public string v;
+
+        public BadDroneIdException()
+        {
+        }
+
+        public BadDroneIdException(string message) : base(message)
+        {
+        }
+
+        public BadDroneIdException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public BadDroneIdException(int id, string v)
+        {
+            this.id = id;
+            this.v = v;
+        }
+
+        protected BadDroneIdException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

@@ -24,24 +24,35 @@ namespace BL
                 throw new DroneIdException("invalid Drone id");
             lock (mydal)
             {
-                drone.Battery = rand.Next(20, 41);
-                drone.Status = DroneStatuses.maintenance;
-                DO.BaseStation baseStation = mydal.Find_baseStation(baseStationNum);
-                if (baseStation.ChargeSlots < 1)
-                    throw new NoFreeChargingException("There are no free charging stations at this station");
+                try
+                {
+                    drone.Battery = rand.Next(20, 41);
+                    drone.Status = DroneStatuses.maintenance;
+                    DO.BaseStation baseStation = mydal.Find_baseStation(baseStationNum);
+                    if (baseStation.ChargeSlots < 1)
+                        throw new NoFreeChargingException("There are no free charging stations at this station");
 
-                drone.DroneLocation = new Location();
-                drone.DroneLocation.Longitude = baseStation.Longitude;
-                drone.DroneLocation.Latitude = baseStation.Lattitude;
-                my_drones.Add(convertor3(drone));
-                DO.Drone idalDrone = convertor(drone);
-                mydal.Add_drone(idalDrone);
-                DO.DroneCharge droneCharge = new DO.DroneCharge();
-                droneCharge.DroneId = drone.Id;
-                droneCharge.StationId = baseStation.Id;
-                droneCharge.EnterToCharge = DateTime.Now;
+                    drone.DroneLocation = new Location();
+                    drone.DroneLocation.Longitude = baseStation.Longitude;
+                    drone.DroneLocation.Latitude = baseStation.Lattitude;
+                    my_drones.Add(convertor3(drone));
+                    DO.Drone idalDrone = convertor(drone);
+                    mydal.Add_drone(idalDrone);
+                    DO.DroneCharge droneCharge = new DO.DroneCharge();
+                    droneCharge.DroneId = drone.Id;
+                    droneCharge.StationId = baseStation.Id;
+                    droneCharge.EnterToCharge = DateTime.Now;
 
-                mydal.send_drone_to_charge(droneCharge);
+                    mydal.send_drone_to_charge(droneCharge);
+                }
+                catch (DO.BadDroneIdException ex)
+                {
+                    throw new BadDroneIdException(ex.id, ex.v);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
                
         }
