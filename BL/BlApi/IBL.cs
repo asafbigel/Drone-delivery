@@ -52,7 +52,7 @@ namespace BlApi
         /// fanction that Send Drone To Charge
         /// </summary>
         /// <param name="id">the drone id</param>
-        void send_drone_to_charge(int id);
+        void SendDroneToCharge(int id);
         /// <summary>
         /// Tostring of all the Customers 
         /// </summary>
@@ -67,12 +67,12 @@ namespace BlApi
         /// Tostring of all the Parcels
         /// </summary>
         /// <returns>the  Tostring of all the Parcels</returns>
-     //   string StringAllParcels();
+        string StringAllParcels();
         /// <summary>
         ///Tostring of all the Parcels that Without Parcels
         /// </summary>
         /// <returns>the Tostring of all the Parcels that Without Parcels</returns>
-      //  string StringAllParcelsWithoutDrone();
+       string StringAllParcelsWithoutDrone();
 
         string StringCustomer(int customer_id);
         string StringDrone(int drone_id);
@@ -108,3 +108,5 @@ namespace BlApi
         bool CheckDate(DateTime from, DateTime until);
     }
 }
+
+
