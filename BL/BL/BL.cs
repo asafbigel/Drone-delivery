@@ -19,7 +19,7 @@ namespace BL
         static double Electricity_light;
         static double Electricity_medium;
         static double Electricity_heavy;
-        static double Charge_at_hour;
+        static double Charge_at_second;
 
 
         static readonly BL instance = new BL();
@@ -40,7 +40,7 @@ namespace BL
                 Electricity_light = Electricity[1];
                 Electricity_medium = Electricity[2];
                 Electricity_heavy = Electricity[3];
-                Charge_at_hour = Electricity[4];
+                Charge_at_second = Electricity[4];
                 Random random = new Random();
 
                 #region List of drone from the data layer

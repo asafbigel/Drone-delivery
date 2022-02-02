@@ -107,7 +107,7 @@ namespace BL
                 if (drone.Status != DroneStatuses.maintenance)
                     throw new DroneBatteryException("The drone isn't maintenance");
                 DroneInCharging droneCharge = convertor2(drone);
-                drone.Battery += (DateTime.Now - droneCharge.EnterToCharge).TotalSeconds * Charge_at_hour;
+                drone.Battery += (DateTime.Now - droneCharge.EnterToCharge).TotalSeconds * Charge_at_second;
                 if (drone.Battery > 100)
                     drone.Battery = 100;
                 drone.Status = DroneStatuses.vacant;
