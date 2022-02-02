@@ -24,8 +24,8 @@ namespace BL
             if (new_slot != "_")
             {
                 if (!int.TryParse(new_slot, out int slot)) { throw new IntReadException("Wrong input"); }
-                if (slot >= baseStation.Num_Free_slots_charge)
-                    baseStation.Num_Free_slots_charge = slot;
+                if (slot >= baseStation.NumFreeSlotsCharge)
+                    baseStation.NumFreeSlotsCharge = slot;
                 else
                     throw new slotException("There more drone at charge now");
             }
@@ -38,7 +38,7 @@ namespace BL
         /// <param name="baseStation"> the baseStation to update </param>
         public void UpdateBaseStation(BaseStation baseStation)
         { 
-            if(baseStation.Num_Free_slots_charge < 0)
+            if(baseStation.NumFreeSlotsCharge < 0)
                 throw new slotException("Free slots charge can't be less than 0");
             BaseStation OldbaseStation = find_baseStation(baseStation.Id);
             mydal.UpdateBaseStation(convertor(baseStation));

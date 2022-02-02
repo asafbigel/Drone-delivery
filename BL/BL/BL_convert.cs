@@ -39,7 +39,7 @@ namespace BL
                 {
                     Id = idalBaseStation.Id,
                     Name = idalBaseStation.Name,
-                    Num_Free_slots_charge = idalBaseStation.ChargeSlots,
+                    NumFreeSlotsCharge = idalBaseStation.ChargeSlots,
                     DroneInChargings = new List<DroneInCharging>()
                 };
                 IEnumerable<DO.DroneCharge> droneCharges = mydal.Get_all_DroneCharge();
@@ -56,8 +56,8 @@ namespace BL
                 //if (baseStation.Num_Free_slots_charge < 0)
                 //    throw new DroneChargeException("There more drone from slots");
                 Location location = new Location();
-                location.latitude = idalBaseStation.Lattitude;
-                location.longitude = idalBaseStation.Longitude;
+                location.Latitude = idalBaseStation.Lattitude;
+                location.Longitude = idalBaseStation.Longitude;
                 baseStation.BaseStationLocation = location;
                 return baseStation;
             }
@@ -72,10 +72,10 @@ namespace BL
             
                 DO.BaseStation idalBaseStation = new DO.BaseStation()
                 {
-                    ChargeSlots = baseStation.Num_Free_slots_charge,
+                    ChargeSlots = baseStation.NumFreeSlotsCharge,
                     Id = baseStation.Id,
-                    Lattitude = baseStation.BaseStationLocation.latitude,
-                    Longitude = baseStation.BaseStationLocation.longitude,
+                    Lattitude = baseStation.BaseStationLocation.Latitude,
+                    Longitude = baseStation.BaseStationLocation.Longitude,
                     Name = baseStation.Name
                 };
                 return idalBaseStation;
@@ -175,10 +175,10 @@ namespace BL
                 Location getter_location = new Location();
                 DO.Customer sender = mydal.Find_customer(parcel.Sender.Id);
                 DO.Customer getter = mydal.Find_customer(parcel.Getter.Id);
-                senderLlocation.longitude = sender.Longitude;
-                senderLlocation.latitude = sender.Lattitude;
-                getter_location.longitude = getter.Longitude;
-                getter_location.latitude = getter.Lattitude;
+                senderLlocation.Longitude = sender.Longitude;
+                senderLlocation.Latitude = sender.Lattitude;
+                getter_location.Longitude = getter.Longitude;
+                getter_location.Latitude = getter.Lattitude;
                 bool pickedUp = parcel.PickedUp != null;
                 double disstance;
                 if(pickedUp || parcel.TheDrone.Id==0)
@@ -226,8 +226,8 @@ namespace BL
             {
                 Id = customer.Id,
                 Name = customer.Name,
-                Lattitude = customer.CustomerLocation.latitude,
-                Longitude = customer.CustomerLocation.longitude,
+                Lattitude = customer.CustomerLocation.Latitude,
+                Longitude = customer.CustomerLocation.Longitude,
                 Phone = customer.Phone,
                 Password = customer.Password
             };
@@ -535,8 +535,8 @@ namespace BL
             lock (mydal)
             {
                 Location location = new Location();
-                location.latitude = idal_customer.Lattitude;
-                location.longitude = idal_customer.Longitude;
+                location.Latitude = idal_customer.Lattitude;
+                location.Longitude = idal_customer.Longitude;
                 Customer customer = new Customer()
                 {
                     Id = idal_customer.Id,

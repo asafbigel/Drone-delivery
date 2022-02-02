@@ -169,8 +169,8 @@ namespace BL
                         // rand location
                         else
                         {
-                            location.latitude = rand.Next(35160443, 35252793) * 0.000001;
-                            location.longitude = rand.Next(31727247, 31844377) * 0.000001;
+                            location.Latitude = rand.Next(35160443, 35252793) * 0.000001;
+                            location.Longitude = rand.Next(31727247, 31844377) * 0.000001;
                         }
                         drone.DroneLocation = location;
                         BaseStation baseStation_neer_geeter = BaseStation_close_to_location(baseStations, location);
@@ -219,8 +219,8 @@ namespace BL
         /// <returns></returns>
         private static double distance_between_2_points(Location location1, Location location2)
         {
-            double latitude = (location1.latitude - location2.latitude) * (location1.latitude - location2.latitude);
-            double longitude = (location1.longitude - location2.longitude) * (location1.longitude - location2.longitude);
+            double latitude = (location1.Latitude - location2.Latitude) * (location1.Latitude - location2.Latitude);
+            double longitude = (location1.Longitude - location2.Longitude) * (location1.Longitude - location2.Longitude);
             return Math.Sqrt(latitude + longitude);
         }
         /// <summary>

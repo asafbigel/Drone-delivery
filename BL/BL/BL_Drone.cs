@@ -31,8 +31,8 @@ namespace BL
                     throw new NoFreeChargingException("There are no free charging stations at this station");
 
                 drone.DroneLocation = new Location();
-                drone.DroneLocation.longitude = baseStation.Longitude;
-                drone.DroneLocation.latitude = baseStation.Lattitude;
+                drone.DroneLocation.Longitude = baseStation.Longitude;
+                drone.DroneLocation.Latitude = baseStation.Lattitude;
                 my_drones.Add(convertor3(drone));
                 DO.Drone idalDrone = convertor(drone);
                 mydal.Add_drone(idalDrone);

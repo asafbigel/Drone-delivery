@@ -23,7 +23,7 @@ namespace ConsuleUI_BL
             {
                 Id = my_id,
                 Name = my_name,
-                Num_Free_slots_charge = chargeSlots,
+                NumFreeSlotsCharge = chargeSlots,
                 BaseStationLocation = my_location
             };
             mybi.Add_base_station(baseStation);
@@ -104,8 +104,8 @@ namespace ConsuleUI_BL
             double my_latitude = double.Parse(Console.ReadLine());
             Location myLocation = new Location
             {
-                latitude = my_latitude,
-                longitude = my_longitude
+                Latitude = my_latitude,
+                Longitude = my_longitude
             };
             return myLocation;
         }
