@@ -95,13 +95,7 @@ namespace PL
         // set the details of this drone
         private void updateDroneDetails(DroneToList drone)
         {
-            /*
-            Id.Content = drone.Id;
-            Model.Text = drone.Model;
-            Weight.Content = drone.MaxWeight;
-            Battery.Content = drone.Battery;
-            Status.Content = drone.Status;
-            */
+            
             DataContext = drone;
             if (refresh != null)
                 refresh();
@@ -120,16 +114,12 @@ namespace PL
                 string newModel = Model.Text;
                 bl.update_model_drone(drone.Id, newModel);
                 drone = bl.GetAllDrones(item => true).ToList().Find(item => item.Id == drone.Id);
-                /*
-                updateDroneDetails(drone);
-                if (theDronesPage != null)
-                    theDronesPage.refresh();
-                */
+               
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null)
-                    refresh();
+                //if (refresh != null)
+                  //  refresh();
             }
             catch (Exception ex)
             {
@@ -146,7 +136,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null) refresh();
+               // if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -163,7 +153,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null) refresh();
+                //if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -179,7 +169,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null) refresh();
+               // if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -195,7 +185,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null) refresh();
+                //if (refresh != null) refresh();
             }
             catch (Exception ex)
             {
@@ -211,7 +201,7 @@ namespace PL
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);
-                if (refresh != null) refresh();
+                //if (refresh != null) refresh();
             }
             catch (Exception ex)
             {

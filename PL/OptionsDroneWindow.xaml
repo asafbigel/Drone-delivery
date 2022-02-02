@@ -42,15 +42,15 @@
             </Grid>
         </StackPanel>
         <StackPanel x:Name="Options" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">
-            <Button x:Name="Close"  Content="Close" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"  Click="Close_Click" />
-            <Button x:Name="Update"  Content="Update" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Update_Click"/>
-            <Button x:Name="Charge"  Content="Charge" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Charge_Click"/>
-            <Button x:Name="FromCharge"  Content="Out from charge" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="FromCharge_Click"/>
-            <Button x:Name="Send"  Content="Send" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Send_Click"/>
-            <Button x:Name="PickUp"  Content="PickUp" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="PickUp_Click"/>
-            <Button x:Name="Delivered"  Content="Delivered" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Delivered_Click"/>
-            <Button x:Name="Automatic"  Content="Automatic" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Automatic_Click"/>
-            <Button x:Name="Manual"  Content="Manual" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Click="Manual_Click" />
+            <Button x:Name="Close"  Content="Close" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,2,0,2" Click="Close_Click" />
+            <Button x:Name="Update"  Content="Update" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,2,0,2" Click="Update_Click"/>
+            <Button x:Name="Charge"  Content="Charge" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,2,0,2" Click="Charge_Click"/>
+            <Button x:Name="FromCharge"  Content="Out from charge" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,2,0,2" Click="FromCharge_Click"/>
+            <Button x:Name="Send"  Content="Send" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,2,0,2" Click="Send_Click"/>
+            <Button x:Name="PickUp"  Content="PickUp" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,2,0,2" Click="PickUp_Click"/>
+            <Button x:Name="Delivered"  Content="Delivered" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,2,0,2" Click="Delivered_Click"/>
+            <Button x:Name="Automatic"  Content="Automatic" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,2,0,2" Click="Automatic_Click"/>
+            <Button x:Name="Manual"  Content="Manual" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,2,0,2" Click="Manual_Click" />
         </StackPanel>
     </Grid>
 </Window>

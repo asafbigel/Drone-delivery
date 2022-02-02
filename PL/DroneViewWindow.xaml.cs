@@ -32,7 +32,7 @@ namespace PL
             droneToList = (DroneToList)ob;
             drone = bl.GetDrone(droneToList);
             DataContext = drone;
-            this.refresh = Refresh;
+            refresh = Refresh;
            /*
             Id.Content = drone.Id;
             Model.Content = drone.Model;
@@ -57,13 +57,9 @@ namespace PL
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-           // if (refresh != null)
-           // {
+           
                 new OptionsDroneWindow(theBL, droneToList, refresh).Show();
-                Close();
-          //  }
-          //  else
-          //      MessageBox.Show("Can't do it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();         
 
         }
     }
