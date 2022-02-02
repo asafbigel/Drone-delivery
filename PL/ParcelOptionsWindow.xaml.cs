@@ -124,7 +124,7 @@ namespace PL
             try
             {
                 Customer customer = theBL.GetCustomer(parcel.Sender.Id);
-                new CustomerViewWindow(customer, theBL, null, managerFlag).Show();
+                new CustomerViewWindow(customer, theBL, refresh, managerFlag).Show();
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace PL
             try
             {
                 Customer customer = theBL.GetCustomer(parcel.Getter.Id);
-                new CustomerViewWindow(customer, theBL, null, managerFlag).Show();
+                new CustomerViewWindow(customer, theBL, refresh, managerFlag).Show();
             }
             catch (Exception ex)
             {
@@ -151,7 +151,7 @@ namespace PL
             if(parcel.Scheduled != null)
             {
                 DroneToList myDrone = theBL.GetDroneToList(parcel.TheDrone.Id);
-                new DroneViewWindow(myDrone, theBL, null).Show();
+                new DroneViewWindow(myDrone, theBL, refresh).Show();
                 
             }
 

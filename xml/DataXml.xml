@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <data-config>
-  <BatteryUsages>
-    <FreeBatteryUsing>1</FreeBatteryUsing>
-    <LightBatteryUsing>2</LightBatteryUsing>
-    <MediumBatteryUsing>3</MediumBatteryUsing>
-    <HeavyBatteryUsing>4</HeavyBatteryUsing>
-    <ChargingRate>4</ChargingRate>
-  </BatteryUsages>
-  <RunNumber>
-    <NewParcelId>100133</NewParcelId>
-  </RunNumber>
-  <Menager>
-    <UserName>admin</UserName>
-    <Password>123</Password>
-  </Menager>
+	<BatteryUsages>
+		<FreeBatteryUsing>1</FreeBatteryUsing>
+		<LightBatteryUsing>2</LightBatteryUsing>
+		<MediumBatteryUsing>3</MediumBatteryUsing>
+		<HeavyBatteryUsing>4</HeavyBatteryUsing>
+		<ChargingRate>4</ChargingRate>
+	</BatteryUsages>
+	<RunNumber>
+		<NewParcelId>100132</NewParcelId>
+	</RunNumber>
+	<Menager>
+		<UserName>admin</UserName>
+		<Password>123</Password>
+	</Menager>
 </data-config>

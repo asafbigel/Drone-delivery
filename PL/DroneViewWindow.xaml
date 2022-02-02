@@ -12,7 +12,7 @@
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" >
+            <StackPanel x:Name="theStackPane"  HorizontalAlignment="Center" DataContext="drone;" VerticalAlignment="Center" Grid.Column="0" >
                 <Grid x:Name="StackPanelGrid" Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -36,13 +36,13 @@
                     <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="13"/>
                     <Label Content="Parcel id:" Grid.Column="0" Grid.Row="7" FontSize="13"/>
 
-                    <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="13"/>
-                    <TextBlock x:Name="Model" Text="{Binding Model}" Grid.Column="1" Grid.Row="1" FontSize="13" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="Weight" Text="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="13"/>
-                    <TextBlock x:Name="Battery" Text="{Binding Battery}" Grid.Column="1" Grid.Row="3" FontSize="13"/>
-                    <TextBlock x:Name="Status" Text="{Binding Status}" Grid.Column="1" Grid.Row="4" FontSize="13"/>
-                    <TextBlock x:Name="Location" Text="{Binding DroneLocation}" Grid.Column="1" Grid.Row="5" FontSize="13"/>
-                    <TextBlock x:Name="ParcelId" Text="{Binding Parcel.Id}" Grid.Column="1" Grid.Row="7" FontSize="13"/>
+                    <TextBlock x:Name="Id" Text="{Binding Id ,Mode=OneWay }" Grid.Column="1" Grid.Row="0" FontSize="13" Margin="5,5,0,0"/>
+                    <TextBlock x:Name="Model" Text="{Binding Model}" Grid.Column="1" Grid.Row="1" FontSize="13" Height="42" Grid.RowSpan="2" VerticalAlignment="Top" Margin="5,5,0,0" />
+                    <TextBlock x:Name="Weight" Text="{Binding MaxWeight}" Grid.Column="1" Grid.Row="2" FontSize="13" Margin="5,5,0,0"/>
+                    <TextBlock x:Name="Battery"  Grid.Column="1" Grid.Row="3" FontSize="13" Margin="5,5,0,0"/>
+                    <TextBlock x:Name="Status" Text="{Binding Status}" Grid.Column="1" Grid.Row="4" FontSize="13" Margin="5,5,0,0"/>
+                    <TextBlock x:Name="Location" Text="{Binding DroneLocation}" Grid.Column="1" Grid.Row="5" FontSize="13" Margin="5,5,0,0"/>
+                    <TextBlock x:Name="ParcelId" Text="{Binding Parcel.Id}" Grid.Column="1" Grid.Row="7" FontSize="13" Margin="5,5,0,0"/>
                 </Grid>
             </StackPanel>
             <StatusBar Grid.Row="1"   HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}">
