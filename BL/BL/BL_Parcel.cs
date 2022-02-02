@@ -234,7 +234,7 @@ namespace BL
         /// </summary>
         /// <returns> ToString of the list of all the Parcels that dons't connected to drone </returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string StringAllParcelsWithout_drone()
+        public string StringAllParcelsWithoutDrone()
         {
             lock (mydal)
             {

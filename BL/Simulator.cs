@@ -32,7 +32,7 @@ namespace BL
                                 catch (DroneBatteryException)
                                 {
                                     lock (bl) 
-                                        bl.send_drone_to_charge(id);
+                                        bl.SendDroneToCharge(id);
                                 }
                                 catch (Exception ex)
                                 {
@@ -46,7 +46,7 @@ namespace BL
                                 {
                                     bl.DroneFromCharge(id);
                                     if (drone.Battery < 100)
-                                        bl.send_drone_to_charge(id);
+                                        bl.SendDroneToCharge(id);
                                 }
                             }
                             break;

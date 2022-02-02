@@ -67,7 +67,7 @@ namespace BL
         /// </summary>
         /// <param name="id"> the id of the drone </param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void send_drone_to_charge(int id)
+        public void SendDroneToCharge(int id)
         {
             lock (mydal)
             {

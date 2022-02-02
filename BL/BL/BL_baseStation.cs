@@ -18,7 +18,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateBaseStation(int id, string new_name, string new_slot)
         {
-            BaseStation baseStation = find_baseStation(id);
+            BaseStation baseStation = FindBaseStation(id);
             if (new_name != "_")
                 baseStation.Name = new_name;
             if (new_slot != "_")
@@ -40,7 +40,7 @@ namespace BL
         { 
             if(baseStation.NumFreeSlotsCharge < 0)
                 throw new slotException("Free slots charge can't be less than 0");
-            BaseStation OldbaseStation = find_baseStation(baseStation.Id);
+            BaseStation OldbaseStation = FindBaseStation(baseStation.Id);
             mydal.UpdateBaseStation(convertor(baseStation));
         }
 
@@ -51,7 +51,7 @@ namespace BL
         /// <returns>
         /// BL base station
         /// </returns>
-        private BaseStation find_baseStation(int id)
+        private BaseStation FindBaseStation(int id)
         {
             lock (mydal)
             {
@@ -92,7 +92,7 @@ namespace BL
         /// string of details of this base station
         /// </returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string string_baseStation(int baseStation_id)
+        public string StringBaseStation(int baseStation_id)
         {
             return convertor(mydal.Find_baseStation(baseStation_id)).ToString();
         }

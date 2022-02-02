@@ -132,7 +132,7 @@ namespace PL
         {
             try
             {
-                bl.send_drone_to_charge(drone.Id);
+                bl.SendDroneToCharge(drone.Id);
                 MessageBox.Show("Succsess", "Succsess");
                 drone = bl.GetDroneToList(drone.Id);
                 updateDroneDetails(drone);

@@ -32,7 +32,7 @@ namespace PL
             InitializeComponent();
             droneToList = (DroneToList)ob;
             drone = bl.GetDrone(droneToList);
-            DataContext = drone;
+           // DataContext = drone;
             Battery.Text = ((int)drone.Battery).ToString();
 
              refresh = Refresh;
