@@ -24,20 +24,24 @@ namespace PL
         Drone drone;
         DroneToList droneToList;
         Action refresh;
-
-       
+        DronesPage dp;
         public DroneViewWindow(Object ob, BlApi.IBL bl, Action Refresh)
         {
             theBL = bl;
             droneToList = (DroneToList)ob;
             drone = bl.GetDrone(droneToList);
             DataContext = drone;
-
-            InitializeComponent();
-            Battery.Text = ((int)drone.Battery).ToString();
-            
-             refresh = Refresh;
-           
+            this.refresh = Refresh;
+            /*
+             Id.Content = drone.Id;
+             Model.Content = drone.Model;
+             Weight.Content = drone.MaxWeight;
+             Battery.Content = drone.Battery;
+             Status.Content = drone.Status;
+             Longitude.Content = "Longitude: " + drone.DroneLocation.longitude;
+             Latitude.Content = "Latitude: " + drone.DroneLocation.latitude;
+             ParcelId.Content = drone.Parcel.Id;
+            */
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -47,14 +51,18 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-           new AddDroneWindow(theBL, refresh).Show();
+            new AddDroneWindow(theBL, refresh).Show();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-           
-                new OptionsDroneWindow(theBL, droneToList, refresh).Show();
-                Close();         
+            // if (refresh != null)
+            // {
+            new OptionsDroneWindow(theBL, droneToList, refresh).Show();
+            Close();
+            //  }
+            //  else
+            //      MessageBox.Show("Can't do it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
         }
     }
