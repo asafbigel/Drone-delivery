@@ -90,7 +90,6 @@ namespace PL
         {
             grouping = true;
             refresh();
-           
         }
         /*
         internal void Refresh()
@@ -130,7 +129,7 @@ namespace PL
                     }
 
 
-                var x = from drone in drones
+                var x = from drone in y
                         where drone != null
                         orderby drone.Status
                         group drone by drone.Status into g
