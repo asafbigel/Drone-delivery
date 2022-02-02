@@ -73,7 +73,7 @@ namespace PL
                 customer.Password = Password.Password;
                 double.Parse(this.latitude.Text);
                 bl.AddCustomer(customer);
-                MessageBox.Show("Succsess", "Succsess");
+               // MessageBox.Show("Succsess", "Succsess");
                 MessageBox.Show("Succsess, the User name to cusomer login is the Id" , "Succsess");
                 Close();
 
