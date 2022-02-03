@@ -29,7 +29,7 @@ namespace BO
         /// <summary>
         /// list of the Drones in Charg naw in this BaseStation
         /// </summary>
-        public List<DroneInCharging> DroneInChargings { get; set; }
+        public List<DroneInCharging> DroneInChargings { get; set; }        
 
         public override string ToString()
 

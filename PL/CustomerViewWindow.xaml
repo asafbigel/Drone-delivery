@@ -54,8 +54,8 @@
 
                         <Label Grid.Row="0" Content="longitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="15,10,20,10"/>
                         <Label Grid.Row="1" Content="latitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="15,10,20,10"/>
-                        <TextBox x:Name="longitude" Grid.Column="1" Grid.Row="0"  Text="{Binding CustomerLocation.longitude}" Margin="0,4,50,3"/>
-                        <TextBox x:Name="latitude" Grid.Column="1" Grid.Row="1" Text="{Binding CustomerLocation.latitude}" Margin="0,0,50,7"/>
+                        <TextBox x:Name="longitude" Grid.Column="1" Grid.Row="0"  Text="{Binding CustomerLocation.Longitude}" Margin="0,4,50,3"/>
+                        <TextBox x:Name="latitude" Grid.Column="1" Grid.Row="1" Text="{Binding CustomerLocation.Latitude}" Margin="0,0,50,7"/>
 
 
                     </Grid>

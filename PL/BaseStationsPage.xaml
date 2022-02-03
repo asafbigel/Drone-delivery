@@ -21,7 +21,7 @@
                     <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding Id}" />
                     <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Num of free slots" Width="auto" DisplayMemberBinding="{Binding NumOfFreeSlots}" />
-                    <GridViewColumn Header="Num of busy slots" Width="auto" DisplayMemberBinding="{Binding NumOfBusySlots}" />
+                    <GridViewColumn Header="Num of busy slots" Width="auto" DisplayMemberBinding="{Binding NumOfBusySlots}" />                    
                 </GridView>
             </ListView.View>
         </ListView>

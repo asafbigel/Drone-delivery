@@ -35,7 +35,7 @@
 
                 <TextBox x:Name="Id" Grid.Column="1" Grid.Row="1" Text="{Binding Id}" Margin="0,0,50,0"/>
                 <TextBox x:Name="Name" Grid.Column="1" Grid.Row="2" Text="{Binding Name}" Margin="0,0,50,0"/>
-                <TextBox x:Name="NumOfSlotsCharge" Grid.Column="1" Grid.Row="3" Text ="{Binding Num_Free_slots_charge}" Margin="0,0,50,0"/>
+                <TextBox x:Name="NumOfSlotsCharge" Grid.Column="1" Grid.Row="3" Text ="{Binding NumFreeSlotsCharge}" Margin="0,0,50,0"/>
                 <Grid x:Name="Location"  Grid.Row="4"  Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -48,8 +48,8 @@
 
                     <Label Grid.Row="0" Content="longitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="15,10,15,10"/>
                     <Label Grid.Row="1" Content="latitude" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="15,10,15,10"/>
-                    <TextBox x:Name="longitude" Grid.Column="1" Grid.Row="0"  Text="{Binding BaseStationLocation.longitude}" Margin="0,4,50,3"/>
-                    <TextBox x:Name="latitude" Grid.Column="1" Grid.Row="1" Text="{Binding BaseStationLocation.latitude}" Margin="0,0,50,7"/>
+                    <TextBox x:Name="longitude" Grid.Column="1" Grid.Row="0"  Text="{Binding BaseStationLocation.Longitude}" Margin="0,4,50,3"/>
+                    <TextBox x:Name="latitude" Grid.Column="1" Grid.Row="1" Text="{Binding BaseStationLocation.Latitude}" Margin="0,0,50,7"/>
                 </Grid>
             </Grid>
             <Grid x:Name="down"  Grid.Row="1">
