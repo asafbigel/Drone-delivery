@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfBaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <BaseStation>
-    <Id>9003</Id>
-    <Name>Base Station 9003</Name>
-    <Longitude>35.27257668018927</Longitude>
-    <Lattitude>31.715335740235325</Lattitude>
-    <ChargeSlots>10</ChargeSlots>
-  </BaseStation>
-  <BaseStation>
     <Id>9005</Id>
     <Name>Base Station 9005</Name>
     <Longitude>35.22859907936705</Longitude>
@@ -75,6 +68,13 @@
     <Name>Base Station 9004</Name>
     <Longitude>35.21640995884147</Longitude>
     <Lattitude>31.71026333034051</Lattitude>
-    <ChargeSlots>8</ChargeSlots>
+    <ChargeSlots>9</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9003</Id>
+    <Name>Base Station 9003</Name>
+    <Longitude>35.27257668018927</Longitude>
+    <Lattitude>31.715335740235325</Lattitude>
+    <ChargeSlots>15</ChargeSlots>
   </BaseStation>
 </ArrayOfBaseStation>
