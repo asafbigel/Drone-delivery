@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneViewWindow" Height="300" Width="350">
+        Title="DroneViewWindow" Height="300" Width="380">
     <Grid>
         <Grid x:Name="Main">
             <Grid.RowDefinitions>
@@ -34,7 +34,7 @@
                     <Label Content="Battery:" Grid.Column="0" Grid.Row="3" FontSize="13"/>
                     <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="13"/>
                     <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="13"/>
-                    <Label Content="Parcel id:" Grid.Column="0" Grid.Row="7" FontSize="13"/>
+                    <Label Content="Parcel id:"  Grid.Column="0" Grid.Row="7" FontSize="13"/>
 
                     <TextBlock x:Name="Id" Text="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="13" Margin="5,5,0,0" />
                     <TextBlock x:Name="Model" Text="{Binding Model}" Grid.Column="1" Grid.Row="1" FontSize="13" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"  Margin="5,5,0,0"/>

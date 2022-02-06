@@ -10,9 +10,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="*"/>
+            
 
         </Grid.RowDefinitions>
         <ListView x:Name="BaseStationListView" ItemsSource="{Binding}" Grid.Row="0"  SelectionChanged="BaseStationsListView_SelectionChanged" >

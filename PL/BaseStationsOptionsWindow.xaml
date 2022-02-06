@@ -57,9 +57,7 @@
                 <TextBox x:Name="Name" Text="{Binding Name}" Grid.Column="1" Grid.Row="1" FontSize="24" Height="42" Grid.RowSpan="2" VerticalAlignment="Top"/>
                 <TextBox x:Name="NumFreeSlotsCharge" Text ="{Binding NumFreeSlotsCharge}" Grid.Column="1" Grid.Row="2" FontSize="24"/>
                 <Label  Content="{Binding BaseStationLocation}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" FontSize="24"   Width="340" />
-
-
-                <Label x:Name="TheDrone" Content="{Binding TheDrone.Id}" Grid.Row="1"  FontSize="24"/>
+              
             </Grid>
         </StackPanel>
 

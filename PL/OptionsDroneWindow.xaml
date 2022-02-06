@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OptionsDroneWindow" Height="220" Width="450">
+        Title="OptionsDroneWindow" Height="230" Width="450">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -32,6 +32,7 @@
                 <Label Content="Battery:" Grid.Column="0" Grid.Row="3" FontSize="13"/>
                 <Label Content="Status:" Grid.Column="0" Grid.Row="4" FontSize="13"/>
                 <Label Content="Location:" Grid.Column="0" Grid.Row="5" FontSize="13"/>
+                <Label  Content="Parcel Id:" Visibility="{Binding ElementName=ParcelId, Path=Visibility, Mode=TwoWay}" Grid.Column="0" Grid.Row="6" FontSize="13"/>
 
                 <Label x:Name="Id" Content="{Binding Id}" Grid.Column="1" Grid.Row="0" FontSize="13"/>
                 <TextBox x:Name="Model" Text="{Binding Model}"  Grid.Column="1" Grid.Row="1" FontSize="13" Grid.RowSpan="2" VerticalAlignment="Top"/>
@@ -39,6 +40,7 @@
                 <Label x:Name="Battery"  Grid.Column="1" Grid.Row="3" FontSize="13"/>
                 <Label x:Name="Status" Content="{Binding Status}"  Grid.Column="1" Grid.Row="4" FontSize="13"/>
                 <Label x:Name="Location" Content="{Binding DroneLocation}"  Grid.Column="1" Grid.Row="5" FontSize="13"/>
+                <Label x:Name="ParcelId"  Grid.Column="1" Grid.Row="6" FontSize="13"/>
             </Grid>
         </StackPanel>
         <StackPanel x:Name="Options" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">

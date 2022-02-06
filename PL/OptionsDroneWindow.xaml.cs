@@ -97,6 +97,16 @@ namespace PL
         {
             Battery.Content = (int)drone.Battery;
             DataContext = drone;
+            if (drone.Status == DroneStatuses.sending)
+            {
+                Drone myDrone = bl.GetDrone(drone);
+                if(myDrone.Parcel != null)
+                {
+                    ParcelId.Content = myDrone.Parcel.Id;
+                    ParcelId.Visibility = Visibility.Visible;
+                }                   
+            }
+            else ParcelId.Visibility = Visibility.Collapsed;
             if (refresh != null)
                 refresh();
             hideButtoms();
