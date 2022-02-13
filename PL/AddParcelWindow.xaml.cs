@@ -38,12 +38,17 @@ namespace PL
             myParcel.Getter = new();
 
             refresh = refreshing;
+            SenderList.ItemsSource = bl.GetAllCustomers(x => true);
+            SenderList.DisplayMemberPath = "Name";
+            SenderList.SelectedValuePath = "Id";
+            TaregtList.ItemsSource = bl.GetAllCustomers(x => true);
+            TaregtList.DisplayMemberPath = "Name";
+            TaregtList.SelectedValuePath = "Id";
             //newParcel = new ParcelToList();
 
             id = customerId;
             if (id !=null)
             {
-                
                 SenderId.Visibility = Visibility.Collapsed;
             }
             DataContext = myParcel;
@@ -107,5 +112,16 @@ namespace PL
         {
             Close();          
         }
+        /*
+        private void SendelList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender != null)
+            {
+                CustomerToList customer = (CustomerToList)sender;
+
+                myParcel.Sender.Id = customer.Id;
+            }
+        }
+        */
     }
 }

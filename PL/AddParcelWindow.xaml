@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BO;assembly=BL"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="AddParcelWindow" Height="450" Width="800">
+        Title="AddParcelWindow" Height="500" Width="800">
     <Window.Resources>
         <ObjectDataProvider x:Key="dataFromPriority" MethodName="GetValues"
                         ObjectType="{x:Type sys:Enum}">
@@ -38,28 +38,40 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
 
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="AddParcel"  Grid.Column="1" Content="Add Parcel" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42" FontWeight="Bold" Margin="0,20,0,20"/>
                 <Label Grid.Row="1" Content="Sender Id"  HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Visibility="{Binding ElementName=SenderId, Path=Visibility, Mode=TwoWay}" Margin="0,0,0,10"/>
-                <Label Grid.Row="2" Content="Getter Id"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="20,10,20,10" />
-                <Label Grid.Row="3" Content="Weight"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="20,10,20,10" />
-                <Label Grid.Row="4" Content="Priority" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="20,10,20,10"/>
+                <Label Grid.Row="3" Content="Getter Id"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="20,10,20,10" />
+                <Label Grid.Row="5" Content="Weight"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="20,10,20,10" />
+                <Label Grid.Row="6" Content="Priority" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" Margin="20,10,20,10"/>
 
 
-                <TextBox x:Name="SenderId" Grid.Column="1" Grid.Row="1" Text="{Binding Sender.Id}" Margin="0,0,50,0"/>
-                <TextBox x:Name="GetterId" Grid.Column="1" Grid.Row="2" Text="{Binding Getter.Id}" Margin="0,0,50,0"/>
+                <TextBox x:Name="SenderId" Grid.Column="1" Grid.Row="1"  Margin="0,0,50,0" Text="{Binding Sender.Id}"/>
+                <ComboBox x:Name="SenderList" Text="Choose sender" Grid.Column="1" Grid.Row="2"  Margin="20,0,0,0"
+                          IsEditable="True" HorizontalAlignment="Left" IsReadOnly="True" FontSize="20"
+                          FontWeight="Bold" Width="174"
+                          Visibility ="{Binding ElementName=SenderId , Path=Visibility}"
+                          SelectedValue="{Binding Sender.Id}"/>
+                <TextBox x:Name="GetterId" Grid.Column="1" Grid.Row="3" Text="{Binding Getter.Id}" Margin="0,0,50,0"/>
+                <ComboBox x:Name="TaregtList" Text="Choose target" Grid.Column="1" Grid.Row="4"  Margin="20,0,0,0"
+                          IsEditable="True" HorizontalAlignment="Left" IsReadOnly="True"
+                          FontSize="20" FontWeight="Bold" Width="174"
+                          SelectedValue="{Binding Getter.Id}"/>
+
                 <ComboBox Name="WeightSelector" Text="choose weight:"
-                     Grid.Row="3" Grid.Column="1" IsEditable="True" IsReadOnly="True" 
-                      Grid.ColumnSpan="2" 
-                      HorizontalAlignment="Center" VerticalAlignment="Center"
-                      FontSize="20" FontWeight="Bold" Width="174" Margin="45,0,440,0" SelectedItem="{Binding Weight }"
+                     Grid.Row="5" Grid.Column="1" IsEditable="True" IsReadOnly="True" 
+                      Grid.ColumnSpan="2"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      FontSize="20" FontWeight="Bold" Width="174" Margin="20,0,0,0" SelectedItem="{Binding Weight }"
                       ItemsSource="{Binding Source={StaticResource dataFromWeight}}"/>
                 <ComboBox Name="PrioritySelector" Text="choose priority:"
-                     Grid.Row="4" Grid.Column="1" IsEditable="True" IsReadOnly="True" 
-                       VerticalAlignment="Center"
-                      FontSize="20" FontWeight="Bold" Width="174" Margin="45,0,440,0" SelectedItem="{Binding Priority}"
+                     Grid.Row="6" Grid.Column="1" IsEditable="True" IsReadOnly="True" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                      FontSize="20" FontWeight="Bold" Width="174" Margin="20,0,0,0" SelectedItem="{Binding Priority}"
                       ItemsSource="{Binding Source={StaticResource dataFromPriority}}" 
                 />
 

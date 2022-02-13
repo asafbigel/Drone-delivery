@@ -34,8 +34,12 @@ namespace PL
             refresh = refreshing;
             //newDrone = new DroneToList();
             newDrone = new Drone();
-            this.DataContext = newDrone;
-            this.Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
+            DataContext = newDrone;
+            Weight.ItemsSource= Enum.GetValues(typeof(WeightCategories));
+
+            StationsList.ItemsSource = bl.GetAllBaseStations(bs => bs.NumOfFreeSlots > 0);
+            StationsList.DisplayMemberPath = "Name";
+            StationsList.SelectedValuePath = "Id";
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
