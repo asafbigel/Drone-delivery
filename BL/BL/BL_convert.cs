@@ -293,7 +293,8 @@ namespace BL
                     Id = item.Id,
                     Name = item.Name,
                     NumOfBusySlots = droneCharge.Count(),
-                    NumOfFreeSlots = item.ChargeSlots
+                    NumOfFreeSlots = item.ChargeSlots,
+                    BaseStationLocation = new Location { Latitude = item.Lattitude, Longitude = item.Longitude }
                 };
             }
         }
@@ -366,6 +367,13 @@ namespace BL
                 }
                 string target_name = mydal.Find_customer(item.TargetId).Name;
                 string sender_name = mydal.Find_customer(item.SenderId).Name;
+
+                DO.Customer doSender = mydal.Find_customer(item.SenderId);
+                DO.Customer doGetter = mydal.Find_customer(item.TargetId);
+
+                Location senderLocation = new Location { Latitude = doSender.Lattitude, Longitude = doSender.Longitude };
+                Location getterLocation = new Location { Latitude = doGetter.Lattitude, Longitude = doGetter.Longitude };
+
                 return new ParcelToList()
                 {
                     GetterName = target_name,
@@ -373,7 +381,9 @@ namespace BL
                     Id = item.Id,
                     Priority = (Priorities)item.Priority,
                     Status = parcelStatuses,
-                    Weight = (WeightCategories)item.Weight
+                    Weight = (WeightCategories)item.Weight,
+                    SenderLocation = senderLocation,
+                    GetterLocation = getterLocation
                 };
             }
         }
@@ -426,12 +436,13 @@ namespace BL
                     NumOfParcelsGot = parcels_got.Count(),
                     NumOfParcelsSentAndArrived = parcels_sent_and_arrived.Count(),
                     NumOfParcelsSentAndNotArrived = parcels_sent_and_not_arrived.Count(),
-                    numOfParcelsToGet = parcels_to_get.Count()
+                    numOfParcelsToGet = parcels_to_get.Count(),
+                    CustomerLocation = new Location { Latitude = item.Lattitude, Longitude = item.Longitude }
                 };
             }
         }
         /// <summary>
-        /// convert  from  IEnumerable<DO.Drone>  to  List<DroneToList>
+        ///  convert  from IEnumerable<DO.Drone>  to  List<DroneToList>
         /// </summary>
         /// <param name="enumerable"> IEnumerable<DO.Drone> </param>
         /// <returns>  List<DroneToList> after convert </returns>

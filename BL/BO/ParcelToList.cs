@@ -15,6 +15,8 @@ namespace BO
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public ParcelStatuses Status { get; set; }
+        public Location SenderLocation { get; set; }
+        public Location GetterLocation { get; set; }
 
         public override string ToString()
         {

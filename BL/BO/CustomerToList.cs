@@ -38,6 +38,7 @@ namespace BO
         /// number Of Parcels that sent to the  Customer that still not arrived to the Customer
         /// </summary>
         public int numOfParcelsToGet { get; set; }
+        public Location CustomerLocation { get; set; }
 
         public override string ToString()
         {

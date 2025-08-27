@@ -12,6 +12,7 @@ namespace BO
         public string Name { get; set; }
         public int NumOfFreeSlots { get; set; }
         public int NumOfBusySlots { get; set; }
+        public Location BaseStationLocation { get; set; }
         public override string ToString()
         {
             string result = "";
