@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31727.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALFacade", "DalFacade\DALFacade.csproj", "{4BE480EF-FA42-48E1-ACE5-455FAD81A2F9}"
 EndProject
@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		בונוסים.txt = בונוסים.txt
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlWebApi", "BlWebApi\BlWebApi\BlWebApi.csproj", "{ACC1D86D-A8C8-4772-9732-F9453DCB57B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPL", "WebPL\WebPL.csproj", "{16F348C8-1686-4CDE-8653-986FFF841BEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +62,14 @@ Global
 		{73B0E016-AF41-4A92-B718-9872A098D373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73B0E016-AF41-4A92-B718-9872A098D373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73B0E016-AF41-4A92-B718-9872A098D373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC1D86D-A8C8-4772-9732-F9453DCB57B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC1D86D-A8C8-4772-9732-F9453DCB57B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC1D86D-A8C8-4772-9732-F9453DCB57B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC1D86D-A8C8-4772-9732-F9453DCB57B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16F348C8-1686-4CDE-8653-986FFF841BEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16F348C8-1686-4CDE-8653-986FFF841BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F348C8-1686-4CDE-8653-986FFF841BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16F348C8-1686-4CDE-8653-986FFF841BEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

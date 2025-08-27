@@ -1,0 +1,66 @@
+
+@model WebPL.Models.DroneDetailsDto
+@{
+    ViewData["Title"] = "Drone " + Model.Id;
+}
+
+<h2>Drone @Model.Id</h2>
+
+<dl class="row">
+  <dt class="col-sm-3">Model</dt><dd class="col-sm-9">@Model.Model</dd>
+  <dt class="col-sm-3">Status</dt><dd class="col-sm-9">@Model.Status</dd>
+  <dt class="col-sm-3">Weight</dt><dd class="col-sm-9">@Model.Weight</dd>
+  <dt class="col-sm-3">Battery</dt><dd class="col-sm-9">@Model.Battery%</dd>
+  <dt class="col-sm-3">Location</dt><dd class="col-sm-9">@Model.CurrentLocation</dd>
+  <dt class="col-sm-3">Current Parcel</dt><dd class="col-sm-9">@Model.CurrentParcelId</dd>
+</dl>
+
+<div class="card p-3 mb-3">
+    <form method="post" asp-action="UpdateModel">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="row g-2">
+            <div class="col-auto">
+                <input class="form-control" name="model" placeholder="New model" />
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-warning" type="submit">Update Model</button>
+            </div>
+        </div>
+        @Html.AntiForgeryToken()
+    </form>
+</div>
+
+<div class="d-flex gap-2 mb-3">
+    <form method="post" asp-action="Command">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="actionName" value="charge" />
+        @Html.AntiForgeryToken()
+        <button class="btn btn-outline-primary">Charge</button>
+    </form>
+    <form method="post" asp-action="Command">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="actionName" value="release" />
+        @Html.AntiForgeryToken()
+        <button class="btn btn-outline-primary">Release</button>
+    </form>
+    <form method="post" asp-action="Command">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="actionName" value="assign" />
+        @Html.AntiForgeryToken()
+        <button class="btn btn-outline-primary">Assign</button>
+    </form>
+    <form method="post" asp-action="Command">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="actionName" value="pickup" />
+        @Html.AntiForgeryToken()
+        <button class="btn btn-outline-primary">Pickup</button>
+    </form>
+    <form method="post" asp-action="Command">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="actionName" value="deliver" />
+        @Html.AntiForgeryToken()
+        <button class="btn btn-outline-primary">Deliver</button>
+    </form>
+</div>
+
+<a class="btn btn-link" href="/Drones">Back</a>

@@ -1,0 +1,39 @@
+
+@model WebPL.Models.CreateDroneRequest
+@{
+    ViewData["Title"] = "Create Drone";
+}
+
+<h2>Create Drone</h2>
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Id</label>
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Model</label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Weight</label>
+        <select asp-for="Weight" class="form-select">
+            <option value="0">Light</option>
+            <option value="1">Medium</option>
+            <option value="2">Heavy</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Base Station Id</label>
+        <input asp-for="BaseStationId" class="form-control" />
+        <span asp-validation-for="BaseStationId" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary" type="submit">Create</button>
+    <a class="btn btn-link" href="/Drones">Cancel</a>
+    @Html.AntiForgeryToken()
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<data-config>
+	<BatteryUsages>
+		<FreeBatteryUsing>10</FreeBatteryUsing>
+		<LightBatteryUsing>20</LightBatteryUsing>
+		<MediumBatteryUsing>30</MediumBatteryUsing>
+		<HeavyBatteryUsing>40</HeavyBatteryUsing>
+		<ChargingRate>1</ChargingRate>
+	</BatteryUsages>
+	<RunNumber>
+		<NewParcelId>100132</NewParcelId>
+	</RunNumber>
+	<Menager>
+		<UserName>admin</UserName>
+		<Password>123</Password>
+	</Menager>
+</data-config>

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<ArrayOfBaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BaseStation>
+    <Id>9005</Id>
+    <Name>Base Station 9005</Name>
+    <Longitude>35.22859907936705</Longitude>
+    <Lattitude>31.797785486545315</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9006</Id>
+    <Name>Base Station 9006</Name>
+    <Longitude>35.21166867123529</Longitude>
+    <Lattitude>31.76647979856305</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9007</Id>
+    <Name>Base Station 9007</Name>
+    <Longitude>35.262165051476174</Longitude>
+    <Lattitude>31.722087919056456</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9008</Id>
+    <Name>Base Station 9008</Name>
+    <Longitude>35.23864314919275</Longitude>
+    <Lattitude>31.797477918708456</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9009</Id>
+    <Name>Base Station 9009</Name>
+    <Longitude>35.22799657722376</Longitude>
+    <Lattitude>31.7145971937499</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9010</Id>
+    <Name>Base Station 9010</Name>
+    <Longitude>35.24847977008134</Longitude>
+    <Lattitude>31.73275223868096</Lattitude>
+    <ChargeSlots>10</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9002</Id>
+    <Name>Campus Tal</Name>
+    <Longitude>35.191523</Longitude>
+    <Lattitude>31.766043</Lattitude>
+    <ChargeSlots>4</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>85</Id>
+    <Name>ftgvh</Name>
+    <Longitude>0</Longitude>
+    <Lattitude>0</Lattitude>
+    <ChargeSlots>0</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9001</Id>
+    <Name>Campus Lev</Name>
+    <Longitude>35.189938</Longitude>
+    <Lattitude>31.785664</Lattitude>
+    <ChargeSlots>2</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9004</Id>
+    <Name>Base Station 9004</Name>
+    <Longitude>35.21640995884147</Longitude>
+    <Lattitude>31.71026333034051</Lattitude>
+    <ChargeSlots>9</ChargeSlots>
+  </BaseStation>
+  <BaseStation>
+    <Id>9003</Id>
+    <Name>Base Station 9003</Name>
+    <Longitude>35.27257668018927</Longitude>
+    <Lattitude>31.715335740235325</Lattitude>
+    <ChargeSlots>15</ChargeSlots>
+  </BaseStation>
+</ArrayOfBaseStation>
