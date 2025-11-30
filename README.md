@@ -55,7 +55,6 @@ Drone-delivery/
 │── PL/                      # Presentation Layer (WPF User Interface)
 │   ├── ...                  # XAML and C# files for the UI
 │── ConsoleUI/               # Console User Interface
-│── Targil0/                 # Initial project setup/testing
 │── xml/                     # XML data files for DLXML implementation
 │── BaseStationsXml.xml      # XML file for Base Stations data
 └── README.md                # Project documentation
