@@ -39,14 +39,26 @@ This project highlights:
 ---
 
 ## 📂 Project Structure
+This project is structured into several layers, following a clean architecture approach:
+
 ```
 Drone-delivery/
-│── Drone.cs           # Drone entity
-│── Customer.cs        # Customer entity
-│── Order.cs           # Order entity
-│── DroneDelivery.cs   # Core delivery logic
-│── Program.cs         # Entry point (simulation runner)
-│── Tests/             # Unit tests
+│── dotNet5782_9647_3571.sln  # Visual Studio Solution file
+│── BL/                      # Business Logic Layer
+│   ├── BlApi/               # Interfaces for BL
+│   ├── BO/                  # Business Objects
+│   └── Simulator.cs         # Drone simulation logic
+│── DalFacade/               # Data Access Layer Facade (Interfaces for DAL)
+│   └── DO/                  # Data Objects
+│── DalObject/               # Concrete implementation of DAL using in-memory collections
+│── DLXML/                   # Concrete implementation of DAL using XML files
+│── PL/                      # Presentation Layer (WPF User Interface)
+│   ├── ...                  # XAML and C# files for the UI
+│── ConsoleUI/               # Console User Interface
+│── Targil0/                 # Initial project setup/testing
+│── xml/                     # XML data files for DLXML implementation
+│── BaseStationsXml.xml      # XML file for Base Stations data
+└── README.md                # Project documentation
 ```
 
 ---
@@ -63,10 +75,10 @@ git clone https://github.com/asafbigel/Drone-delivery.git
 cd Drone-delivery
 ```
 
-### Run the Simulation
-```bash
-dotnet run
-```
+### Run the Application
+1. Open the solution file `dotNet5782_9647_3571.sln` in Visual Studio.
+2. Set the `PL` project as the startup project.
+3. Run the application (F5 or Ctrl+F5).
 
 ### Run Unit Tests
 ```bash
@@ -75,65 +87,18 @@ dotnet test
 
 ---
 
-## 🧩 Code Example
-
-```csharp
-// Create a new drone
-Drone drone = new Drone(id: 1, maxCapacity: 5);
-
-// Create a customer and an order
-Customer customer = new Customer("Alice");
-Order order = new Order(id: 101, customer, weight: 3);
-
-// Assign the order to a drone delivery system
-DroneDelivery system = new DroneDelivery();
-system.AddDrone(drone);
-system.AddOrder(order);
-
-// Start the simulation
-system.Run();
-```
-
----
-
 ## 🏗 Architecture
 
-The system is built using **OOP principles** with clear separation of concerns:
+The system is built using **N-tier architecture** with clear separation of concerns:
 
 ```mermaid
-classDiagram
-    class Drone {
-        -int Id
-        -int MaxCapacity
-        -bool IsAvailable
-        +AssignOrder(Order)
-        +Deliver()
-    }
+graph TD
+    PL[Presentation Layer (WPF)] --> BL[Business Logic Layer]
+    BL --> DalFacade[Data Access Layer Facade]
+    DalFacade --> DalObject[DAL Object (In-memory)]
+    DalFacade --> DLXML[DAL XML (XML Files)]
+    ConsoleUI[Console UI] --> BL
 
-    class Customer {
-        -string Name
-        +PlaceOrder()
-    }
-
-    class Order {
-        -int Id
-        -Customer Customer
-        -int Weight
-        -string Status
-    }
-
-    class DroneDelivery {
-        -List~Drone~ Drones
-        -List~Order~ Orders
-        +AddDrone(Drone)
-        +AddOrder(Order)
-        +Run()
-    }
-
-    DroneDelivery --> Drone
-    DroneDelivery --> Order
-    Order --> Customer
-```
 
 ---
 
